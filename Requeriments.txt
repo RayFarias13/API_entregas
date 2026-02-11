@@ -4,3 +4,4 @@ djangorestframework
 requests
 psycopg2
 python-dotenv
+django-widget-tweaks

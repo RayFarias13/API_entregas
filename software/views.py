@@ -13,7 +13,7 @@ from django.utils import timezone
 from receptor.models import Customer
 
 
-# Página Kanban
+# Página Kanban - GERAL
 def board(request):
     # Get all deliveries where cd_mov_ret == 0
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
@@ -54,6 +54,58 @@ def board(request):
         })
 
     return render(request, 'board.html', {'kanban': kanban})
+
+#kaban - motoboy
+@login_required
+def board_motoboy(request):
+    try:
+        funcionario = request.user.funcionario  # pega o funcionário logado
+
+    except AttributeError:
+        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+
+    #  Se for entregador, filtra apenas as entregas dele
+    if funcionario.funcao == 'ENTREGADOR':
+        entregas = DadosEntrega.objects.filter(
+            cd_mov_ret=0,
+            cd_fun_entr=funcionario.cd_usu
+        )
+    else:
+        # gerente/admin vê tudo
+        entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
+
+    kanban = {}
+
+    for entrega in entregas:
+        try:
+            venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
+        except DadosVenda.DoesNotExist:
+            venda = None
+
+        cliente = None
+        if venda:
+            try:
+                cliente = Customer.objects.get(code=str(venda.cd_cli))
+            except Customer.DoesNotExist:
+                cliente = None
+
+        entregador = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
+
+        if entregador not in kanban:
+            kanban[entregador] = []
+
+        kanban[entregador].append({
+            'cd_entr': entrega.cd_entr,
+            'cd_vd': entrega.cd_vd,
+            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
+            'cliente': cliente.name if cliente else 'Desconhecido',
+            'endereco': cliente.address if cliente else 'Desconhecido',
+            'complemento': cliente.address_complement if cliente else '',
+            'telefone': cliente.phone_number if cliente else '',
+        })
+
+    return render(request, 'motoboy_entregas.html', {'kanban': kanban})
+
 
 
 # API para atualizar status
@@ -260,9 +312,16 @@ def finalizar_entrega(request):
         print("Erro finalizar_entrega:", str(e))
         return JsonResponse({'success': False, 'message': 'Erro interno.'}, status=500)
     
+def somente_staff(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return JsonResponse({'error': 'Acesso negado'}, status=403)
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 
-@csrf_exempt
+@login_required
+@somente_staff
 def criar_funcionario(request):
     if request.method != 'POST':
         return JsonResponse({'success': False}, status=405)
@@ -335,15 +394,123 @@ def login_funcionario(request):
 
 
 
-def somente_gerente(view_func):
+def somente_staff(view_func):
     def wrapper(request, *args, **kwargs):
-        if request.user.funcionario.funcao != 'GERENTE':
+        if not request.user.is_authenticated or not request.user.is_staff:
             return JsonResponse({'error': 'Acesso negado'}, status=403)
         return view_func(request, *args, **kwargs)
     return wrapper
 
 
+def somente_gerente(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not hasattr(request.user, 'funcionario') or request.user.funcionario.funcao != 'GERENTE':
+            return JsonResponse({'error': 'Acesso negado'}, status=403)
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+def somente_operadordecaixa(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not hasattr(request.user, 'funcionario') or request.user.funcionario.funcao != 'OP. DE CAIXA':
+            return JsonResponse({'error': 'Acesso negado'}, status=403)
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
 @login_required
+@somente_staff
 @somente_gerente
 def autenticacao_moto(request):
     pass
+
+#deletar depois
+def autenticacao_funcionario(request):
+    if not request.user or not hasattr(request.user, 'funcionario'):
+        return JsonResponse({'success': False, 'message': 'Usuário sem perfil de funcionário'}, status=403)
+    if User.is_staff:
+        return True
+    return User.is_authenticated
+
+    
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None and user.is_staff:
+            login(request, user)  # cria sessão
+            return redirect('board')  # redireciona para o kanban
+        elif user is not None:
+            login(request, user)  # cria sessão
+            return redirect('entregas_motoboy')  # redireciona para o histórico do cliente
+        elif user is not None and user.funcionario.funcao == 'GERENTE':
+            pass
+            #login(request, user)  # cria sessão
+            #return redirect('board')  # redireciona para o kanban
+        else:
+            return render(request, 'login.html', {"error": True})
+
+    return render(request, 'login.html')
+
+
+def logout_view(request):
+    from django.contrib.auth import logout
+    logout(request)
+    return redirect('login')
+
+@login_required
+def cadastro_funcionario(request):
+    try:
+        funcionario = request.user.funcionario  # pega o funcionário logado
+        lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
+
+        if funcionario.funcao not in lista:
+            return redirect('login')  # se não for gerente, redireciona para login
+
+
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            first_name = request.POST.get('first_name', '')
+            last_name = request.POST.get('last_name', '')
+            funcao = request.POST.get('funcao','DEFINIR')
+            
+
+            if User.objects.filter(username=username).exists():
+                return render(request, 'cadastro_funcionario.html', {"error": "Usuário já existe"})
+
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                first_name=first_name,
+                last_name=last_name
+            )
+
+            Funcionarios_lista.objects.create(
+                user=user,
+                funcao=funcao
+            )
+
+            return redirect('login')
+
+        return render(request, 'cadastro_funcionario.html')
+    except AttributeError:
+        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+    
+
+@login_required
+def gerenciar_funcionarios(request):
+    try:
+        funcionario = request.user.funcionario  # pega o funcionário logado
+        lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
+
+        if funcionario.funcao not in lista:
+            return redirect('login')  # se não for gerente, redireciona para login
+
+        funcionarios = Funcionarios_lista.objects.all()
+        return render(request, 'gerenciar_cadastros.html', {'funcionarios': funcionarios})
+    except AttributeError:
+        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login

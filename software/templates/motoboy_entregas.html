@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kanban de Entregas</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; }
+        .board { display: flex; gap: 20px; padding: 20px; }
+        .lista { background: #fff; padding: 10px; border-radius: 5px; width: 250px; min-height: 300px; }
+        .lista h3 { text-align: center; }
+        .cartao { background: #e3e3e3; padding: 10px; margin: 10px 0; border-radius: 3px; cursor: grab; }
+    </style>
+</head>
+<body>
+<h1>Kanban de Entregas</h1>
+
+<div class="board">
+    {% for entregador, entregas in kanban.items %}
+        <div class="lista">
+            <h3>{{ entregador }}</h3>
+
+            {% for entrega in entregas %}
+                <div class="cartao">
+                    <p>NF: {{ entrega.cd_nf }}</p>
+                    <p>Cliente: {{ entrega.cliente }}</p>
+                    <p>Endereço: {{ entrega.endereco }} | {{ entrega.complemento }}</p>
+                    <p>
+                        Telefone:
+                        <a href="tel:{{ entrega.telefone }}">{{ entrega.telefone }}</a>
+                    </p>
+
+                    <!-- STATUS -->
+                    <select id="status_{{ entrega.cd_entr }}">
+                        <option value="ENTREGUE">Entregue</option>
+                        <option value="CLIENTE_AUSENTE">Cliente ausente</option>
+                        <option value="ENDERECO_INCORRETO">Endereço incorreto</option>
+                        <option value="CLIENTE_RECUSOU">Cliente recusou</option>
+                    </select>
+
+                    <!-- OBSERVAÇÕES -->
+                    <textarea
+                        id="obs_{{ entrega.cd_entr }}"
+                        placeholder="Observações (opcional)">
+                    </textarea>
+
+                    <!-- BOTÃO -->
+                    <button onclick="finalizar({{ entrega.cd_entr }}, {{ entrega.cd_vd }}, this)">
+                        Finalizar
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+function finalizar(cd_entr, cd_vd, button){
+    const status = document.getElementById(`status_${cd_entr}`).value;
+    const observacoes = document.getElementById(`obs_${cd_entr}`).value;
+
+    fetch("/soft/finalizar_entrega/", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            cd_entr: cd_entr,
+            cd_vd: cd_vd,
+            status: status,
+            observacoes: observacoes
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if(data.success){
+            button.parentElement.remove();
+        }
+    })
+    .catch(err => {
+        alert("Erro ao finalizar entrega: " + err);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <title>Kanban de Entregas</title>
+    
+</head>
+<body>
+    <!-- Navbar desktop -->
+  <div id="navbar">
+    <div class="container">
+      <div class="row row1">
+        {% if request.user.is_authenticated %}
+        <ul class="largenav pull-right">
+          
+                            
+          <!-- <li class="upper-links"><a class="links" href="/logout">Logout</a></li> -->
+          
+        </ul>
+
+        {% else %}
+        <ul class="largenav pull-right">                   
+          <li class="upper-links dropdown">
+            <a class="links" href="#">Login & Sign Up</a>
+            <ul class="dropdown-menu">                   
+              <li class="profile-li"><a class="profile-links" href="/login">Login</a></li>
+              <li class="profile-li"><a class="profile-links" href="/logout">Cadastro</a></li>
+            </ul>
+          </li>
+          <li class="upper-links"><a class="links" href="/adminclick">Admin</a></li>
+          
+        </ul>
+        {% endif %}
+      </div>
+
+      <div class="row row2">
+        <div class="col-sm-3">
+          <h2 style="margin:0px;">
+            <a style="text-decoration:none; color:rgb(0, 0, 0);" href="/soft/">
+              <span class="largenav">Sistema de Entregas</span>
+            </a>
+          </h2>
+        </div>
+
+            
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    {% block content %}
+
+
+
+    {% endblock content %}
+
+

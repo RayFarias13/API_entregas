@@ -1,0 +1,203 @@
+ <!DOCTYPE html>
+{% include "cabecalho.html" %}
+{% block content %}
+ 
+ <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 25px;
+      margin: 120px auto;
+      background: #cecece;
+      text-align: center;
+      transition: 0.25s;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .box h1 {
+      color: rgb(0, 0, 0);
+      font-weight: 500;
+      margin-bottom: 10%;
+    }
+
+    .box input[type="text"],
+    .box input[type="password"],
+    .box input[type="file"],
+    .box input[type="email"],
+    .box input[type="select"],
+    .box textarea {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 12px auto;
+      text-align: center;
+      border: 2px solid #ffffff;
+      padding: 10px;
+      width: 80%;
+      max-width: 320px;
+      outline: none;
+      color: rgb(0, 0, 0);
+      border-radius: 24px;
+      transition: 0.25s;
+      font-size: 15px;
+    }
+
+    .box input[type="text"]:focus,
+    .box input[type="password"]:focus,
+    .box input[type="file"]:focus,
+    .box input[type="email"]:focus,
+    .box input[type="tel"]:focus,
+    .box input[type="select"]:focus,
+    .box textarea:focus {
+      border-color: #d3d3d3;
+    }
+
+    /* --- Botões alinhados --- */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .button-group input[type="submit"] {
+      padding: 12px 40px;
+      border-radius: 24px;
+      border: 2px solid #2ecc71;
+      background: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .button-group .btn-login {
+      padding: 10px 25px;
+      border-radius: 24px;
+      border: 2px solid #ffffff;
+      background: none;
+      color: white;
+      font-size: 15px;
+      text-decoration: none;
+      transition: 0.25s;
+    }
+
+    .button-group input[type="submit"]:hover {
+      background: #2ecc71;
+    }
+
+    .button-group .btn-login:hover {
+      background: #ffffff;
+      color: #3E454C;
+    }
+
+    /* ---------- Responsividade ---------- */
+    @media screen and (max-width: 768px) {
+      .box {
+        width: 90%;
+        padding: 30px 15px;
+        margin-top: 80px;
+        border-radius: 16px;
+      }
+
+      .box h1 {
+        font-size: 22px;
+      }
+
+      .box input[type="text"],
+      .box input[type="password"],
+      .box input[type="file"],
+      .box textarea {
+        width: 100%;
+        max-width: none;
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .button-group input[type="submit"],
+      .button-group .btn-login {
+        width: auto;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .box {
+        margin-top: 60px;
+        padding: 25px 10px;
+      }
+
+      .box h1 {
+        font-size: 20px;
+      }
+
+      .button-group input[type="submit"],
+      .button-group .btn-login {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="card">
+          <form class="box" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Novo Cadastro</h1>
+            <div class="mb-3">
+                            <label for="username" class="form-label">Usuário</label>  <input type="text" name="username" class="form-control" required placeholder="Usuario">
+                            <label for="password" class="form-label">Senha</label>  <input type="password" name="password" class="form-control" required placeholder="Senha">
+                            <label for="first_name" class="form-label">Nome</label>  <input type="text" name="first_name" class="form-control" required placeholder="Nome">
+                            <label for="last_name" class="form-label">Sobrenome</label>  <input type="text" name="last_name" class="form-control" required placeholder="Sobrenome">
+                            <label for="email" class="form-label">Email</label>  <input type="email" name="email" class="form-control" required placeholder="Email">
+                            <label for="funcao" class="form-label">Função</label>
+                              <select name="funcao" class="form-control" required>
+                              <option value="">Selecione a função</option>
+                              <option value="ENTREGADOR">Entregador</option>
+                              <option value="ADMINISTRADOR">Administrador</option>
+                              <option value="GERENTE">Gerente</option>
+                              <option value="S. GERENTE">S. Gerente</option>
+                              <option value="OP. DE CAIXA">Operador de Caixa</option>
+                              </select>
+                                
+            </div>
+            
+            
+            
+            
+            <br>
+            <div class="button-group">
+              <input type="submit" value="Criar Conta">
+              <a href="{% url 'login' %}" class="btn-login">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br>
+</body>
+
+{% include "footer.html" %}
+
+{% endblock content %}

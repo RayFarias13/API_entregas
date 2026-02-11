@@ -10,25 +10,12 @@ class Funcionarios_lista(models.Model):
         ('OP. DE CAIXA', 'Op. de Caixa'),
         ('GERENTE', 'Gerente'),
         ('ADMINISTRATIVO', 'Administrativo'),
-        ('S. GERENTE','S. Gerente')
-    ]
+        ('S. GERENTE','S. Gerente')     ]
 
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name='funcionario'
-    )
-    cd_usu = models.IntegerField(
-        unique=True,
-        null=True,
-        blank=True,
-        help_text="Código legado do vetor"
-    )
-    funcao = models.CharField(
-        max_length=50,
-        choices=funcionario_funcao_choice,
-        default='DEFINIR'
-    )
+    user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='funcionario', null=True, blank=True)
+    #user_id = models.IntegerField(unique=True, null=True, blank=True, help_text="ID do usuário Django")
+    cd_usu = models.IntegerField(unique=True, null=True, blank=True, help_text="Código legado do vetor")
+    funcao = models.CharField(max_length=50,choices=funcionario_funcao_choice,default='DEFINIR')
 
     class Meta:
         db_table = 'glb_usu'

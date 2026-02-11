@@ -8,11 +8,11 @@ import os
 load_dotenv()
 
 pg_conn = psycopg2.connect(
-    host='wdbsp001.vetor.cloud',
-    dbname='DF_DRG_DROGACINTIA_VTF_PRD',
+    host=os.getenv("DB_HOSTWEB"),
+    dbname=os.getenv("DB_NAMEWEB"),
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
-    port='55003',
+    port=os.getenv("DB_PORTWEB"),
 )
 pg_cur = pg_conn.cursor()
 
