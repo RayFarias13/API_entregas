@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kanban de Entregas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    
+    <title>Fluxo de Entregas</title>
     <style>
         body { font-family: Arial; background: #f5f5f5; }
         .board { display: flex; gap: 20px; padding: 20px; }
@@ -11,7 +17,46 @@
     </style>
 </head>
 <body>
-<h1>Kanban de Entregas</h1>
+<h1>Fluxo de Entregas</h1>
+
+    <div>
+    <div id="navbar">
+        <div class="container">
+        <div class="row row1">
+            {% if request.user.is_authenticated %}
+            <ul class="largenav pull-right">
+                <li class="profile-li"><a class="profile-links" href="/soft/logout">Logout</a></li>
+
+                <li class="upper-links"><a class="links" href="/km">Cadastro KM</a></li>                 
+            <!-- <li class="upper-links"><a class="links" href="/logout">Logout</a></li> -->
+            
+            </ul>
+
+            {% else %}
+            <ul class="largenav pull-right">                   
+            <li class="upper-links dropdown">
+                <a class="links" href="#">Login & Sign Up</a>
+                <ul class="dropdown-menu">                   
+                <li class="profile-li"><a class="profile-links" href="/login">Login</a></li>
+                <li class="profile-li"><a class="profile-links" href="/logout">Cadastro</a></li>
+                </ul>
+            </li>
+            <li class="upper-links"><a class="links" href="/adminclick">Admin</a></li>
+            
+            </ul>
+            {% endif %}
+        </div>
+
+        
+
+                
+                </span>
+            </a>
+            </div>
+        </div>
+        </div>
+  </div>
+    </div>
 
 <div class="board">
     {% for entregador, entregas in kanban.items %}

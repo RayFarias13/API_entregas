@@ -249,7 +249,7 @@ def kanban_view(request):
     return render(request, 'kanban.html', {'kanban': kanban_data})
 
 
-@csrf_exempt
+@login_required
 def finalizar_entrega(request):
     if request.method != 'POST':
         return JsonResponse({'success': False, 'message': 'Método inválido.'}, status=405)
@@ -285,6 +285,7 @@ def finalizar_entrega(request):
             data_hora_inicio = None
 
         EntregaFinalizada.objects.create(
+            usermotoboy=request.user if request.user.is_authenticated else None,
             entrega=entrega,
             venda=venda,
             funcionario=entrega.cd_fun_entr,
@@ -440,16 +441,21 @@ def login_view(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-        if user is not None and user.is_staff:
+        if user is not None and user.funcionario.funcao == 'motoboy':
             login(request, user)  # cria sessão
-            return redirect('board')  # redireciona para o kanban
+            return redirect('entregas_motoboy')  # redireciona para o motoboy
+
+
         elif user is not None:
             login(request, user)  # cria sessão
-            return redirect('entregas_motoboy')  # redireciona para o histórico do cliente
-        elif user is not None and user.funcionario.funcao == 'GERENTE':
+            return redirect('board')  # redireciona para o kanban
+        
+        elif user is not None and user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']:
             pass
+            #criar painel administrativo específico para esses cargos
             #login(request, user)  # cria sessão
             #return redirect('board')  # redireciona para o kanban
+
         else:
             return render(request, 'login.html', {"error": True})
 

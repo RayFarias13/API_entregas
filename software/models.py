@@ -63,7 +63,7 @@ class EntregaFinalizada(models.Model):
         ('ENDERECO_INCORRETO', 'Endereço incorreto'),
         ('CLIENTE_RECUSOU', 'Cliente recusou'),
     ]
-
+    usermotoboy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='entregas_finalizadas')
     entrega = models.ForeignKey(DadosEntrega, on_delete=models.CASCADE, related_name='entregas_finalizadas')
     venda = models.ForeignKey(DadosVenda, on_delete=models.CASCADE, related_name='entregas_finalizadas')
     funcionario = models.IntegerField(null=True, blank=True)
@@ -87,3 +87,17 @@ class EntregaFinalizada(models.Model):
 
     def __str__(self):
         return f'Entrega {self.entrega_id} - Cliente {self.nome_cliente} - Status: {self.entrega_status}'
+
+
+
+
+class dadoskilometragem(models.Model):
+    usermotoboy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='pontuacao_motoboy')
+    km_diario = models.FloatField(default=0.0)
+    data_apuracao= models.DateField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'KM_diario'
+
+    def __str__(self):
+        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario}'
