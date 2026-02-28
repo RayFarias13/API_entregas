@@ -1,0 +1,35 @@
+{% extends "cabecalho.html" %}
+{% block content %}
+<h2>Gerenciar Funcionários</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Usuário</th>
+                <th>Função</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in funcionarios %}
+            <tr>
+                <td>{{ f.user.get_full_name }}</td>
+                <td>{{ f.user.username }}</td>
+                <td>
+                    <select name="funcao_{{ f.id }}" class="form-control">
+                        {% for key, value in f.funcionario_funcao_choice %}
+                        <option value="{{ key }}" {% if f.funcao == key %}selected{% endif %}>
+                            {{ value }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Salvar alterações</button>
+</form>
+{% endblock %}

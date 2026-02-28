@@ -1,0 +1,26 @@
+SELECT * FROM public.est_prod_cpl where cd_prod = '2012464' - Estoque pelo código reduzido / 
+SELECT * FROM public.est_prod_preco where cd_prod = '2012464' - preco praticado na loja
+SELECT * FROM public.est_prod_cd_barra where cd_prod = '2012464' - o que importa aqui e so o código de barras dar um innerjoin com est_prod_cpl
+SELECT * FROM public.est_prod_cpl_ecommerce  where cd_prod = '2012464' - tabela para ecomece, geralmente não tem desconto, mesma usada no ifood
+SELECT * FROM public.est_prod - descrição do produto
+
+SELECT * FROM public.est_orc_cpl - editar dados do orçamento antes no pdv/POSSIVELMENTE AS COMPRAS DE UM DETERMINADO ORCAMENTO
+
+SELECT * FROM public.prc_pes - lista dos nomes dos clientes
+
+
+PROD - 2012464
+ORC TEST - 626842
+2007186 - 2,02
+
+
+select - estoque
+
+update - banco
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+==============================
+DATA/HORA: 2026-01-12 12:39:32
+METHOD: GET
+PATH: /customers
+FULL PATH: /api/debug/customers?filter[0][field]=code&filter[0][operator]=eq&filter[0][value]=2
+
+HEADERS:
+Content-Length: 
+Content-Type: text/plain
+Host: 9fa6cfff5074.ngrok-free.app
+Accept: application/json
+X-Forwarded-For: 2804:d59:9be1:8d00:3ddd:83c3:8b7:d5e2
+X-Forwarded-Host: 9fa6cfff5074.ngrok-free.app
+X-Forwarded-Proto: https
+Accept-Encoding: gzip
+
+QUERY PARAMS:
+filter[0][field]: ['code']
+filter[0][operator]: ['eq']
+filter[0][value]: ['2']
+==============================
+
+==============================
+DATA/HORA: 2026-01-12 12:39:42
+METHOD: POST
+PATH: /customers
+FULL PATH: /api/debug/customers
+
+HEADERS:
+Content-Length: 319
+Content-Type: application/json; charset=utf-8
+Host: 9fa6cfff5074.ngrok-free.app
+Accept: application/json
+X-Forwarded-For: 2804:d59:9be1:8d00:3ddd:83c3:8b7:d5e2
+X-Forwarded-Host: 9fa6cfff5074.ngrok-free.app
+X-Forwarded-Proto: https
+Accept-Encoding: gzip
+
+BODY BRUTO:
+{"name":"23","type":"person","code":"2","email":"","login_email":null,"address":"BLOCO  QI 23 BLOCO A (COMERCIO) |, BRASILIA - DF, 71.060-630, BRASIL","address_complement":"NR.: 1 | ","phone_number":"+556135674300","latitude":0.0,"longitude":0.0,"operating_hour_start":null,"operating_hour_end":null,"extraFields":null}
+
+JSON:
+{
+  "name": "23",
+  "type": "person",
+  "code": "2",
+  "email": "",
+  "login_email": null,
+  "address": "BLOCO  QI 23 BLOCO A (COMERCIO) |, BRASILIA - DF, 71.060-630, BRASIL",
+  "address_complement": "NR.: 1 | ",
+  "phone_number": "+556135674300",
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "operating_hour_start": null,
+  "operating_hour_end": null,
+  "extraFields": null
+}
+==============================
+
+
+
+**************
+
+
+
+
+==============================
+DATA/HORA: 2026-01-12 12:48:56
+METHOD: GET
+PATH: /customers
+FULL PATH: /api/debug/customers?filter[0][field]=code&filter[0][operator]=eq&filter[0][value]=6992
+
+HEADERS:
+Content-Length: 
+Content-Type: text/plain
+Host: 9fa6cfff5074.ngrok-free.app
+Accept: application/json
+X-Forwarded-For: 2804:d59:9be1:8d00:3ddd:83c3:8b7:d5e2
+X-Forwarded-Host: 9fa6cfff5074.ngrok-free.app
+X-Forwarded-Proto: https
+Accept-Encoding: gzip
+
+QUERY PARAMS:
+filter[0][field]: ['code']
+filter[0][operator]: ['eq']
+filter[0][value]: ['6992']
+==============================
+
+==============================
+DATA/HORA: 2026-01-12 12:49:06
+METHOD: POST
+PATH: /customers
+FULL PATH: /api/debug/customers
+
+HEADERS:
+Content-Length: 337
+Content-Type: application/json; charset=utf-8
+Host: 9fa6cfff5074.ngrok-free.app
+Accept: application/json
+X-Forwarded-For: 2804:d59:9be1:8d00:3ddd:83c3:8b7:d5e2
+X-Forwarded-Host: 9fa6cfff5074.ngrok-free.app
+X-Forwarded-Proto: https
+Accept-Encoding: gzip
+
+BODY BRUTO:
+{"name":"FERNANDO","type":"person","code":"6992","email":"","login_email":null,"address":"SMPW QUADRA 17 CONJUNTO 9 LOTE 7 CASA C |, BRASILIA - DF, 71.741-709, BRASIL","address_complement":"NR.: 0 | ","phone_number":"+5561984591988","latitude":0.0,"longitude":0.0,"operating_hour_start":null,"operating_hour_end":null,"extraFields":null}
+
+JSON:
+{
+  "name": "FERNANDO",
+  "type": "person",
+  "code": "6992",
+  "email": "",
+  "login_email": null,
+  "address": "SMPW QUADRA 17 CONJUNTO 9 LOTE 7 CASA C |, BRASILIA - DF, 71.741-709, BRASIL",
+  "address_complement": "NR.: 0 | ",
+  "phone_number": "+5561984591988",
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "operating_hour_start": null,
+  "operating_hour_end": null,
+  "extraFields": null
+}
+==============================

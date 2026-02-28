@@ -1,0 +1,50 @@
+<!-- templates/entrega_avulsa.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Entrega Avulsa</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        form { background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; }
+        .erro { color: red; margin-bottom: 10px; }
+        button { margin-top: 15px; padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+        .readonly { background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Entrega Avulsa</h1>
+
+    {% if erro %}
+        <div class="erro">{{ erro }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Funcionário -->
+        <label for="cd_fun_entr">Funcionário</label>
+        <select name="cd_fun_entr" id="cd_fun_entr" required>
+            <option value="">-- Selecione um funcionário --</option>
+            {% for f in funcionarios %}
+                <option value="{{ f.cd_usu }}">{{ f.nm_usu }} (ID {{ f.cd_usu }})</option>
+            {% endfor %}
+        </select>
+
+        
+        <!-- data -->
+        <label for="cd_entr">Data</label>
+        <input type="text" id="cd_entr" value="{{ proximo_cd_entr }}" class="readonly" readonly>
+
+        <!-- km -->
+        <label for="cd_vd">Insirir Km</label>
+        <input type="text" id="cd_vd" value="{{ proximo_cd_vd }}" class="readonly" readonly>
+
+        <button type="submit">Criar Entrega</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,8 @@
+django
+psycopg2-binary
+djangorestframework
+requests
+psycopg2
+python-dotenv
+django-widget-tweaks
+dj-database-url
