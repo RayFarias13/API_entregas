@@ -164,3 +164,9 @@ Traceback (most recent call last):
     )
 django.contrib.auth.models.User.funcionario.RelatedObjectDoesNotExist: User has no funcionario.
 "POST / HTTP/1.1" 500 145
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 179
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 179
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 179

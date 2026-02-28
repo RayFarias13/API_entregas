@@ -14,6 +14,8 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,10 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("secret_key")
+SECRET_KEY = os.environ.get('SECRET_KEY')
+if not SECRET_KEY:
+    raise ImproperlyConfigured("A variável de ambiente SECRET_KEY deve estar definida.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD")]
 
@@ -37,7 +41,7 @@ ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD")]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
+    'django.contrib.contenttypes',  
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
