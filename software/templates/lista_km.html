@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Quilometragem Quinzenal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        .badge-1-quinzena { background-color: #0d6efd; color: white; }
+        .badge-2-quinzena { background-color: #6610f2; color: white; }
+        .table-hover tbody tr:hover { background-color: rgba(0,0,0,.05); }
+        .total-destaque { font-size: 1.2rem; font-weight: bold; color: #198754; }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h2 class="display-6"><i class="bi bi-calendar-check"></i> Controle de KM</h2>
+            <p class="text-muted">Resumo agrupado por quinzena e motoboy<br>
+            * 1ª Quinzena: Dias 01 a 15 | 2ª Quinzena: Dias 16 ao fim do mês.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="{% url 'registrar_km' %}" class="btn btn-primary shadow-sm">
+                <i class="bi bi-plus-circle"></i> Novo Lançamento
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">Mês / Ano</th>
+                            <th>Quinzena</th>
+                            <th>Motoboy</th>
+                            <th class="text-end pe-4">Total Percorrido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in relatorios %}
+                        <tr>
+                            <td class="ps-4 text-capitalize">
+                                <strong>{{ item.mes_base|date:"F" }}</strong> 
+                                <span class="text-muted">/ {{ item.mes_base|date:"Y" }}</span>
+                            </td>
+                            <td>
+                                {% if item.quinzena == "1ª Quinzena" %}
+                                    <span class="badge badge-1-quinzena rounded-pill px-3">
+                                        <i class="bi bi-1-circle"></i> {{ item.quinzena }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge badge-2-quinzena rounded-pill px-3">
+                                        <i class="bi bi-2-circle"></i> {{ item.quinzena }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <i class="bi bi-person-circle text-secondary me-2"></i>
+                                {{ item.usermotoboy__first_name|default:"Usuário" }}
+                            </td>
+                            <td class="text-end pe-4">
+                                <span class="fw-bold text-dark">{{ item.total_periodo|stringformat:".1f" }} km</span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="bi bi-exclamação-triangle d-block fs-2"></i>
+                                Nenhum registro encontrado para este período.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <th colspan="3" class="ps-4 py-3">SOMA TOTAL ACUMULADA (GERAL)</th>
+                            <th class="text-end pe-4 py-3 total-destaque">
+                                {{ total_geral|stringformat:".1f" }} km
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+            <br><br><br><br><br><br>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-4">Motoboy</th>
+                            <th>Data</th>
+                            <th>KM</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ultimosregistros %}
+                        <tr>
+                            <td class="ps-4 text-capitalize">
+                                <strong>{{ item.usermotoboy__first_name|default:"Usuário" }}</strong> 
+                            </td>
+
+                            <td class="ps-4 text-capitalize">
+                                <span class="text-muted"> {{ item.mes_base|date:"d/M" }}</span>
+                            </td>
+                            
+                            
+                            <td class="ps-4 text-capitalize">
+                                <span class="fw-bold text-dark">{{ item.km_diario|stringformat:".2f" }} km</span>
+                            </td>
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="bi bi-exclamação-triangle d-block fs-2"></i>
+                                Nenhum registro encontrado para este período.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="table-light">
+                        
+                    </tfoot>
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <small class="text-muted">
+            * 1ª Quinzena: Dias 01 a 15 | 2ª Quinzena: Dias 16 ao fim do mês.
+        </small>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

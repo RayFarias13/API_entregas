@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Case, When, Value, CharField
+from django.db.models.functions import TruncMonth, ExtractDay
 
 
 from django.http import JsonResponse
@@ -54,6 +56,47 @@ def board(request):
         })
 
     return render(request, 'board.html', {'kanban': kanban})
+
+def board_administrativo(request):
+    # Get all deliveries where cd_mov_ret == 0
+    entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
+
+    kanban = {}
+
+    for entrega in entregas:
+        # Get the corresponding sale
+        try:
+            venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
+        except DadosVenda.DoesNotExist:
+            venda = None
+
+        # Get the customer for the f
+        cliente = None
+        if venda:
+            try:
+                cliente = Customer.objects.get(code=str(venda.cd_cli))
+            except Customer.DoesNotExist:
+                cliente = None
+
+        # Determine delivery person
+        entregador = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
+
+        # Add to kanban dictionary
+        if entregador not in kanban:
+            kanban[entregador] = []
+
+        kanban[entregador].append({
+            'cd_entr': entrega.cd_entr,
+            'cd_vd': entrega.cd_vd,
+            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
+            'cliente': cliente.name if cliente else 'Desconhecido',
+            'endereco': cliente.address if cliente else 'Desconhecido',
+            'complemento': cliente.address_complement if cliente else '',
+            'telefone': cliente.phone_number if cliente else '',
+            
+        })
+
+    return render(request, 'boardadministrativo.html', {'kanban': kanban})
 
 #kaban - motoboy
 @login_required
@@ -222,31 +265,6 @@ def criar_entrega_avulsa(request):
     })
 
 
-def kanban_view(request):
-    motoboys = Funcionarios_lista.objects.all()
-    kanban_data = []
-
-    for motoboy in motoboys:
-        entregas = DadosEntrega.objects.filter(cd_fun_entr=motoboy.cd_usu)
-        entregas_list = []
-
-        for e in entregas:
-            venda = DadosVenda.objects.filter(cd_vd=e.cd_vd).first()
-            cd_nf = venda.cd_nf if venda else "Não cadastrado"
-
-            entregas_list.append({
-                'cd_entr': e.cd_entr,
-                'cd_vd': e.cd_vd,
-                'cd_nf': cd_nf,
-                # Adicione outros campos do cliente se precisar
-            })
-
-        kanban_data.append({
-            'motoboy': motoboy.nm_usu,
-            'entregas': entregas_list
-        })
-
-    return render(request, 'kanban.html', {'kanban': kanban_data})
 
 
 @login_required
@@ -346,54 +364,6 @@ def criar_funcionario(request):
 
 
 
-@csrf_exempt  # remova se for usar CSRF token
-def login_funcionario(request):
-    if request.method != 'POST':
-        return JsonResponse(
-            {'success': False, 'message': 'Método inválido'},
-            status=405
-        )
-
-    try:
-        data = json.loads(request.body)
-    except json.JSONDecodeError:
-        return JsonResponse(
-            {'success': False, 'message': 'JSON inválido'},
-            status=400
-        )
-
-    user = authenticate(
-        request,
-        username=data.get('username'),
-        password=data.get('password')
-    )
-
-    if user is None:
-        return JsonResponse(
-            {'success': False, 'message': 'Credenciais inválidas'},
-            status=401
-        )
-
-    # Verifica se possui perfil
-    if not hasattr(user, 'funcionario'):
-        return JsonResponse(
-            {'success': False, 'message': 'Usuário sem perfil de funcionário'},
-            status=403
-        )
-
-    login(request, user)
-
-    return JsonResponse({
-        'success': True,
-        'user_id': user.id,
-        'username': user.username,
-        'nome': user.get_full_name(),
-        'funcao': user.funcionario.funcao,
-        'cd_usu': user.funcionario.cd_usu
-    })
-
-
-
 
 def somente_staff(view_func):
     def wrapper(request, *args, **kwargs):
@@ -424,42 +394,44 @@ def somente_operadordecaixa(view_func):
 def autenticacao_moto(request):
     pass
 
-#deletar depois
-def autenticacao_funcionario(request):
-    if not request.user or not hasattr(request.user, 'funcionario'):
-        return JsonResponse({'success': False, 'message': 'Usuário sem perfil de funcionário'}, status=403)
-    if User.is_staff:
-        return True
-    return User.is_authenticated
 
     
 
 
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
-        if user is not None and user.funcionario.funcao == 'motoboy':
-            login(request, user)  # cria sessão
-            return redirect('entregas_motoboy')  # redireciona para o motoboy
+            user = authenticate(request, username=username, password=password)
 
+            if user is not None:
+                if user.funcionario.funcao == 'ENTREGADOR':
+                    login(request, user)
+                    return redirect('entregas_motoboy')
 
-        elif user is not None:
-            login(request, user)  # cria sessão
-            return redirect('board')  # redireciona para o kanban
-        
-        elif user is not None and user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']:
-            pass
-            #criar painel administrativo específico para esses cargos
-            #login(request, user)  # cria sessão
-            #return redirect('board')  # redireciona para o kanban
+                elif user.funcionario.funcao == 'OP. DE CAIXA':
+                    login(request, user)
+                    return redirect('board')
+                
+                elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']:
+                    login(request, user)
+                    return redirect('boardadministrativo')
+                
+                else:
+                    return render(request, 'login.html', {"error": True, "message": "Função não autorizada."})
+            
+            else:
+                return render(request, 'login.html', {"error": True})
 
-        else:
-            return render(request, 'login.html', {"error": True})
+        return render(request, 'login.html')
 
-    return render(request, 'login.html')
+    except Exception as e:
+        print("Erro no login_view:", str(e))
+        return render(request, 'login.html', {"error": True})
+    
+
 
 
 def logout_view(request):
@@ -474,6 +446,7 @@ def cadastro_funcionario(request):
         lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
 
         if funcionario.funcao not in lista:
+            print(f"Acesso negado para função")
             return redirect('login')  # se não for gerente, redireciona para login
 
 
@@ -514,9 +487,76 @@ def gerenciar_funcionarios(request):
         lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
 
         if funcionario.funcao not in lista:
+            print(f"Acesso negado para função")  # Log para depuração
             return redirect('login')  # se não for gerente, redireciona para login
 
         funcionarios = Funcionarios_lista.objects.all()
         return render(request, 'gerenciar_cadastros.html', {'funcionarios': funcionarios})
     except AttributeError:
         return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+
+
+@login_required
+def registrar_km_manual(request):
+    if request.method == "POST":
+        id_motoboy = request.POST.get('motoboy') # ID do usuário selecionado
+        km = request.POST.get('km_diario')
+        data = request.POST.get('data_apuracao')
+
+        if id_motoboy and km and data:
+            # Buscamos a instância do usuário pelo ID
+            usuario = User.objects.get(id=id_motoboy)
+            #usuario = Funcionarios_lista.objects.get(id=id_motoboy)  # pega o funcionário relacionado ao usuário
+            
+            dadoskilometragem.objects.create(
+                usermotoboy=usuario,
+                km_diario=float(km.replace(',', '.')),
+                data_apuracao=data
+            )
+            print(f"KM registrado: {km} para {usuario.username} na data {data}")
+            return redirect('registrar_km')
+
+    # Buscamos todos os usuários para o administrador escolher um
+    # Dica: se você usa grupos, pode filtrar por: User.objects.filter(groups__name='Motoboys')
+    todos_motoboys = User.objects.all().order_by('first_name')
+    
+    return render(request, 'registrar_km.html', {'motoboys': todos_motoboys})
+
+@login_required
+def lista_km(request):
+    relatorios_quinzenais = (
+        dadoskilometragem.objects
+        # 1. Truncamos o mês para agrupar registros do mesmo mês/ano
+        .annotate(mes_base=TruncMonth('data_apuracao'))
+        # 2. Extraímos o dia para saber em qual quinzena cai
+        .annotate(dia=ExtractDay('data_apuracao'))
+        # 3. Criamos a lógica da quinzena
+        .annotate(quinzena=Case(
+            When(dia__lte=15, then=Value('1ª Quinzena')),
+            default=Value('2ª Quinzena'),
+            output_field=CharField(),
+        ))
+        # 4. Agrupamos pelos campos necessários
+        .values('mes_base', 'quinzena', 'usermotoboy__first_name')
+        # 5. Somamos os KMs do grupo
+        .annotate(total_periodo=Sum('km_diario'))
+        # 6. Ordenamos por mês e depois pela quinzena
+        .order_by('-mes_base', '-quinzena', 'usermotoboy__first_name')
+    )
+
+    ultimosregistros = (dadoskilometragem.objects
+                        .annotate(mes_base=TruncMonth('data_apuracao'))
+                        .annotate(dia = ExtractDay('data_apuracao'))
+                        .values('mes_base', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
+                        .order_by('-data_apuracao')[:10]
+                        )
+    
+
+    total_geral = dadoskilometragem.objects.aggregate(Sum('km_diario'))['km_diario__sum'] or 0
+
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'total_geral': total_geral,
+        'ultimosregistros' : ultimosregistros,  # opcional: últimos 10 registros
+        #'ultimos_registros': dadoskilometragem.objects.order_by('-data_apuracao')[:10]  # opcional: últimos 10 registros
+    })

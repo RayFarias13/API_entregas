@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lançar KM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Registro Diário de KM</h4>
+                    
+                    <form method="POST">
+                    <form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label class="form-label">Selecionar Motoboy</label>
+        <select name="motoboy" class="form-select" required>
+            <option value="">-- Selecione o Profissional --</option>
+            {% for m in motoboys %}
+                <option value="{{ m.id }}">{{ m.get_full_name|default:m.username }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Data da Apuração</label>
+        <input type="date" name="data_apuracao" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quilometragem (KM)</label>
+        <input type="number" step="0.1" name="km_diario" class="form-control" placeholder="0.00" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Registrar</button>
+</form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

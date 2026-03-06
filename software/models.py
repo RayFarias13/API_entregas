@@ -13,7 +13,6 @@ class Funcionarios_lista(models.Model):
         ('S. GERENTE','S. Gerente')     ]
 
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='funcionario', null=True, blank=True)
-    #user_id = models.IntegerField(unique=True, null=True, blank=True, help_text="ID do usuário Django")
     cd_usu = models.IntegerField(unique=True, null=True, blank=True, help_text="Código legado do vetor")
     funcao = models.CharField(max_length=50,choices=funcionario_funcao_choice,default='DEFINIR')
 
@@ -94,10 +93,11 @@ class EntregaFinalizada(models.Model):
 class dadoskilometragem(models.Model):
     usermotoboy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='pontuacao_motoboy')
     km_diario = models.FloatField(default=0.0)
-    data_apuracao= models.DateField(auto_now_add=True)
+    data_apuracao= models.DateField(blank=True, null=True)
+    data_cadastro = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'KM_diario'
+        db_table = 'km_diario'
 
     def __str__(self):
         return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario}'
