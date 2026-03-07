@@ -441,43 +441,57 @@ def logout_view(request):
 
 @login_required
 def cadastro_funcionario(request):
+    # 1. Validação de Permissão
     try:
-        funcionario = request.user.funcionario  # pega o funcionário logado
-        lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
+        funcionario_logado = request.user.funcionario
+        permissoes_admin = ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']
+        
+        if funcionario_logado.funcao not in permissoes_admin:
+            return redirect('login') 
+    except AttributeError:
+        return redirect('login')
 
-        if funcionario.funcao not in lista:
-            print(f"Acesso negado para função")
-            return redirect('login')  # se não for gerente, redireciona para login
+    if request.method == 'POST':
+        # 2. Captura de dados
+        username = request.POST.get('username').strip().lower()
+        password = request.POST.get('password').strip().lower()
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('email', '').strip()
+        funcao = request.POST.get('funcao')
+        cd_usu = request.POST.get('cd_usu', '').strip()
 
+        # 3. Validações de existência
+        if User.objects.filter(username=username).exists():
+            return render(request, 'cadastro_funcionario.html', {"error": "Este login já está em uso."})
+        
+        if cd_usu and Funcionarios_lista.objects.filter(cd_usu=cd_usu).exists():
+            return render(request, 'cadastro_funcionario.html', {"error": "Este Código de Funcionário já está cadastrado."})
 
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            first_name = request.POST.get('first_name', '')
-            last_name = request.POST.get('last_name', '')
-            funcao = request.POST.get('funcao','DEFINIR')
-            
-
-            if User.objects.filter(username=username).exists():
-                return render(request, 'cadastro_funcionario.html', {"error": "Usuário já existe"})
-
-            user = User.objects.create_user(
+        try:
+            # 4. Criação do User (Senha criptografada)
+            novo_usuario = User.objects.create_user(
                 username=username,
                 password=password,
                 first_name=first_name,
-                last_name=last_name
+                last_name=last_name,
+                email=email
             )
 
+            # 5. Criação do Perfil de Funcionário
             Funcionarios_lista.objects.create(
-                user=user,
-                funcao=funcao
+                user=novo_usuario,
+                funcao=funcao,
+                cd_usu=cd_usu if cd_usu else None
             )
 
-            return redirect('login')
+            messages.success(request, "Funcionário cadastrado com sucesso!")
+            return redirect('login') # Ou para uma página de listagem
 
-        return render(request, 'cadastro_funcionario.html')
-    except AttributeError:
-        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+        except Exception as e:
+            return render(request, 'cadastro_funcionario.html', {"error": f"Erro ao salvar: {e}"})
+
+    return render(request, 'cadastro_funcionario.html')
     
 
 @login_required

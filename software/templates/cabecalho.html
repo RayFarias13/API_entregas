@@ -1,64 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 {% load static %}
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento | Cadastro</title>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <title>Kanban de Entregas</title>
     
+    <style>
+        /* Customizações para modernizar o visual */
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #navbar { background: #ffffff; padding: 15px 0; border-bottom: 1px solid #e7e7e7; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .navbar-brand-custom { font-weight: bold; color: #333 !important; font-size: 24px; }
+        .nav-links-container { margin-top: 10px; }
+        .links { color: #555; font-weight: 500; transition: 0.3s; padding: 8px 15px; border-radius: 4px; }
+        .links:hover { background: #f0f0f0; text-decoration: none; color: #000; }
+        .btn-logout { color: #d9534f !important; border: 1px solid #d9534f; border-radius: 20px; }
+        .btn-logout:hover { background: #d9534f; color: #fff !important; }
+        .main-content { margin-top: 30px; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
-    <!-- Navbar desktop -->
-  <div id="navbar">
+
+<nav id="navbar">
     <div class="container">
-      <div class="row row1">
-        {% if request.user.is_authenticated %}
-        <ul class="largenav pull-right">
-          
-                            
-          <!-- <li class="upper-links"><a class="links" href="/logout">Logout</a></li> -->
-          
-        </ul>
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <a class="navbar-brand-custom" href="/board_administrativo" style="text-decoration:none;">
+                    <i class="fa fa-cogs"></i> Gerenciamento
+                </a>
+            </div>
 
-        {% else %}
-        <ul class="largenav pull-right">                   
-          <li class="upper-links dropdown">
-            <a class="links" href="#">Login & Sign Up</a>
-            <ul class="dropdown-menu">                   
-              <li class="profile-li"><a class="profile-links" href="/login">Login</a></li>
-              <li class="profile-li"><a class="profile-links" href="/logout">Cadastro</a></li>
-            </ul>
-          </li>
-          <li class="upper-links"><a class="links" href="/adminclick">Admin</a></li>
-          
-        </ul>
-        {% endif %}
-      </div>
-
-      <div class="row row2">
-        <div class="col-sm-3">
-          <h2 style="margin:0px;">
-            <a style="text-decoration:none; color:rgb(0, 0, 0);" href="/soft/">
-              <span class="largenav">Sistema de Entregas</span>
-            </a>
-          </h2>
+            <div class="col-md-8 col-sm-12 text-right nav-links-container">
+                <ul class="list-inline" style="margin-bottom:0;">
+                    {% if request.user.is_authenticated %}
+                        <li><span class="text-muted">Olá, <strong>{{ request.user.username }}</strong></span></li>
+                        <li><a class="links btn-logout" href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle links" data-toggle="dropdown" role="button">
+                                <i class="fa fa-user-circle"></i> Conta <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="/login"><i class="fa fa-sign-in"></i> Login</a></li>
+                                <li><a href="/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="links" href="/adminclick"><i class="fa fa-lock"></i> Admin</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-
-            
-            </span>
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="container">
-    {% block content %}
+</nav>
 
+<main class="container">
+    <div class="main-content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-    {% endblock content %}
-
-
+</body>
+</html>

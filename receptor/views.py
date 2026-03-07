@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-SENSITIVE_HEADERS = ["authorization", "x-api-key", "api-key"]
+SENSITIVE_HEADERS = [ "x-api-key", "api-key"]
 
 @csrf_exempt
 def capturar_tudo(request, path=""):

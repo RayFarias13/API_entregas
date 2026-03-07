@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Funcionarios_lista(models.Model):
     funcionario_funcao_choice = [
+        ('DEFINIR', 'Definir'),
         ('ENTREGADOR', 'Entregador'),
         ('OP. DE CAIXA', 'Op. de Caixa'),
         ('GERENTE', 'Gerente'),
