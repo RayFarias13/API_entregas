@@ -10,6 +10,7 @@ import os
 import sqlite3
 from decimal import Decimal
 import psycopg2
+import time
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -57,10 +58,11 @@ def customers(request):
     capturar_tudo(request, path="")
 
     # Executa SEM quebrar a API
-    try:
-        dados_banco_externo()
-    except Exception as e:
-        print("Erro ao executar dados_entrega:", e)
+    #try:
+       # print("Executando dados_banco_externo...")
+        #dados_banco_externo()
+    #except Exception as e:
+        #print("Erro ao executar dados_entrega:", e)
 
     method = request.method
 
@@ -146,7 +148,7 @@ def customers(request):
     return JsonResponse({"error": "Method not allowed"}, status=405)
 
 
-
+#corrigir aqiu colocar um timeout para não travar a API caso o banco externo esteja lento ou com problemas, e também para evitar que a função seja executada mais de uma vez ao mesmo tempo, o que poderia causar problemas de performance ou até mesmo de integridade dos dados.
 def dados_banco_externo():
     # --- Conexão PostgreSQL ---
     pg_conn = psycopg2.connect(
@@ -157,6 +159,18 @@ def dados_banco_externo():
         port=os.getenv("DB_PORT")
     )
     pg_cur = pg_conn.cursor()
+
+
+    #Conexao postgreSQL render
+
+    pg_conn_render = psycopg2.connect(
+        host=os.getenv("DB_HOST_RENDER"),
+        dbname=os.getenv("DB_NAME_RENDER"),
+        user=os.getenv("DB_USER_RENDER"),
+        password=os.getenv("DB_PASSWORD_RENDER"),
+        port=os.getenv("DB_PORT_RENDER")
+    )
+    pg_cur_render = pg_conn_render.cursor()
 
     # --- Buscar registros no Postgres ---
     pg_cur.execute("""
@@ -172,7 +186,7 @@ def dados_banco_externo():
         WHERE pe.sts_entr = '0'
     """)
     registros_venda = pg_cur.fetchall()
-    print(f'Quantidade de registros no Postgres: {len(registros_venda)}')
+    #print(f'Quantidade de registros no Postgres: {len(registros_venda)}')
 
     if not registros_venda:
         print("Nenhum registro para processar.")
