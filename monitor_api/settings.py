@@ -47,8 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'receptor', 
     'software',
+    'interno',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
+
     
     
 ]
@@ -89,7 +92,7 @@ WSGI_APPLICATION = 'monitor_api.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
+        default=os.getenv("DATABASE_URL_NEON"),
         conn_max_age=600,
         ssl_require=True  # IMPORTANTE para Render
     )
