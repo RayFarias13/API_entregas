@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'interno',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',
+    
 
     
     
