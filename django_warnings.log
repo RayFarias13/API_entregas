@@ -927,3 +927,5 @@ Forbidden (CSRF token from POST incorrect.): /
 "POST / HTTP/1.1" 403 2504
 Forbidden (CSRF token from POST incorrect.): /
 "POST / HTTP/1.1" 403 2504
+Not Found: /api/
+"GET /api/ HTTP/1.1" 404 6136
