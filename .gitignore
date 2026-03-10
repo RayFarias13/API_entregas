@@ -2,3 +2,4 @@
 db.sqlite3
 post_logs.txt
 django_warnings.log
+interno/
