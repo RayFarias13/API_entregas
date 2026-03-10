@@ -5,6 +5,7 @@ from django.db.models import Sum, Case, When, Value, CharField
 from django.db.models.functions import TruncMonth, ExtractDay
 
 
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
@@ -13,9 +14,15 @@ import json
 import datetime
 from django.utils import timezone
 from receptor.models import Customer
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test, permission_required
+from django.contrib.auth import logout
+from . import views
 
 
 # Página Kanban - GERAL
+@login_required
 def board(request):
     # Get all deliveries where cd_mov_ret == 0
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
@@ -57,6 +64,7 @@ def board(request):
 
     return render(request, 'board.html', {'kanban': kanban})
 
+@login_required
 def board_administrativo(request):
     # Get all deliveries where cd_mov_ret == 0
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
@@ -153,6 +161,7 @@ def board_motoboy(request):
 
 # API para atualizar status
 @csrf_exempt
+@login_required
 def atualizar_status(request):
     if request.method != 'POST':
         return JsonResponse({'status': 'erro', 'msg': 'Método não permitido'}, status=405)
@@ -208,6 +217,7 @@ def atualizar_status(request):
     entrega.save()
     return JsonResponse({'status': 'ok'})
 
+@login_required
 def buscar_customer_por_nome(request):
     nome = request.GET.get('nome', '')
 
@@ -223,6 +233,7 @@ def buscar_customer_por_nome(request):
 
     return JsonResponse(list(customers), safe=False)
 
+@login_required
 def criar_entrega_avulsa(request):
     # Lista de clientes e funcionários
     customers = Customer.objects.all()
@@ -330,7 +341,8 @@ def finalizar_entrega(request):
     except Exception as e:
         print("Erro finalizar_entrega:", str(e))
         return JsonResponse({'success': False, 'message': 'Erro interno.'}, status=500)
-    
+
+@login_required    
 def somente_staff(view_func):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_staff:
@@ -338,39 +350,6 @@ def somente_staff(view_func):
         return view_func(request, *args, **kwargs)
     return wrapper
 
-
-@login_required
-@somente_staff
-def criar_funcionario(request):
-    if request.method != 'POST':
-        return JsonResponse({'success': False}, status=405)
-
-    data = json.loads(request.body)
-
-    user = User.objects.create_user(
-        username=data['username'],
-        password=data['password'],
-        first_name=data.get('first_name', ''),
-        last_name=data.get('last_name', '')
-    )
-
-    Funcionarios_lista.objects.create(
-        user=user,
-        funcao=data.get('funcao', 'DEFINIR')
-    )
-
-    return JsonResponse({'success': True, 'message': 'Funcionário criado'})
-
-
-
-
-
-def somente_staff(view_func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_staff:
-            return JsonResponse({'error': 'Acesso negado'}, status=403)
-        return view_func(request, *args, **kwargs)
-    return wrapper
 
 
 def somente_gerente(view_func):
@@ -387,13 +366,6 @@ def somente_operadordecaixa(view_func):
             return JsonResponse({'error': 'Acesso negado'}, status=403)
         return view_func(request, *args, **kwargs)
     return wrapper
-
-@login_required
-@somente_staff
-@somente_gerente
-def autenticacao_moto(request):
-    pass
-
 
     
 
@@ -418,6 +390,12 @@ def login_view(request):
                 elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']:
                     login(request, user)
                     return redirect('boardadministrativo')
+                
+                elif user.is_staff:  # para usuários admin do Django sem perfil de funcionário
+                    login(request, user)
+                    return redirect('admin:index')
+                
+               
                 
                 else:
                     return render(request, 'login.html', {"error": True, "message": "Função não autorizada."})
@@ -446,7 +424,7 @@ def cadastro_funcionario(request):
         funcionario_logado = request.user.funcionario
         permissoes_admin = ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']
         
-        if funcionario_logado.funcao not in permissoes_admin:
+        if funcionario_logado.funcao not in permissoes_admin or not request.user.is_staff:
             return redirect('login') 
     except AttributeError:
         return redirect('login')

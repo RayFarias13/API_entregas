@@ -92,8 +92,11 @@
             </div>
             <div class="col-xs-8 text-right">
                 {% if request.user.is_authenticated %}
+                    <a >|</a>
                     <a class="links" href="/entrega_avulsa">Entrega Avulsa</a>
-                    <a class="links" href="/km_novo">Cadastro de KM</a>
+                    <a class="links" href="/km/novo">Cadastro de KM</a>
+                    <a class="links" href="/km/historico">Histórico de KM </a>
+                    <a >|</a>
                     <a class="links" href="/cadastro_funcionario">Cadastro</a>
                     <a class="links" href="/gerenciar_cadastros">Equipe</a>
 

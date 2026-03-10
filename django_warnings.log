@@ -929,3 +929,11 @@ Forbidden (CSRF token from POST incorrect.): /
 "POST / HTTP/1.1" 403 2504
 Not Found: /api/
 "GET /api/ HTTP/1.1" 404 6136
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 5762
+Not Found: /km_novo/
+"GET /km_novo/ HTTP/1.1" 404 5753
