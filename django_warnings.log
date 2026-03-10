@@ -971,3 +971,17 @@ Not Found: /localizacao_motoboy/
 "POST /localizacao_motoboy/ HTTP/1.1" 404 5790
 Internal Server Error: /finalizar_entrega/
 "POST /finalizar_entrega/ HTTP/1.1" 500 102
+Not Found: /board_administrativo
+"GET /board_administrativo HTTP/1.1" 404 6072
+Not Found: /board_administrativo
+"GET /board_administrativo HTTP/1.1" 404 6072
+Not Found: /board_administrativo
+"GET /board_administrativo HTTP/1.1" 404 6072
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6156
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6156
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6156
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6156

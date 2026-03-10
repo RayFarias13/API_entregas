@@ -108,8 +108,8 @@
         .catch(err => alert("Erro na requisição: " + err));
     }
 
-    // --- LÓGICA DO GPS (5 MINUTOS) ---
-    const INTERVALO_MS = 300000; 
+    // --- LÓGICA DO GPS (5 MINUTOS) --- min * 60 seg * 1000 ms
+    const INTERVALO_MS = 1 * 60 * 1000; // 1 minuto para testes, altere para 5 para produção
 
     function iniciarMonitoramento() {
         if ("geolocation" in navigator) {
@@ -132,7 +132,7 @@
         document.getElementById('lat').innerText = lat.toFixed(5);
         document.getElementById('lng').innerText = lng.toFixed(5);
         document.getElementById('time').innerText = agora;
-        document.getElementById('status').innerText = "✅ GPS Ativo e Enviando";
+        document.getElementById('status').innerText = "✅ GPS Enviado às" + agora;
 
         const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.002}%2C${lat-0.002}%2C${lng+0.002}%2C${lat+0.002}&layer=mapnik&marker=${lat}%2C${lng}`;
         document.getElementById('map').innerHTML = `<iframe width="100%" height="100%" frameborder="0" src="${mapUrl}"></iframe>`;
@@ -154,15 +154,16 @@
         },
         body: JSON.stringify({ latitude: lat, longitude: lng })
     })
-    .then(response => {
+    .then(async response => {
+        const data = await response.json();
         if (!response.ok) {
-            // Se o status for 403 (CSRF) ou 401 (Não logado), você verá aqui
-            console.error("Erro no servidor status:", response.status);
+            // Isso vai mostrar se é erro de login (403) ou erro no banco (500)
+            console.error("Erro:", data.message);
+        } else {
+            console.log("Salvo no Neon!");
         }
-        return response.json();
     })
-    .then(data => console.log("Servidor respondeu:", data))
-    .catch(e => console.error("Falha na rede ou erro JS:", e));
+    .catch(e => console.error("Erro de conexão:", e));
 }
 
     function getCookie(name) {
@@ -181,6 +182,7 @@
     }
 
     window.onload = iniciarMonitoramento;
+    
 </script>
 </body>
 </html>
