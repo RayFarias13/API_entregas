@@ -14,4 +14,5 @@ urlpatterns = [
     path('gerenciar_cadastros/', views.gerenciar_funcionarios, name='gerenciar_cadastros'),
     path('km/novo/', views.registrar_km_manual, name='registrar_km'),
     path('km/historico/', views.lista_km, name='lista_km'),
+    path('localizacao_motoboy/', views.atualizar_localizacao, name='atualizar_localizacao'),
 ]

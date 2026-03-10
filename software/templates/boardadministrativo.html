@@ -161,7 +161,7 @@ function finalizar(cd_entr, cd_vd, button){
     button.disabled = true;
     button.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Processando...";
 
-    fetch("/soft/finalizar_entrega/", {
+    fetch("/finalizar_entrega/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

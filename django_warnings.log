@@ -937,3 +937,37 @@ Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 5762
 Not Found: /km_novo/
 "GET /km_novo/ HTTP/1.1" 404 5753
+Not Found: /api
+"GET /api HTTP/1.1" 404 5738
+Not Found: /soft/finalizar_entrega/
+"POST /soft/finalizar_entrega/ HTTP/1.1" 404 5799
+Not Found: /soft/finalizar_entrega/
+"POST /soft/finalizar_entrega/ HTTP/1.1" 404 5799
+Not Found: /soft/finalizar_entrega/
+"POST /soft/finalizar_entrega/ HTTP/1.1" 404 5799
+Not Found: /soft/finalizar_entrega/
+"POST /soft/finalizar_entrega/ HTTP/1.1" 404 5799
+Not Found: /home/finalizar_entrega/
+"POST /home/finalizar_entrega/ HTTP/1.1" 404 5799
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Not Found: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 404 59
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 102
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 102
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 102
+Not Found: /localizacao_motoboy/
+"POST /localizacao_motoboy/ HTTP/1.1" 404 5790
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 102

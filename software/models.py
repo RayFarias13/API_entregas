@@ -65,7 +65,7 @@ class EntregaFinalizada(models.Model):
     ]
     usermotoboy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='entregas_finalizadas')
     entrega = models.ForeignKey(DadosEntrega, on_delete=models.CASCADE, related_name='entregas_finalizadas')
-    venda = models.ForeignKey(DadosVenda, on_delete=models.CASCADE, related_name='entregas_finalizadas')
+    venda = models.ForeignKey(DadosVenda, on_delete=models.SET_NULL, null=True, blank=True)
     funcionario = models.IntegerField(null=True, blank=True)
     cliente = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     cupomfiscal = models.IntegerField(null=True, blank=True)
@@ -102,3 +102,24 @@ class dadoskilometragem(models.Model):
 
     def __str__(self):
         return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario}'
+    
+
+class HistoricoLocalizacao(models.Model):
+    # Relaciona a localização ao usuário (entregador)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posicoes')
+    
+    # Coordenadas com precisão decimal (9 casas decimais é o padrão ouro para GPS)
+    latitude = models.DecimalField(max_digits=22, decimal_places=16)
+    longitude = models.DecimalField(max_digits=22, decimal_places=16)
+    
+    # Data e hora exata do registro
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Histórico de Entrega"
+        verbose_name_plural = "Histórico de Entregas"
+        # Ordenar para que a posição mais recente apareça primeiro
+        ordering = ['-data_criacao']
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.data_criacao.strftime('%d/%m %H:%M')}"

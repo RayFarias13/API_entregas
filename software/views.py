@@ -110,42 +110,41 @@ def board_administrativo(request):
 @login_required
 def board_motoboy(request):
     try:
-        funcionario = request.user.funcionario  # pega o funcionário logado
-
+        funcionario = request.user.funcionario
     except AttributeError:
-        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+        return redirect('login')
 
-    #  Se for entregador, filtra apenas as entregas dele
-    if funcionario.funcao == 'ENTREGADOR':
+    # Filtro de entregas
+    if funcionario.funcao == 'ENTREGADOR' or request.user.is_staff:
         entregas = DadosEntrega.objects.filter(
             cd_mov_ret=0,
             cd_fun_entr=funcionario.cd_usu
         )
     else:
-        # gerente/admin vê tudo
         entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
     kanban = {}
 
     for entrega in entregas:
-        try:
-            venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
-        except DadosVenda.DoesNotExist:
-            venda = None
-
+        # Tenta buscar a venda
+        venda = DadosVenda.objects.filter(cd_vd=entrega.cd_vd).first()
+        
         cliente = None
         if venda:
-            try:
-                cliente = Customer.objects.get(code=str(venda.cd_cli))
-            except Customer.DoesNotExist:
-                cliente = None
+            cliente = Customer.objects.filter(code=str(venda.cd_cli)).first()
 
-        entregador = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
+        # Define a chave do dicionário
+        # Se for entregador, usamos um nome fixo como "Minhas Entregas" 
+        # para facilitar o loop no HTML
+        if funcionario.funcao == 'ENTREGADOR':
+            nome_quadro = "Minhas Entregas"
+        else:
+            nome_quadro = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
 
-        if entregador not in kanban:
-            kanban[entregador] = []
+        if nome_quadro not in kanban:
+            kanban[nome_quadro] = []
 
-        kanban[entregador].append({
+        kanban[nome_quadro].append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
             'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
@@ -241,10 +240,12 @@ def criar_entrega_avulsa(request):
 
     # Calcular próximo código de entrega e venda
     ultimo = DadosEntrega.objects.order_by('-cd_entr').first()
-    proximo_cd_entr = ultimo.cd_entr + 100000 if ultimo else 1100000
+    
+    proximo_cd_entr = ultimo.cd_entr + 100000 if ultimo is not None else 1100000
 
     ultimo_vd = DadosEntrega.objects.order_by('-cd_vd').first()
-    proximo_cd_vd = ultimo_vd.cd_vd + 100000 if ultimo_vd else 1100000
+    
+    proximo_cd_vd = ultimo_vd.cd_vd + 100000 if ultimo_vd is not None else 1100000
 
     if request.method == 'POST':
         cd_fun_entr = request.POST.get('cd_fun_entr')
@@ -290,38 +291,42 @@ def finalizar_entrega(request):
         status = data.get('status', 'ENTREGUE')
         observacoes = data.get('observacoes')
 
-        # Validar status
-        status_validos = dict(EntregaFinalizada.STATUS_CHOICES)
-        if status not in status_validos:
-            return JsonResponse(
-                {'success': False, 'message': 'Status inválido.'},
-                status=400
-            )
+        # 1. Tentar buscar a entrega (Obrigatória)
+        try:
+            entrega = DadosEntrega.objects.get(cd_entr=cd_entr)
+        except DadosEntrega.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Entrega não encontrada.'}, status=404)
 
-        entrega = DadosEntrega.objects.get(cd_entr=cd_entr, cd_vd=cd_vd)
-        venda = DadosVenda.objects.get(cd_vd=cd_vd)
+        # 2. Tentar buscar a venda (Opcional para entregas avulsas)
+        venda = DadosVenda.objects.filter(cd_vd=cd_vd).first()
 
+        # 3. Atualizar status da entrega
         entrega.cd_mov_ret = 1
         entrega.save()
 
-        cliente = Customer.objects.filter(code=venda.cd_cli).first()
+        # 4. Buscar cliente (se houver venda)
+        cliente = None
+        if venda:
+            cliente = Customer.objects.filter(code=venda.cd_cli).first()
 
+        # 5. Tratar data/hora de início
+        data_hora_inicio = None
         if entrega.data_entr_ini and entrega.hora_entr_ini:
             data_hora_inicio = timezone.make_aware(
                 datetime.datetime.combine(entrega.data_entr_ini, entrega.hora_entr_ini)
             )
-        else:
-            data_hora_inicio = None
 
+        # 6. Criar o registro na EntregaFinalizada
+        # Nota: Aceitamos campos nulos (None) para o que for exclusivo de vendas
         EntregaFinalizada.objects.create(
             usermotoboy=request.user if request.user.is_authenticated else None,
             entrega=entrega,
-            venda=venda,
+            venda=venda, # Pode ser None agora
             funcionario=entrega.cd_fun_entr,
-            cupomfiscal=venda.cd_nf,
+            cupomfiscal=venda.cd_nf if venda else 0,
             cliente=cliente,
-            nome_cliente=cliente.name if cliente else None,
-            endereco=cliente.address if cliente else None,
+            nome_cliente=cliente.name if cliente else "N/A",
+            endereco=cliente.address if cliente else "N/A",
             complemento=cliente.address_complement if cliente else None,
             telefone=cliente.phone_number if cliente else None,
             data_hora_inicio=data_hora_inicio,
@@ -329,18 +334,15 @@ def finalizar_entrega(request):
             observacoes=observacoes
         )
 
+        status_validos = dict(EntregaFinalizada.STATUS_CHOICES)
         return JsonResponse({
             'success': True,
-            'message': f'Entrega finalizada como "{status_validos[status]}"!'
+            'message': f'Entrega finalizada como "{status_validos.get(status, status)}"!'
         })
 
-    except DadosEntrega.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Entrega não encontrada.'}, status=404)
-    except DadosVenda.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Venda não encontrada.'}, status=404)
     except Exception as e:
         print("Erro finalizar_entrega:", str(e))
-        return JsonResponse({'success': False, 'message': 'Erro interno.'}, status=500)
+        return JsonResponse({'success': False, 'message': f'Erro interno: {str(e)}'}, status=500)
 
 @login_required    
 def somente_staff(view_func):
@@ -552,3 +554,26 @@ def lista_km(request):
         'ultimosregistros' : ultimosregistros,  # opcional: últimos 10 registros
         #'ultimos_registros': dadoskilometragem.objects.order_by('-data_apuracao')[:10]  # opcional: últimos 10 registros
     })
+
+
+
+
+def atualizar_localizacao(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            # Criando o registro no banco
+            HistoricoLocalizacao.objects.create(
+                usuario=request.user, # Pega o usuário logado na sessão
+                latitude=data.get('latitude'),
+                longitude=data.get('longitude')
+            )
+            
+            return JsonResponse({'status': 'sucesso', 'message': 'Posição salva!'})
+        except Exception as e:
+            return JsonResponse({'status': 'erro', 'message': str(e)}, status=400)
+            
+    return JsonResponse({'status': 'erro'}, status=405)
+
+

@@ -1,83 +1,174 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Entregas</title>
+    <title>Minhas Entregas</title>
     <style>
-        body { font-family: Arial; background: #f5f5f5; }
-        .board { display: flex; gap: 20px; padding: 20px; }
-        .lista { background: #fff; padding: 10px; border-radius: 5px; width: 250px; min-height: 300px; }
-        .lista h3 { text-align: center; }
-        .cartao { background: #e3e3e3; padding: 10px; margin: 10px 0; border-radius: 3px; cursor: grab; }
+        body { font-family: Arial; background: #f5f5f5; margin: 0; padding: 10px; }
+        /* Painel de Status do GPS */
+        .gps-status { 
+            background: #333; color: white; padding: 10px; 
+            border-radius: 8px; margin-bottom: 20px; font-size: 0.8em;
+        }
+        .board { display: flex; flex-direction: column; gap: 15px; }
+        .lista { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .cartao { 
+            background: #fff; border: 1px solid #ddd; 
+            padding: 15px; margin-bottom: 15px; border-radius: 8px; 
+        }
+        .cartao p { margin: 5px 0; font-size: 0.9em; }
+        select, textarea, button { 
+            width: 100%; margin-top: 10px; padding: 10px; 
+            border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;
+        }
+        button { background: #28a745; color: white; font-weight: bold; border: none; cursor: pointer; }
+        #map { height: 150px; width: 100%; margin-top: 10px; border-radius: 5px; background: #eee; }
     </style>
 </head>
 <body>
-<h1>Entregas</h1>
+<div class="gps-status">
+    <div id="status">🛰️ Iniciando GPS...</div>
+    <div>Lat: <span id="lat">-</span> | Lng: <span id="lng">-</span></div>
+
+    <div>Última atualização: <span id="time">-</span></div>
+</div>
+<!-- 
+    <div class="gps-status">
+    <div id="status">🛰️ Iniciando GPS...</div>
+    <div>Lat: <span id="lat">-</span> | Lng: <span id="lng">-</span></div>
+    <div>Última atualização: <span id="time">-</span></div>
+    <div id="map"></div>
+</div>
+-->
+
+<h1>Minhas Entregas</h1>
 
 <div class="board">
     {% for entregador, entregas in kanban.items %}
         <div class="lista">
-            <h3>{{ entregador }}</h3>
+            <h3>Entregador: {{ entregador }}</h3>
 
             {% for entrega in entregas %}
                 <div class="cartao">
-                    <p>NF: {{ entrega.cd_nf }}</p>
-                    <p>Cliente: {{ entrega.cliente }}</p>
-                    <p>Endereço: {{ entrega.endereco }} | {{ entrega.complemento }}</p>
-                    <p>
-                        Telefone:
-                        <a href="tel:{{ entrega.telefone }}">{{ entrega.telefone }}</a>
-                    </p>
+                    <p><strong>NF: {{ entrega.cd_nf }}</strong></p>
+                    <p><strong>Cliente:</strong> {{ entrega.cliente }}</p>
+                    <p><strong>Endereço:</strong> {{ entrega.endereco }}</p>
+                    <p><strong>Tel:</strong> <a href="tel:{{ entrega.telefone }}">{{ entrega.telefone }}</a></p>
 
-                    <!-- STATUS -->
                     <select id="status_{{ entrega.cd_entr }}">
-                        <option value="ENTREGUE">Entregue</option>
-                        <option value="CLIENTE_AUSENTE">Cliente ausente</option>
-                        <option value="ENDERECO_INCORRETO">Endereço incorreto</option>
-                        <option value="CLIENTE_RECUSOU">Cliente recusou</option>
+                        <option value="ENTREGUE">✅ Entregue</option>
+                        <option value="CLIENTE_AUSENTE">❌ Cliente ausente</option>
+                        <option value="ENDERECO_INCORRETO">📍 Endereço incorreto</option>
+                        <option value="CLIENTE_RECUSOU">✋ Cliente recusou</option>
                     </select>
 
-                    <!-- OBSERVAÇÕES -->
-                    <textarea
-                        id="obs_{{ entrega.cd_entr }}"
-                        placeholder="Observações (opcional)">
-                    </textarea>
+                    <textarea id="obs_{{ entrega.cd_entr }}" placeholder="Observações (opcional)"></textarea>
 
-                    <!-- BOTÃO -->
                     <button onclick="finalizar({{ entrega.cd_entr }}, {{ entrega.cd_vd }}, this)">
-                        Finalizar
+                        FINALIZAR ENTREGA
                     </button>
                 </div>
+            {% empty %}
+                <p>Nenhuma entrega pendente para você hoje! 🎉</p>
             {% endfor %}
         </div>
     {% endfor %}
 </div>
 
 <script>
-function finalizar(cd_entr, cd_vd, button){
-    const status = document.getElementById(`status_${cd_entr}`).value;
-    const observacoes = document.getElementById(`obs_${cd_entr}`).value;
+    // --- LÓGICA DE FINALIZAÇÃO ---
+    function finalizar(cd_entr, cd_vd, button){
+        const status = document.getElementById(`status_${cd_entr}`).value;
+        const observacoes = document.getElementById(`obs_${cd_entr}`).value;
+        const csrftoken = getCookie('csrftoken');
 
-    fetch("/soft/finalizar_entrega/", {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            cd_entr: cd_entr,
-            cd_vd: cd_vd,
-            status: status,
-            observacoes: observacoes
+        if(!confirm("Deseja finalizar esta entrega?")) return;
+
+        fetch("/finalizar_entrega/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({
+                cd_entr: cd_entr,
+                cd_vd: cd_vd,
+                status: status,
+                observacoes: observacoes
+            })
         })
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert(data.message);
-        if(data.success){
-            button.parentElement.remove();
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                alert("Sucesso: " + data.message);
+                button.closest('.cartao').remove();
+            } else {
+                alert("Erro: " + data.message);
+            }
+        })
+        .catch(err => alert("Erro na requisição: " + err));
+    }
+
+    // --- LÓGICA DO GPS (5 MINUTOS) ---
+    const INTERVALO_MS = 300000; 
+
+    function iniciarMonitoramento() {
+        if ("geolocation" in navigator) {
+            atualizarPosicao();
+            setInterval(atualizarPosicao, INTERVALO_MS);
+        } else {
+            document.getElementById('status').innerText = "❌ GPS não suportado.";
         }
-    })
-    .catch(err => {
-        alert("Erro ao finalizar entrega: " + err);
-    });
-}
+    }
+
+    function atualizarPosicao() {
+        navigator.geolocation.getCurrentPosition(sucesso, erro, { enableHighAccuracy: true });
+    }
+
+    function sucesso(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const agora = new Date().toLocaleTimeString();
+
+        document.getElementById('lat').innerText = lat.toFixed(5);
+        document.getElementById('lng').innerText = lng.toFixed(5);
+        document.getElementById('time').innerText = agora;
+        document.getElementById('status').innerText = "✅ GPS Ativo e Enviando";
+
+        const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.002}%2C${lat-0.002}%2C${lng+0.002}%2C${lat+0.002}&layer=mapnik&marker=${lat}%2C${lng}`;
+        document.getElementById('map').innerHTML = `<iframe width="100%" height="100%" frameborder="0" src="${mapUrl}"></iframe>`;
+
+        enviarParaServidor(lat, lng);
+    }
+
+    function erro(err) {
+        document.getElementById('status').innerText = "⚠️ Erro GPS: " + err.message;
+    }
+
+    function enviarParaServidor(lat, lng) {
+        const csrftoken = getCookie('csrftoken');
+        fetch('/localizacao_motoboy/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+            body: JSON.stringify({ latitude: lat, longitude: lng })
+        }).catch(e => console.error("Falha ao reportar GPS"));
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    window.onload = iniciarMonitoramento;
 </script>
 </body>
 </html>
