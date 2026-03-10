@@ -144,14 +144,26 @@
         document.getElementById('status').innerText = "⚠️ Erro GPS: " + err.message;
     }
 
-    function enviarParaServidor(lat, lng) {
-        const csrftoken = getCookie('csrftoken');
-        fetch('/localizacao_motoboy/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
-            body: JSON.stringify({ latitude: lat, longitude: lng })
-        }).catch(e => console.error("Falha ao reportar GPS"));
-    }
+   function enviarParaServidor(lat, lng) {
+    const csrftoken = getCookie('csrftoken');
+    fetch('/localizacao_motoboy/', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json', 
+            'X-CSRFToken': csrftoken 
+        },
+        body: JSON.stringify({ latitude: lat, longitude: lng })
+    })
+    .then(response => {
+        if (!response.ok) {
+            // Se o status for 403 (CSRF) ou 401 (Não logado), você verá aqui
+            console.error("Erro no servidor status:", response.status);
+        }
+        return response.json();
+    })
+    .then(data => console.log("Servidor respondeu:", data))
+    .catch(e => console.error("Falha na rede ou erro JS:", e));
+}
 
     function getCookie(name) {
         let cookieValue = null;

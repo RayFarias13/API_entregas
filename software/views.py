@@ -557,7 +557,7 @@ def lista_km(request):
 
 
 
-
+@login_required
 def atualizar_localizacao(request):
     if request.method == 'POST':
         try:
