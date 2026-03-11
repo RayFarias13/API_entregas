@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoramento em Tempo Real</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; border-radius: 10px; }
+        body { font-family: sans-serif; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h2>📍 Localização dos Motoboys</h2>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inicializa o mapa (centralizado no Brasil por padrão)
+        var map = L.map('map').setView([-15.7801, -47.9292], 4);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Lista de marcadores
+        var bounds = [];
+
+        {% for p in posicoes %}
+            var marker = L.marker([{{ p.latitude }}, {{ p.longitude }}])
+                .addTo(map)
+                .bindPopup("<b>Motoboy:</b> {{ p.usuario.username }}<br><b>Visto em:</b> {{ p.data_criacao|date:'H:i' }}");
+            
+            bounds.push([{{ p.latitude }}, {{ p.longitude }}]);
+        {% endfor %}
+
+        // Ajusta o zoom para mostrar todos os motoboys automaticamente
+        if (bounds.length > 0) {
+            map.fitBounds(bounds);
+        }
+    </script>
+</body>
+</html>

@@ -563,3 +563,18 @@ def atualizar_localizacao(request):
     except Exception:
         # Nunca expor str(e) em produção
         return JsonResponse({'status': 'erro', 'message': 'Erro interno no servidor'}, status=500)
+    
+
+@login_required
+def mapa_entregadores(request):
+    # Subquery para pegar o ID do registro mais recente de cada usuário
+    ultimas_posicoes_ids = HistoricoLocalizacao.objects.filter(
+        usuario=OuterRef('usuario')
+    ).order_by('-data_criacao').values('id')[:1]
+
+    # Filtra o queryset principal usando essa subquery
+    posicoes = HistoricoLocalizacao.objects.filter(
+        id__in=Subquery(ultimas_posicoes_ids)
+    ).select_related('usuario')
+
+    return render(request, 'mapa.html', {'posicoes': posicoes})
