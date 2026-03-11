@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -19,6 +21,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.contrib.auth import logout
 from . import views
+import logging
+import decimal
 
 
 # Página Kanban - GERAL
@@ -159,7 +163,7 @@ def board_motoboy(request):
 
 
 # API para atualizar status
-@csrf_exempt
+
 @login_required
 def atualizar_status(request):
     if request.method != 'POST':
@@ -566,8 +570,8 @@ def atualizar_localizacao(request):
             # Criando o registro no banco
             HistoricoLocalizacao.objects.create(
                 usuario=request.user, # Pega o usuário logado na sessão
-                latitude=data.get('latitude'),
-                longitude=data.get('longitude')
+                latitude=Decimal(str(data.get('latitude'))),
+                longitude=Decimal(str(data.get('longitude')))
             )
             
             return JsonResponse({'status': 'sucesso', 'message': 'Posição salva!'})
