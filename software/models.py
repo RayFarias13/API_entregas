@@ -109,15 +109,13 @@ class HistoricoLocalizacao(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posicoes')
     
     # Coordenadas com precisão decimal (9 casas decimais é o padrão ouro para GPS)
-    latitude = models.DecimalField(max_digits=22, decimal_places=16)
-    longitude = models.DecimalField(max_digits=22, decimal_places=16)
-    
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
     # Data e hora exata do registro
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Histórico de Entrega"
-        verbose_name_plural = "Histórico de Entregas"
         # Ordenar para que a posição mais recente apareça primeiro
         ordering = ['-data_criacao']
 

@@ -1,3 +1,6 @@
 No render
 Start Command - gunicorn nomeaplicativo.wsgi:application --bind 0.0.0.0:$PORT
 Build Command - pip install -r Requeriments.txt && python manage.py collectstatic --noinput && python manage.py migrate && python criaradm.py
+
+
+Rodar pip freeze > requirements.txt no ambiente atual para capturar as versões exatas que estão funcionando.

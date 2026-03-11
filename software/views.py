@@ -15,14 +15,11 @@ from receptor.models import *
 import json
 import datetime
 from django.utils import timezone
-from receptor.models import Customer
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.contrib.auth import logout
 from . import views
-import logging
-import decimal
 
 
 # Página Kanban - GERAL
@@ -348,30 +345,6 @@ def finalizar_entrega(request):
         print("Erro finalizar_entrega:", str(e))
         return JsonResponse({'success': False, 'message': f'Erro interno: {str(e)}'}, status=500)
 
-@login_required    
-def somente_staff(view_func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_staff:
-            return JsonResponse({'error': 'Acesso negado'}, status=403)
-        return view_func(request, *args, **kwargs)
-    return wrapper
-
-
-
-def somente_gerente(view_func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not hasattr(request.user, 'funcionario') or request.user.funcionario.funcao != 'GERENTE':
-            return JsonResponse({'error': 'Acesso negado'}, status=403)
-        return view_func(request, *args, **kwargs)
-    return wrapper
-
-
-def somente_operadordecaixa(view_func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not hasattr(request.user, 'funcionario') or request.user.funcionario.funcao != 'OP. DE CAIXA':
-            return JsonResponse({'error': 'Acesso negado'}, status=403)
-        return view_func(request, *args, **kwargs)
-    return wrapper
 
     
 
@@ -563,21 +536,30 @@ def lista_km(request):
 
 @login_required
 def atualizar_localizacao(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            
-            # Criando o registro no banco
-            HistoricoLocalizacao.objects.create(
-                usuario=request.user, # Pega o usuário logado na sessão
-                latitude=Decimal(str(data.get('latitude'))),
-                longitude=Decimal(str(data.get('longitude')))
-            )
-            
-            return JsonResponse({'status': 'sucesso', 'message': 'Posição salva!'})
-        except Exception as e:
-            return JsonResponse({'status': 'erro', 'message': str(e)}, status=400)
-            
-    return JsonResponse({'status': 'erro'}, status=405)
-
-
+    if request.method != 'POST':
+        return JsonResponse({'status': 'erro', 'message': 'Método não permitido'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        
+        lat = data.get('latitude')
+        lng = data.get('longitude')
+        
+        # Validação de campos ausentes
+        if lat is None or lng is None:
+            return JsonResponse({'status': 'erro', 'message': 'Coordenadas ausentes'}, status=400)
+        
+        HistoricoLocalizacao.objects.create(
+            usuario=request.user,
+            latitude=Decimal(str(lat)),
+            longitude=Decimal(str(lng))
+        )
+        
+        return JsonResponse({'status': 'sucesso', 'message': 'Posição salva!'})
+    
+    except (ValueError, TypeError):
+        return JsonResponse({'status': 'erro', 'message': 'Dados inválidos'}, status=400)
+    
+    except Exception:
+        # Nunca expor str(e) em produção
+        return JsonResponse({'status': 'erro', 'message': 'Erro interno no servidor'}, status=500)
