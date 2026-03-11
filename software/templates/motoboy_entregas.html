@@ -109,7 +109,7 @@
     }
 
     // --- LÓGICA DO GPS (5 MINUTOS) --- min * 60 seg * 1000 ms
-    const INTERVALO_MS = 1 * 60 * 1000; // 1 minuto para testes, altere para 5 para produção
+    const INTERVALO_MS = 2 * 60 * 1000; // 1 minuto para testes, altere para 5 para produção
 
     function iniciarMonitoramento() {
         if ("geolocation" in navigator) {
