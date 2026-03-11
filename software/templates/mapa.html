@@ -1,41 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Monitoramento em Tempo Real</title>
+    <meta charset="UTF-8">
+    <title>Monitoramento - Núcleo Bandeirante</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        #map { height: 600px; width: 100%; border-radius: 10px; }
-        body { font-family: sans-serif; padding: 20px; }
+        #map { height: 90vh; width: 100%; border-radius: 8px; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .header { padding: 10px 20px; background: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
-    <h2>📍 Localização dos Motoboys</h2>
-    <div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Inicializa o mapa (centralizado no Brasil por padrão)
-        var map = L.map('map').setView([-15.7801, -47.9292], 4);
+<div class="header">
+    <h3 style="margin:0;">📍 Radar de Entregadores (NB)</h3>
+    <span id="status">Sincronizando...</span>
+</div>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
+<div id="map"></div>
 
-        // Lista de marcadores
-        var bounds = [];
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // 1. Configuração do Ícone (Moto da Web)
+    const motoIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/171/171241.png', // Ícone de moto preto/laranja
+        iconSize: [35, 35],
+        iconAnchor: [17, 35],
+        popupAnchor: [0, -35]
+    });
 
-        {% for p in posicoes %}
-            var marker = L.marker([{{ p.latitude }}, {{ p.longitude }}])
-                .addTo(map)
-                .bindPopup("<b>Motoboy:</b> {{ p.usuario.username }}<br><b>Visto em:</b> {{ p.data_criacao|date:'H:i' }}");
+    // 2. Inicialização focada no Núcleo Bandeirante, DF
+    // Coordenadas aproximadas da região central do NB
+    const map = L.map('map').setView([-15.8732, -47.9621], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let markers = {}; 
+
+    // 3. Função de Atualização
+    async function carregarMotoboys() {
+        try {
+            // Ajuste esta URL para a rota que você criou no Django
+            const response = await fetch('/posicoes/'); 
+            const dados = await response.json();
             
-            bounds.push([{{ p.latitude }}, {{ p.longitude }}]);
-        {% endfor %}
-
-        // Ajusta o zoom para mostrar todos os motoboys automaticamente
-        if (bounds.length > 0) {
-            map.fitBounds(bounds);
+            dados.forEach(moto => {
+                const coord = [moto.lat, moto.lng];
+                
+                if (markers[moto.id]) {
+                    // Atualiza posição existente
+                    markers[moto.id].setLatLng(coord)
+                                   .setPopupContent(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
+                } else {
+                    // Cria novo marcador
+                    markers[moto.id] = L.marker(coord, {icon: motoIcon})
+                        .addTo(map)
+                        .bindPopup(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
+                }
+            });
+            document.getElementById('status').innerText = "Atualizado: " + new Date().toLocaleTimeString();
+        } catch (e) {
+            document.getElementById('status').innerText = "Erro na conexão";
         }
-    </script>
+    }
+
+    // Atualiza a cada 5 segundos para um tracking mais real
+    setInterval(carregarMotoboys, 5000);
+    carregarMotoboys();
+</script>
 </body>
 </html>

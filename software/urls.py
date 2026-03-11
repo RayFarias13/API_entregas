@@ -16,4 +16,5 @@ urlpatterns = [
     path('km/historico/', views.lista_km, name='lista_km'),
     path('localizacao_motoboy/', views.atualizar_localizacao, name='atualizar_localizacao'),
     path('mapa/', views.mapa_entregadores, name='mapa_entregadores'),
+    path('posicoes/', views.dados_entregadores_json, name='dados_json'),
 ]

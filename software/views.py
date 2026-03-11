@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Case, When, Value, CharField
+from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
 from django.db.models.functions import TruncMonth, ExtractDay
 
 
@@ -19,7 +19,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.contrib.auth import logout
-from . import views
 
 
 # Página Kanban - GERAL
@@ -567,14 +566,26 @@ def atualizar_localizacao(request):
 
 @login_required
 def mapa_entregadores(request):
-    # Subquery para pegar o ID do registro mais recente de cada usuário
+    return render(request, 'mapa.html')
+
+@login_required
+def dados_entregadores_json(request):
+    # Sua lógica de Subquery (Perfeita!)
     ultimas_posicoes_ids = HistoricoLocalizacao.objects.filter(
         usuario=OuterRef('usuario')
     ).order_by('-data_criacao').values('id')[:1]
 
-    # Filtra o queryset principal usando essa subquery
     posicoes = HistoricoLocalizacao.objects.filter(
         id__in=Subquery(ultimas_posicoes_ids)
     ).select_related('usuario')
 
-    return render(request, 'mapa.html', {'posicoes': posicoes})
+    # Transformamos o QuerySet em uma lista para o JSON
+    data = [{
+        "id": p.usuario.id,
+        "username": p.usuario.username,
+        "lat": float(p.latitude),
+        "lng": float(p.longitude),
+        "hora": p.data_criacao.strftime('%H:%M')
+    } for p in posicoes]
+
+    return JsonResponse(data, safe=False)
