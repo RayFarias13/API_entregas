@@ -362,7 +362,7 @@ def login_view(request):
             if user is not None:
                 if user.funcionario.funcao == 'ENTREGADOR':
                     login(request, user)
-                    return redirect('perfil')
+                    return redirect('perfilmotoboy')
 
                                 
                 elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']:
