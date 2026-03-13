@@ -5,66 +5,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento | Cadastro</title>
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
-        /* Customizações para modernizar o visual */
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        #navbar { background: #ffffff; padding: 15px 0; border-bottom: 1px solid #e7e7e7; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .navbar-brand-custom { font-weight: bold; color: #333 !important; font-size: 24px; }
-        .nav-links-container { margin-top: 10px; }
-        .links { color: #555; font-weight: 500; transition: 0.3s; padding: 8px 15px; border-radius: 4px; }
-        .links:hover { background: #f0f0f0; text-decoration: none; color: #000; }
-        .btn-logout { color: #d9534f !important; border: 1px solid #d9534f; border-radius: 20px; }
-        .btn-logout:hover { background: #d9534f; color: #fff !important; }
-        .main-content { margin-top: 30px; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        :root {
+            --red: #e74c3c;
+            --red-dark: #c0392b;
+            --red-soft: #fdf1f0;
+            --bg: #f4f5f7;
+            --surface: #ffffff;
+            --border: #e8e8e8;
+            --text: #1a1a2e;
+            --muted: #7a7a8c;
+            --radius: 10px;
+            --nav-h: 64px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── NAVBAR ── */
+        #navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        /* Brand */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: -0.3px;
+            flex-shrink: 0;
+        }
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--red);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 15px;
+        }
+        .brand:hover { opacity: 0.85; }
+
+        /* Nav links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 13px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: background 0.18s, color 0.18s;
+        }
+        .nav-links a:hover { background: var(--bg); color: var(--text); }
+        .nav-links a i { font-size: 13px; }
+
+        /* Divider */
+        .nav-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+            margin: 0 6px;
+        }
+
+        /* User pill */
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--bg);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .user-pill strong { color: var(--text); font-weight: 600; }
+
+        /* Logout btn */
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+        .btn-logout:hover {
+            background: var(--red-soft);
+            border-color: #f5c6c2;
+        }
+
+        /* Dropdown */
+        .dropdown { position: relative; }
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 13px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s;
+        }
+        .dropdown-toggle:hover { background: var(--bg); color: var(--text); }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            min-width: 160px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            z-index: 999;
+        }
+        .dropdown:hover .dropdown-menu,
+        .dropdown-toggle:focus + .dropdown-menu { display: block; }
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 16px;
+            font-size: 13px;
+            color: var(--text);
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .dropdown-menu a:hover { background: var(--bg); }
+        .dropdown-menu a i { color: var(--muted); font-size: 13px; width: 14px; }
+
+        /* Admin link */
+        .btn-admin {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 13px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.18s;
+        }
+        .btn-admin:hover { background: var(--bg); color: var(--text); }
+
+        /* ── MAIN ── */
+        main {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .main-content {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 32px;
+            min-height: 300px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .user-pill { display: none; }
+            .nav-divider { display: none; }
+            .nav-inner { padding: 0 16px; }
+            main { padding: 0 16px; margin: 20px auto; }
+            .main-content { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
 <nav id="navbar">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-12">
-                <a class="navbar-brand-custom" href="/board_administrativo" style="text-decoration:none;">
-                    <i class="fa fa-cogs"></i> Gerenciamento
-                </a>
-            </div>
+    <div class="nav-inner">
 
-            <div class="col-md-8 col-sm-12 text-right nav-links-container">
-                <ul class="list-inline" style="margin-bottom:0;">
-                    {% if request.user.is_authenticated %}
-                        <li><span class="text-muted">Olá, <strong>{{ request.user.username }}</strong></span></li>
-                        <li><a class="links btn-logout" href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
-                    {% else %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle links" data-toggle="dropdown" role="button">
-                                <i class="fa fa-user-circle"></i> Conta <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="/login"><i class="fa fa-sign-in"></i> Login</a></li>
-                                <li><a href="/cadastro"><i class="fa fa-user-plus"></i> Cadastro</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="links" href="/adminclick"><i class="fa fa-lock"></i> Admin</a></li>
+        <a class="brand" href="/home_administrativo">
+            <div class="brand-icon"><i class="fa-solid fa-cogs"></i></div>
+            Gerenciamento
+        </a>
+
+        <ul class="nav-links">
+            {% if request.user.is_authenticated %}
+
+                {% with funcao=request.user.funcionario.funcao %}
+                    {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
+                        <li><a href="/cadastro_funcionario"><i class="fa-solid fa-user-plus"></i> Cadastro</a></li>
+                        <li><a href="/gerenciar_cadastros"><i class="fa-solid fa-users"></i> Equipe</a></li>
+                        <li><div class="nav-divider"></div></li>
                     {% endif %}
-                </ul>
-            </div>
-        </div>
+                {% endwith %}
+
+                <li>
+                    <div class="user-pill">
+                        <i class="fa-solid fa-circle-user"></i>
+                        Olá, <strong>{{ request.user.username }}</strong>
+                    </div>
+                </li>
+                <li>
+                    <a class="btn-logout" href="/logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair
+                    </a>
+                </li>
+
+            {% else %}
+
+                <li>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" tabindex="0">
+                            <i class="fa-solid fa-user-circle"></i> Conta
+                            <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                            <li><a href="/cadastro"><i class="fa-solid fa-user-plus"></i> Cadastro</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+            {% endif %}
+        </ul>
+
     </div>
 </nav>
 
-<main class="container">
-    <div class="main-content">
+<main>
+    <!-- <div class="main-content"> --->
+    <div class="container">
         {% block content %}
         {% endblock content %}
     </div>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </body>
 </html>

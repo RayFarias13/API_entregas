@@ -5,11 +5,12 @@
     <title>Dashboard - Drogaria Cíntia</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    
-    <style>
-        body { margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; }
 
-        /* --- NOVO CABEÇALHO --- */
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; }
+
+        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -19,39 +20,112 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             height: 60px;
             position: relative;
-            z-index: 1001; /* Fica acima do mapa */
+            z-index: 1001;
         }
-
         .nav-left { display: flex; align-items: center; gap: 20px; }
         .nav-right { display: flex; align-items: center; gap: 20px; }
-
         .logo { font-weight: bold; color: #e74c3c; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
-        
         .nav-links { display: flex; gap: 15px; }
-        .nav-links a { 
+        .nav-links a {
             text-decoration: none; color: #555; font-size: 0.9rem; font-weight: 500;
             padding: 8px 12px; border-radius: 6px; transition: 0.3s;
         }
         .nav-links a:hover { background-color: #f8f9fa; color: #e74c3c; }
-
-        .user-info { 
-            display: flex; align-items: center; gap: 10px; 
+        .user-info {
+            display: flex; align-items: center; gap: 10px;
             padding-left: 15px; border-left: 1px solid #ddd;
         }
         .username { font-weight: 600; color: #2c3e50; font-size: 0.9rem; }
-        
-        .btn-logout {
-            color: #c0392b; font-size: 1.1rem; transition: 0.2s;
-        }
+        .btn-logout { color: #c0392b; font-size: 1.1rem; transition: 0.2s; text-decoration: none; }
         .btn-logout:hover { color: #ff0000; }
-
-        .status-badge { 
-            background: #27ae60; color: white; padding: 4px 10px; 
+        .status-badge {
+            background: #27ae60; color: white; padding: 4px 10px;
             border-radius: 20px; font-size: 11px; font-weight: bold;
         }
 
-        /* --- MAPA --- */
-        #map { height: calc(100vh - 80px); width: 100%; }
+        /* LAYOUT */
+        .layout {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 230px;
+            min-width: 230px;
+            background: #ffffff;
+            border-right: 1px solid #e8e8e8;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar-header {
+            padding: 14px 16px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #aaa;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: #fff;
+        }
+        .moto-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-bottom: 0.5px solid #f5f5f5;
+            transition: background 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .moto-item:hover { background: #fdf3f3; }
+        .moto-item.active {
+            background: #fdf3f3;
+            border-left: 3px solid #e74c3c;
+        }
+        .moto-item.active .moto-name { color: #e74c3c; font-weight: 600; }
+        .moto-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #fde8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #e74c3c;
+            flex-shrink: 0;
+        }
+        .moto-info { flex: 1; min-width: 0; }
+        .moto-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .moto-time {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #27ae60;
+            flex-shrink: 0;
+        }
+        .dot.offline { background: #ccc; }
+
+        /* MAPA */
+        #map { flex: 1; height: 100%; }
     </style>
 </head>
 <body>
@@ -62,15 +136,11 @@
             <i class="fa-solid fa-house-medical"></i> Drogaria Cíntia
         </div>
         <div class="nav-links">
-            <a href="/home"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-            
-            <!-- <li><a class="links btn-logout" href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li> -->
+            <a href="/home_administrativo"><i class="fa-solid fa-chart-line"></i> Painel</a>
         </div>
     </div>
-
     <div class="nav-right">
         <span id="status" class="status-badge">Sincronizando...</span>
-        
         <div class="user-info">
             <span class="username"><i class="fa-solid fa-user-circle"></i> {{ user.username }}</span>
             <a href="/logout/" class="btn-logout" title="Sair da conta">
@@ -80,56 +150,104 @@
     </div>
 </nav>
 
-<div id="map"></div>
+<div class="layout">
+    <!-- SIDEBAR COM MOTOBOYS -->
+    <div class="sidebar">
+        <div class="sidebar-header">Motoboys</div>
+        <div id="moto-list"></div>
+    </div>
+
+    <!-- MAPA -->
+    <div id="map"></div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // Configurações do Mapa (Drogaria Cíntia - NB)
-    const latLoja = -15.87413;
-    const lngLoja = -47.96644;
-    
-    // Ícones
-    const motoIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/9561/9561839.png', 
-        iconSize: [45, 45], iconAnchor: [22, 45], popupAnchor: [0, -40]
-    });
+    const latLoja = -15.868819;
+    const lngLoja = -47.9657715;
 
+    const motoIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/9561/9561839.png',
+        iconSize: [25, 25], iconAnchor: [22, 45], popupAnchor: [0, -40]
+    });
     const lojaIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/869/869636.png', 
-        iconSize: [50, 50], iconAnchor: [25, 50], popupAnchor: [0, -45]
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/869/869636.png',
+        iconSize: [25, 25], iconAnchor: [25, 50], popupAnchor: [0, -45]
     });
 
     const map = L.map('map').setView([latLoja, lngLoja], 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Marcador da Loja
-    L.marker([latLoja, lngLoja], {icon: lojaIcon})
+    L.marker([latLoja, lngLoja], { icon: lojaIcon })
         .addTo(map)
-        .bindPopup("<b>🏠 Drogaria Cíntia</b><br>Sede NB")
+        .bindPopup('<b>🏠 Drogaria Cíntia</b><br>Sede NB')
         .openPopup();
 
-    let markers = {}; 
+    let markers = {};
+    let activeItem = null;
+
+    function getInitials(name) {
+        return name.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
+    }
+
+    function focusMotoboy(id) {
+        if (!markers[id]) return;
+        const marker = markers[id];
+        const ll = marker.getLatLng();
+        map.flyTo(ll, 18, { duration: 1 });
+        marker.openPopup();
+
+        // Destaca item na sidebar
+        if (activeItem) activeItem.classList.remove('active');
+        const el = document.querySelector(`[data-id="${id}"]`);
+        if (el) { el.classList.add('active'); activeItem = el; }
+    }
 
     async function carregarMotoboys() {
         try {
-            const response = await fetch('/posicoes/'); 
+            const response = await fetch('/posicoes/');
             const dados = await response.json();
-            
+            const list = document.getElementById('moto-list');
+
             dados.forEach(moto => {
+                // Atualiza ou cria marcador no mapa
                 if (markers[moto.id]) {
-                    markers[moto.id].setLatLng([moto.lat, moto.lng])
-                                   .setPopupContent(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
+                    markers[moto.id]
+                        .setLatLng([moto.lat, moto.lng])
+                        .setPopupContent(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
                 } else {
-                    markers[moto.id] = L.marker([moto.lat, moto.lng], {icon: motoIcon})
+                    markers[moto.id] = L.marker([moto.lat, moto.lng], { icon: motoIcon })
                         .addTo(map)
-                        .bindPopup(`<b>${moto.username}</b>`);
+                        .bindPopup(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
+                }
+
+                // Cria item na sidebar se ainda não existe
+                if (!document.querySelector(`[data-id="${moto.id}"]`)) {
+                    const item = document.createElement('div');
+                    item.className = 'moto-item';
+                    item.dataset.id = moto.id;
+                    item.innerHTML = `
+                        <div class="moto-avatar">${getInitials(moto.username)}</div>
+                        <div class="moto-info">
+                            <div class="moto-name">${moto.username}</div>
+                            <div class="moto-time">${moto.hora || 'Online'}</div>
+                        </div>
+                        <div class="dot"></div>
+                    `;
+                    item.addEventListener('click', () => focusMotoboy(moto.id));
+                    list.appendChild(item);
+                } else {
+                    // Atualiza horário
+                    const timeEl = document.querySelector(`[data-id="${moto.id}"] .moto-time`);
+                    if (timeEl) timeEl.textContent = moto.hora || 'Online';
                 }
             });
-            document.getElementById('status').innerText = "Online: " + new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('status').style.background = "#27ae60";
+
+            document.getElementById('status').innerText = 'Online: ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('status').style.background = '#27ae60';
         } catch (e) {
-            document.getElementById('status').innerText = "Erro de Conexão";
-            document.getElementById('status').style.background = "#e74c3c";
+            document.getElementById('status').innerText = 'Erro de Conexão';
+            document.getElementById('status').style.background = '#e74c3c';
         }
     }
 

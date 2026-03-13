@@ -92,19 +92,26 @@
             </div>
             <div class="col-xs-8 text-right">
                 {% if request.user.is_authenticated %}
-                    <a class="links" href="/mapa">Mapa</a>
-                    <a>|</div>a>
-                    <a class="links" href="/entrega_avulsa">Entrega Avulsa</a>
-                    <a class="links" href="/km/novo">Cadastro de KM</a>
-                    <a class="links" href="/km/historico">Histórico de KM </a>
-                    <a >|</a>
-                    <a class="links" href="/cadastro_funcionario">Cadastro</a>
-                    <a class="links" href="/gerenciar_cadastros">Equipe</a>
 
-                    <a class="links" href="/logout" style="color: #e74c3c;"><i class="fa fa-power-off"></i></a>
-                {% else %}
-                    <a class="links" href="/login">Login</a>
-                {% endif %}
+                <a class="links" href="/mapa">Mapa</a>
+                <a>|</a>
+                <a class="links" href="/entrega_avulsa">Entrega Avulsa</a>
+                <a class="links" href="/km/novo">Cadastro de KM</a>
+                <a class="links" href="/km/historico">Histórico de KM</a>
+
+                {% with funcao=request.user.funcionario.funcao %}
+                    {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
+                        <a>|</a>
+                        <a class="links" href="/cadastro_funcionario">Cadastro</a>
+                        <a class="links" href="/gerenciar_cadastros">Equipe</a>
+                    {% endif %}
+                {% endwith %}
+
+                <a class="links" href="/logout" style="color: #e74c3c;"><i class="fa fa-power-off"></i></a>
+
+            {% else %}
+                <a class="links" href="/login">Login</a>
+            {% endif %}
             </div>
         </div>
     </div>

@@ -1,13 +1,180 @@
 {% extends "cabecalho.html" %}
 {% block content %}
-<h2>Gerenciar Funcionários</h2>
+<div class="main-content">
+
+
+<style>
+    :root {
+        --red: #e74c3c;
+        --red-soft: #fdf1f0;
+        --green: #27ae60;
+        --green-soft: #eafaf1;
+        --border: #e8e8e8;
+        --bg: #f4f5f7;
+        --muted: #7a7a8c;
+        --radius: 8px;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .page-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a2e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .page-title i { color: var(--red); font-size: 18px; }
+
+    .count-badge {
+        background: var(--bg);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+    }
+
+    /* Tabela */
+    .staff-table { width: 100%; border-collapse: collapse; }
+    .staff-table thead tr {
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+    }
+    .staff-table th {
+        padding: 10px 16px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        text-align: left;
+    }
+    .staff-table tbody tr {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.15s;
+    }
+    .staff-table tbody tr:last-child { border-bottom: none; }
+    .staff-table tbody tr:hover { background: #fafafa; }
+    .staff-table td { padding: 14px 16px; font-size: 14px; vertical-align: middle; }
+
+    /* Avatar */
+    .user-cell { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--red-soft);
+        color: var(--red);
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .user-name { font-weight: 500; color: #1a1a2e; font-size: 14px; }
+    .user-username { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    /* Select */
+    .funcao-select {
+        appearance: none;
+        -webkit-appearance: none;
+        background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a7a8c' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 10px center;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 7px 30px 7px 10px;
+        font-size: 13px;
+        font-family: inherit;
+        color: #1a1a2e;
+        cursor: pointer;
+        transition: border-color 0.2s, background 0.2s;
+        min-width: 160px;
+    }
+    .funcao-select:focus {
+        outline: none;
+        border-color: var(--red);
+        background-color: #fff;
+    }
+    .funcao-select:hover { border-color: #ccc; }
+
+    /* Badges de função */
+    .funcao-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 20px;
+        margin-left: 8px;
+    }
+    .badge-gerente    { background: #eaf0fb; color: #2c6fba; }
+    .badge-entregador { background: #eafaf1; color: #1e8449; }
+    .badge-caixa      { background: #fef9e7; color: #b7770d; }
+    .badge-admin      { background: #f4ecf7; color: #7d3c98; }
+    .badge-definir    { background: var(--bg); color: var(--muted); }
+
+    /* Footer */
+    .table-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0 0;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .save-info { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+    .btn-save {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        padding: 10px 22px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+    }
+    .btn-save:hover { background: #219a52; }
+    .btn-save:active { transform: scale(0.98); }
+
+    @media (max-width: 600px) {
+        .staff-table thead { display: none; }
+        .staff-table td { display: block; padding: 8px 16px; border: none; }
+        .staff-table tr { border-bottom: 1px solid var(--border); padding: 10px 0; display: block; }
+        .funcao-select { width: 100%; }
+    }
+</style>
 
 <form method="post">
     {% csrf_token %}
-    <table class="table table-striped">
+
+    <div class="page-header">
+        <div class="page-title">
+            <i class="fa-solid fa-users"></i>
+            Gerenciar Funcionários
+            <span class="count-badge">{{ funcionarios|length }} cadastros</span>
+        </div>
+    </div>
+
+    <table class="staff-table">
         <thead>
             <tr>
-                <th>Nome</th>
+                <th>Funcionário</th>
                 <th>Usuário</th>
                 <th>Função</th>
             </tr>
@@ -15,10 +182,23 @@
         <tbody>
             {% for f in funcionarios %}
             <tr>
-                <td>{{ f.user.get_full_name }}</td>
-                <td>{{ f.user.username }}</td>
                 <td>
-                    <select name="funcao_{{ f.id }}" class="form-control">
+                    <div class="user-cell">
+                        <div class="avatar">
+                            {{ f.user.get_full_name|slice:":1"|upper }}{{ f.user.last_name|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <div class="user-name">{{ f.user.get_full_name }}</div>
+                        </div>
+                    </div>
+                </td>
+
+                <td style="color: var(--muted); font-size: 13px;">
+                    @{{ f.user.username }}
+                </td>
+
+                <td>
+                    <select name="funcao_{{ f.id }}" class="funcao-select">
                         {% for key, value in f.funcionario_funcao_choice %}
                         <option value="{{ key }}" {% if f.funcao == key %}selected{% endif %}>
                             {{ value }}
@@ -30,6 +210,19 @@
             {% endfor %}
         </tbody>
     </table>
-    <button type="submit" class="btn btn-success">Salvar alterações</button>
+
+    <div class="table-footer">
+        <span class="save-info">
+            <i class="fa-solid fa-circle-info" style="color: var(--muted);"></i>
+            Alterações só são salvas ao clicar no botão
+        </span>
+        <button type="submit" class="btn-save">
+            <i class="fa-solid fa-floppy-disk"></i> Salvar alterações
+        </button>
+    </div>
+
 </form>
+</div>
+
+
 {% endblock %}

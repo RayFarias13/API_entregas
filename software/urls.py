@@ -17,4 +17,10 @@ urlpatterns = [
     path('localizacao_motoboy/', views.atualizar_localizacao, name='atualizar_localizacao'),
     path('mapa/', views.mapa_entregadores, name='mapa_entregadores'),
     path('posicoes/', views.dados_entregadores_json, name='dados_json'),
+    path('perfil/', views.perfil_motoboy, name='perfilmotoboy'),
+    path('perfil/entregas/', views.motoboy_entregas_dia,        name='motoboy_entregas_dia'),
+    path('perfil/historico/', views.motoboy_historico_entregas, name='motoboy_historico_entregas'),
+    path('perfil/km/',        views.motoboy_historico_km,        name='motoboy_historico_km'),
+    path('perfil/pontuacao/', views.motoboy_pontuacao,           name='motoboy_pontuacao'),
+
 ]

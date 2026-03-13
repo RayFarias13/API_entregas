@@ -1,0 +1,144 @@
+{% extends "cabecalho_motoboy.html" %}
+{% block content %}
+<style>
+    :root {
+        --red: #e74c3c; --red-soft: #fdf1f0;
+        --green: #22c55e; --green-soft: #f0fdf4;
+        --blue: #3b82f6; --blue-soft: #eff6ff;
+        --amber: #f59e0b; --amber-soft: #fffbeb;
+        --border: #eaeaea; --bg: #f2f3f7;
+        --text: #111827; --muted: #6b7280;
+        --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .page-header {
+        background: var(--red);
+        padding: 20px 16px 16px;
+        display: flex; align-items: center; gap: 12px;
+    }
+    .back-btn {
+        color: rgba(255,255,255,0.85); font-size: 18px;
+        text-decoration: none; padding: 4px;
+    }
+    .page-header-title { color: #fff; font-size: 17px; font-weight: 700; }
+    .page-header-sub { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 2px; }
+
+    .summary-bar {
+        display: grid; grid-template-columns: 1fr 1fr 1fr;
+        background: #fff; border-bottom: 1px solid var(--border);
+        padding: 14px 16px; gap: 0;
+    }
+    .summary-item { text-align: center; }
+    .summary-item + .summary-item { border-left: 1px solid var(--border); }
+    .summary-value { font-size: 22px; font-weight: 700; color: var(--text); }
+    .summary-label { font-size: 10px; color: var(--muted); font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+    .cards-list { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .entrega-card {
+        background: #fff; border-radius: var(--radius);
+        border: 1px solid var(--border); overflow: hidden;
+    }
+    .card-top {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 14px 16px 10px;
+    }
+    .card-num { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .status-badge {
+        font-size: 11px; font-weight: 600; padding: 3px 10px;
+        border-radius: 20px;
+    }
+    .badge-entregue   { background: var(--green-soft); color: #16a34a; }
+    .badge-andamento  { background: var(--blue-soft);  color: #2563eb; }
+    .badge-ausente    { background: var(--amber-soft); color: #d97706; }
+    .badge-recusou    { background: var(--red-soft);   color: var(--red); }
+
+    .card-body { padding: 0 16px 14px; }
+    .card-cliente { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .card-info {
+        display: flex; align-items: flex-start; gap: 6px;
+        font-size: 13px; color: var(--muted); margin-top: 4px;
+    }
+    .card-info i { font-size: 12px; margin-top: 2px; flex-shrink: 0; }
+
+    .card-footer {
+        border-top: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-time { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+
+    .empty-state {
+        text-align: center; padding: 60px 20px;
+        color: var(--muted);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
+    .empty-text { font-size: 15px; font-weight: 500; }
+    .empty-sub  { font-size: 13px; margin-top: 4px; }
+
+    .page-bottom { height: 80px; }
+</style>
+
+<div class="page-header">
+    <a class="back-btn" href="/perfil/"><i class="fa-solid fa-arrow-left"></i></a>
+    <div>
+        <div class="page-header-title">Entregas do dia</div>
+        <div class="page-header-sub">{{ hoje }}</div>
+    </div>
+</div>
+
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="summary-value">{{ total }}</div>
+        <div class="summary-label">Total</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-value" style="color:#16a34a;">{{ entregues }}</div>
+        <div class="summary-label">Entregues</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-value" style="color:#2563eb;">{{ pendentes }}</div>
+        <div class="summary-label">Pendentes</div>
+    </div>
+</div>
+
+<div class="cards-list">
+    {% for e in entregas %}
+    <div class="entrega-card">
+        <div class="card-top">
+            <span class="card-num">#{{ e.cd_entr }}</span>
+            <span class="status-badge
+                {% if e.status == 'ENTREGUE' %}badge-entregue
+                {% elif e.status == 'CLIENTE_AUSENTE' %}badge-ausente
+                {% elif e.status == 'CLIENTE_RECUSOU' %}badge-recusou
+                {% else %}badge-andamento{% endif %}">
+                {{ e.status_display }}
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="card-cliente">{{ e.cliente }}</div>
+            <div class="card-info"><i class="fa-solid fa-location-dot"></i> {{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}</div>
+            {% if e.telefone %}
+            <div class="card-info"><i class="fa-solid fa-phone"></i> {{ e.telefone }}</div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <span class="card-time">
+                <i class="fa-regular fa-clock"></i> {{ e.horario }}
+            </span>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+        <div class="empty-text">Nenhuma entrega hoje</div>
+        <div class="empty-sub">As entregas finalizadas aparecerão aqui</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="page-bottom"></div>
+{% endblock %}

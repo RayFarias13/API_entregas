@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}Drogaria Cíntia{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --red: #e74c3c;
+            --red-soft: #fdf1f0;
+            --bg: #f2f3f7;
+            --surface: #ffffff;
+            --border: #eaeaea;
+            --text: #111827;
+            --muted: #6b7280;
+            --radius: 14px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: calc(64px + env(safe-area-inset-bottom));
+        }
+
+        /* ── BOTTOM NAV ── */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: stretch;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 999;
+        }
+
+        .nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 10px 4px;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: color 0.15s;
+            position: relative;
+        }
+
+        .nav-btn i {
+            font-size: 20px;
+            transition: transform 0.15s;
+        }
+
+        .nav-btn:active i {
+            transform: scale(0.88);
+        }
+
+        .nav-btn.active {
+            color: var(--red);
+        }
+
+        .nav-btn.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--red);
+            border-radius: 0 0 4px 4px;
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+
+{% block content %}{% endblock %}
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+    <a class="nav-btn {% block nav_perfil %}{% endblock %}" href="/perfil/">
+        <i class="fa-solid fa-user"></i>
+        Perfil
+    </a>
+    <a class="nav-btn {% block nav_entregas %}{% endblock %}" href="/perfil/entregas/">
+        <i class="fa-solid fa-box"></i>
+        Entregas
+    </a>
+    <a class="nav-btn {% block nav_km %}{% endblock %}" href="/perfil/km/">
+        <i class="fa-solid fa-route"></i>
+        KM
+    </a>
+    <a class="nav-btn {% block nav_pontuacao %}{% endblock %}" href="/perfil/pontuacao/">
+        <i class="fa-solid fa-star"></i>
+        Pontos
+    </a>
+</nav>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

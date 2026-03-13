@@ -19,6 +19,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.contrib.auth import logout
+from itertools import groupby
+from collections import defaultdict
+
 
 
 # Página Kanban - GERAL
@@ -351,8 +354,8 @@ def finalizar_entrega(request):
 def login_view(request):
     try:
         if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+            username = request.POST.get('username').strip().lower()
+            password = request.POST.get('password').strip().lower()
 
             user = authenticate(request, username=username, password=password)
 
@@ -361,11 +364,8 @@ def login_view(request):
                     login(request, user)
                     return redirect('entregas_motoboy')
 
-                elif user.funcionario.funcao == 'OP. DE CAIXA':
-                    login(request, user)
-                    return redirect('board')
-                
-                elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']:
+                                
+                elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']:
                     login(request, user)
                     return redirect('boardadministrativo')
                 
@@ -585,7 +585,308 @@ def dados_entregadores_json(request):
         "username": p.usuario.username,
         "lat": float(p.latitude),
         "lng": float(p.longitude),
-        "hora": p.data_criacao.strftime('%H:%M')
+        "hora": timezone.localtime(p.data_criacao).strftime('%H:%M')
+
     } for p in posicoes]
 
     return JsonResponse(data, safe=False)
+
+
+@login_required
+def perfil_motoboy(request):
+    try:
+        funcionario = request.user.funcionario
+    except AttributeError:
+        return redirect('login')
+
+    hoje = timezone.now().date()
+    mes_atual = hoje.month
+    ano_atual = hoje.year
+
+    # Total de entregas do mês (usa data_hora_entrega pois auto_now_add é garantido)
+    total_entregas_mes = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__month=mes_atual,
+        data_hora_entrega__year=ano_atual
+    ).count()
+
+    # Total de KM do mês
+    total_km_mes = dadoskilometragem.objects.filter(
+        usermotoboy=request.user,
+        data_apuracao__month=mes_atual,
+        data_apuracao__year=ano_atual
+    ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0
+
+    # Últimas 5 entregas finalizadas
+    ultimas_entregas = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user
+    ).order_by('-data_hora_entrega')[:5]
+
+    entregas_formatadas = [{
+        'cliente': e.nome_cliente or 'Desconhecido',
+        'horario': timezone.localtime(e.data_hora_entrega).strftime('%d/%m %H:%M'),
+        'status': 'entregue' if e.entrega_status == 'ENTREGUE' else 'andamento'
+    } for e in ultimas_entregas]
+
+    return render(request, 'perfilmotoboy.html', {
+        'funcionario': funcionario,
+        'total_entregas_mes': total_entregas_mes,
+        'total_km_mes': round(total_km_mes, 1),
+        'pontuacao': total_entregas_mes,  # ajuste se tiver lógica própria de pontos
+        'ultimas_entregas': entregas_formatadas,
+    })
+
+
+# ─────────────────────────────────────────
+# ENTREGAS DO DIA
+# ─────────────────────────────────────────
+@login_required
+def motoboy_entregas_dia(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+ 
+    entregas_qs = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__date=hoje
+    ).order_by('-data_hora_entrega')
+ 
+    status_display = dict(EntregaFinalizada.STATUS_CHOICES)
+ 
+    entregas = [{
+        'cd_entr': e.entrega_id,
+        'cliente': e.nome_cliente or 'Desconhecido',
+        'endereco': e.endereco or '',
+        'complemento': e.complemento or '',
+        'telefone': e.telefone or '',
+        'status': e.entrega_status,
+        'status_display': status_display.get(e.entrega_status, e.entrega_status),
+        'horario': timezone.localtime(e.data_hora_entrega).strftime('%H:%M'),
+    } for e in entregas_qs]
+ 
+    entregues = sum(1 for e in entregas if e['status'] == 'ENTREGUE')
+    pendentes = len(entregas) - entregues
+ 
+    return render(request, 'motoboy_entregas_dia.html', {
+        'entregas': entregas,
+        'total': len(entregas),
+        'entregues': entregues,
+        'pendentes': pendentes,
+        'hoje': hoje.strftime('%d/%m/%Y'),
+    })
+ 
+ 
+# ─────────────────────────────────────────
+# HISTÓRICO DE ENTREGAS
+# ─────────────────────────────────────────
+@login_required
+def motoboy_historico_entregas(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+ 
+    # Meses disponíveis (últimos 6 meses)
+    meses_disponiveis = []
+    for i in range(6):
+        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        meses_disponiveis.append({
+            'value': d.strftime('%Y-%m'),
+            'label': d.strftime('%B/%Y').capitalize(),
+        })
+ 
+    mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+ 
+    try:
+        ano, mes = map(int, mes_selecionado.split('-'))
+    except ValueError:
+        ano, mes = hoje.year, hoje.month
+ 
+    entregas_qs = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__year=ano,
+        data_hora_entrega__month=mes,
+    ).order_by('-data_hora_entrega')
+ 
+    status_display = dict(EntregaFinalizada.STATUS_CHOICES)
+ 
+    # Agrupar por data
+    grupos_dict = defaultdict(list)
+    for e in entregas_qs:
+        data_local = timezone.localtime(e.data_hora_entrega)
+        chave = data_local.strftime('%d/%m/%Y')
+        grupos_dict[chave].append({
+            'cliente': e.nome_cliente or 'Desconhecido',
+            'endereco': e.endereco or '',
+            'status': e.entrega_status,
+            'status_display': status_display.get(e.entrega_status, e.entrega_status),
+            'hora': data_local.strftime('%H:%M'),
+        })
+ 
+    entregas_agrupadas = [
+        {'data': data, 'entregas': itens}
+        for data, itens in grupos_dict.items()
+    ]
+ 
+    total_geral = EntregaFinalizada.objects.filter(usermotoboy=request.user).count()
+ 
+    return render(request, 'motoboy_historico_entregas.html', {
+        'entregas_agrupadas': entregas_agrupadas,
+        'meses_disponiveis': meses_disponiveis,
+        'mes_selecionado': mes_selecionado,
+        'total_geral': total_geral,
+    })
+ 
+ 
+# ─────────────────────────────────────────
+# HISTÓRICO DE KM
+# ─────────────────────────────────────────
+@login_required
+def motoboy_historico_km(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+ 
+    # Meses disponíveis
+    meses_disponiveis = []
+    for i in range(6):
+        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        meses_disponiveis.append({
+            'value': d.strftime('%Y-%m'),
+            'label': d.strftime('%B/%Y').capitalize(),
+        })
+ 
+    mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+ 
+    try:
+        ano, mes = map(int, mes_selecionado.split('-'))
+    except ValueError:
+        ano, mes = hoje.year, hoje.month
+ 
+    registros_qs = dadoskilometragem.objects.filter(
+        usermotoboy=request.user,
+        data_apuracao__year=ano,
+        data_apuracao__month=mes,
+    ).order_by('data_apuracao')
+ 
+    DIAS_SEMANA = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
+ 
+    # Separar em quinzenas
+    primeira = []
+    segunda  = []
+    for r in registros_qs:
+        item = {
+            'data': r.data_apuracao.strftime('%d/%m/%Y'),
+            'dia_semana': DIAS_SEMANA[r.data_apuracao.weekday()],
+            'km': round(r.km_diario, 1),
+        }
+        if r.data_apuracao.day <= 15:
+            primeira.append(item)
+        else:
+            segunda.append(item)
+ 
+    quinzenas = []
+    if primeira:
+        quinzenas.append({
+            'label': '1ª Quinzena',
+            'registros': primeira,
+            'total': round(sum(r['km'] for r in primeira), 1),
+        })
+    if segunda:
+        quinzenas.append({
+            'label': '2ª Quinzena',
+            'registros': segunda,
+            'total': round(sum(r['km'] for r in segunda), 1),
+        })
+ 
+    total_mes = round(
+        dadoskilometragem.objects.filter(
+            usermotoboy=request.user,
+            data_apuracao__year=ano,
+            data_apuracao__month=mes,
+        ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0, 1
+    )
+ 
+    total_geral = round(
+        dadoskilometragem.objects.filter(
+            usermotoboy=request.user
+        ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0, 1
+    )
+ 
+    return render(request, 'motoboy_historico_km.html', {
+        'quinzenas': quinzenas,
+        'meses_disponiveis': meses_disponiveis,
+        'mes_selecionado': mes_selecionado,
+        'total_mes': total_mes,
+        'total_geral': total_geral,
+    })
+ 
+ 
+# ─────────────────────────────────────────
+# PONTUAÇÃO
+# ─────────────────────────────────────────
+@login_required
+def motoboy_pontuacao(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+ 
+    total_geral  = EntregaFinalizada.objects.filter(usermotoboy=request.user).count()
+    total_mes    = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__year=hoje.year,
+        data_hora_entrega__month=hoje.month,
+    ).count()
+    total_semana = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__date__gte=inicio_semana,
+    ).count()
+ 
+    # Histórico por mês (últimos 2 meses)
+    por_mes = []
+    max_mes = 0
+    for i in range(2):
+        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        total = EntregaFinalizada.objects.filter(
+            usermotoboy=request.user,
+            data_hora_entrega__year=d.year,
+            data_hora_entrega__month=d.month,
+        ).count()
+        por_mes.append({
+            'label': d.strftime('%B/%Y').capitalize(),
+            'total': total,
+            'pct': 0,
+        })
+        if total > max_mes:
+            max_mes = total
+ 
+    # Calcula porcentagem para barra de progresso
+    for m in por_mes:
+        m['pct'] = round((m['total'] / max_mes) * 100) if max_mes > 0 else 0
+ 
+    return render(request, 'motoboy_pontuacao.html', {
+        'total_geral': total_geral,
+        'total_mes': total_mes,
+        'total_semana': total_semana,
+        'por_mes': por_mes,
+    })
