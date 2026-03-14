@@ -157,7 +157,7 @@ def board_motoboy(request):
             'telefone': cliente.phone_number if cliente else '',
         })
 
-    return render(request, 'motoboy_entregas.html', {'kanban': kanban})
+    return render(request, 'motoboy_entregas_dia.html', {'kanban': kanban})
 
 
 
@@ -442,12 +442,12 @@ def cadastro_funcionario(request):
             )
 
             messages.success(request, "Funcionário cadastrado com sucesso!")
-            return redirect('login') # Ou para uma página de listagem
+            return redirect('gerenciar_cadastros') # Ou para uma página de listagem
 
         except Exception as e:
             return render(request, 'cadastro_funcionario.html', {"error": f"Erro ao salvar: {e}"})
 
-    return render(request, 'cadastro_funcionario.html')
+    return render(request, 'gerenciar_cadastros.html')
     
 
 @login_required
@@ -466,31 +466,42 @@ def gerenciar_funcionarios(request):
         return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
 
 
+
 @login_required
 def registrar_km_manual(request):
+    try:
+        funcionario = request.user.funcionario
+    except AttributeError:
+        return redirect('login')
+
+    FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
+    if funcionario.funcao not in FUNCS_PERMITIDAS:
+        return redirect('login')
+
     if request.method == "POST":
-        id_motoboy = request.POST.get('motoboy') # ID do usuário selecionado
+        id_motoboy = request.POST.get('motoboy')
         km = request.POST.get('km_diario')
         data = request.POST.get('data_apuracao')
 
         if id_motoboy and km and data:
-            # Buscamos a instância do usuário pelo ID
-            usuario = User.objects.get(id=id_motoboy)
-            #usuario = Funcionarios_lista.objects.get(id=id_motoboy)  # pega o funcionário relacionado ao usuário
-            
+            try:
+                usuario = User.objects.get(id=id_motoboy)
+            except User.DoesNotExist:
+                return redirect('registrar_km')
+
             dadoskilometragem.objects.create(
                 usermotoboy=usuario,
                 km_diario=float(km.replace(',', '.')),
                 data_apuracao=data
             )
-            print(f"KM registrado: {km} para {usuario.username} na data {data}")
             return redirect('registrar_km')
 
-    # Buscamos todos os usuários para o administrador escolher um
-    # Dica: se você usa grupos, pode filtrar por: User.objects.filter(groups__name='Motoboys')
-    todos_motoboys = User.objects.all().order_by('first_name')
-    
+    todos_motoboys = User.objects.filter(
+        funcionario__funcao='ENTREGADOR'
+    ).order_by('first_name')
+
     return render(request, 'registrar_km.html', {'motoboys': todos_motoboys})
+
 
 @login_required
 def lista_km(request):
@@ -638,10 +649,10 @@ def perfil_motoboy(request):
 
 
 # ─────────────────────────────────────────
-# ENTREGAS DO DIA
+# ENTREGAS DO DIA - HISTORICO DO DIA
 # ─────────────────────────────────────────
 @login_required
-def motoboy_entregas_dia(request):
+def motoboy_entregas_dia_historico(request):
     try:
         funcionario = request.user.funcionario
         if funcionario.funcao != 'ENTREGADOR':

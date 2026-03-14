@@ -2,9 +2,7 @@
 {% block content %}
 <style>
     :root {
-        --red: #e74c3c; --red-soft: #fdf1f0;
-        --green-soft: #f0fdf4; --blue-soft: #eff6ff;
-        --amber-soft: #fffbeb;
+        --green: #16a34a; --green-soft: #f0fdf4;
         --border: #eaeaea; --bg: #f2f3f7;
         --text: #111827; --muted: #6b7280;
         --radius: 14px;
@@ -13,15 +11,26 @@
     body { background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
 
     .page-header {
-        background: #1e293b;
+        background: #16a34a;
         padding: 20px 16px 16px;
         display: flex; align-items: center; gap: 12px;
     }
-    .back-btn { color: rgba(255,255,255,0.8); font-size: 18px; text-decoration: none; }
+    .back-btn { color: rgba(255,255,255,0.85); font-size: 18px; text-decoration: none; }
     .page-header-title { color: #fff; font-size: 17px; font-weight: 700; }
-    .page-header-sub   { color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 2px; }
+    .page-header-sub   { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 2px; }
 
-    /* Filtro de mês */
+    /* Summary */
+    .summary-bar {
+        display: grid; grid-template-columns: 1fr 1fr;
+        background: #fff; border-bottom: 1px solid var(--border); padding: 14px 16px;
+    }
+    .summary-item { text-align: center; }
+    .summary-item + .summary-item { border-left: 1px solid var(--border); }
+    .summary-value { font-size: 22px; font-weight: 700; color: var(--text); }
+    .summary-label { font-size: 10px; color: var(--muted); font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+
+    /* Filtro */
     .filter-bar {
         background: #fff; border-bottom: 1px solid var(--border);
         padding: 12px 16px; display: flex; align-items: center; gap: 10px;
@@ -29,52 +38,43 @@
     .filter-bar label { font-size: 13px; color: var(--muted); font-weight: 500; white-space: nowrap; }
     .filter-bar select {
         flex: 1; border: 1px solid var(--border); border-radius: 8px;
-        padding: 7px 10px; font-size: 13px; font-family: inherit;
-        color: var(--text); background: var(--bg);
+        padding: 7px 10px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--bg);
     }
     .filter-bar button {
-        background: var(--red); color: #fff; border: none;
+        background: #16a34a; color: #fff; border: none;
         border-radius: 8px; padding: 8px 14px; font-size: 13px;
         font-family: inherit; font-weight: 600; cursor: pointer;
     }
 
-    /* Agrupamento por data */
-    .date-group { padding: 0 16px; margin-top: 16px; }
-    .date-label {
-        font-size: 11px; font-weight: 700; color: var(--muted);
-        text-transform: uppercase; letter-spacing: 0.06em;
+    /* Quinzena groups */
+    .quin-group { padding: 0 16px; margin-top: 16px; }
+    .quin-header {
+        display: flex; align-items: center; justify-content: space-between;
         margin-bottom: 8px;
     }
+    .quin-label {
+        font-size: 11px; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .quin-total {
+        font-size: 13px; font-weight: 700; color: var(--green);
+    }
 
-    .hist-item {
+    .km-item {
         background: #fff; border-radius: var(--radius);
         border: 1px solid var(--border); padding: 14px 16px;
         margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
     }
-    .hist-dot {
-        width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    .km-icon {
+        width: 38px; height: 38px; border-radius: 10px;
+        background: var(--green-soft); display: flex; align-items: center;
+        justify-content: center; color: var(--green); font-size: 16px; flex-shrink: 0;
     }
-    .dot-entregue { background: #22c55e; }
-    .dot-ausente  { background: #f59e0b; }
-    .dot-recusou  { background: #e74c3c; }
-    .dot-outros   { background: #3b82f6; }
-
-    .hist-info { flex: 1; min-width: 0; }
-    .hist-cliente { font-size: 14px; font-weight: 600; color: var(--text);
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hist-endereco { font-size: 12px; color: var(--muted); margin-top: 2px;
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    .hist-right { text-align: right; flex-shrink: 0; }
-    .hist-hora  { font-size: 12px; color: var(--muted); }
-    .hist-status {
-        font-size: 11px; font-weight: 600; padding: 2px 8px;
-        border-radius: 20px; margin-top: 4px; display: inline-block;
-    }
-    .s-entregue { background: #f0fdf4; color: #16a34a; }
-    .s-ausente  { background: #fffbeb; color: #d97706; }
-    .s-recusou  { background: var(--red-soft); color: var(--red); }
-    .s-outros   { background: var(--blue-soft); color: #2563eb; }
+    .km-info { flex: 1; }
+    .km-data  { font-size: 14px; font-weight: 600; color: var(--text); }
+    .km-dia   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .km-valor { font-size: 18px; font-weight: 700; color: var(--green); }
+    .km-unit  { font-size: 11px; color: var(--muted); }
 
     .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
     .empty-icon  { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
@@ -85,12 +85,22 @@
 <div class="page-header">
     <a class="back-btn" href="/perfil/"><i class="fa-solid fa-arrow-left"></i></a>
     <div>
-        <div class="page-header-title">Histórico de Entregas</div>
-        <div class="page-header-sub">{{ total_geral }} entregas no total</div>
+        <div class="page-header-title">Histórico de KM</div>
+        <div class="page-header-sub">Quilômetros registrados</div>
     </div>
 </div>
 
-<!-- Filtro -->
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="summary-value" style="color:#16a34a;">{{ total_mes }} km</div>
+        <div class="summary-label">Este mês</div>
+    </div>
+    <div class="summary-item">
+        <div class="summary-value">{{ total_geral }} km</div>
+        <div class="summary-label">Total geral</div>
+    </div>
+</div>
+
 <form method="GET" class="filter-bar">
     <label>Mês</label>
     <select name="mes">
@@ -101,31 +111,23 @@
     <button type="submit"><i class="fa-solid fa-filter"></i></button>
 </form>
 
-{% if entregas_agrupadas %}
-    {% for grupo in entregas_agrupadas %}
-    <div class="date-group">
-        <div class="date-label">{{ grupo.data }}</div>
-        {% for e in grupo.entregas %}
-        <div class="hist-item">
-            <div class="hist-dot
-                {% if e.status == 'ENTREGUE' %}dot-entregue
-                {% elif e.status == 'CLIENTE_AUSENTE' %}dot-ausente
-                {% elif e.status == 'CLIENTE_RECUSOU' %}dot-recusou
-                {% else %}dot-outros{% endif %}">
+{% if quinzenas %}
+    {% for q in quinzenas %}
+    <div class="quin-group">
+        <div class="quin-header">
+            <span class="quin-label">{{ q.label }}</span>
+            <span class="quin-total">{{ q.total }} km</span>
+        </div>
+        {% for r in q.registros %}
+        <div class="km-item">
+            <div class="km-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="km-info">
+                <div class="km-data">{{ r.data }}</div>
+                <div class="km-dia">{{ r.dia_semana }}</div>
             </div>
-            <div class="hist-info">
-                <div class="hist-cliente">{{ e.cliente }}</div>
-                <div class="hist-endereco">{{ e.endereco }}</div>
-            </div>
-            <div class="hist-right">
-                <div class="hist-hora">{{ e.hora }}</div>
-                <span class="hist-status
-                    {% if e.status == 'ENTREGUE' %}s-entregue
-                    {% elif e.status == 'CLIENTE_AUSENTE' %}s-ausente
-                    {% elif e.status == 'CLIENTE_RECUSOU' %}s-recusou
-                    {% else %}s-outros{% endif %}">
-                    {{ e.status_display }}
-                </span>
+            <div style="text-align:right;">
+                <div class="km-valor">{{ r.km }}</div>
+                <div class="km-unit">km</div>
             </div>
         </div>
         {% endfor %}
@@ -133,8 +135,8 @@
     {% endfor %}
 {% else %}
     <div class="empty-state">
-        <div class="empty-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-        <div style="font-size:15px; font-weight:500;">Nenhuma entrega neste período</div>
+        <div class="empty-icon"><i class="fa-solid fa-route"></i></div>
+        <div style="font-size:15px; font-weight:500;">Nenhum KM registrado neste período</div>
     </div>
 {% endif %}
 
