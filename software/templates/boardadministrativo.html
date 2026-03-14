@@ -124,7 +124,14 @@
 
             {% for entrega in entregas %}
                 <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}">
-                    <p><span class="nf-badge">NF: {{ entrega.cd_nf }}</span></p>
+                    
+                    {% if entrega.cd_nf == 0 %}
+                        <span class="nf-badge" style="background:#e67e22;">AVULSA</span>
+                    {% else %}
+                        <span class="nf-badge">NF: {{ entrega.cd_nf }}</span>
+                    {% endif %}
+
+                    <!--<p><span class="nf-badge">NF: {{ entrega.cd_nf }}</span></p>-->
                     <p class="cliente-nome">{{ entrega.cliente }}</p>
                     <p><i class="fa fa-map-marker text-danger"></i> {{ entrega.endereco }}</p>
                     {% if entrega.complemento %}<p class="text-muted"><small>{{ entrega.complemento }}</small></p>{% endif %}

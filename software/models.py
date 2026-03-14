@@ -43,6 +43,7 @@ class DadosEntrega(models.Model):
     cd_fun_entr = models.IntegerField(null=True, blank=True)
     cd_fun_lib = models.IntegerField(null=True, blank=True)
     cd_mov_ret = models.IntegerField(null=True, blank=True)
+    cd_filial = models.IntegerField(null=True, blank=True)
     data_entr_ini = models.DateField(auto_now_add=True)
     hora_entr_ini = models.TimeField(auto_now_add=True)
 

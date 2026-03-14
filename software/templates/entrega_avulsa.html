@@ -16,6 +16,8 @@
         .readonly { background-color: #e9ecef; }
     </style>
 </head>
+{% include "cabecalho.html" %}
+{% block content %}
 <body>
     <h1>Cadastro de Entrega Avulsa</h1>
 
@@ -31,7 +33,7 @@
         <select name="cd_fun_entr" id="cd_fun_entr" required>
             <option value="">-- Selecione um funcionário --</option>
             {% for f in funcionarios %}
-                <option value="{{ f.cd_usu }}">{{ f.nm_usu }} (ID {{ f.cd_usu }})</option>
+                <option value="{{ f.id }}"> {{ f.cd_usu }} - {{ f.user }}</option>
             {% endfor %}
         </select>
 
@@ -55,4 +57,5 @@
         <button type="submit">Criar Entrega</button>
     </form>
 </body>
+{% endblock content %}
 </html>

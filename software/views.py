@@ -69,19 +69,21 @@ def board(request):
 
 @login_required
 def board_administrativo(request):
-    # Get all deliveries where cd_mov_ret == 0
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
+
+    funcionarios_map = {
+    f.id: f.user.get_full_name() or f.user.username
+    for f in Funcionarios_lista.objects.select_related('user').all()
+    }
 
     kanban = {}
 
     for entrega in entregas:
-        # Get the corresponding sale
         try:
             venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
         except DadosVenda.DoesNotExist:
             venda = None
 
-        # Get the customer for the f
         cliente = None
         if venda:
             try:
@@ -89,10 +91,11 @@ def board_administrativo(request):
             except Customer.DoesNotExist:
                 cliente = None
 
-        # Determine delivery person
-        entregador = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
+        if entrega.cd_fun_entr:
+            entregador = funcionarios_map.get(entrega.cd_fun_entr, f"Motoboy {entrega.cd_fun_entr}")
+        else:
+            entregador = "Sem entregador"
 
-        # Add to kanban dictionary
         if entregador not in kanban:
             kanban[entregador] = []
 
@@ -104,7 +107,6 @@ def board_administrativo(request):
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
-            
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
@@ -117,11 +119,10 @@ def board_motoboy(request):
     except AttributeError:
         return redirect('login')
 
-    # Filtro de entregas
     if funcionario.funcao == 'ENTREGADOR' or request.user.is_staff:
         entregas = DadosEntrega.objects.filter(
             cd_mov_ret=0,
-            cd_fun_entr=funcionario.cd_usu
+            cd_fun_entr=funcionario.id  # era funcionario.cd_usu
         )
     else:
         entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
@@ -129,16 +130,12 @@ def board_motoboy(request):
     kanban = {}
 
     for entrega in entregas:
-        # Tenta buscar a venda
         venda = DadosVenda.objects.filter(cd_vd=entrega.cd_vd).first()
-        
+
         cliente = None
         if venda:
             cliente = Customer.objects.filter(code=str(venda.cd_cli)).first()
 
-        # Define a chave do dicionário
-        # Se for entregador, usamos um nome fixo como "Minhas Entregas" 
-        # para facilitar o loop no HTML
         if funcionario.funcao == 'ENTREGADOR':
             nome_quadro = "Minhas Entregas"
         else:
@@ -237,18 +234,14 @@ def buscar_customer_por_nome(request):
 
 @login_required
 def criar_entrega_avulsa(request):
-    # Lista de clientes e funcionários
     customers = Customer.objects.all()
-    funcionarios = Funcionarios_lista.objects.all()  # agora vem do banco
+    funcionarios = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
 
-    # Calcular próximo código de entrega e venda
     ultimo = DadosEntrega.objects.order_by('-cd_entr').first()
-    
-    proximo_cd_entr = ultimo.cd_entr + 100000 if ultimo is not None else 1100000
+    proximo_cd_entr = ultimo.cd_entr + 1 if ultimo else 1100000
 
     ultimo_vd = DadosEntrega.objects.order_by('-cd_vd').first()
-    
-    proximo_cd_vd = ultimo_vd.cd_vd + 100000 if ultimo_vd is not None else 1100000
+    proximo_cd_vd = ultimo_vd.cd_vd + 1 if ultimo_vd else 1100000
 
     if request.method == 'POST':
         cd_fun_entr = request.POST.get('cd_fun_entr')
@@ -260,23 +253,35 @@ def criar_entrega_avulsa(request):
                 'customers': customers,
                 'funcionarios': funcionarios,
                 'proximo_cd_entr': proximo_cd_entr,
-                'proximo_cd_vd': proximo_cd_vd
+                'proximo_cd_vd': proximo_cd_vd,
             })
+
+        try:
+            customer = Customer.objects.get(id=customer_id)
+        except Customer.DoesNotExist:
+            return render(request, 'entrega_avulsa.html', {'erro': 'Cliente não encontrado'})
+
+        # Cria um DadosVenda fictício para manter a consistência com o board
+        DadosVenda.objects.create(
+            cd_cli=int(customer.code),
+            cd_nf=0,  # avulsa não tem NF
+            cd_vd=proximo_cd_vd,
+        )
 
         DadosEntrega.objects.create(
             cd_entr=proximo_cd_entr,
             cd_vd=proximo_cd_vd,
             cd_fun_entr=cd_fun_entr,
-            cd_mov_ret=0
+            cd_mov_ret=0,
         )
 
-        return redirect('board')
+        return redirect('boardadministrativo')
 
     return render(request, 'entrega_avulsa.html', {
         'customers': customers,
         'funcionarios': funcionarios,
         'proximo_cd_entr': proximo_cd_entr,
-        'proximo_cd_vd': proximo_cd_vd
+        'proximo_cd_vd': proximo_cd_vd,
     })
 
 

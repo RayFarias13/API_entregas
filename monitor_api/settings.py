@@ -30,7 +30,7 @@ if not SECRET_KEY:
     raise ImproperlyConfigured("A variável de ambiente SECRET_KEY deve estar definida.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD"),"LINK_EXTERNO_PROD_SITE",'localhost', '127.0.0.1']
 

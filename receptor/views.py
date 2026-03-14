@@ -147,7 +147,7 @@ def customers(request):
 
     return JsonResponse({"error": "Method not allowed"}, status=405)
 
-
+'''
 #corrigir aqiu colocar um timeout para não travar a API caso o banco externo esteja lento ou com problemas, e também para evitar que a função seja executada mais de uma vez ao mesmo tempo, o que poderia causar problemas de performance ou até mesmo de integridade dos dados.
 def dados_banco_externo():
     # --- Conexão PostgreSQL ---
@@ -180,6 +180,7 @@ def dados_banco_externo():
             pe.cd_fun_entr,
             pe.cd_fun_lib,
             pe.cd_mov_ret
+            pe.cd_filial
         FROM public.pdv_vd_ctrl_entr_pdv_vd AS pdv
         INNER JOIN public.pdv_vd_ctrl_entr AS pe
             ON pdv.cd_entr = pe.cd_entr
@@ -197,7 +198,7 @@ def dados_banco_externo():
     # --- Inserir dados em DadosEntrega usando ORM ---
     registros_inseridos = 0
     for r in registros_venda:
-        cd_entr, cd_vd, cd_fun_entr, cd_fun_lib, cd_mov_ret = [
+        cd_entr, cd_vd, cd_fun_entr, cd_fun_lib, cd_mov_ret, cd_filial = [
             int(x) if isinstance(x, Decimal) else x for x in r
         ]
         obj, created = DadosEntrega.objects.get_or_create(
@@ -206,7 +207,8 @@ def dados_banco_externo():
             defaults={
                 'cd_fun_entr': cd_fun_entr,
                 'cd_fun_lib': cd_fun_lib,
-                'cd_mov_ret': cd_mov_ret
+                'cd_mov_ret': cd_mov_ret,
+                'cd_filial': cd_filial
                 # data_entr_ini e hora_entr_ini são preenchidos automaticamente
             }
         )
@@ -237,4 +239,4 @@ def dados_banco_externo():
     # --- Fechar conexão PostgreSQL ---
     pg_cur.close()
     pg_conn.close()
-
+'''
