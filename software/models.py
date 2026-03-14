@@ -38,7 +38,7 @@ class DadosVenda(models.Model):
 
 
 class DadosEntrega(models.Model):
-    cd_entr = models.IntegerField()
+    cd_entr = models.IntegerField(unique=True)
     cd_vd = models.IntegerField()
     cd_fun_entr = models.IntegerField(null=True, blank=True)
     cd_fun_lib = models.IntegerField(null=True, blank=True)
