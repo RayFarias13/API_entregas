@@ -30,7 +30,8 @@ if not SECRET_KEY:
     raise ImproperlyConfigured("A variável de ambiente SECRET_KEY deve estar definida.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+#DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = False  # Força DEBUG para False, garantindo que a API nunca rode em modo de desenvolvimento em produção
 
 ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD"),"LINK_EXTERNO_PROD_SITE",'localhost', '127.0.0.1']
 
