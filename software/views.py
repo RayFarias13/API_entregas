@@ -311,14 +311,14 @@ def finalizar_entrega(request):
     except json.JSONDecodeError:
         return JsonResponse({'success': False, 'message': 'JSON inválido.'}, status=400)
 
-    cd_entr = data.get('cd_entr')
-    cd_vd   = data.get('cd_vd')
-    status  = data.get('status', 'ENTREGUE')
+    cd_entr     = data.get('cd_entr')
+    cd_vd       = data.get('cd_vd')
+    status      = data.get('status', 'ENTREGUE')
     observacoes = data.get('observacoes')
 
     # 1. Validar campos obrigatórios
-    if not cd_entr:
-        return JsonResponse({'success': False, 'message': 'cd_entr é obrigatório.'}, status=400)
+    if not cd_entr or not cd_vd:
+        return JsonResponse({'success': False, 'message': 'cd_entr e cd_vd são obrigatórios.'}, status=400)
 
     # 2. Validar status
     STATUS_VALIDOS = [s[0] for s in EntregaFinalizada.STATUS_CHOICES]
@@ -326,14 +326,14 @@ def finalizar_entrega(request):
         return JsonResponse({'success': False, 'message': f'Status inválido: {status}'}, status=400)
 
     try:
-        # 3. Buscar entrega (obrigatória)
+        # 3. Buscar entrega pela chave composta (cd_entr + cd_vd)
         try:
-            entrega = DadosEntrega.objects.get(cd_entr=cd_entr)
+            entrega = DadosEntrega.objects.get(cd_entr=cd_entr, cd_vd=cd_vd)
         except DadosEntrega.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Entrega não encontrada.'}, status=404)
 
         # 4. Buscar venda (opcional)
-        venda = DadosVenda.objects.filter(cd_vd=cd_vd).first() if cd_vd else None
+        venda = DadosVenda.objects.filter(cd_vd=cd_vd).first()
 
         # 5. Buscar cliente (se houver venda)
         cliente = None
@@ -353,19 +353,19 @@ def finalizar_entrega(request):
             entrega.save()
 
             EntregaFinalizada.objects.create(
-                usermotoboy       = request.user,
-                entrega           = entrega,
-                venda             = venda,
-                funcionario       = entrega.cd_fun_entr,
-                cupomfiscal       = venda.cd_nf if venda else 0,
-                cliente           = cliente,
-                nome_cliente      = cliente.name if cliente else "N/A",
-                endereco          = cliente.address if cliente else "N/A",
-                complemento       = cliente.address_complement if cliente else None,
-                telefone          = cliente.phone_number if cliente else None,
-                data_hora_inicio  = data_hora_inicio,
-                entrega_status    = status,
-                observacoes       = observacoes,
+                usermotoboy      = request.user,
+                entrega          = entrega,
+                venda            = venda,
+                funcionario      = entrega.cd_fun_entr,
+                cupomfiscal      = venda.cd_nf if venda else 0,
+                cliente          = cliente,
+                nome_cliente     = cliente.name if cliente else "N/A",
+                endereco         = cliente.address if cliente else "N/A",
+                complemento      = cliente.address_complement if cliente else None,
+                telefone         = cliente.phone_number if cliente else None,
+                data_hora_inicio = data_hora_inicio,
+                entrega_status   = status,
+                observacoes      = observacoes,
             )
 
         status_labels = dict(EntregaFinalizada.STATUS_CHOICES)
@@ -377,8 +377,9 @@ def finalizar_entrega(request):
     except Exception as e:
         logger.exception("Erro inesperado em finalizar_entrega")
         return JsonResponse({'success': False, 'message': 'Erro interno no servidor.'}, status=500)
+    
 
-
+    
     
 
 
