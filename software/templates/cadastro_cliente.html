@@ -1,0 +1,264 @@
+{% extends "cabecalho.html" %}
+{% block content %}
+
+<style>
+    .page-wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 0 60px;
+    }
+
+    .page-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .page-title i { color: var(--red); font-size: 18px; }
+    .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+    .card-form {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+
+    .section-header {
+        padding: 14px 24px;
+        background: #fafafa;
+        border-bottom: 1px solid var(--border);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .section-header i { font-size: 12px; color: var(--red); }
+
+    .fields-grid {
+        padding: 20px 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .fields-grid.single { grid-template-columns: 1fr; }
+    .field-full { grid-column: 1 / -1; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+
+    .form-group label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text);
+        font-family: 'DM Sans', sans-serif;
+        background: #fff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--red);
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 72px; }
+
+    .coords-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    .form-actions {
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        background: #fafafa;
+        border-top: 1px solid var(--border);
+    }
+
+    .btn-cancel {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--muted);
+        background: #fff;
+        border: 1px solid var(--border);
+        text-decoration: none;
+        transition: 0.2s;
+        font-family: 'DM Sans', sans-serif;
+        cursor: pointer;
+    }
+    .btn-cancel:hover { background: var(--bg); color: var(--text); }
+
+    .btn-save {
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        background: var(--red);
+        border: none;
+        cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition: opacity 0.2s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+
+    .alert-danger {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .alert-success {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #16a34a;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    @media (max-width: 600px) {
+        .fields-grid { grid-template-columns: 1fr; }
+        .field-full { grid-column: 1; }
+        .coords-group { grid-template-columns: 1fr; }
+        .page-wrap { padding: 20px 0 40px; }
+    }
+</style>
+
+<div class="page-wrap">
+    <div class="page-title"><i class="fa-solid fa-user-plus"></i> Novo Cliente</div>
+    <div class="page-sub">Preencha os dados para cadastrar um novo cliente no sistema.</div>
+
+    {% if error %}
+    <div class="alert-danger"><i class="fa-solid fa-circle-exclamation"></i> {{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert-success"><i class="fa-solid fa-circle-check"></i> {{ success }}</div>
+    {% endif %}
+
+    <form method="post" class="card-form">
+        {% csrf_token %}
+
+        <!-- IDENTIFICAÇÃO -->
+        <div class="section-header"><i class="fa-solid fa-id-card"></i> Identificação</div>
+        <div class="fields-grid">
+            <div class="form-group field-full">
+                <label for="name">Nome *</label>
+                <input type="text" name="name" id="name" required placeholder="Nome completo ou razão social" value="{{ form_data.name|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="code">Código *</label>
+                <input type="text" name="code" id="code" required placeholder="Código único do cliente" value="{{ form_data.code|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="type">Tipo</label>
+                <select name="type" id="type">
+                    <option value="" {% if not form_data.type %}selected{% endif %}>Selecione</option>
+                    <option value="PF" {% if form_data.type == 'PF' %}selected{% endif %}>Pessoa Física</option>
+                    <option value="PJ" {% if form_data.type == 'PJ' %}selected{% endif %}>Pessoa Jurídica</option>
+                </select>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- CONTATO -->
+        <div class="section-header"><i class="fa-solid fa-envelope"></i> Contato</div>
+        <div class="fields-grid">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="email@exemplo.com" value="{{ form_data.email|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="login_email">E-mail de Login</label>
+                <input type="email" name="login_email" id="login_email" placeholder="login@exemplo.com" value="{{ form_data.login_email|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Telefone</label>
+                <input type="text" name="phone_number" id="phone_number" placeholder="(00) 00000-0000" value="{{ form_data.phone_number|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label>Horário de Funcionamento</label>
+                <div class="coords-group">
+                    <input type="time" name="operating_hour_start" value="{{ form_data.operating_hour_start|default:'' }}" title="Abertura">
+                    <input type="time" name="operating_hour_end" value="{{ form_data.operating_hour_end|default:'' }}" title="Fechamento">
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ENDEREÇO -->
+        <div class="section-header"><i class="fa-solid fa-location-dot"></i> Endereço</div>
+        <div class="fields-grid">
+            <div class="form-group field-full">
+                <label for="address">Endereço</label>
+                <textarea name="address" id="address" placeholder="Rua, número, bairro, cidade">{{ form_data.address|default:'' }}</textarea>
+            </div>
+            <div class="form-group field-full">
+                <label for="address_complement">Complemento</label>
+                <input type="text" name="address_complement" id="address_complement" placeholder="Apto, bloco, referência" value="{{ form_data.address_complement|default:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="number" name="latitude" id="latitude" step="any" placeholder="-23.550520" value="{{ form_data.latitude|default:'0.0' }}">
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="number" name="longitude" id="longitude" step="any" placeholder="-46.633308" value="{{ form_data.longitude|default:'0.0' }}">
+            </div>
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="form-actions">
+            <a href="/gerenciar_cadastros" class="btn-cancel">Cancelar</a>
+            <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar cliente</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

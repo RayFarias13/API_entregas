@@ -38,7 +38,7 @@ class DadosVenda(models.Model):
 
 
 class DadosEntrega(models.Model):
-    cd_entr = models.IntegerField(unique=True)
+    cd_entr = models.IntegerField()
     cd_vd = models.IntegerField()
     cd_fun_entr = models.IntegerField(null=True, blank=True)
     cd_fun_lib = models.IntegerField(null=True, blank=True)
@@ -49,6 +49,8 @@ class DadosEntrega(models.Model):
 
     class Meta:
         db_table = 'dados_entrega'
+        unique_together = ('cd_entr', 'cd_vd')  # chave composta
+
 
     def __str__(self):
         return f"Entrega {self.cd_entr}"

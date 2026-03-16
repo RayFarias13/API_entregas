@@ -234,6 +234,15 @@ def buscar_customer_por_nome(request):
 
 @login_required
 def criar_entrega_avulsa(request):
+
+    try:
+        funcionario = request.user.funcionario
+        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
+        if funcionario.funcao not in FUNCS_PERMITIDAS:
+            return redirect('login')
+    except AttributeError:
+        return redirect('login')
+
     customers = Customer.objects.all()
     funcionarios = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
 
@@ -906,3 +915,63 @@ def motoboy_pontuacao(request):
         'total_semana': total_semana,
         'por_mes': por_mes,
     })
+
+
+
+@login_required
+def cadastro_cliente(request):
+    try:
+        funcionario = request.user.funcionario
+        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
+        if funcionario.funcao not in FUNCS_PERMITIDAS:
+            return redirect('login')
+    except AttributeError:
+        return redirect('login')
+
+    if request.method == 'POST':
+        name        = request.POST.get('name', '').strip()
+        code        = request.POST.get('code', '').strip()
+        type_       = request.POST.get('type', '')
+        email       = request.POST.get('email', '').strip() or None
+        login_email = request.POST.get('login_email', '').strip() or None
+        phone       = request.POST.get('phone_number', '').strip() or None
+        address     = request.POST.get('address', '').strip() or None
+        complement  = request.POST.get('address_complement', '').strip() or None
+        lat         = request.POST.get('latitude') or 0.0
+        lng         = request.POST.get('longitude') or 0.0
+        hour_start  = request.POST.get('operating_hour_start') or None
+        hour_end    = request.POST.get('operating_hour_end') or None
+
+        # Validações
+        if not name or not code:
+            return render(request, 'cadastro_cliente.html', {
+                'error': 'Nome e Código são obrigatórios.',
+                'form_data': request.POST,
+            })
+
+        if Customer.objects.filter(code=code).exists():
+            return render(request, 'cadastro_cliente.html', {
+                'error': f'Já existe um cliente com o código "{code}".',
+                'form_data': request.POST,
+            })
+
+        Customer.objects.create(
+            name=name,
+            code=code,
+            type=type_,
+            email=email,
+            login_email=login_email,
+            phone_number=phone,
+            address=address,
+            address_complement=complement,
+            latitude=float(lat),
+            longitude=float(lng),
+            operating_hour_start=hour_start,
+            operating_hour_end=hour_end,
+        )
+
+        return render(request, 'entrega_avulsa.html', {
+            'success': f'Cliente "{name}" cadastrado com sucesso!',
+        })
+
+    return render(request, 'entrega_avulsa.html')

@@ -45,6 +45,17 @@
                 <option value="{{ cliente.id }}">{{ cliente.name }} ({{ cliente.code }})</option>
             {% endfor %}
         </select>
+        <a href="/cadastro_cliente" target="_blank" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #007bff;
+            text-decoration: none;
+        ">
+            <i class="fa-solid fa-plus"></i> Cadastrar novo cliente
+        </a>
 
         <!-- Código da Entrega -->
         <label for="cd_entr">Código da Entrega</label>
