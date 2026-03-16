@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
 from django.db.models.functions import TruncMonth, ExtractDay
+from django.db import transaction
 
 
 
@@ -21,6 +22,10 @@ from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.contrib.auth import logout
 from itertools import groupby
 from collections import defaultdict
+import logging
+logger = logging.getLogger(__name__)
+
+
 
 
 
@@ -303,63 +308,75 @@ def finalizar_entrega(request):
 
     try:
         data = json.loads(request.body)
-        cd_entr = data.get('cd_entr')
-        cd_vd = data.get('cd_vd')
-        status = data.get('status', 'ENTREGUE')
-        observacoes = data.get('observacoes')
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'message': 'JSON inválido.'}, status=400)
 
-        # 1. Tentar buscar a entrega (Obrigatória)
+    cd_entr = data.get('cd_entr')
+    cd_vd   = data.get('cd_vd')
+    status  = data.get('status', 'ENTREGUE')
+    observacoes = data.get('observacoes')
+
+    # 1. Validar campos obrigatórios
+    if not cd_entr:
+        return JsonResponse({'success': False, 'message': 'cd_entr é obrigatório.'}, status=400)
+
+    # 2. Validar status
+    STATUS_VALIDOS = [s[0] for s in EntregaFinalizada.STATUS_CHOICES]
+    if status not in STATUS_VALIDOS:
+        return JsonResponse({'success': False, 'message': f'Status inválido: {status}'}, status=400)
+
+    try:
+        # 3. Buscar entrega (obrigatória)
         try:
             entrega = DadosEntrega.objects.get(cd_entr=cd_entr)
         except DadosEntrega.DoesNotExist:
             return JsonResponse({'success': False, 'message': 'Entrega não encontrada.'}, status=404)
 
-        # 2. Tentar buscar a venda (Opcional para entregas avulsas)
-        venda = DadosVenda.objects.filter(cd_vd=cd_vd).first()
+        # 4. Buscar venda (opcional)
+        venda = DadosVenda.objects.filter(cd_vd=cd_vd).first() if cd_vd else None
 
-        # 3. Atualizar status da entrega
-        entrega.cd_mov_ret = 1
-        entrega.save()
-
-        # 4. Buscar cliente (se houver venda)
+        # 5. Buscar cliente (se houver venda)
         cliente = None
         if venda:
             cliente = Customer.objects.filter(code=venda.cd_cli).first()
 
-        # 5. Tratar data/hora de início
+        # 6. Tratar data/hora de início
         data_hora_inicio = None
         if entrega.data_entr_ini and entrega.hora_entr_ini:
             data_hora_inicio = timezone.make_aware(
                 datetime.datetime.combine(entrega.data_entr_ini, entrega.hora_entr_ini)
             )
 
-        # 6. Criar o registro na EntregaFinalizada
-        # Nota: Aceitamos campos nulos (None) para o que for exclusivo de vendas
-        EntregaFinalizada.objects.create(
-            usermotoboy=request.user if request.user.is_authenticated else None,
-            entrega=entrega,
-            venda=venda, # Pode ser None agora
-            funcionario=entrega.cd_fun_entr,
-            cupomfiscal=venda.cd_nf if venda else 0,
-            cliente=cliente,
-            nome_cliente=cliente.name if cliente else "N/A",
-            endereco=cliente.address if cliente else "N/A",
-            complemento=cliente.address_complement if cliente else None,
-            telefone=cliente.phone_number if cliente else None,
-            data_hora_inicio=data_hora_inicio,
-            entrega_status=status,
-            observacoes=observacoes
-        )
+        # 7. Salvar tudo atomicamente
+        with transaction.atomic():
+            entrega.cd_mov_ret = 1
+            entrega.save()
 
-        status_validos = dict(EntregaFinalizada.STATUS_CHOICES)
+            EntregaFinalizada.objects.create(
+                usermotoboy       = request.user,
+                entrega           = entrega,
+                venda             = venda,
+                funcionario       = entrega.cd_fun_entr,
+                cupomfiscal       = venda.cd_nf if venda else 0,
+                cliente           = cliente,
+                nome_cliente      = cliente.name if cliente else "N/A",
+                endereco          = cliente.address if cliente else "N/A",
+                complemento       = cliente.address_complement if cliente else None,
+                telefone          = cliente.phone_number if cliente else None,
+                data_hora_inicio  = data_hora_inicio,
+                entrega_status    = status,
+                observacoes       = observacoes,
+            )
+
+        status_labels = dict(EntregaFinalizada.STATUS_CHOICES)
         return JsonResponse({
             'success': True,
-            'message': f'Entrega finalizada como "{status_validos.get(status, status)}"!'
+            'message': f'Entrega finalizada como "{status_labels.get(status, status)}"!'
         })
 
     except Exception as e:
-        print("Erro finalizar_entrega:", str(e))
-        return JsonResponse({'success': False, 'message': f'Erro interno: {str(e)}'}, status=500)
+        logger.exception("Erro inesperado em finalizar_entrega")
+        return JsonResponse({'success': False, 'message': 'Erro interno no servidor.'}, status=500)
 
 
     
