@@ -25,12 +25,23 @@
         .nav-left { display: flex; align-items: center; gap: 20px; }
         .nav-right { display: flex; align-items: center; gap: 20px; }
         .logo { font-weight: bold; color: #e74c3c; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 15px; }
+        .nav-links { display: flex; gap: 6px; }
         .nav-links a {
             text-decoration: none; color: #555; font-size: 0.9rem; font-weight: 500;
-            padding: 8px 12px; border-radius: 6px; transition: 0.3s;
+            padding: 7px 12px; border-radius: 6px; transition: 0.3s;
+            display: flex; align-items: center; gap: 6px;
         }
         .nav-links a:hover { background-color: #f8f9fa; color: #e74c3c; }
+        .nav-links a.loja-btn {
+            background: #fdf3f3;
+            color: #e74c3c;
+            border: 1px solid #fca5a5;
+            font-weight: 600;
+        }
+        .nav-links a.loja-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
         .user-info {
             display: flex; align-items: center; gap: 10px;
             padding-left: 15px; border-left: 1px solid #ddd;
@@ -72,6 +83,53 @@
             top: 0;
             background: #fff;
         }
+
+        /* SEÇÃO DE LOJAS NA SIDEBAR */
+        .sidebar-section {
+            padding: 10px 16px 6px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #bbb;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            background: #fafafa;
+            border-bottom: 1px solid #f0f0f0;
+            border-top: 1px solid #f0f0f0;
+        }
+        .loja-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 16px;
+            cursor: pointer;
+            border-bottom: 0.5px solid #f5f5f5;
+            transition: background 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .loja-item:hover { background: #fdf3f3; }
+        .loja-item.active {
+            background: #fdf3f3;
+            border-left: 3px solid #e74c3c;
+        }
+        .loja-avatar {
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            background: #fde8e8;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            color: #e74c3c;
+            flex-shrink: 0;
+        }
+        .loja-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* MOTOBOYS NA SIDEBAR */
         .moto-item {
             display: flex;
             align-items: center;
@@ -89,35 +147,22 @@
         }
         .moto-item.active .moto-name { color: #e74c3c; font-weight: 600; }
         .moto-avatar {
-            width: 34px;
-            height: 34px;
+            width: 34px; height: 34px;
             border-radius: 50%;
             background: #fde8e8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 600;
             color: #e74c3c;
             flex-shrink: 0;
         }
         .moto-info { flex: 1; min-width: 0; }
         .moto-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: #2c3e50;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 13px; font-weight: 500; color: #2c3e50;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .moto-time {
-            font-size: 11px;
-            color: #aaa;
-            margin-top: 2px;
-        }
+        .moto-time { font-size: 11px; color: #aaa; margin-top: 2px; }
         .dot {
-            width: 7px;
-            height: 7px;
+            width: 7px; height: 7px;
             border-radius: 50%;
             background: #27ae60;
             flex-shrink: 0;
@@ -137,6 +182,15 @@
         </div>
         <div class="nav-links">
             <a href="/home_administrativo"><i class="fa-solid fa-chart-line"></i> Painel</a>
+            <a href="#" class="loja-btn" onclick="focusLoja(0); return false;">
+                <i class="fa-solid fa-store"></i> Cíntia
+            </a>
+            <a href="#" class="loja-btn" onclick="focusLoja(1); return false;">
+                <i class="fa-solid fa-store"></i> Guara
+            </a>
+            <a href="#" class="loja-btn" onclick="focusLoja(2); return false;">
+                <i class="fa-solid fa-store"></i> VP
+            </a>
         </div>
     </div>
     <div class="nav-right">
@@ -151,10 +205,26 @@
 </nav>
 
 <div class="layout">
-    <!-- SIDEBAR COM MOTOBOYS -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="sidebar-header">Motoboys</div>
         <div id="moto-list"></div>
+
+        <div class="sidebar-section">Lojas</div>
+        <div id="loja-list">
+            <div class="loja-item" onclick="focusLoja(0)">
+                <div class="loja-avatar"><i class="fa-solid fa-house-medical"></i></div>
+                <div class="loja-name">Drogaria Cíntia</div>
+            </div>
+            <div class="loja-item" onclick="focusLoja(1)">
+                <div class="loja-avatar"><i class="fa-solid fa-store"></i></div>
+                <div class="loja-name">Droga Lene Guara</div>
+            </div>
+            <div class="loja-item" onclick="focusLoja(2)">
+                <div class="loja-avatar"><i class="fa-solid fa-store"></i></div>
+                <div class="loja-name">Droga Lene VP</div>
+            </div>
+        </div>
     </div>
 
     <!-- MAPA -->
@@ -163,8 +233,12 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    const latLoja = -15.868819;
-    const lngLoja = -47.9657715;
+    // ─── LOJAS ────────────────────────────────────────────────────
+    const lojas = [
+        { nome: 'Drogaria Cíntia',   popup: '🏠 Drogaria Cíntia<br>Sede NB',   lat: -15.868819,  lng: -47.9657715 },
+        { nome: 'Droga Lene Guara',  popup: '🏪 Droga Lene 23',                 lat: -15.8010624, lng: -48.0336654 },
+        { nome: 'Droga Lene VP',     popup: '🏪 Droga Lene VP',                 lat: -15.8000689, lng: -48.016716  },
+    ];
 
     const motoIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/9561/9561839.png',
@@ -172,17 +246,35 @@
     });
     const lojaIcon = L.icon({
         iconUrl: 'https://cdn-icons-png.flaticon.com/512/869/869636.png',
-        iconSize: [25, 25], iconAnchor: [25, 50], popupAnchor: [0, -45]
+        iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -30]
     });
 
-    const map = L.map('map').setView([latLoja, lngLoja], 16);
+    // Centraliza o mapa no meio das três lojas
+    const map = L.map('map').setView([-15.835, -48.005], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    L.marker([latLoja, lngLoja], { icon: lojaIcon })
-        .addTo(map)
-        .bindPopup('<b>🏠 Drogaria Cíntia</b><br>Sede NB')
-        .openPopup();
+    // Adiciona marcadores das lojas
+    const lojaMarkers = lojas.map(l => {
+        return L.marker([l.lat, l.lng], { icon: lojaIcon })
+            .addTo(map)
+            .bindPopup(`<b>${l.popup}</b>`);
+    });
 
+    // Abre popup da Cíntia por padrão
+    lojaMarkers[0].openPopup();
+
+    function focusLoja(index) {
+        const l = lojas[index];
+        map.flyTo([l.lat, l.lng], 17, { duration: 1.2 });
+        lojaMarkers[index].openPopup();
+
+        // Destaca item na sidebar
+        document.querySelectorAll('.loja-item').forEach((el, i) => {
+            el.classList.toggle('active', i === index);
+        });
+    }
+
+    // ─── MOTOBOYS ─────────────────────────────────────────────────
     let markers = {};
     let activeItem = null;
 
@@ -197,7 +289,6 @@
         map.flyTo(ll, 18, { duration: 1 });
         marker.openPopup();
 
-        // Destaca item na sidebar
         if (activeItem) activeItem.classList.remove('active');
         const el = document.querySelector(`[data-id="${id}"]`);
         if (el) { el.classList.add('active'); activeItem = el; }
@@ -210,7 +301,6 @@
             const list = document.getElementById('moto-list');
 
             dados.forEach(moto => {
-                // Atualiza ou cria marcador no mapa
                 if (markers[moto.id]) {
                     markers[moto.id]
                         .setLatLng([moto.lat, moto.lng])
@@ -221,7 +311,6 @@
                         .bindPopup(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
                 }
 
-                // Cria item na sidebar se ainda não existe
                 if (!document.querySelector(`[data-id="${moto.id}"]`)) {
                     const item = document.createElement('div');
                     item.className = 'moto-item';
@@ -237,7 +326,6 @@
                     item.addEventListener('click', () => focusMotoboy(moto.id));
                     list.appendChild(item);
                 } else {
-                    // Atualiza horário
                     const timeEl = document.querySelector(`[data-id="${moto.id}"] .moto-time`);
                     if (timeEl) timeEl.textContent = moto.hora || 'Online';
                 }
@@ -251,7 +339,7 @@
         }
     }
 
-    setInterval(carregarMotoboys, 1 * 60 * 1000);
+    setInterval(carregarMotoboys, 3 * 60 * 1000);
     carregarMotoboys();
 </script>
 </body>
