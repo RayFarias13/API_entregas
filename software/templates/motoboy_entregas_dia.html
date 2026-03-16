@@ -1,141 +1,311 @@
 {% extends "cabecalho_motoboy.html" %}
 {% block content %}
 <style>
-    :root {
-        --red: #e74c3c; --red-soft: #fdf1f0;
-        --green: #22c55e; --green-soft: #f0fdf4;
-        --blue: #3b82f6; --blue-soft: #eff6ff;
-        --amber: #f59e0b; --amber-soft: #fffbeb;
-        --border: #eaeaea; --bg: #f2f3f7;
-        --text: #111827; --muted: #6b7280;
-        --radius: 14px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-    /* HEADER */
+    :root {
+        --red: #e74c3c;
+        --red-dark: #c0392b;
+        --red-soft: #fdf1f0;
+        --green: #22c55e;
+        --green-soft: #f0fdf4;
+        --blue: #3b82f6;
+        --blue-soft: #eff6ff;
+        --amber: #f59e0b;
+        --amber-soft: #fffbeb;
+        --border: #e5e7eb;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --radius: 16px;
+        --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background: var(--bg);
+        font-family: 'Nunito', sans-serif;
+        color: var(--text);
+    }
+
+    /* ─── HEADER ─────────────────────────── */
     .page-header {
-        background: var(--red);
-        padding: 20px 16px 16px;
-        display: flex; align-items: center; gap: 12px;
+        background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+        padding: 20px 16px 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
     }
     .back-btn {
-        color: rgba(255,255,255,0.85); font-size: 18px;
-        text-decoration: none; padding: 4px;
+        color: rgba(255,255,255,0.9);
+        font-size: 20px;
+        text-decoration: none;
+        padding: 6px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        width: 36px; height: 36px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
     }
-    .page-header-title { color: #fff; font-size: 17px; font-weight: 700; }
-    .page-header-sub { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 2px; }
+    .page-header-title {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+    .page-header-sub {
+        color: rgba(255,255,255,0.78);
+        font-size: 13px;
+        margin-top: 2px;
+        font-weight: 600;
+    }
 
-    /* GPS STATUS BAR */
+    /* ─── GPS BAR ─────────────────────────── */
     .gps-bar {
-        background: #fff; border-bottom: 1px solid var(--border);
-        padding: 8px 16px;
-        display: flex; align-items: center; justify-content: space-between;
-        font-size: 11px; color: var(--muted);
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 600;
     }
-    .gps-info { display: flex; align-items: center; gap: 8px; }
+    .gps-info { display: flex; align-items: center; gap: 9px; }
     .gps-dot {
-        width: 8px; height: 8px; border-radius: 50%;
+        width: 10px; height: 10px;
+        border-radius: 50%;
         background: #d1d5db;
         flex-shrink: 0;
         transition: background 0.3s;
     }
-    .gps-dot.ativo { background: var(--green); }
-    #status { font-weight: 500; }
-
-    /* KANBAN BOARDS */
-    .kanban-wrapper { padding: 16px; display: flex; flex-direction: column; gap: 24px; }
-
-    .kanban-board {}
-    .board-title {
-        font-size: 13px; font-weight: 700; color: var(--muted);
-        text-transform: uppercase; letter-spacing: 0.06em;
-        margin-bottom: 10px;
-        display: flex; align-items: center; gap: 8px;
+    .gps-dot.ativo {
+        background: var(--green);
+        box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
     }
-    .board-title-count {
-        background: var(--red); color: #fff;
-        font-size: 11px; font-weight: 700;
-        padding: 2px 7px; border-radius: 20px;
-    }
+    #status { font-weight: 700; font-size: 13px; }
+    #time { font-size: 13px; font-weight: 600; }
 
-    .cards-list { display: flex; flex-direction: column; gap: 12px; }
-
-    /* CARD */
-    .cartao {
-        background: #fff; border-radius: var(--radius);
-        border: 1px solid var(--border); overflow: hidden;
-        transition: box-shadow 0.2s;
+    /* ─── BLOQUEIO GPS ────────────────────── */
+    #gps-bloqueio {
+        display: none;
+        padding: 40px 20px;
     }
-    .cartao:active { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-
-    .card-top {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 14px 16px 10px;
+    .gps-bloqueio-card {
+        background: #fff;
+        border-radius: var(--radius);
+        border: 2px dashed #fca5a5;
+        padding: 36px 24px;
+        text-align: center;
     }
-    .card-num { font-size: 12px; color: var(--muted); font-weight: 500; }
-    .card-vd  { font-size: 11px; color: var(--muted); }
-
-    .card-body { padding: 0 16px 14px; }
-    .card-cliente { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-    .card-info {
-        display: flex; align-items: flex-start; gap: 6px;
-        font-size: 20px; color: var(--muted); margin-top: 4px;
+    .gps-bloqueio-icon {
+        font-size: 56px;
+        color: var(--red);
+        margin-bottom: 16px;
+        opacity: 0.85;
     }
-    .card-info i { font-size: 15px; margin-top: 2px; flex-shrink: 0; }
-
-    /* FORM DE FINALIZAÇÃO */
-    .card-finalizar {
-        border-top: 1px solid var(--border);
-        padding: 12px 16px;
-        display: flex; flex-direction: column; gap: 8px;
-    }
-    .select-status {
-        width: 100%;
-        padding: 9px 12px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 13px;
+    .gps-bloqueio-title {
+        font-size: 22px;
+        font-weight: 900;
         color: var(--text);
-        background: var(--bg);
-        appearance: none;
-        font-family: inherit;
+        margin-bottom: 8px;
     }
-    .input-obs {
-        width: 100%;
-        padding: 9px 12px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-size: 13px;
-        color: var(--text);
-        background: var(--bg);
-        font-family: inherit;
-        resize: none;
+    .gps-bloqueio-sub {
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 24px;
     }
-    .btn-finalizar {
-        width: 100%;
-        padding: 11px;
+    .btn-tentar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
         background: var(--red);
         color: #fff;
         border: none;
-        border-radius: 8px;
-        font-size: 20px;
-        font-weight: 700;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 800;
         font-family: inherit;
         cursor: pointer;
-        display: flex; align-items: center; justify-content: center; gap: 6px;
-        transition: opacity 0.2s;
+        transition: opacity 0.2s, transform 0.15s;
     }
-    .btn-finalizar:active { opacity: 0.85; }
+    .btn-tentar:active { opacity: 0.85; transform: scale(0.97); }
 
-    /* EMPTY STATE */
+    /* ─── KANBAN ──────────────────────────── */
+    .kanban-wrapper {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .board-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+    .board-title-count {
+        background: var(--red);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        padding: 2px 9px;
+        border-radius: 20px;
+    }
+
+    .cards-list { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ─── CARD ────────────────────────────── */
+    .cartao {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .cartao:active {
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        transform: scale(0.995);
+    }
+
+    .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 16px 10px;
+        border-bottom: 1px solid var(--border);
+        background: #fafafa;
+    }
+    .card-num {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 700;
+        background: #f3f4f6;
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+    .card-vd {
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 600;
+    }
+
+    .card-body { padding: 14px 16px 16px; }
+
+    .card-cliente {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .card-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        font-size: 16px;
+        color: #374151;
+        font-weight: 600;
+        margin-top: 8px;
+        line-height: 1.4;
+    }
+    .card-info i {
+        font-size: 16px;
+        margin-top: 2px;
+        flex-shrink: 0;
+        color: var(--red);
+    }
+
+    /* ─── FORM FINALIZAR ──────────────────── */
+    .card-finalizar {
+        border-top: 1px solid var(--border);
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #fafafa;
+    }
+
+    .select-status {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        background: #fff;
+        appearance: none;
+        font-family: inherit;
+        cursor: pointer;
+    }
+    .select-status:focus {
+        outline: none;
+        border-color: var(--red);
+    }
+
+    .input-obs {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        background: #fff;
+        font-family: inherit;
+        resize: none;
+    }
+    .input-obs:focus {
+        outline: none;
+        border-color: var(--red);
+    }
+    .input-obs::placeholder { color: #9ca3af; }
+
+    .btn-finalizar {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: opacity 0.2s, transform 0.15s;
+        letter-spacing: 0.02em;
+    }
+    .btn-finalizar:active { opacity: 0.85; transform: scale(0.98); }
+    .btn-finalizar:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    /* ─── EMPTY STATE ─────────────────────── */
     .empty-state {
-        text-align: center; padding: 60px 20px;
+        text-align: center;
+        padding: 60px 20px;
         color: var(--muted);
     }
-    .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
-    .empty-text { font-size: 15px; font-weight: 500; }
-    .empty-sub  { font-size: 13px; margin-top: 4px; }
+    .empty-icon { font-size: 54px; margin-bottom: 14px; opacity: 0.3; }
+    .empty-text { font-size: 18px; font-weight: 800; }
+    .empty-sub  { font-size: 14px; margin-top: 6px; font-weight: 600; }
 
     .page-bottom { height: 80px; }
 </style>
@@ -155,11 +325,27 @@
         <div class="gps-dot" id="gps-dot"></div>
         <span id="status">Aguardando GPS...</span>
     </div>
-    <span id="time" style="font-size:11px;"></span>
+    <span id="time"></span>
+</div>
+
+<!-- BLOQUEIO GPS -->
+<div id="gps-bloqueio">
+    <div class="gps-bloqueio-card">
+        <div class="gps-bloqueio-icon">
+            <i class="fa-solid fa-location-slash"></i>
+        </div>
+        <div class="gps-bloqueio-title">GPS desativado</div>
+        <div class="gps-bloqueio-sub">
+            Ative o GPS do seu celular e permita o acesso à localização para visualizar suas entregas.
+        </div>
+        <button class="btn-tentar" onclick="tentarNovamente()">
+            <i class="fa-solid fa-rotate-right"></i> Tentar novamente
+        </button>
+    </div>
 </div>
 
 <!-- KANBAN -->
-<div class="kanban-wrapper">
+<div class="kanban-wrapper" id="kanban-wrapper" style="display: none;">
     {% for nome_quadro, itens in kanban.items %}
     <div class="kanban-board">
         <div class="board-title">
@@ -171,6 +357,7 @@
         <div class="cards-list">
             {% for e in itens %}
             <div class="cartao" id="cartao_{{ e.cd_entr }}">
+
                 <div class="card-top">
                     <span class="card-num">#{{ e.cd_entr }}</span>
                     <span class="card-vd">Venda {{ e.cd_vd }}{% if e.cd_nf %} · NF {{ e.cd_nf }}{% endif %}</span>
@@ -180,12 +367,12 @@
                     <div class="card-cliente">{{ e.cliente }}</div>
                     <div class="card-info">
                         <i class="fa-solid fa-location-dot"></i>
-                        {{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}
+                        <span>{{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}</span>
                     </div>
                     {% if e.telefone %}
                     <div class="card-info">
                         <i class="fa-solid fa-phone"></i>
-                        {{ e.telefone }}
+                        <span>{{ e.telefone }}</span>
                     </div>
                     {% endif %}
                 </div>
@@ -201,6 +388,7 @@
                         <i class="fa-solid fa-check"></i> Finalizar entrega
                     </button>
                 </div>
+
             </div>
             {% endfor %}
         </div>
@@ -217,13 +405,13 @@
 <div class="page-bottom"></div>
 
 <script>
-    // --- LÓGICA DE FINALIZAÇÃO ---
-    function finalizar(cd_entr, cd_vd, button){
+    // ─── FINALIZAÇÃO ──────────────────────────────────────────────
+    function finalizar(cd_entr, cd_vd, button) {
         const status = document.getElementById(`status_${cd_entr}`).value;
         const observacoes = document.getElementById(`obs_${cd_entr}`).value;
         const csrftoken = getCookie('csrftoken');
 
-        if(!confirm("Deseja finalizar esta entrega?")) return;
+        if (!confirm("Deseja finalizar esta entrega?")) return;
 
         button.disabled = true;
         button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
@@ -234,16 +422,11 @@
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken
             },
-            body: JSON.stringify({
-                cd_entr: cd_entr,
-                cd_vd: cd_vd,
-                status: status,
-                observacoes: observacoes
-            })
+            body: JSON.stringify({ cd_entr, cd_vd, status, observacoes })
         })
         .then(res => res.json())
         .then(data => {
-            if(data.success){
+            if (data.success) {
                 const cartao = document.getElementById(`cartao_${cd_entr}`);
                 cartao.style.transition = 'opacity 0.3s, transform 0.3s';
                 cartao.style.opacity = '0';
@@ -262,7 +445,7 @@
         });
     }
 
-    // --- LÓGICA DO GPS ---
+    // ─── GPS ──────────────────────────────────────────────────────
     const INTERVALO_MS = 2 * 60 * 1000;
 
     function iniciarMonitoramento() {
@@ -271,28 +454,46 @@
             setInterval(atualizarPosicao, INTERVALO_MS);
         } else {
             document.getElementById('status').innerText = "GPS não suportado";
+            mostrarBloqueio();
         }
     }
 
     function atualizarPosicao() {
-        navigator.geolocation.getCurrentPosition(sucesso, erro, { enableHighAccuracy: true });
+        document.getElementById('status').innerText = "Buscando GPS...";
+        navigator.geolocation.getCurrentPosition(sucesso, erro, { enableHighAccuracy: true, timeout: 10000 });
     }
 
     function sucesso(pos) {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
-        const agora = new Date().toLocaleTimeString();
+        const agora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
         document.getElementById('time').innerText = agora;
         document.getElementById('status').innerText = "GPS ativo · " + agora;
         document.getElementById('gps-dot').classList.add('ativo');
 
+        // Mostra entregas, esconde bloqueio
+        document.getElementById('kanban-wrapper').style.display = 'flex';
+        document.getElementById('gps-bloqueio').style.display = 'none';
+
         enviarParaServidor(lat, lng);
     }
 
     function erro(err) {
-        document.getElementById('status').innerText = "Erro GPS: " + err.message;
+        document.getElementById('status').innerText = "GPS inativo";
         document.getElementById('gps-dot').classList.remove('ativo');
+        mostrarBloqueio();
+    }
+
+    function mostrarBloqueio() {
+        document.getElementById('kanban-wrapper').style.display = 'none';
+        document.getElementById('gps-bloqueio').style.display = 'block';
+    }
+
+    function tentarNovamente() {
+        document.getElementById('status').innerText = "Buscando GPS...";
+        document.getElementById('gps-bloqueio').style.display = 'none';
+        atualizarPosicao();
     }
 
     function enviarParaServidor(lat, lng) {
