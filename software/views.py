@@ -379,7 +379,7 @@ def finalizar_entrega(request):
         return JsonResponse({'success': False, 'message': 'Erro interno no servidor.'}, status=500)
     
 
-    
+
     
 
 
@@ -479,7 +479,7 @@ def cadastro_funcionario(request):
         except Exception as e:
             return render(request, 'cadastro_funcionario.html', {"error": f"Erro ao salvar: {e}"})
 
-    return render(request, 'gerenciar_cadastros.html')
+    return render(request, 'cadastro_funcionario.html')
     
 
 @login_required
