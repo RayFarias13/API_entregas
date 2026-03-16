@@ -236,7 +236,7 @@
     // ─── LOJAS ────────────────────────────────────────────────────
     const lojas = [
         { nome: 'Drogaria Cíntia',   popup: '🏠 Drogaria Cíntia<br>Sede NB',   lat: -15.868819,  lng: -47.9657715 },
-        { nome: 'Droga Lene Guara',  popup: '🏪 Droga Lene 23',                 lat: -15.8010624, lng: -48.0336654 },
+        { nome: 'Droga Lene Guara',  popup: '🏪 Droga Lene 23',                 lat: -15.8266085, lng: -47.9824448 },
         { nome: 'Droga Lene VP',     popup: '🏪 Droga Lene VP',                 lat: -15.8000689, lng: -48.016716  },
     ];
 
@@ -251,8 +251,11 @@
 
     // Centraliza o mapa no meio das três lojas
     const map = L.map('map').setView([-15.835, -48.005], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
     // Adiciona marcadores das lojas
     const lojaMarkers = lojas.map(l => {
         return L.marker([l.lat, l.lng], { icon: lojaIcon })
