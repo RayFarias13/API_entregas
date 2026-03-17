@@ -19,7 +19,7 @@ class Customer(models.Model):
     """Armazena dados do customer"""
     '''Amazerna novos endereços no banco de dados'''
     name = models.CharField(max_length=255)
-    type = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, blank=True, null=True)
     code = models.CharField(max_length=50, unique=True)
     email = models.CharField(max_length=255, blank=True, null=True)
     login_email = models.CharField(max_length=255, blank=True, null=True)
@@ -31,6 +31,10 @@ class Customer(models.Model):
     operating_hour_start = models.TimeField(blank=True, null=True)
     operating_hour_end = models.TimeField(blank=True, null=True)
     extraFields = models.JSONField(blank=True, null=True)
+    cep = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        db_table = 'dadosclientes'
 
     def __str__(self):
         return f"{self.name} ({self.code})"
