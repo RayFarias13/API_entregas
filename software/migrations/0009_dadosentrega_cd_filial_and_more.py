@@ -10,10 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='dadosentrega',
-            name='cd_filial',
-            field=models.IntegerField(blank=True, null=True),
+        migrations.RunSQL(
+            sql="ALTER TABLE dados_entrega ADD COLUMN IF NOT EXISTS cd_filial integer;",
+            reverse_sql="ALTER TABLE dados_entrega DROP COLUMN IF EXISTS cd_filial;",
         ),
         migrations.AlterUniqueTogether(
             name='dadosentrega',
