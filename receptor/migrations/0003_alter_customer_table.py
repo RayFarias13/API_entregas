@@ -2,16 +2,15 @@
 
 from django.db import migrations
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('receptor', '0002_customer_cep_alter_customer_type'),
+        ('receptor', '0003_alter_customer_table'),  # mantenha o que já está
     ]
 
     operations = [
-        migrations.AlterModelTable(
-            name='customer',
-            table='dadosclientes',
+        migrations.RunSQL(
+            sql="ALTER TABLE dados_entrega ADD COLUMN IF NOT EXISTS cd_filial varchar(10);",
+            reverse_sql="ALTER TABLE dados_entrega DROP COLUMN IF EXISTS cd_filial;",
         ),
     ]
