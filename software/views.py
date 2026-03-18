@@ -97,7 +97,8 @@ def board_administrativo(request):
                 cliente = None
 
         if entrega.cd_fun_entr:
-            entregador = funcionarios_map.get(entrega.cd_fun_entr, f"Motoboy {entrega.cd_fun_entr}")
+            codint = int(entrega.cd_fun_entr) 
+            entregador = funcionarios_map.get(codint, f"Motoboy {entrega.cd_fun_entr}")
         else:
             entregador = "Sem entregador"
 
