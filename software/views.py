@@ -77,8 +77,9 @@ def board_administrativo(request):
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
     funcionarios_map = {
-    f.id: f.user.get_full_name() or f.user.username
+    f.cd_usu: f.user.get_full_name() or f.user.username
     for f in Funcionarios_lista.objects.select_related('user').all()
+    if f.cd_usu is not None
     }
 
     kanban = {}
