@@ -113,6 +113,8 @@ def board_administrativo(request):
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
+            'entregador': entregador,  # ✅ adicione esta linha
+
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
@@ -629,7 +631,8 @@ def dados_entregadores_json(request):
         "username": p.usuario.username,
         "lat": float(p.latitude),
         "lng": float(p.longitude),
-        "hora": timezone.localtime(p.data_criacao).strftime('%H:%M')
+        "hora": timezone.localtime(p.data_criacao).strftime('%d/%m/%y às %H:%M')
+
 
     } for p in posicoes]
 

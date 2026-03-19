@@ -210,6 +210,7 @@
         <div class="sidebar-header">Motoboys</div>
         <div id="moto-list"></div>
 
+
         <div class="sidebar-section">Lojas</div>
         <div id="loja-list">
             <div class="loja-item" onclick="focusLoja(0)">
@@ -296,7 +297,10 @@
         const el = document.querySelector(`[data-id="${id}"]`);
         if (el) { el.classList.add('active'); activeItem = el; }
     }
-
+    function formatarVisto(hora) {
+        if (!hora) return 'Online';
+        return `Visto ${hora}`;
+}
     async function carregarMotoboys() {
         try {
             const response = await fetch('/posicoes/');
@@ -311,7 +315,7 @@
                 } else {
                     markers[moto.id] = L.marker([moto.lat, moto.lng], { icon: motoIcon })
                         .addTo(map)
-                        .bindPopup(`<b>${moto.username}</b><br>Visto às ${moto.hora}`);
+                        .bindPopup(`<b>${moto.username}</b><br>${formatarVisto(moto.hora)}`);
                 }
 
                 if (!document.querySelector(`[data-id="${moto.id}"]`)) {
@@ -322,7 +326,7 @@
                         <div class="moto-avatar">${getInitials(moto.username)}</div>
                         <div class="moto-info">
                             <div class="moto-name">${moto.username}</div>
-                            <div class="moto-time">${moto.hora || 'Online'}</div>
+                            <div class="moto-time">${formatarVisto(moto.hora)}</div>
                         </div>
                         <div class="dot"></div>
                     `;
@@ -330,7 +334,7 @@
                     list.appendChild(item);
                 } else {
                     const timeEl = document.querySelector(`[data-id="${moto.id}"] .moto-time`);
-                    if (timeEl) timeEl.textContent = moto.hora || 'Online';
+                    if (timeEl) timeEl.textContent = formatarVisto(moto.hora);
                 }
             });
 
