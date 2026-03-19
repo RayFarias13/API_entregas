@@ -132,18 +132,18 @@
 <div class="board-container">
     {% for entregador, entregas in kanban.items %}
         <div class="lista-entregador">
-            <h3><i class="fa fa-user-circle-o"></i> {{ entregador }}</h3>
-
+            <!--<h3><i class="fa fa-user-circle-o"></i> {{ entregador }}</h3> -->
+            <h3><i class="fa fa-motorcycle"></i> {{ entregador }} - {{entregador.cd_usu}}</h3>
             {% for entrega in entregas %}
                 <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}">
 
-                    <div class="card-header-motoboy">
+                    <!--<div class="card-header-motoboy">
                     <i class="fa fa-motorcycle"></i>
                     <div>
                         <small>Motoboy</small>
                         <strong>{{ entregador }}</strong>
                     </div>
-                    </div>
+                    </div>-->
 
 
                     
