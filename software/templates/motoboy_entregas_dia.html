@@ -346,60 +346,58 @@
 
 <!-- KANBAN -->
 <div class="kanban-wrapper" id="kanban-wrapper" style="display: none;">
-    {% for nome_quadro, itens in kanban.items %}
-    <div class="kanban-board">
-        <div class="board-title">
-            <i class="fa-solid fa-motorcycle"></i>
-            {{ nome_quadro }}
-            <span class="board-title-count">{{ itens|length }}</span>
-        </div>
 
-        <div class="cards-list">
-            {% for e in itens %}
-            <div class="cartao" id="cartao_{{ e.cd_entr }}">
+    <div class="board-title">
+        <i class="fa-solid fa-motorcycle"></i>
+        Minhas Entregas
+        <span class="board-title-count">{{ entregas|length }}</span>
+    </div>
 
-                <div class="card-top">
-                    <span class="card-num">#{{ e.cd_entr }}</span>
-                    <span class="card-vd">Venda {{ e.cd_vd }}{% if e.cd_nf %} · NF {{ e.cd_nf }}{% endif %}</span>
-                </div>
+    <div class="cards-list">
+        {% for e in entregas %}
+        <div class="cartao" id="cartao_{{ e.cd_entr }}">
 
-                <div class="card-body">
-                    <div class="card-cliente">{{ e.cliente }}</div>
-                    <div class="card-info">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span>{{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}</span>
-                    </div>
-                    {% if e.telefone %}
-                    <div class="card-info">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>{{ e.telefone }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-
-                <div class="card-finalizar">
-                    <select class="select-status" id="status_{{ e.cd_entr }}">
-                        <option value="ENTREGUE">✅ Entregue</option>
-                        <option value="CLIENTE_AUSENTE">⚠️ Cliente ausente</option>
-                        <option value="CLIENTE_RECUSOU">❌ Cliente recusou</option>
-                    </select>
-                    <textarea class="input-obs" id="obs_{{ e.cd_entr }}" rows="2" placeholder="Observações (opcional)"></textarea>
-                    <button class="btn-finalizar" onclick="finalizar({{ e.cd_entr }}, {{ e.cd_vd }}, this)">
-                        <i class="fa-solid fa-check"></i> Finalizar entrega
-                    </button>
-                </div>
-
+            <div class="card-top">
+                <span class="card-num">#{{ e.cd_entr }}</span>
+                <span class="card-vd">Venda {{ e.cd_vd }}{% if e.cd_nf %} · NF {{ e.cd_nf }}{% endif %}</span>
             </div>
-            {% endfor %}
+
+            <div class="card-body">
+                <div class="card-cliente">{{ e.cliente }}</div>
+                <div class="card-info">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>{{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}</span>
+                </div>
+                {% if e.telefone %}
+                <div class="card-info">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>{{ e.telefone }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="card-finalizar">
+                <select class="select-status" id="status_{{ e.cd_entr }}">
+                    <option value="ENTREGUE">✅ Entregue</option>
+                    <option value="CLIENTE_AUSENTE">⚠️ Cliente ausente</option>
+                    <option value="CLIENTE_RECUSOU">❌ Cliente recusou</option>
+                </select>
+                <textarea class="input-obs" id="obs_{{ e.cd_entr }}" rows="2" placeholder="Observações (opcional)"></textarea>
+                <button class="btn-finalizar" onclick="finalizar({{ e.cd_entr }}, {{ e.cd_vd }}, this)">
+                    <i class="fa-solid fa-check"></i> Finalizar entrega
+                </button>
+            </div>
+
         </div>
+        {% empty %}
+        <div class="empty-state">
+            <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="empty-text">Nenhuma entrega pendente</div>
+            <div class="empty-sub">Novas entregas aparecerão aqui</div>
+        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div class="empty-state">
-        <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
-        <div class="empty-text">Nenhuma entrega pendente</div>
-        <div class="empty-sub">Novas entregas aparecerão aqui</div>
-    </div>
-    {% endfor %}
+
 </div>
 
 <div class="page-bottom"></div>

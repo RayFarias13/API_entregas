@@ -122,49 +122,40 @@ def board_administrativo(request):
 
 #kaban - motoboy
 @login_required
+@login_required
 def board_motoboy(request):
     try:
         funcionario = request.user.funcionario
     except AttributeError:
         return redirect('login')
 
-    if funcionario.funcao == 'ENTREGADOR' or request.user.is_staff:
+    if not funcionario.cd_usu:
+        entregas = DadosEntrega.objects.none()
+    else:
         entregas = DadosEntrega.objects.filter(
             cd_mov_ret=0,
-            cd_fun_entr=funcionario.id  # era funcionario.cd_usu
+            cd_fun_entr=funcionario.cd_usu
         )
-    else:
-        entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
-    kanban = {}
+    lista_entregas = []
 
     for entrega in entregas:
         venda = DadosVenda.objects.filter(cd_vd=entrega.cd_vd).first()
-
         cliente = None
         if venda:
             cliente = Customer.objects.filter(code=str(venda.cd_cli)).first()
 
-        if funcionario.funcao == 'ENTREGADOR':
-            nome_quadro = "Minhas Entregas"
-        else:
-            nome_quadro = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
-
-        if nome_quadro not in kanban:
-            kanban[nome_quadro] = []
-
-        kanban[nome_quadro].append({
+        lista_entregas.append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
+            'cd_nf': venda.cd_nf if venda else 0,
             'cliente': cliente.name if cliente else 'Desconhecido',
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
         })
 
-    return render(request, 'motoboy_entregas_dia.html', {'kanban': kanban})
-
+    return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
 
 
 # API para atualizar status
