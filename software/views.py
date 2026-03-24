@@ -98,42 +98,41 @@ def board_motoboy(request):
     lista_entregas = []
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
-        # Garantimos que a chave de busca seja string, pois no montar_dados você fez str(v.cd_cli)
-        cliente = clientes.get(str(venda.cd_cli)) if venda else None
+        # Buscamos o cliente garantindo que a chave seja uma string limpa
+        cd_cli_busca = str(venda.cd_cli).strip() if venda else None
+        cliente_obj = clientes.get(cd_cli_busca) if cd_cli_busca else None
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
             'cd_nf': venda.cd_nf if (venda and venda.cd_nf != 0) else "AVULSA",
-            'cliente': cliente.name if cliente else 'Cliente não encontrado',
-            'endereco': cliente.address if cliente else 'Sem endereço',
-            'complemento': cliente.address_complement if cliente else '',
-            'telefone': cliente.phone_number if cliente else '',
+            'cliente': cliente_obj.name if cliente_obj else f"Cliente Cód. {cd_cli_busca or '?'}",
+            'endereco': cliente_obj.address if cliente_obj else 'Endereço não informado',
+            'complemento': cliente_obj.address_complement if cliente_obj else '',
+            'telefone': cliente_obj.phone_number if cliente_obj else '',
         })
 
     return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
 
 def montar_dados_entregas(entregas):
     entregas = list(entregas)
-
-    # 🔥 vendas
     cds_venda = [e.cd_vd for e in entregas if e.cd_vd]
-
+    
     vendas = {
-        v.cd_vd: v
+        v.cd_vd: v 
         for v in DadosVenda.objects.filter(cd_vd__in=cds_venda)
     }
 
-    # 🔥 clientes
-    cds_cliente = [str(v.cd_cli) for v in vendas.values() if v.cd_cli]
+    # Pegamos os códigos de cliente e limpamos (removendo espaços e garantindo string)
+    cds_cliente = [str(v.cd_cli).strip() for v in vendas.values() if v.cd_cli]
 
+    # Na busca do Customer, usamos o __in com a lista limpa
     clientes = {
-        c.code: c
+        str(c.code).strip(): c 
         for c in Customer.objects.filter(code__in=cds_cliente)
     }
 
     return vendas, clientes
-
 
 @login_required
 def atualizar_status(request):
