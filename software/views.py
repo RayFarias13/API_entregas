@@ -75,48 +75,43 @@ def board_administrativo(request):
 @login_required
 def board_motoboy(request):
     try:
-        # Garante que o usuário tem um perfil de funcionário associado
         funcionario = request.user.funcionario
-    except (AttributeError, ObjectDoesNotExist):
+    except AttributeError:
         return redirect('login')
 
-    # DEBUG: Verifique no console se o cd_usu está vindo preenchido
-    print(f"[DEBUG] Usuário Logado: {request.user.username} | CD_USU: {funcionario.cd_usu}")
-
-    # Se o cd_usu for nulo, zero ou vazio, não há entregas para buscar
     if not funcionario.cd_usu:
         entregas = DadosEntrega.objects.none()
     else:
-        # Tente filtrar garantindo que os tipos de dados coincidem (ex: int vs string)
+        # Forçamos o cd_usu para string caso o campo no banco seja CharField
+        # E removemos o filtro de cd_mov_ret caso ele varie em avulsas
         entregas = DadosEntrega.objects.filter(
-            cd_mov_ret=0,
-            cd_fun_entr=funcionario.cd_usu
-        )
+            cd_fun_entr=str(funcionario.cd_usu).strip()
+        ).filter(Q(cd_mov_ret=0) | Q(cd_mov_ret__isnull=True))
 
-    # DEBUG: Verifique se o banco retornou algo antes de processar
-    print(f"[DEBUG] Entregas encontradas no banco: {entregas.count()}")
+    # DEBUG para confirmar se as avulsas estão aqui
+    print(f"[DEBUG] Entregas para o Motoboy {funcionario.cd_usu}: {entregas.count()}")
 
     vendas, clientes = montar_dados_entregas(entregas)
-    lista_entregas = []
 
+    lista_entregas = []
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
-        # Verifique se a chave no dicionário 'clientes' é string ou int
+        # Se for avulsa, venda.cd_cli existe mas pode precisar de conversão para string
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else 0,
-            'cliente': cliente.name if cliente else 'Desconhecido',
-            'endereco': cliente.address if cliente else 'Desconhecido',
+            'cd_nf': venda.cd_nf if venda else "AVULSA", # Melhor visualização
+            'cliente': cliente.name if cliente else 'Cliente não encontrado',
+            'endereco': cliente.address if cliente else 'Sem endereço',
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
         })
 
-    return render(request, 'motoboy_entregas_dia.html', {
-        'entregas': lista_entregas
-    })
+    return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
+
+
 
 def montar_dados_entregas(entregas):
     entregas = list(entregas)
@@ -234,6 +229,8 @@ def criar_entrega_avulsa(request):
 
     if request.method == 'POST':
         cd_fun_entr = request.POST.get('cd_fun_entr')
+        if cd_fun_entr:
+            cd_fun_entr = int(cd_fun_entr)
         customer_id = request.POST.get('customer_id')
 
         if not cd_fun_entr or not customer_id:
