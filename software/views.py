@@ -75,36 +75,34 @@ def board_administrativo(request):
 @login_required
 def board_motoboy(request):
     try:
+        # Garante que o usuário tem um perfil de funcionário associado
         funcionario = request.user.funcionario
-    except AttributeError:
+    except (AttributeError, ObjectDoesNotExist):
         return redirect('login')
 
-    print(f"[DEBUG] funcionario: {funcionario}")
-    print(f"[DEBUG] cd_usu: {funcionario.cd_usu}")
+    # DEBUG: Verifique no console se o cd_usu está vindo preenchido
+    print(f"[DEBUG] Usuário Logado: {request.user.username} | CD_USU: {funcionario.cd_usu}")
 
+    # Se o cd_usu for nulo, zero ou vazio, não há entregas para buscar
     if not funcionario.cd_usu:
         entregas = DadosEntrega.objects.none()
     else:
+        # Tente filtrar garantindo que os tipos de dados coincidem (ex: int vs string)
         entregas = DadosEntrega.objects.filter(
             cd_mov_ret=0,
             cd_fun_entr=funcionario.cd_usu
         )
 
-    print(f"[DEBUG] total entregas: {entregas.count()}")
-    print(f"[DEBUG] query: {entregas.query}")
+    # DEBUG: Verifique se o banco retornou algo antes de processar
+    print(f"[DEBUG] Entregas encontradas no banco: {entregas.count()}")
 
     vendas, clientes = montar_dados_entregas(entregas)
-
-    print(f"[DEBUG] vendas encontradas: {len(vendas)}")
-    print(f"[DEBUG] clientes encontrados: {len(clientes)}")
-
     lista_entregas = []
 
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
+        # Verifique se a chave no dicionário 'clientes' é string ou int
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
-
-        print(f"[DEBUG] entrega {entrega.cd_entr} | venda: {venda} | cliente: {cliente}")
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
@@ -115,8 +113,6 @@ def board_motoboy(request):
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
         })
-
-    print(f"[DEBUG] lista_entregas final: {len(lista_entregas)}")
 
     return render(request, 'motoboy_entregas_dia.html', {
         'entregas': lista_entregas
