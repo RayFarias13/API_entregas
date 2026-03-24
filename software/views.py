@@ -75,6 +75,7 @@ def board_administrativo(request):
 @login_required
 def board_motoboy(request):
     try:
+        # Pega o objeto do funcionário logado
         funcionario = request.user.funcionario
     except AttributeError:
         return redirect('login')
@@ -82,27 +83,28 @@ def board_motoboy(request):
     if not funcionario.cd_usu:
         entregas = DadosEntrega.objects.none()
     else:
-        # Forçamos o cd_usu para string caso o campo no banco seja CharField
-        # E removemos o filtro de cd_mov_ret caso ele varie em avulsas
+        # 1. REMOVEMOS o str() e o strip(). Usamos o valor inteiro direto.
+        # 2. Mantemos o filtro de cd_mov_ret=0 para alinhar com o administrativo
         entregas = DadosEntrega.objects.filter(
-            cd_fun_entr=str(funcionario.cd_usu).strip()
-        ).filter(Q(cd_mov_ret=0) | Q(cd_mov_ret__isnull=True))
+            cd_fun_entr=funcionario.cd_usu,
+            cd_mov_ret=0
+        )
 
-    # DEBUG para confirmar se as avulsas estão aqui
-    print(f"[DEBUG] Entregas para o Motoboy {funcionario.cd_usu}: {entregas.count()}")
+    # DEBUG: Verifique no console se agora o count é maior que 0
+    print(f"[DEBUG] Motoboy ID: {funcionario.cd_usu} | Entregas: {entregas.count()}")
 
     vendas, clientes = montar_dados_entregas(entregas)
 
     lista_entregas = []
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
-        # Se for avulsa, venda.cd_cli existe mas pode precisar de conversão para string
+        # Garantimos que a chave de busca seja string, pois no montar_dados você fez str(v.cd_cli)
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else "AVULSA", # Melhor visualização
+            'cd_nf': venda.cd_nf if (venda and venda.cd_nf != 0) else "AVULSA",
             'cliente': cliente.name if cliente else 'Cliente não encontrado',
             'endereco': cliente.address if cliente else 'Sem endereço',
             'complemento': cliente.address_complement if cliente else '',
@@ -110,8 +112,6 @@ def board_motoboy(request):
         })
 
     return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
-
-
 
 def montar_dados_entregas(entregas):
     entregas = list(entregas)
