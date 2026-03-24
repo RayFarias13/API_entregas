@@ -30,75 +30,28 @@ logger = logging.getLogger(__name__)
 
 
 # Página Kanban - GERAL
-@login_required
-def board(request):
-    # Get all deliveries where cd_mov_ret == 0
-    entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
-
-    kanban = {}
-
-    for entrega in entregas:
-        # Get the corresponding sale
-        try:
-            venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
-        except DadosVenda.DoesNotExist:
-            venda = None
-
-        # Get the customer for the f
-        cliente = None
-        if venda:
-            try:
-                cliente = Customer.objects.get(code=str(venda.cd_cli))
-            except Customer.DoesNotExist:
-                cliente = None
-
-        # Determine delivery person
-        entregador = f"Motoboy {entrega.cd_fun_entr}" if entrega.cd_fun_entr else "Sem entregador"
-
-        # Add to kanban dictionary
-        if entregador not in kanban:
-            kanban[entregador] = []
-
-        kanban[entregador].append({
-            'cd_entr': entrega.cd_entr,
-            'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
-            'cliente': cliente.name if cliente else 'Desconhecido',
-            'endereco': cliente.address if cliente else 'Desconhecido',
-            'complemento': cliente.address_complement if cliente else '',
-            'telefone': cliente.phone_number if cliente else '',
-            
-        })
-
-    return render(request, 'board.html', {'kanban': kanban})
 
 @login_required
 def board_administrativo(request):
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
     funcionarios_map = {
-    f.cd_usu: f.user.get_full_name() or f.user.username
-    for f in Funcionarios_lista.objects.select_related('user').all()
-    if f.cd_usu is not None
+        f.cd_usu: f.user.get_full_name() or f.user.username
+        for f in Funcionarios_lista.objects.select_related('user')
+        if f.cd_usu is not None
     }
+
+    vendas, clientes = montar_dados_entregas(entregas)
 
     kanban = {}
 
     for entrega in entregas:
-        try:
-            venda = DadosVenda.objects.get(cd_vd=entrega.cd_vd)
-        except DadosVenda.DoesNotExist:
-            venda = None
+        venda = vendas.get(entrega.cd_vd)
+        cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
-        cliente = None
-        if venda:
-            try:
-                cliente = Customer.objects.get(code=str(venda.cd_cli))
-            except Customer.DoesNotExist:
-                cliente = None
-
+        # entregador
         if entrega.cd_fun_entr:
-            codint = int(entrega.cd_fun_entr) 
+            codint = int(entrega.cd_fun_entr)
             entregador = funcionarios_map.get(codint, f"Motoboy {entrega.cd_fun_entr}")
         else:
             entregador = "Sem entregador"
@@ -114,14 +67,11 @@ def board_administrativo(request):
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
-            'entregador': entregador,  # ✅ adicione esta linha
-
+            'entregador': entregador,
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
-
 #kaban - motoboy
-@login_required
 @login_required
 def board_motoboy(request):
     try:
@@ -137,13 +87,13 @@ def board_motoboy(request):
             cd_fun_entr=funcionario.cd_usu
         )
 
+    vendas, clientes = montar_dados_entregas(entregas)
+
     lista_entregas = []
 
     for entrega in entregas:
-        venda = DadosVenda.objects.filter(cd_vd=entrega.cd_vd).first()
-        cliente = None
-        if venda:
-            cliente = Customer.objects.filter(code=str(venda.cd_cli)).first()
+        venda = vendas.get(entrega.cd_vd)
+        cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
@@ -155,10 +105,32 @@ def board_motoboy(request):
             'telefone': cliente.phone_number if cliente else '',
         })
 
-    return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
+    return render(request, 'motoboy_entregas_dia.html', {
+        'entregas': lista_entregas
+    })
 
 
-# API para atualizar status
+def montar_dados_entregas(entregas):
+    entregas = list(entregas)
+
+    # 🔥 vendas
+    cds_venda = [e.cd_vd for e in entregas if e.cd_vd]
+
+    vendas = {
+        v.cd_vd: v
+        for v in DadosVenda.objects.filter(cd_vd__in=cds_venda)
+    }
+
+    # 🔥 clientes
+    cds_cliente = [str(v.cd_cli) for v in vendas.values() if v.cd_cli]
+
+    clientes = {
+        c.code: c
+        for c in Customer.objects.filter(code__in=cds_cliente)
+    }
+
+    return vendas, clientes
+
 
 @login_required
 def atualizar_status(request):
@@ -194,7 +166,7 @@ def atualizar_status(request):
         venda = DadosVenda.objects.filter(cd_vd=entrega.cd_vd).first()
         customer = None
         if venda:
-            customer = Customer.objects.filter(id=venda.cd_cli).first()
+            customer = Customer.objects.filter(code=str(venda.cd_cli)).first()
 
         # Criar registro no histórico
         EntregaFinalizada.objects.create(
@@ -282,6 +254,8 @@ def criar_entrega_avulsa(request):
             cd_vd=proximo_cd_vd,
             cd_fun_entr=cd_fun_entr,
             cd_mov_ret=0,
+            data_hora_atribuicao = timezone.now()
+        
         )
 
         return redirect('boardadministrativo')

@@ -2,7 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('home/', views.board, name='board'),
     path('home_administrativo/', views.board_administrativo, name='boardadministrativo'),
     path('api/atualizar_status/', views.atualizar_status, name='atualizar-status'),
     path('entrega_avulsa/', views.criar_entrega_avulsa, name='entrega_avulsa'),  # função correta
