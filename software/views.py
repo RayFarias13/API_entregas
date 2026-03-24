@@ -259,6 +259,7 @@ def criar_entrega_avulsa(request):
             cd_vd=proximo_cd_vd,
             cd_fun_entr=cd_fun_entr,
             cd_mov_ret=0,
+            cd_filial=99, #99 valor
             data_hora_atribuicao = timezone.now()
         
         )
