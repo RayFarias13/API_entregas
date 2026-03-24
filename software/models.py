@@ -50,7 +50,7 @@ class DadosEntrega(models.Model):
     
     class Meta:
         db_table = 'dados_entrega'
-        unique_together = ('cd_entr', 'cd_vd')  # chave composta
+        unique_together = ('cd_entr', 'cd_vd','cd_filial')  # chave composta
 
 
     def __str__(self):
