@@ -79,6 +79,9 @@ def board_motoboy(request):
     except AttributeError:
         return redirect('login')
 
+    print(f"[DEBUG] funcionario: {funcionario}")
+    print(f"[DEBUG] cd_usu: {funcionario.cd_usu}")
+
     if not funcionario.cd_usu:
         entregas = DadosEntrega.objects.none()
     else:
@@ -87,13 +90,21 @@ def board_motoboy(request):
             cd_fun_entr=funcionario.cd_usu
         )
 
+    print(f"[DEBUG] total entregas: {entregas.count()}")
+    print(f"[DEBUG] query: {entregas.query}")
+
     vendas, clientes = montar_dados_entregas(entregas)
+
+    print(f"[DEBUG] vendas encontradas: {len(vendas)}")
+    print(f"[DEBUG] clientes encontrados: {len(clientes)}")
 
     lista_entregas = []
 
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
+
+        print(f"[DEBUG] entrega {entrega.cd_entr} | venda: {venda} | cliente: {cliente}")
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
@@ -105,10 +116,11 @@ def board_motoboy(request):
             'telefone': cliente.phone_number if cliente else '',
         })
 
+    print(f"[DEBUG] lista_entregas final: {len(lista_entregas)}")
+
     return render(request, 'motoboy_entregas_dia.html', {
         'entregas': lista_entregas
     })
-
 
 def montar_dados_entregas(entregas):
     entregas = list(entregas)
