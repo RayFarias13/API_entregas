@@ -7,7 +7,7 @@ from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subque
 from django.db.models.functions import TruncMonth, ExtractDay
 from django.db import transaction
 
-
+from django.db.models import Q
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
