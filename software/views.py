@@ -33,36 +33,42 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def board_administrativo(request):
+    # 1. Busca entregas ativas
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
+    # 2. Cria o mapa de nomes GARANTINDO chaves inteiras
+    # Filtramos cd_usu__isnull=False para evitar erros de conversão
     funcionarios_map = {
-        f.cd_usu: f.user.get_full_name() or f.user.username
-        for f in Funcionarios_lista.objects.select_related('user')
-        if f.cd_usu is not None
+        int(f.cd_usu): (f.user.get_full_name() or f.user.username)
+        for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
     }
 
     vendas, clientes = montar_dados_entregas(entregas)
-
     kanban = {}
 
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
+        # O montar_dados_entregas usa strings como chaves para clientes
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
-        # entregador
-        if entrega.cd_fun_entr:
-            codint = int(entrega.cd_fun_entr)
-            entregador = funcionarios_map.get(codint, f"Motoboy {entrega.cd_fun_entr}")
-        else:
-            entregador = "Sem entregador"
+        # 3. Lógica do Entregador com Garantia de Tipo
+        entregador = "Sem entregador"
+        if entrega.cd_fun_entr is not None:
+            try:
+                # Forçamos a busca como INT para bater com o mapa acima
+                cod_busca = int(entrega.cd_fun_entr)
+                entregador = funcionarios_map.get(cod_busca, f"Motoboy {cod_busca}")
+            except (ValueError, TypeError):
+                entregador = "Código Inválido"
 
+        # 4. Organiza no Kanban
         if entregador not in kanban:
             kanban[entregador] = []
 
         kanban[entregador].append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
+            'cd_nf': venda.cd_nf if (venda and venda.cd_nf != 0) else 'AVULSA',
             'cliente': cliente.name if cliente else 'Desconhecido',
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
@@ -71,6 +77,7 @@ def board_administrativo(request):
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
+
 #kaban - motoboy
 @login_required
 def board_motoboy(request):
