@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from software.models import Funcionarios_lista, dadoskilometragem
+from software.models import Funcionarios_lista, dadoskilometragem, EntregaFinalizada
 
 # Register your models here.
 @admin.register(Funcionarios_lista)
@@ -16,3 +16,6 @@ class DadoskilometragemAdmin(admin.ModelAdmin):
     search_fields = ("usermotoboy__username", "km_diario")
     list_filter = ("data_apuracao",)
     readonly_fields = ("id",)
+
+
+

@@ -23,6 +23,8 @@ urlpatterns = [
     path('perfil/km/',        views.motoboy_historico_km,        name='motoboy_historico_km'),
     path('perfil/pontuacao/', views.motoboy_pontuacao,           name='motoboy_pontuacao'),
     path('cadastro_cliente/', views.cadastro_cliente, name='cadastro_cliente'),
-
+    path('historico/', views.historico_entregas, name='historico_entregas'),
+    path('historicogeral/', views.historico_geral_entregas, name='historico_entregascopy'),
+    
 
 ]

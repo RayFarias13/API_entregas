@@ -42,7 +42,7 @@
         /* Cartão de Entrega */
         .cartao-entrega { 
             background: #fff; 
-            padding: 15px; 
+            padding: 10px; 
             margin-bottom: 12px; 
             border-radius: 6px; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
@@ -113,6 +113,7 @@
 
                 {% with funcao=request.user.funcionario.funcao %}
                     {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
+                        <a class="links" href="/historicogeral">Historico</a>
                         <a>|</a>
                         <a class="links" href="/cadastro_funcionario">Cadastro</a>
                         <a class="links" href="/gerenciar_cadastros">Equipe</a>

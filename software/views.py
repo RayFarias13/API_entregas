@@ -8,6 +8,7 @@ from django.db.models.functions import TruncMonth, ExtractDay
 from django.db import transaction
 
 from django.db.models import Q
+from collections import OrderedDict
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -33,36 +34,42 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def board_administrativo(request):
+    # 1. Busca entregas ativas
     entregas = DadosEntrega.objects.filter(cd_mov_ret=0)
 
+    # 2. Cria o mapa de nomes GARANTINDO chaves inteiras
+    # Filtramos cd_usu__isnull=False para evitar erros de conversão
     funcionarios_map = {
-        f.cd_usu: f.user.get_full_name() or f.user.username
-        for f in Funcionarios_lista.objects.select_related('user')
-        if f.cd_usu is not None
+        int(f.cd_usu): (f.user.get_full_name() or f.user.username)
+        for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
     }
 
     vendas, clientes = montar_dados_entregas(entregas)
-
     kanban = {}
 
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
+        # O montar_dados_entregas usa strings como chaves para clientes
         cliente = clientes.get(str(venda.cd_cli)) if venda else None
 
-        # entregador
-        if entrega.cd_fun_entr:
-            codint = int(entrega.cd_fun_entr)
-            entregador = funcionarios_map.get(codint, f"Motoboy {entrega.cd_fun_entr}")
-        else:
-            entregador = "Sem entregador"
+        # 3. Lógica do Entregador com Garantia de Tipo
+        entregador = "Sem entregador"
+        if entrega.cd_fun_entr is not None:
+            try:
+                # Forçamos a busca como INT para bater com o mapa acima
+                cod_busca = int(entrega.cd_fun_entr)
+                entregador = funcionarios_map.get(cod_busca, f"Motoboy {cod_busca}")
+            except (ValueError, TypeError):
+                entregador = "Código Inválido"
 
+        # 4. Organiza no Kanban
         if entregador not in kanban:
             kanban[entregador] = []
 
         kanban[entregador].append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else 'Não cadastrado',
+            'cd_nf': venda.cd_nf if (venda and venda.cd_nf != 0) else 'AVULSA',
             'cliente': cliente.name if cliente else 'Desconhecido',
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
@@ -71,10 +78,12 @@ def board_administrativo(request):
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
+
 #kaban - motoboy
 @login_required
 def board_motoboy(request):
     try:
+        # Pega o objeto do funcionário logado
         funcionario = request.user.funcionario
     except AttributeError:
         return redirect('login')
@@ -82,58 +91,56 @@ def board_motoboy(request):
     if not funcionario.cd_usu:
         entregas = DadosEntrega.objects.none()
     else:
-        # Forçamos o cd_usu para string caso o campo no banco seja CharField
-        # E removemos o filtro de cd_mov_ret caso ele varie em avulsas
+        # 1. REMOVEMOS o str() e o strip(). Usamos o valor inteiro direto.
+        # 2. Mantemos o filtro de cd_mov_ret=0 para alinhar com o administrativo
         entregas = DadosEntrega.objects.filter(
-            cd_fun_entr=str(funcionario.cd_usu).strip()
-        ).filter(Q(cd_mov_ret=0) | Q(cd_mov_ret__isnull=True))
+            cd_fun_entr=funcionario.cd_usu,
+            cd_mov_ret=0
+        )
 
-    # DEBUG para confirmar se as avulsas estão aqui
-    print(f"[DEBUG] Entregas para o Motoboy {funcionario.cd_usu}: {entregas.count()}")
+    # DEBUG: Verifique no console se agora o count é maior que 0
+    print(f"[DEBUG] Motoboy ID: {funcionario.cd_usu} | Entregas: {entregas.count()}")
 
     vendas, clientes = montar_dados_entregas(entregas)
 
     lista_entregas = []
     for entrega in entregas:
         venda = vendas.get(entrega.cd_vd)
-        # Se for avulsa, venda.cd_cli existe mas pode precisar de conversão para string
-        cliente = clientes.get(str(venda.cd_cli)) if venda else None
+        # Buscamos o cliente garantindo que a chave seja uma string limpa
+        cd_cli_busca = str(venda.cd_cli).strip() if venda else None
+        cliente_obj = clientes.get(cd_cli_busca) if cd_cli_busca else None
 
         lista_entregas.append({
             'cd_entr': entrega.cd_entr,
             'cd_vd': entrega.cd_vd,
-            'cd_nf': venda.cd_nf if venda else "AVULSA", # Melhor visualização
-            'cliente': cliente.name if cliente else 'Cliente não encontrado',
-            'endereco': cliente.address if cliente else 'Sem endereço',
-            'complemento': cliente.address_complement if cliente else '',
-            'telefone': cliente.phone_number if cliente else '',
+            'cd_nf': venda.cd_nf if (venda and venda.cd_nf != 0) else "AVULSA",
+            'cliente': cliente_obj.name if cliente_obj else f"Cliente Cód. {cd_cli_busca or '?'}",
+            'endereco': cliente_obj.address if cliente_obj else 'Endereço não informado',
+            'complemento': cliente_obj.address_complement if cliente_obj else '',
+            'telefone': cliente_obj.phone_number if cliente_obj else '',
         })
 
     return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
 
-
-
 def montar_dados_entregas(entregas):
     entregas = list(entregas)
-
-    # 🔥 vendas
     cds_venda = [e.cd_vd for e in entregas if e.cd_vd]
-
+    
     vendas = {
-        v.cd_vd: v
+        v.cd_vd: v 
         for v in DadosVenda.objects.filter(cd_vd__in=cds_venda)
     }
 
-    # 🔥 clientes
-    cds_cliente = [str(v.cd_cli) for v in vendas.values() if v.cd_cli]
+    # Pegamos os códigos de cliente e limpamos (removendo espaços e garantindo string)
+    cds_cliente = [str(v.cd_cli).strip() for v in vendas.values() if v.cd_cli]
 
+    # Na busca do Customer, usamos o __in com a lista limpa
     clientes = {
-        c.code: c
+        str(c.code).strip(): c 
         for c in Customer.objects.filter(code__in=cds_cliente)
     }
 
     return vendas, clientes
-
 
 @login_required
 def atualizar_status(request):
@@ -209,65 +216,77 @@ def buscar_customer_por_nome(request):
 
 @login_required
 def criar_entrega_avulsa(request):
-
+    # 1. Validação de Permissão
     try:
-        funcionario = request.user.funcionario
+        funcionario_logado = request.user.funcionario
         FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
-        if funcionario.funcao not in FUNCS_PERMITIDAS:
+        if funcionario_logado.funcao not in FUNCS_PERMITIDAS:
             return redirect('login')
     except AttributeError:
         return redirect('login')
 
-    customers = Customer.objects.all()
-    funcionarios = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
+    # 2. Preparação de Dados para o Template
+    customers = Customer.objects.all().order_by('name')
+    entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR').select_related('user')
 
-    ultimo = DadosEntrega.objects.order_by('-cd_entr').first()
-    proximo_cd_entr = ultimo.cd_entr + 1 if ultimo else 1100000
+    # Gerar próximos IDs (Garantindo que sejam inteiros e baseados no maior valor)
+    ultimo_entr = DadosEntrega.objects.order_by('-cd_entr').first()
+    proximo_cd_entr = (ultimo_entr.cd_entr + 1) if ultimo_entr else 1100000
 
-    ultimo_vd = DadosEntrega.objects.order_by('-cd_vd').first()
-    proximo_cd_vd = ultimo_vd.cd_vd + 1 if ultimo_vd else 1100000
+    ultimo_vd = DadosVenda.objects.order_by('-cd_vd').first()
+    proximo_cd_vd = (ultimo_vd.cd_vd + 1) if ultimo_vd else 1100000
 
+    # 3. Processamento do POST
     if request.method == 'POST':
-        cd_fun_entr = request.POST.get('cd_fun_entr')
-        if cd_fun_entr:
-            cd_fun_entr = int(cd_fun_entr)
-        customer_id = request.POST.get('customer_id')
+        cd_fun_entr = request.POST.get('cd_fun_entr')  # O código (cd_usu) do entregador
+        customer_id = request.POST.get('customer_id')  # O ID da tabela Customer
 
         if not cd_fun_entr or not customer_id:
             return render(request, 'entrega_avulsa.html', {
-                'erro': 'Funcionário e cliente são obrigatórios',
+                'erro': 'Selecione um entregador e um cliente.',
                 'customers': customers,
-                'funcionarios': funcionarios,
+                'funcionarios': entregadores,
                 'proximo_cd_entr': proximo_cd_entr,
                 'proximo_cd_vd': proximo_cd_vd,
             })
 
         try:
-            customer = Customer.objects.get(id=customer_id)
-        except Customer.DoesNotExist:
-            return render(request, 'entrega_avulsa.html', {'erro': 'Cliente não encontrado'})
+            # Usamos transação para garantir que ou cria ambos (Venda e Entrega) ou nenhum
+            with transaction.atomic():
+                cliente = Customer.objects.get(id=customer_id)
+                
+                # Criar Venda Fictícia (Essencial para o board do motoboy encontrar o cliente)
+                # IMPORTANTE: Salvar o cliente.code como string/int conforme o seu banco original
+                DadosVenda.objects.create(
+                    cd_cli=cliente.code, 
+                    cd_nf=0,  # Indica avulsa
+                    cd_vd=proximo_cd_vd
+                )
 
-        # Cria um DadosVenda fictício para manter a consistência com o board
-        DadosVenda.objects.create(
-            cd_cli=int(customer.code),
-            cd_nf=0,  # avulsa não tem NF
-            cd_vd=proximo_cd_vd,
-        )
+                # Criar a Entrega
+                DadosEntrega.objects.create(
+                    cd_entr=proximo_cd_entr,
+                    cd_vd=proximo_cd_vd,
+                    cd_fun_entr=int(cd_fun_entr), # ID legado do entregador
+                    cd_mov_ret=0,                 # Status de entrega ativa
+                    cd_filial=5,                  # Filial padrão (ajuste se necessário)
+                    data_hora_atribuicao=timezone.now()
+                )
 
-        DadosEntrega.objects.create(
-            cd_entr=proximo_cd_entr,
-            cd_vd=proximo_cd_vd,
-            cd_fun_entr=cd_fun_entr,
-            cd_mov_ret=0,
-            data_hora_atribuicao = timezone.now()
-        
-        )
+            return redirect('boardadministrativo')
 
-        return redirect('boardadministrativo')
+        except Exception as e:
+            return render(request, 'entrega_avulsa.html', {
+                'erro': f'Erro ao salvar: {str(e)}',
+                'customers': customers,
+                'funcionarios': entregadores,
+                'proximo_cd_entr': proximo_cd_entr,
+                'proximo_cd_vd': proximo_cd_vd,
+            })
 
     return render(request, 'entrega_avulsa.html', {
         'customers': customers,
-        'funcionarios': funcionarios,
+        'funcionarios': entregadores,
         'proximo_cd_entr': proximo_cd_entr,
         'proximo_cd_vd': proximo_cd_vd,
     })
@@ -968,3 +987,108 @@ def cadastro_cliente(request):
         })
 
     return render(request, 'entrega_avulsa.html')
+
+
+
+@login_required
+def historico_entregas(request):
+    # Pega todos os registros inicialmente, ordenando pelos mais recentes
+    entregas = EntregaFinalizada.objects.all().order_by('-data_hora_entrega')
+
+    # --- Lógica de Filtros ---
+    
+    # Filtro por Nome do Cliente ou Endereço (Busca textual)
+    q = request.GET.get('q')
+    if q:
+        entregas = entregas.filter(
+            Q(nome_cliente__icontains=q) | 
+            Q(endereco__icontains=q) |
+            Q(entrega__cd_entr__icontains=q) # Busca por ID da entrega também
+        )
+
+    # Filtro por Status
+    status = request.GET.get('status')
+    if status:
+        entregas = entregas.filter(entrega_status=status)
+
+    # Filtro por Motoboy (usando o ID do User do Django)
+    motoboy_id = request.GET.get('motoboy')
+    if motoboy_id:
+        entregas = entregas.filter(usermotoboy_id=motoboy_id)
+
+    # Filtro por Data (Início e Fim)
+    data_inicio = request.GET.get('data_inicio')
+    data_fim = request.GET.get('data_fim')
+    if data_inicio:
+        entregas = entregas.filter(data_hora_entrega__date__gte=data_inicio)
+    if data_fim:
+        entregas = entregas.filter(data_hora_entrega__date__lte=data_fim)
+
+    # Dados para preencher os selects dos filtros no HTML
+    motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR')
+    status_choices = EntregaFinalizada.STATUS_CHOICES
+
+    context = {
+        'entregas': entregas,
+        'motoboys': motoboys,
+        'status_choices': status_choices,
+        'filtros': request.GET, # Para manter os valores nos campos após filtrar
+    }
+
+    return render(request, 'historico_entregas.html', context)
+
+@login_required
+def historico_geral_entregas(request):
+    mes_sel = int(request.GET.get('mes', timezone.now().month))
+    motoboy_id = request.GET.get('motoboy') # Aqui recebemos o ID do User para o filtro
+    
+    # 1. Criamos o mapa de nomes baseados no cd_usu (o que está no campo 'funcionario')
+    # Forçamos int() para garantir o "match" perfeito
+    funcionarios_map = {
+        int(f.cd_usu): (f.user.get_full_name() or f.user.username)
+        for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
+    }
+
+    # 2. Query Base
+    query = EntregaFinalizada.objects.filter(
+        data_hora_entrega__month=mes_sel,
+        data_hora_entrega__year=timezone.now().year
+    )
+    
+    if motoboy_id:
+        query = query.filter(usermotoboy_id=motoboy_id)
+        
+    entregas_list = query.order_by('-data_hora_entrega')
+
+    # 3. Agrupamento por Data
+    agrupados = OrderedDict()
+    for e in entregas_list:
+        data_str = e.data_hora_entrega.strftime('%d/%m/%Y')
+        if data_str not in agrupados:
+            agrupados[data_str] = []
+            
+        # LÓGICA DO NOME PELO CAMPO FUNCIONARIO
+        nome_exibicao = "Desconhecido"
+        if e.funcionario:
+            # Busca o nome no mapa usando o código numérico salvo no registro
+            nome_exibicao = funcionarios_map.get(int(e.funcionario), f"Cód. {e.funcionario}")
+
+        agrupados[data_str].append({
+            'cliente': e.nome_cliente,
+            'endereco': e.endereco,
+            'hora': e.data_hora_entrega.strftime('%H:%M'),
+            'status': e.entrega_status,
+            'status_display': e.get_entrega_status_display(),
+            'motoboy': nome_exibicao # Agora usa o nome vindo do código legado
+        })
+
+    # ... (resto do contexto: totais e meses)
+    context = {
+        'entregas_agrupadas': [{'data': k, 'entregas': v} for k, v in agrupados.items()],
+        'motoboys': User.objects.filter(funcionario__funcao='ENTREGADOR'),
+        'mes_selecionado': mes_sel,
+        'total_geral': query.count(),
+        'total_entregue': query.filter(entrega_status='ENTREGUE').count(),
+        'total_problemas': query.exclude(entrega_status='ENTREGUE').count(),
+    }
+    return render(request, 'historico_entregascopy.html', context)
