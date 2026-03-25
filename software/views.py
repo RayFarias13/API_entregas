@@ -1035,3 +1035,49 @@ def historico_entregas(request):
     }
 
     return render(request, 'historico_entregas.html', context)
+
+@login_required
+def historico_geral_entregas(request):
+    # 1. Filtros de busca
+    mes_sel = int(request.GET.get('mes', timezone.now().month))
+    motoboy_id = request.GET.get('motoboy')
+    
+    # 2. Query Base (Filtrada por mês/ano e opcionalmente por motoboy)
+    query = EntregaFinalizada.objects.select_related('usermotoboy').filter(
+        data_hora_entrega__month=mes_sel,
+        data_hora_entrega__year=timezone.now().year
+    )
+    
+    if motoboy_id:
+        query = query.filter(usermotoboy_id=motoboy_id)
+        
+    entregas_list = query.order_by('-data_hora_entrega')
+
+    # 3. Agrupamento por Data para o Layout
+    agrupados = OrderedDict()
+    for e in entregas_list:
+        data_str = e.data_hora_entrega.strftime('%d/%m/%Y')
+        if data_str not in agrupados:
+            agrupados[data_str] = []
+            
+        agrupados[data_str].append({
+            'cliente': e.nome_cliente,
+            'endereco': e.endereco,
+            'hora': e.data_hora_entrega.strftime('%H:%M'),
+            'status': e.entrega_status,
+            'status_display': e.get_entrega_status_display(),
+            'motoboy': e.usermotoboy.get_full_name() or e.usermotoboy.username
+        })
+
+    # 4. Dados para os selects de filtro
+    entregas_agrupadas = [{'data': k, 'entregas': v} for k, v in agrupados.items()]
+    motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR')
+
+    context = {
+        'entregas_agrupadas': entregas_agrupadas,
+        'motoboys': motoboys,
+        'mes_selecionado': mes_sel,
+        'motoboy_selecionado': int(motoboy_id) if motoboy_id else None,
+        'total_geral': query.count(),
+    }
+    return render(request, 'historico_entregascopy.html', context)
