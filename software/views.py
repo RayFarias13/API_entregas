@@ -1039,12 +1039,18 @@ def historico_entregas(request):
 
 @login_required
 def historico_geral_entregas(request):
-    # 1. Filtros de busca
     mes_sel = int(request.GET.get('mes', timezone.now().month))
-    motoboy_id = request.GET.get('motoboy')
+    motoboy_id = request.GET.get('motoboy') # Aqui recebemos o ID do User para o filtro
     
-    # 2. Query Base (Filtrada por mês/ano e opcionalmente por motoboy)
-    query = EntregaFinalizada.objects.select_related('usermotoboy').filter(
+    # 1. Criamos o mapa de nomes baseados no cd_usu (o que está no campo 'funcionario')
+    # Forçamos int() para garantir o "match" perfeito
+    funcionarios_map = {
+        int(f.cd_usu): (f.user.get_full_name() or f.user.username)
+        for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
+    }
+
+    # 2. Query Base
+    query = EntregaFinalizada.objects.filter(
         data_hora_entrega__month=mes_sel,
         data_hora_entrega__year=timezone.now().year
     )
@@ -1054,31 +1060,35 @@ def historico_geral_entregas(request):
         
     entregas_list = query.order_by('-data_hora_entrega')
 
-    # 3. Agrupamento por Data para o Layout
+    # 3. Agrupamento por Data
     agrupados = OrderedDict()
     for e in entregas_list:
         data_str = e.data_hora_entrega.strftime('%d/%m/%Y')
         if data_str not in agrupados:
             agrupados[data_str] = []
             
+        # LÓGICA DO NOME PELO CAMPO FUNCIONARIO
+        nome_exibicao = "Desconhecido"
+        if e.funcionario:
+            # Busca o nome no mapa usando o código numérico salvo no registro
+            nome_exibicao = funcionarios_map.get(int(e.funcionario), f"Cód. {e.funcionario}")
+
         agrupados[data_str].append({
             'cliente': e.nome_cliente,
             'endereco': e.endereco,
             'hora': e.data_hora_entrega.strftime('%H:%M'),
             'status': e.entrega_status,
             'status_display': e.get_entrega_status_display(),
-            'motoboy': e.usermotoboy.get_full_name() or e.usermotoboy.username
+            'motoboy': nome_exibicao # Agora usa o nome vindo do código legado
         })
 
-    # 4. Dados para os selects de filtro
-    entregas_agrupadas = [{'data': k, 'entregas': v} for k, v in agrupados.items()]
-    motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR')
-
+    # ... (resto do contexto: totais e meses)
     context = {
-        'entregas_agrupadas': entregas_agrupadas,
-        'motoboys': motoboys,
+        'entregas_agrupadas': [{'data': k, 'entregas': v} for k, v in agrupados.items()],
+        'motoboys': User.objects.filter(funcionario__funcao='ENTREGADOR'),
         'mes_selecionado': mes_sel,
-        'motoboy_selecionado': int(motoboy_id) if motoboy_id else None,
         'total_geral': query.count(),
+        'total_entregue': query.filter(entrega_status='ENTREGUE').count(),
+        'total_problemas': query.exclude(entrega_status='ENTREGUE').count(),
     }
     return render(request, 'historico_entregascopy.html', context)
