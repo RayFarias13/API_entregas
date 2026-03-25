@@ -33,7 +33,7 @@
         <select name="cd_fun_entr" id="cd_fun_entr" required>
             <option value="">-- Selecione um funcionário --</option>
             {% for f in funcionarios %}
-                <option value="{{ f.id }}"> {{ f.cd_usu }} - {{ f.user }}</option>
+                <option value="{{ f.id }}"> {{ f.cd_usu }} - {{ f.user.get_full_nameS }}</option>
             {% endfor %}
         </select>
 

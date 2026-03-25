@@ -208,66 +208,77 @@ def buscar_customer_por_nome(request):
 
 @login_required
 def criar_entrega_avulsa(request):
-
+    # 1. Validação de Permissão
     try:
-        funcionario = request.user.funcionario
+        funcionario_logado = request.user.funcionario
         FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
-        if funcionario.funcao not in FUNCS_PERMITIDAS:
+        if funcionario_logado.funcao not in FUNCS_PERMITIDAS:
             return redirect('login')
     except AttributeError:
         return redirect('login')
 
-    customers = Customer.objects.all()
-    funcionarios = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
+    # 2. Preparação de Dados para o Template
+    customers = Customer.objects.all().order_by('name')
+    entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR').select_related('user')
 
-    ultimo = DadosEntrega.objects.order_by('-cd_entr').first()
-    proximo_cd_entr = ultimo.cd_entr + 1 if ultimo else 1100000
+    # Gerar próximos IDs (Garantindo que sejam inteiros e baseados no maior valor)
+    ultimo_entr = DadosEntrega.objects.order_by('-cd_entr').first()
+    proximo_cd_entr = (ultimo_entr.cd_entr + 1) if ultimo_entr else 1100000
 
-    ultimo_vd = DadosEntrega.objects.order_by('-cd_vd').first()
-    proximo_cd_vd = ultimo_vd.cd_vd + 1 if ultimo_vd else 1100000
+    ultimo_vd = DadosVenda.objects.order_by('-cd_vd').first()
+    proximo_cd_vd = (ultimo_vd.cd_vd + 1) if ultimo_vd else 1100000
 
+    # 3. Processamento do POST
     if request.method == 'POST':
-        cd_fun_entr = request.POST.get('cd_fun_entr')
-        if cd_fun_entr:
-            cd_fun_entr = int(cd_fun_entr)
-        customer_id = request.POST.get('customer_id')
+        cd_fun_entr = request.POST.get('cd_fun_entr')  # O código (cd_usu) do entregador
+        customer_id = request.POST.get('customer_id')  # O ID da tabela Customer
 
         if not cd_fun_entr or not customer_id:
             return render(request, 'entrega_avulsa.html', {
-                'erro': 'Funcionário e cliente são obrigatórios',
+                'erro': 'Selecione um entregador e um cliente.',
                 'customers': customers,
-                'funcionarios': funcionarios,
+                'funcionarios': entregadores,
                 'proximo_cd_entr': proximo_cd_entr,
                 'proximo_cd_vd': proximo_cd_vd,
             })
 
         try:
-            customer = Customer.objects.get(id=customer_id)
-        except Customer.DoesNotExist:
-            return render(request, 'entrega_avulsa.html', {'erro': 'Cliente não encontrado'})
+            # Usamos transação para garantir que ou cria ambos (Venda e Entrega) ou nenhum
+            with transaction.atomic():
+                cliente = Customer.objects.get(id=customer_id)
+                
+                # Criar Venda Fictícia (Essencial para o board do motoboy encontrar o cliente)
+                # IMPORTANTE: Salvar o cliente.code como string/int conforme o seu banco original
+                DadosVenda.objects.create(
+                    cd_cli=cliente.code, 
+                    cd_nf=0,  # Indica avulsa
+                    cd_vd=proximo_cd_vd
+                )
 
-        # Cria um DadosVenda fictício para manter a consistência com o board
-        DadosVenda.objects.create(
-            cd_cli=int(customer.code),
-            cd_nf=0,  # avulsa não tem NF
-            cd_vd=proximo_cd_vd,
-        )
+                # Criar a Entrega
+                DadosEntrega.objects.create(
+                    cd_entr=proximo_cd_entr,
+                    cd_vd=proximo_cd_vd,
+                    cd_fun_entr=int(cd_fun_entr), # ID legado do entregador
+                    cd_mov_ret=0,                 # Status de entrega ativa
+                    cd_filial=5,                  # Filial padrão (ajuste se necessário)
+                    data_hora_atribuicao=timezone.now()
+                )
 
-        DadosEntrega.objects.create(
-            cd_entr=proximo_cd_entr,
-            cd_vd=proximo_cd_vd,
-            cd_fun_entr=cd_fun_entr,
-            cd_mov_ret=0,
-            cd_filial=99, #99 valor
-            data_hora_atribuicao = timezone.now()
-        
-        )
+            return redirect('boardadministrativo')
 
-        return redirect('boardadministrativo')
+        except Exception as e:
+            return render(request, 'entrega_avulsa.html', {
+                'erro': f'Erro ao salvar: {str(e)}',
+                'customers': customers,
+                'funcionarios': entregadores,
+                'proximo_cd_entr': proximo_cd_entr,
+                'proximo_cd_vd': proximo_cd_vd,
+            })
 
     return render(request, 'entrega_avulsa.html', {
         'customers': customers,
-        'funcionarios': funcionarios,
+        'funcionarios': entregadores,
         'proximo_cd_entr': proximo_cd_entr,
         'proximo_cd_vd': proximo_cd_vd,
     })
