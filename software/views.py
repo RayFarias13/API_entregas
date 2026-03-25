@@ -986,3 +986,52 @@ def cadastro_cliente(request):
         })
 
     return render(request, 'entrega_avulsa.html')
+
+
+
+@login_required
+def historico_entregas(request):
+    # Pega todos os registros inicialmente, ordenando pelos mais recentes
+    entregas = EntregaFinalizada.objects.all().order_by('-data_hora_entrega')
+
+    # --- Lógica de Filtros ---
+    
+    # Filtro por Nome do Cliente ou Endereço (Busca textual)
+    q = request.GET.get('q')
+    if q:
+        entregas = entregas.filter(
+            Q(nome_cliente__icontains=q) | 
+            Q(endereco__icontains=q) |
+            Q(entrega__cd_entr__icontains=q) # Busca por ID da entrega também
+        )
+
+    # Filtro por Status
+    status = request.GET.get('status')
+    if status:
+        entregas = entregas.filter(entrega_status=status)
+
+    # Filtro por Motoboy (usando o ID do User do Django)
+    motoboy_id = request.GET.get('motoboy')
+    if motoboy_id:
+        entregas = entregas.filter(usermotoboy_id=motoboy_id)
+
+    # Filtro por Data (Início e Fim)
+    data_inicio = request.GET.get('data_inicio')
+    data_fim = request.GET.get('data_fim')
+    if data_inicio:
+        entregas = entregas.filter(data_hora_entrega__date__gte=data_inicio)
+    if data_fim:
+        entregas = entregas.filter(data_hora_entrega__date__lte=data_fim)
+
+    # Dados para preencher os selects dos filtros no HTML
+    motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR')
+    status_choices = EntregaFinalizada.STATUS_CHOICES
+
+    context = {
+        'entregas': entregas,
+        'motoboys': motoboys,
+        'status_choices': status_choices,
+        'filtros': request.GET, # Para manter os valores nos campos após filtrar
+    }
+
+    return render(request, 'historico_entregas.html', context)
