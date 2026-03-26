@@ -166,7 +166,7 @@
 
                     <hr style="margin: 10px 0;">
 
-                    <label style="font-size: 11px; color: #777;">STATUS DA ENTREGA - Atribuido: {{ entrega.hora_atribuicao }}</label>
+                    <label style="font-size: 11px; color: #777;">STATUS DA ENTREGA - Atribuido: {{ card.data_entr_ini|date:"d/m/Y" }} às {{ card.hora_entr_ini|time:"H:i" }}</label>
                     <select id="status_{{ entrega.cd_entr }}">
                         <option value="ENTREGUE">✅ Entregue</option>
                         <option value="CLIENTE_AUSENTE">🏠 Cliente ausente</option>
