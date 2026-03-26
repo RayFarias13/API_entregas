@@ -46,7 +46,7 @@ class DadosEntrega(models.Model):
     cd_filial = models.IntegerField(null=True, blank=True)
     data_entr_ini = models.DateField(auto_now_add=True)
     hora_entr_ini = models.TimeField(auto_now_add=True)
-    data_hora_atribuicao = models.DateTimeField(null=True, blank=True)
+    data_hora_atribuicao = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
     class Meta:
         db_table = 'dados_entrega'
