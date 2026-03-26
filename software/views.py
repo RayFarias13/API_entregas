@@ -75,6 +75,7 @@ def board_administrativo(request):
             'complemento': cliente.address_complement if cliente else '',
             'telefone': cliente.phone_number if cliente else '',
             'entregador': entregador,
+            'hora_atribuicao': timezone.localtime(entrega.data_hora_atribuicao).strftime('%d/%m %H:%M') if entrega.data_hora_atribuicao else 'N/A',
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
