@@ -189,7 +189,7 @@
                             {{ f.user.get_full_name|slice:":1"|upper }}{{ f.user.last_name|slice:":1"|upper }}
                         </div>
                         <div>
-                            <div class="user-name">{{ f.user.get_full_name }}</div>
+                            <div class="user-name">{{ f.user.get_full_name |upper }}</div>
                         </div>
                     </div>
                 </td>
