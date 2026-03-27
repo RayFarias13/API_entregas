@@ -81,8 +81,8 @@
         justify-content: center;
         flex-shrink: 0;
     }
-    .user-name { font-weight: 500; color: #1a1a2e; font-size: 14px; }
-    .user-username { font-size: 12px; color: var(--muted); margin-top: 1px; }
+    .user-name { font-weight: 500; color: #1a1a2e; font-size: 17px; }
+    .user-username { font-size: 15px; color: var(--muted); margin-top: 1px; }
 
     /* Select */
     .funcao-select {
@@ -176,6 +176,7 @@
             <tr>
                 <th>Funcionário</th>
                 <th>Usuário</th>
+                <th>Codigo vetor</th>
                 <th>Função</th>
             </tr>
         </thead>
@@ -193,8 +194,12 @@
                     </div>
                 </td>
 
-                <td style="color: var(--muted); font-size: 13px;">
+                <td style="color: var(--muted); font-size: 15px;">
                     @{{ f.user.username }}
+                </td>
+
+                <td style="color: var(--muted); font-size: 15px;">
+                    {{f.user.cd_usu}}
                 </td>
 
                 <td>
@@ -216,9 +221,9 @@
             <i class="fa-solid fa-circle-info" style="color: var(--muted);"></i>
             Alterações só são salvas ao clicar no botão
         </span>
-        <button type="submit" class="btn-save">
+        <!-- <button type="submit" class="btn-save">
             <i class="fa-solid fa-floppy-disk"></i> Salvar alterações
-        </button>
+        </button> -->
     </div>
 
 </form>
