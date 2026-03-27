@@ -73,7 +73,9 @@ def board_administrativo(request):
             'cliente': cliente.name if cliente else 'Desconhecido',
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
-            'telefone': cliente.phone_number.replace('+', '') if cliente else '',
+            'telefone': cliente.phone_number if cliente else '',
+
+            #'telefone': cliente.phone_number.replace('+', '') if cliente else '',
             'entregador': entregador,
             'data_entr_ini': entrega.data_entr_ini,
             'hora_entr_ini': entrega.hora_entr_ini,
