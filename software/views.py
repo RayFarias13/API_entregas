@@ -556,7 +556,7 @@ def lista_km(request):
     ultimosregistros = (dadoskilometragem.objects
                         .annotate(mes_base=TruncMonth('data_apuracao'))
                         .annotate(dia = ExtractDay('data_apuracao'))
-                        .values('mes_base', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
+                        .values('mes_base','dia', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
                         .order_by('-data_apuracao')[:10]
                         )
     
