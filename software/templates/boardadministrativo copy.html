@@ -11,10 +11,12 @@
     <style>
         body { background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; color: #333; }
         
+        /* Navbar Custom */
         .navbar-custom { background: #fff; border-bottom: 1px solid #ddd; margin-bottom: 20px; padding: 10px 0; }
         .navbar-custom .links { color: #555; font-weight: 600; margin-left: 15px; text-decoration: none; }
         .navbar-custom .links:hover { color: #3498db; }
 
+        /* Board Estilo Kanban */
         .board-container { display: flex; gap: 20px; overflow-x: auto; padding: 10px 20px; align-items: flex-start; }
         
         .lista-entregador { 
@@ -32,25 +34,12 @@
             font-size: 18px; 
             font-weight: bold; 
             padding: 5px 10px; 
-            margin: 5px 0 10px 0; 
+            margin: 5px 0 15px 0; 
             color: #1a1a1a; 
             border-left: 5px solid #3498db;
         }
 
-        .btn-lote {
-            width: 100%;
-            margin-bottom: 15px;
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
-            transition: 0.3s;
-        }
-        .btn-lote:hover { background-color: #e67e22; color: white; }
-
+        /* Cartão de Entrega */
         .cartao-entrega { 
             background: #fff; 
             padding: 10px; 
@@ -64,6 +53,19 @@
         .nf-badge { background: #34495e; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
         .cliente-nome { font-weight: bold; font-size: 14px; color: #2c3e50; }
 
+        /* Inputs dentro do cartão */
+
+        .card-header-motoboy {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px 14px;
+            margin: -14px -14px 12px -14px;
+            border-radius: 8px 8px 0 0;
+        }
+        
         .cartao-entrega select, .cartao-entrega textarea { 
             width: 100%; 
             margin-top: 10px; 
@@ -84,8 +86,10 @@
             font-weight: bold; 
             transition: 0.3s;
         }
+        
         .btn-finalizar:hover { background: #219150; }
 
+        /* Scrollbar para o board */
         .board-container::-webkit-scrollbar { height: 8px; }
         .board-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
     </style>
@@ -100,6 +104,7 @@
             </div>
             <div class="col-xs-8 text-right">
                 {% if request.user.is_authenticated %}
+
                 <a class="links" href="/mapa">Mapa</a>
                 <a>|</a>
                 <a class="links" href="/entrega_avulsa">Entrega Avulsa</a>
@@ -116,9 +121,10 @@
                 {% endwith %}
 
                 <a class="links" href="/logout" style="color: #e74c3c;"><i class="fa fa-power-off"></i></a>
-                {% else %}
+
+            {% else %}
                 <a class="links" href="/login">Login</a>
-                {% endif %}
+            {% endif %}
             </div>
         </div>
     </div>
@@ -127,21 +133,20 @@
 <div class="board-container">
     {% for entregador, entregas in kanban.items %}
         <div class="lista-entregador">
+            <!--<h3><i class="fa fa-user-circle-o"></i> {{ entregador }}</h3> -->
             <h3><i class="fa fa-motorcycle"></i> {{ entregador }} - {{entregador.cd_usu}}</h3>
-            
-            {% if entregas %}
-                {% if request.user.is_staff %}
-
-                <button class="btn-lote" onclick="finalizarTudoNaColuna(this)">
-                    <i class="fa fa-check-double"></i> Finalizar Todas desta Coluna
-                </button>
-                {% endif %}
-
-
-            {% endif %}
-
             {% for entrega in entregas %}
-                <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}" data-id="{{ entrega.cd_entr }}" data-vd="{{ entrega.cd_vd }}">
+                <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}">
+
+                    <!--<div class="card-header-motoboy">
+                    <i class="fa fa-motorcycle"></i>
+                    <div>
+                        <small>Motoboy</small>
+                        <strong>{{ entregador }}</strong>
+                    </div>
+                    </div>-->
+
+
                     
                     {% if entrega.cd_nf == 0 %}
                         <span class="nf-badge" style="background:#e67e22;">AVULSA</span>
@@ -149,6 +154,7 @@
                         <span class="nf-badge">NF: {{ entrega.cd_nf }}</span>
                     {% endif %}
 
+                    <!--<p><span class="nf-badge">NF: {{ entrega.cd_nf }}</span></p>-->
                     <p class="cliente-nome">{{ entrega.cliente }}</p>
                     <p><i class="fa fa-map-marker text-danger"></i> {{ entrega.endereco }}</p>
                     {% if entrega.complemento %}<p class="text-muted"><small>{{ entrega.complemento }}</small></p>{% endif %}
@@ -185,49 +191,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <script>
-/**
- * Função para finalizar TODAS as entregas de uma coluna específica
- */
-function finalizarTudoNaColuna(botaoLote) {
-    if (!confirm("Deseja finalizar TODAS as entregas desta coluna como 'ENTREGUE'?")) return;
-
-    // Seleciona a coluna atual e todos os cartões nela
-    const coluna = $(botaoLote).closest('.lista-entregador');
-    const cards = coluna.find('.cartao-entrega');
-
-    // Desabilita o botão de lote para evitar cliques duplos
-    botaoLote.disabled = true;
-    botaoLote.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Processando fila...";
-
-    cards.each(function() {
-        const card = $(this);
-        const cd_entr = card.data('id');
-        const cd_vd = card.data('vd');
-        const btnIndividual = card.find('.btn-finalizar')[0];
-        
-        // Dispara a função individual para cada card
-        finalizar(cd_entr, cd_vd, btnIndividual);
-    });
-
-    // Remove o botão de lote após iniciar o processo
-    $(botaoLote).fadeOut();
-}
-
-/**
- * Função individual original (com melhoria de feedback)
- */
 function finalizar(cd_entr, cd_vd, button){
     const status = document.getElementById(`status_${cd_entr}`).value;
     const observacoes = document.getElementById(`obs_${cd_entr}`).value;
 
+    // Feedback visual imediato
     button.disabled = true;
-    button.innerHTML = "<i class='fa fa-spinner fa-spin'></i>...";
+    button.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Processando...";
 
     fetch("/finalizar_entrega/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
+            'X-CSRFToken': '{{ csrf_token }}' // Importante para segurança no Django
         },
         body: JSON.stringify({
             cd_entr: cd_entr,
@@ -239,17 +215,18 @@ function finalizar(cd_entr, cd_vd, button){
     .then(res => res.json())
     .then(data => {
         if(data.success){
+            // Efeito de sumir suavemente
             $(`#card_${cd_entr}`).fadeOut(500, function(){ $(this).remove(); });
         } else {
-            alert("Erro no card " + cd_entr + ": " + data.message);
+            alert("Erro: " + data.message);
             button.disabled = false;
-            button.innerHTML = "<i class='fa fa-check'></i> Finalizar Entrega";
+            button.innerHTML = "Finalizar";
         }
     })
     .catch(err => {
-        console.error(err);
+        alert("Erro de conexão!");
         button.disabled = false;
-        button.innerHTML = "Erro!";
+        button.innerHTML = "Finalizar";
     });
 }
 </script>
