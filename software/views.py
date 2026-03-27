@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
-from django.db.models.functions import TruncMonth, ExtractDay
+from django.db.models.functions import ExtractMonth, TruncMonth, ExtractDay
 from django.db import transaction
 
 from django.db.models import Q
@@ -73,8 +73,11 @@ def board_administrativo(request):
             'cliente': cliente.name if cliente else 'Desconhecido',
             'endereco': cliente.address if cliente else 'Desconhecido',
             'complemento': cliente.address_complement if cliente else '',
-            'telefone': cliente.phone_number if cliente else '',
+            'telefone': cliente.phone_number.replace('+', '') if cliente else '',
             'entregador': entregador,
+            'data_entr_ini': entrega.data_entr_ini,
+            'hora_entr_ini': entrega.hora_entr_ini,
+        
         })
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
@@ -551,9 +554,10 @@ def lista_km(request):
     )
 
     ultimosregistros = (dadoskilometragem.objects
-                        .annotate(mes_base=TruncMonth('data_apuracao'))
+                        #.annotate(mes_base=TruncMonth('data_apuracao'))
+                        .annotate(mes_base = ExtractMonth('data_apuracao'))
                         .annotate(dia = ExtractDay('data_apuracao'))
-                        .values('mes_base', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
+                        .values('mes_base','dia', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
                         .order_by('-data_apuracao')[:10]
                         )
     

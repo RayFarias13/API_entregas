@@ -369,10 +369,12 @@
                     <span>{{ e.endereco }}{% if e.complemento %} — {{ e.complemento }}{% endif %}</span>
                 </div>
                 {% if e.telefone %}
-                <div class="card-info">
+                <div class="card-info"  href="www.wa.me/{{ e.telefone }}"> 
                     <i class="fa-solid fa-phone"></i>
                     <span>{{ e.telefone }}</span>
                 </div>
+                <!--<a class="links" href="/link">Cadastro</a> -->
+
                 {% endif %}
             </div>
 
