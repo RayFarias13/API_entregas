@@ -127,7 +127,7 @@
 <div class="board-container">
     {% for entregador, entregas in kanban.items %}
         <div class="lista-entregador">
-            <h3><i class="fa fa-motorcycle"></i> {{ entregador | upper }} - {{request.user.funcionario.cd_usu}}</h3>
+            <h3><i class="fa fa-motorcycle"></i> {{ entregador | upper }} - {{ entregador.cd_fun_entr | upper }}</h3>
             
             {% if entregas %}
                 {% if request.user.is_staff %}
