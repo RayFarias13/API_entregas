@@ -681,7 +681,7 @@ def perfil_motoboy(request):
 
 
 # ─────────────────────────────────────────
-# ENTREGAS DO DIA - HISTORICO DO DIA
+# ENTREGAS DO DIA - 
 # ─────────────────────────────────────────
 @login_required
 def motoboy_entregas_dia_historico(request):
@@ -730,15 +730,23 @@ def motoboy_entregas_dia_historico(request):
 @login_required
 def motoboy_historico_entregas(request):
     try:
-        funcionario = request.user.funcionario
-        if funcionario.funcao != 'ENTREGADOR':
+        # Acessa o perfil do funcionário logado
+        perfil = request.user.funcionario
+        funcao = perfil.funcao
+        
+        # Lista de funções que podem ver o histórico completo
+        funcoes_gestao = ['GERENTE', 'S. GERENTE', 'ADMINISTRATIVO']
+        
+        if funcao != 'ENTREGADOR' and funcao not in funcoes_gestao:
             return redirect('boardadministrativo')
+            
     except AttributeError:
+        # Caso o usuário logado não tenha um objeto Funcionarios_lista vinculado
         return redirect('login')
- 
+
     hoje = timezone.now().date()
- 
-    # Meses disponíveis (últimos 6 meses)
+    
+    # Gerar lista de meses para o filtro (últimos 6 meses)
     meses_disponiveis = []
     for i in range(6):
         d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
@@ -746,47 +754,58 @@ def motoboy_historico_entregas(request):
             'value': d.strftime('%Y-%m'),
             'label': d.strftime('%B/%Y').capitalize(),
         })
- 
+
     mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
- 
     try:
         ano, mes = map(int, mes_selecionado.split('-'))
     except ValueError:
         ano, mes = hoje.year, hoje.month
- 
-    entregas_qs = EntregaFinalizada.objects.filter(
-        usermotoboy=request.user,
-        data_hora_entrega__year=ano,
-        data_hora_entrega__month=mes,
-    ).order_by('-data_hora_entrega')
- 
+
+    # --- LÓGICA DE FILTRO DE ACESSO ---
+    # Filtro base por data
+    query_params = {
+        'data_hora_entrega__year': ano,
+        'data_hora_entrega__month': mes,
+    }
+
+    # Se for ENTREGADOR, filtramos pelo cd_usu dele
+    if funcao == 'ENTREGADOR':
+        # Usamos o campo 'funcionario' da EntregaFinalizada que guarda o cd_usu
+        query_params['funcionario'] = perfil.cd_usu
+
+    entregas_qs = EntregaFinalizada.objects.filter(**query_params).order_by('-data_hora_entrega')
+    # ----------------------------------
+
     status_display = dict(EntregaFinalizada.STATUS_CHOICES)
- 
-    # Agrupar por data
     grupos_dict = defaultdict(list)
+
     for e in entregas_qs:
         data_local = timezone.localtime(e.data_hora_entrega)
         chave = data_local.strftime('%d/%m/%Y')
+        
         grupos_dict[chave].append({
             'cliente': e.nome_cliente or 'Desconhecido',
             'endereco': e.endereco or '',
-            'status': e.entrega_status,
             'status_display': status_display.get(e.entrega_status, e.entrega_status),
             'hora': data_local.strftime('%H:%M'),
+            # Se for gerente, talvez queira exibir o código do motoboy que fez a entrega
+            'motoboy_id': e.funcionario 
         })
- 
+
     entregas_agrupadas = [
         {'data': data, 'entregas': itens}
         for data, itens in grupos_dict.items()
     ]
- 
-    total_geral = EntregaFinalizada.objects.filter(usermotoboy=request.user).count()
- 
+
+    # Totalizador respeitando o filtro de quem está logado
+    total_geral = entregas_qs.count()
+
     return render(request, 'motoboy_historico_entregas.html', {
         'entregas_agrupadas': entregas_agrupadas,
         'meses_disponiveis': meses_disponiveis,
         'mes_selecionado': mes_selecionado,
         'total_geral': total_geral,
+        'is_gerente': funcao in funcoes_gestao,
     })
  
  
