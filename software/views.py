@@ -639,6 +639,7 @@ def dados_entregadores_json(request):
 def perfil_motoboy(request):
     try:
         funcionario = request.user.funcionario
+        funcao = funcionario.funcao
     except AttributeError:
         return redirect('login')
 
@@ -647,11 +648,17 @@ def perfil_motoboy(request):
     ano_atual = hoje.year
 
     # Total de entregas do mês (usa data_hora_entrega pois auto_now_add é garantido)
-    total_entregas_mes = EntregaFinalizada.objects.filter(
-        usermotoboy=request.user,
-        data_hora_entrega__month=mes_atual,
-        data_hora_entrega__year=ano_atual
-    ).count()
+    filtros_entrega = {
+        'data_hora_entrega__month': mes_atual,
+        'data_hora_entrega__year': ano_atual
+    }
+    
+    # Se for entregador, filtra pelo cd_usu dele (salvo no campo .funcionario)
+    if funcao == 'ENTREGADOR':
+        filtros_entrega['funcionario'] = perfil.cd_usu
+
+    total_entregas_mes = EntregaFinalizada.objects.filter(**filtros_entrega).count()
+
 
     # Total de KM do mês
     total_km_mes = dadoskilometragem.objects.filter(
@@ -825,7 +832,7 @@ def motoboy_historico_km(request):
  
     # Meses disponíveis
     meses_disponiveis = []
-    for i in range(6):
+    for i in range(3):
         d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
         meses_disponiveis.append({
             'value': d.strftime('%Y-%m'),
@@ -883,18 +890,18 @@ def motoboy_historico_km(request):
         ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0, 1
     )
  
-    total_geral = round(
-        dadoskilometragem.objects.filter(
-            usermotoboy=request.user
-        ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0, 1
-    )
+    #total_geral = round(
+        #dadoskilometragem.objects.filter(
+            #usermotoboy=request.user
+        #).aggregate(Sum('km_diario'))['km_diario__sum'] or 0, 1
+    #)
  
     return render(request, 'motoboy_historico_km.html', {
         'quinzenas': quinzenas,
         'meses_disponiveis': meses_disponiveis,
         'mes_selecionado': mes_selecionado,
         'total_mes': total_mes,
-        'total_geral': total_geral,
+        #'total_geral': total_geral,
     })
  
  
