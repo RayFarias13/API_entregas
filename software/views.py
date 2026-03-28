@@ -634,12 +634,13 @@ def dados_entregadores_json(request):
 
     return JsonResponse(data, safe=False)
 
-
 @login_required
 def perfil_motoboy(request):
     try:
-        funcionario = request.user.funcionario
-        funcao = funcionario.funcao
+        perfil = request.user.funcionario
+        funcao = perfil.funcao
+        # Define quem tem visão de gestor
+        e_gestor = funcao in ['GERENTE', 'S. GERENTE', 'ADMINISTRATIVO']
     except AttributeError:
         return redirect('login')
 
@@ -647,7 +648,7 @@ def perfil_motoboy(request):
     mes_atual = hoje.month
     ano_atual = hoje.year
 
-    # Total de entregas do mês (usa data_hora_entrega pois auto_now_add é garantido)
+    # --- CORREÇÃO DO FILTRO DE ENTREGAS ---
     filtros_entrega = {
         'data_hora_entrega__month': mes_atual,
         'data_hora_entrega__year': ano_atual
@@ -658,34 +659,42 @@ def perfil_motoboy(request):
         filtros_entrega['funcionario'] = perfil.cd_usu
 
     total_entregas_mes = EntregaFinalizada.objects.filter(**filtros_entrega).count()
+    # ---------------------------------------
 
+    # Total de KM do mês (aplicando a mesma lógica de permissão)
+    filtros_km = {
+        'data_apuracao__month': mes_atual,
+        'data_apuracao__year': ano_atual
+    }
+    if funcao == 'ENTREGADOR':
+        filtros_km['usermotoboy'] = request.user
 
-    # Total de KM do mês
-    total_km_mes = dadoskilometragem.objects.filter(
-        usermotoboy=request.user,
-        data_apuracao__month=mes_atual,
-        data_apuracao__year=ano_atual
-    ).aggregate(Sum('km_diario'))['km_diario__sum'] or 0
+    total_km_mes = dadoskilometragem.objects.filter(**filtros_km).aggregate(
+        total=Sum('km_diario')
+    )['total'] or 0
 
-    # Últimas 5 entregas finalizadas
-    ultimas_entregas = EntregaFinalizada.objects.filter(
-        usermotoboy=request.user
-    ).order_by('-data_hora_entrega')[:5]
+    # Últimas 5 entregas (respeitando a privacidade se for entregador)
+    filtros_ultimas = {}
+    if funcao == 'ENTREGADOR':
+        filtros_ultimas['funcionario'] = perfil.cd_usu
+    
+    ultimas_entregas = EntregaFinalizada.objects.filter(**filtros_ultimas).order_by('-data_hora_entrega')[:5]
 
     entregas_formatadas = [{
         'cliente': e.nome_cliente or 'Desconhecido',
         'horario': timezone.localtime(e.data_hora_entrega).strftime('%d/%m %H:%M'),
-        'status': 'entregue' if e.entrega_status == 'ENTREGUE' else 'andamento'
+        'status': 'entregue' if e.entrega_status == 'ENTREGUE' else 'andamento',
+        'motoboy_id': e.funcionario # Útil para o gerente identificar
     } for e in ultimas_entregas]
 
     return render(request, 'perfilmotoboy.html', {
-        'funcionario': funcionario,
+        'funcionario': perfil,
         'total_entregas_mes': total_entregas_mes,
         'total_km_mes': round(total_km_mes, 1),
-        'pontuacao': total_entregas_mes,  # ajuste se tiver lógica própria de pontos
+        'pontuacao': total_entregas_mes,
         'ultimas_entregas': entregas_formatadas,
+        'e_gestor': e_gestor,
     })
-
 
 # ─────────────────────────────────────────
 # ENTREGAS DO DIA - 
