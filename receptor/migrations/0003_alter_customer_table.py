@@ -5,7 +5,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('receptor', '0002_customer_cep_alter_customer_type'),  # ← corrigido
+        ('receptor', '0002_customer_cep_alter_customer_type'),  
+        ('software', '0001_initial'),  
     ]
 
     operations = [
