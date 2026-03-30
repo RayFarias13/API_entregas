@@ -33,9 +33,10 @@ class DadoskilometragemAdmin(admin.ModelAdmin):
     readonly_fields = ("id",)
 
 @admin.register(EntregaFinalizada)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ("id", "usermotoboy", "destinatario", "endereco_destino", "data_entrega")
-    search_fields = ("usermotoboy__username", "destinatario", "endereco_destino")
-    list_filter = ("data_entrega",)
-
+class EntregaFinalizadaAdmin(admin.ModelAdmin):
+    list_display = ('id','entrega','venda','funcionario','cliente','cupomfiscal','nome_cliente','endereco','entrega_status')
+    search_fields = ('id','funcionario','cliente','cupomfiscal','nome_cliente','endereco')
+    list_filter = ('entrega_status','cliente',)
+    readonly_fields = ('id',)
+    
 
