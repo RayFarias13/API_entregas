@@ -9,9 +9,9 @@ class Migration(migrations.Migration):
         ('receptor', '0003_alter_customer_table'),
     ]
 
-    operations = [
+    """operations = [
         migrations.AlterModelTable(
             name='customer',
             table='dadosclientes',
         ),
-    ]
+]"""
