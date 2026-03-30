@@ -89,10 +89,14 @@ class EntregaFinalizada(models.Model):
 
     class Meta:
         db_table = 'entrega_finalizada'
+        ordering = ['-data_hora_entrega']
 
     def __str__(self):
         return f'Entrega {self.entrega_id} - Cliente {self.nome_cliente} - Status: {self.entrega_status}'
-
+      # ✅ Método helper (opcional e MUITO útil)
+    def iniciar_entrega(self):
+        self.data_hora_inicio = timezone.now()
+        self.save()
 
 
 
