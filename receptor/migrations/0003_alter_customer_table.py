@@ -5,12 +5,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('receptor', '0002_customer_cep_alter_customer_type'),  # ← corrigido
+        ('receptor', '0002_customer_cep_alter_customer_type'),  
+        #('software', '0001_initial'),  
     ]
 
-    operations = [
+    '''operations = [
         migrations.RunSQL(
             sql="ALTER TABLE dados_entrega ADD COLUMN IF NOT EXISTS cd_filial varchar(10);",
             reverse_sql="ALTER TABLE dados_entrega DROP COLUMN IF EXISTS cd_filial;",
         ),
-    ]
+    ]'''

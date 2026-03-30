@@ -4,3 +4,7 @@ post_logs.txt
 django_warnings.log
 interno/
 modificarbanco.py
+temp.sqlite3
+temp.sql
+tabela.py
+backupbanco.py

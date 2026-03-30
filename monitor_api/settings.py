@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'monitor_api.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL_NEON"),
+        default=os.getenv("DATABASE_URL_RENDER"),
         conn_max_age=600,
         ssl_require=True  # IMPORTANTE para Render
     )
