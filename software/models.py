@@ -49,6 +49,7 @@ class DadosEntrega(models.Model):
     data_hora_atribuicao = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
     class Meta:
+        managed = True
         db_table = 'dados_entrega'
         unique_together = ('cd_entr', 'cd_vd','cd_filial')  # chave composta
 
