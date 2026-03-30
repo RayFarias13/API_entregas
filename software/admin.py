@@ -19,7 +19,7 @@ class DadosEntregaAdmin(admin.ModelAdmin):
 
 
 @admin.register(Funcionarios_lista)
-class CustomerAdmin(admin.ModelAdmin):
+class Funcionario_listaAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "cd_usu", "funcao")
     search_fields = ("user__username", "cd_usu", "funcao")
     list_filter = ("funcao",)
