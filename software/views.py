@@ -234,19 +234,24 @@ def criar_entrega_avulsa(request):
     customers = Customer.objects.all().order_by('name')
     entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR').select_related('user')
 
-       
+    # Gerar próximos IDs (Garantindo que sejam inteiros e baseados no maior valor)
+    
+    
 
     # 3. Processamento do POST
+    
     if request.method == 'POST':
-        cd_fun_entr = request.POST.get('cd_fun_entr')  # O código (cd_usu) do entregador
-        customer_id = request.POST.get('customer_id')  # O ID da tabela Customer
-
-        # Gerar próximos IDs (Garantindo que sejam inteiros e baseados no maior valor)
         ultimo_vd = DadosVenda.objects.order_by('-cd_vd').first()
         proximo_cd_vd = (ultimo_vd.cd_vd + 1) if ultimo_vd else 1100000
 
         ultimo_entr = DadosEntrega.objects.order_by('-cd_entr').first()
         proximo_cd_entr = (ultimo_entr.cd_entr + 1) if ultimo_entr else 1100000
+
+
+        cd_fun_entr = request.POST.get('cd_fun_entr')  # O código (cd_usu) do entregador
+        customer_id = request.POST.get('customer_id')  # O ID da tabela Customer
+
+        
 
         if not cd_fun_entr or not customer_id:
             return render(request, 'entrega_avulsa.html', {
@@ -294,8 +299,8 @@ def criar_entrega_avulsa(request):
     return render(request, 'entrega_avulsa.html', {
         'customers': customers,
         'funcionarios': entregadores,
-        'proximo_cd_entr': proximo_cd_entr,
-        'proximo_cd_vd': proximo_cd_vd,
+        #'proximo_cd_entr': proximo_cd_entr,
+        #proximo_cd_vd': proximo_cd_vd,
     })
 
 
