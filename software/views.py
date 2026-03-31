@@ -585,7 +585,7 @@ def lista_km(request):
 
     return render(request, 'lista_km.html', {
         'relatorios': relatorios_quinzenais,
-        'total_geral': "{:.1f}".format('...'),
+        #'total_geral': "{:.1f}".format('...'),
         'ultimosregistros' : ultimosregistros,  # opcional: últimos 10 registros
         #'ultimos_registros': dadoskilometragem.objects.order_by('-data_apuracao')[:10]  # opcional: últimos 10 registros
     })
