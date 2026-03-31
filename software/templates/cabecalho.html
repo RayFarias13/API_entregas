@@ -67,6 +67,7 @@
             font-size: 17px;
             letter-spacing: -0.3px;
             flex-shrink: 0;
+            border-radius: 7px;
         }
         .brand-icon {
             width: 34px;
@@ -79,7 +80,10 @@
             color: #fff;
             font-size: 15px;
         }
-        .brand:hover { opacity: 0.85; }
+        .brand:hover { 
+            opacity: 0.85;
+            color: blue;
+        }
 
         /* Nav links */
         .nav-links {
@@ -216,6 +220,27 @@
             border: 1px solid var(--border);
             padding: 32px;
             min-height: 300px;
+        }
+        /*  btn */
+        .btn-gerais {
+            
+            align-items: center;
+            gap: 2px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            color: black;
+            
+        }
+        .btn-gerais:hover {
+            border-color:red;
+           
+
         }
 
         /* ── RESPONSIVE ── */
