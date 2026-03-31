@@ -987,16 +987,25 @@ def motoboy_pontuacao(request):
     })
 
 
-
 @login_required
 def cadastro_cliente(request):
     try:
         funcionario = request.user.funcionario
         FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
-        if funcionario.funcao not in FUNCS_PERMITIDAS:
-            return redirect('login')
+        if funcionario.funcao  in FUNCS_PERMITIDAS:
+            return redirect('cadastro_cliente')
     except AttributeError:
-        return redirect('login')
+        return redirect('nao_autorizado')
+    
+@login_required
+def salvar_cliente(request):
+    try:
+        funcionario = request.user.funcionario
+        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
+        if funcionario.funcao in FUNCS_PERMITIDAS:
+            return redirect('nao_autorizado')
+    except AttributeError:
+        return redirect('nao_autorizado')
 
     if request.method == 'POST':
         name        = request.POST.get('name', '').strip()
