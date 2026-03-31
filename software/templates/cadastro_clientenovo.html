@@ -8,8 +8,9 @@
 <body class="container mt-5">
     <h2 class="mb-4">Novo Cadastro de Cliente</h2>
 
-    <form method="POST" action="{% url 'salvar_customer' %}">
-        {% csrf_token %} <div class="row">
+    <form method="POST" >
+        {% csrf_token %} 
+        <div class="row">
             <div class="col-md-6 mb-3">
                 <label>Nome:</label>
                 <input type="text" name="name" class="form-control" required>
