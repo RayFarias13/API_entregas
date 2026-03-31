@@ -226,7 +226,7 @@ def criar_entrega_avulsa(request):
         funcionario_logado = request.user.funcionario
         FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
         if funcionario_logado.funcao not in FUNCS_PERMITIDAS:
-            return redirect('login')
+            return redirect('nao_autorizado')
     except AttributeError:
         return redirect('login')
 
@@ -440,9 +440,9 @@ def cadastro_funcionario(request):
         permissoes_admin = ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE']
         
         if funcionario_logado.funcao not in permissoes_admin or not request.user.is_staff:
-            return redirect('login') 
+            return redirect('nao_autorizado') 
     except AttributeError:
-        return redirect('login')
+        return redirect('nao_autorizado')
 
     if request.method == 'POST':
         # 2. Captura de dados
@@ -491,16 +491,16 @@ def cadastro_funcionario(request):
 def gerenciar_funcionarios(request):
     try:
         funcionario = request.user.funcionario  # pega o funcionário logado
-        lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE']
+        lista = ['GERENTE','ADMINISTRATIVO','S. GERENTE', 'OP. DE CAIXA']  # funções autorizadas para acessar esta página
 
         if funcionario.funcao not in lista:
             print(f"Acesso negado para função")  # Log para depuração
-            return redirect('login')  # se não for gerente, redireciona para login
+            return redirect('nao_autorizado')  # se não for gerente, redireciona para login
 
         funcionarios = Funcionarios_lista.objects.all()
         return render(request, 'gerenciar_cadastros.html', {'funcionarios': funcionarios})
     except AttributeError:
-        return redirect('login')  # se não tiver perfil de funcionário, redireciona para login
+        return redirect('nao_autorizado')  # se não tiver perfil de funcionário, redireciona para login
 
 
 
@@ -511,9 +511,9 @@ def registrar_km_manual(request):
     except AttributeError:
         return redirect('login')
 
-    FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
+    FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
     if funcionario.funcao not in FUNCS_PERMITIDAS:
-        return redirect('login')
+        return redirect('nao_autorizado')
 
     if request.method == "POST":
         id_motoboy = request.POST.get('motoboy')
@@ -542,6 +542,16 @@ def registrar_km_manual(request):
 
 @login_required
 def lista_km(request):
+     # 1. Validação de Permissão
+    try:
+        funcionario_logado = request.user.funcionario
+        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
+        if funcionario_logado.funcao not in FUNCS_PERMITIDAS:
+            return redirect('nao_autorizado')
+    except AttributeError:
+        return redirect('login')
+
+
     relatorios_quinzenais = (
         dadoskilometragem.objects
         # 1. Truncamos o mês para agrupar registros do mesmo mês/ano
@@ -571,11 +581,11 @@ def lista_km(request):
                         )
     
 
-    total_geral = dadoskilometragem.objects.aggregate(Sum('km_diario'))['km_diario__sum'] or 0
+    #total_geral = dadoskilometragem.objects.aggregate(Sum('km_diario'))['km_diario__sum'] or 0
 
     return render(request, 'lista_km.html', {
         'relatorios': relatorios_quinzenais,
-        'total_geral': total_geral,
+        'total_geral': "{:.1f}".format('...'),
         'ultimosregistros' : ultimosregistros,  # opcional: últimos 10 registros
         #'ultimos_registros': dadoskilometragem.objects.order_by('-data_apuracao')[:10]  # opcional: últimos 10 registros
     })
@@ -1087,6 +1097,18 @@ def historico_entregas(request):
 
 @login_required
 def historico_geral_entregas(request):
+    # 1. Validação de Permissão
+    try:
+        funcionario_logado = request.user.funcionario
+        permissoes_admin = ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']
+        
+        if funcionario_logado.funcao not in permissoes_admin or not request.user.is_staff:
+            return redirect('nao_autorizado') 
+    except AttributeError:
+        return redirect('nao_autorizado')
+
+
+
     mes_sel = int(request.GET.get('mes', timezone.now().month))
     motoboy_id = request.GET.get('motoboy') # Aqui recebemos o ID do User para o filtro
     
@@ -1140,3 +1162,19 @@ def historico_geral_entregas(request):
         'total_problemas': query.exclude(entrega_status='ENTREGUE').count(),
     }
     return render(request, 'historico_entregascopy.html', context)
+
+
+#pagina de nao autorizado para redirecionar usuarios sem permissoes adequadas
+def nao_autorizado(request):
+    return render(request, 'naoautorizado.html', status=403)
+
+
+def somentegerente (request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    elif request.user.funcionario.funcao != 'GERENTE':
+        return redirect('nao_autorizado')
+    
+    return True
+
+    

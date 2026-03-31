@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),   
     path('cadastro_funcionario/', views.cadastro_funcionario, name='cadastro_funcionario'),
+    path('cadastro_cliente/', views.cadastro_cliente, name='cadastro_cliente'),
     path('entregas_motoboy/', views.board_motoboy, name='entregas_motoboy'),
     path('gerenciar_cadastros/', views.gerenciar_funcionarios, name='gerenciar_cadastros'),
     path('km/novo/', views.registrar_km_manual, name='registrar_km'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('cadastro_cliente/', views.cadastro_cliente, name='cadastro_cliente'),
     path('historico/', views.historico_entregas, name='historico_entregas'),
     path('historicogeral/', views.historico_geral_entregas, name='historico_entregascopy'),
+    path('naoautorizado/', views.nao_autorizado, name='nao_autorizado'),
     
 
 ]

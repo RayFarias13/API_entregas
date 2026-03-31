@@ -46,6 +46,12 @@
             font-size: clamp(0.8rem, 2vw, 1.2rem); /* fonte proporcional */
             flex-shrink: 0; /* não encolhe */
         }
+        @media (max-width: 100%) {
+        .login-card {
+            min-width: 100%;
+            max-width: none;
+        }
+    }
     </style>
 </head>
 <body>
@@ -80,6 +86,10 @@
             </form>
         </div>
     </div>
+    
+    
+
+
 <footer class="bg-dark text-white text-center py-3 mt-auto w-100">
     
         <div class="container">

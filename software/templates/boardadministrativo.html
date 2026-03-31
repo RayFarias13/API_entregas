@@ -88,6 +88,27 @@
 
         .board-container::-webkit-scrollbar { height: 8px; }
         .board-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+
+        /* Logout btn */
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+        .btn-logout:hover {
+            background: var(--red-soft);
+            border-color: #f5c6c2;
+        }
+
     </style>
 </head>
 <body>
@@ -108,14 +129,17 @@
 
                 {% with funcao=request.user.funcionario.funcao %}
                     {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
-                        <a class="links" href="/historicogeral">Historico</a>
-                        <a>|</a>
-                        <a class="links" href="/cadastro_funcionario">Cadastro</a>
-                        <a class="links" href="/gerenciar_cadastros">Equipe</a>
+                    
                     {% endif %}
                 {% endwith %}
+                
+                <a class="links" href="/historicogeral">Historico</a>
+                <a>|</a>
+                <a class="links" href="/cadastro_funcionario">Cadastro</a>
+                <a class="links" href="/gerenciar_cadastros">Equipe</a>
+            
 
-                <a class="links" href="/logout" style="color: #e74c3c;"><i class="fa fa-power-off"></i></a>
+                <a class="btn-logout" href="/logout" style="color: #e74c3c;"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
                 {% else %}
                 <a class="links" href="/login">Login</a>
                 {% endif %}
