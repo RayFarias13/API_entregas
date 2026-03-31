@@ -28,5 +28,8 @@ urlpatterns = [
     path('historicogeral/', views.historico_geral_entregas, name='historico_entregascopy'),
     path('naoautorizado/', views.nao_autorizado, name='nao_autorizado'),
     
+    path('cliente/novo/', views.cadastrar_customer_view, name='cadastro_clientenovo'),
+    
+    
 
 ]

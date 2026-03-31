@@ -987,6 +987,70 @@ def motoboy_pontuacao(request):
     })
 
 
+
+#@login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Customer
+from datetime import datetime
+
+def cadastrar_customer_view(request):
+    if request.method == "GET":
+        return render(request, 'cadastro_clientenovo.html')
+
+    if request.method == "POST":
+        # 1. Coleta de dados do dicionário POST
+        name = request.POST.get('name')
+        type_cli = request.POST.get('type')
+        code = request.POST.get('code')
+        email = request.POST.get('email')
+        login_email = request.POST.get('login_email')
+        address = request.POST.get('address')
+        complement = request.POST.get('address_complement')
+        phone = request.POST.get('phone_number')
+        cep = request.POST.get('cep')
+        
+        # 2. Tratamento de campos numéricos e datas (evita crash se estiver vazio)
+        lat = request.POST.get('latitude')
+        lng = request.POST.get('longitude')
+        h_start = request.POST.get('operating_hour_start')
+        h_end = request.POST.get('operating_hour_end')
+
+        try:
+            # Criando a instância do modelo
+            novo_cliente = Customer(
+                name=name,
+                type=type_cli,
+                code=code,
+                email=email,
+                login_email=login_email,
+                address=address,
+                address_complement=complement,
+                phone_number=phone,
+                cep=cep,
+                # Conversão manual:
+                latitude=float(lat) if lat else 0.0,
+                longitude=float(lng) if lng else 0.0,
+                operating_hour_start=h_start if h_start else None,
+                operating_hour_end=h_end if h_end else None
+            )
+            
+            # Salva no banco de dados
+            novo_cliente.save()
+            
+            messages.success(request, f"Cliente {name} cadastrado com sucesso!")
+            return redirect('entrega_avulsa') # Altere para sua rota de sucesso
+
+        except Exception as e:
+            # Caso o 'code' seja duplicado ou ocorra erro de banco
+            messages.error(request, f"Erro ao salvar: {e}")
+            return render(request, 'cadastro_clientenovo.html', {'dados': request.POST})
+        
+
+    return render(request, 'cadastro_clientenovo.html')
+
+
+
 @login_required
 def cadastro_cliente(request):
     try:
