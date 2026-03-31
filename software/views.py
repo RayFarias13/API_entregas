@@ -1001,9 +1001,9 @@ def cadastro_cliente(request):
 def salvar_cliente(request):
     try:
         funcionario = request.user.funcionario
-        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE'}
-        if funcionario.funcao in FUNCS_PERMITIDAS:
-            return redirect('nao_autorizado')
+        FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
+        if funcionario.funcao in FUNCS_PERMITIDAS or request.user.is_staff:
+            return redirect('cadastro_cliente.html')
     except AttributeError:
         return redirect('nao_autorizado')
 
