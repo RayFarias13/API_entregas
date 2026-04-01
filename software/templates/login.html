@@ -1,102 +1,206 @@
-<!doctype html>
-<html lang="pt-BR">
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Moderno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        html, body {
-            height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-        display: flex;
-        flex-direction: column; /* importante para footer fixar embaixo */
-        justify-content: center; /* centraliza verticalmente o card */
-        align-items: center;
-        min-height: 90vh; /* garante altura total da tela */
-        background-color: #f8f9fa;
-}
-
-        .login-card {
             width: 100%;
-            max-width: 600px;
-            min-width: 400px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Background similar ao do exemplo (gradiente animado ou fixo) */
+            background: linear-gradient(45deg, #34ffc2, #0114be, #9bddf7);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
 
-        .card-header {
-            background-color: #343a40;
-            color: white;
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container-login {
+            width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 55px 55px 37px 55px;
+            box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-title {
+            display: block;
+            font-size: 30px;
+            color: #333;
+            line-height: 1.2;
             text-align: center;
+            font-weight: 700;
+            padding-bottom: 26px;
         }
 
-        /* Campos de input e botão crescem proporcionalmente ao card usando clamp */
-        .login-card input,
-        .login-card button {
-            font-size: clamp(2rem, 4vw, 1.5rem); /* mínimo 1rem, proporcional 4vw, máximo 1.5rem */
-            padding: 0.5em;
-        }
-        /* Footer fluido */
-        footer {
-            background-color: #343a40;
-            color: white;
+        .wrap-input {
             width: 100%;
+            position: relative;
+            border-bottom: 2px solid #adadad;
+            margin-bottom: 37px;
+        }
+
+        .input-form {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.2;
+            display: block;
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0 5px;
+        }
+
+        .focus-input {
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .focus-input::before {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            transition: all 0.4s;
+            background: #6a11cb;
+            background: linear-gradient(to right, #4158d0, #c850c0);
+        }
+
+        .input-form:focus + .focus-input::before {
+            width: 100%;
+        }
+
+        /* Botão de Login */
+        .container-login-btn {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-top: 13px;
+        }
+
+        .login-btn {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.2;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            width: 100%;
+            height: 50px;
+            background: #333;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.4s;
+            background: linear-gradient(to right, #4158d0, #c850c0);
+        }
+
+        .login-btn:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        /* Links Úteis */
+        .text-center {
             text-align: center;
-            padding: clamp(0.5rem, 2vw, 1.5rem); /* altura do footer proporcional */
-            font-size: clamp(0.8rem, 2vw, 1.2rem); /* fonte proporcional */
-            flex-shrink: 0; /* não encolhe */
+            padding-top: 30px;
         }
-        @media (max-width: 100%) {
-        .login-card {
-            min-width: 100%;
-            max-width: none;
+
+        .txt1 {
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
         }
-    }
+
+        .txt2 {
+            font-size: 13px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .txt2:hover {
+            color: #c850c0;
+        }
+
+        /* Responsividade Básica */
+        @media (max-width: 576px) {
+            .container-login {
+                width: 90%;
+                padding: 40px 15px;
+            }
+        }
     </style>
 </head>
 <body>
-            <!-- seu login -->
 
-    <div class="login-card card shadow">
-        <div class="card-header">
-            <h4>Login</h4>
-        </div>
+    <div class="container-login">
+        <form class="login-form">
+            <span class="login-title">
+                Bem-vindo
+            </span>
 
-        <div class="card-body">
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    Usuário ou senha incorretos.
-                </div>
-            {% endif %}
+            <div class="wrap-input">
+                <input class="input-form" type="text" name="username" placeholder="Usuario" required>
+                <span class="focus-input"></span>
+            </div>
 
-            <form method="POST">
-                {% csrf_token %}
+            <div class="wrap-input">
+                <input class="input-form" type="password" name="password"  placeholder="Senha" required>
+                <span class="focus-input"></span>
+            </div>
 
-                <div class="mb-3">
-                    <label for="username" class="form-label">Usuário</label>
-                    <input type="text" name="username" class="form-control" required>
-                </div>
+            <div class="container-login-btn">
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+            </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Senha</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
+            <div class="text-center">
+                <span class="txt1"></span>
+                <a class="txt2" href="#"></a>
+            </div>
 
-                <button type="submit" class="btn btn-success w-100">Entrar</button>
-            </form>
-        </div>
+            <div class="text-center">
+                <span class="txt1">© 2026 Sistema de Entregas.<br>Caso de dúvida, entre em contato com o administrador.<br>Ray Farias</span>
+                <a class="txt2" href="#"></a>
+            </div>
+        </form>
     </div>
-    
-    
 
-
-<footer class="bg-dark text-white text-center py-3 mt-auto w-100">
-    
-        <div class="container">
-            <small>&copy; 2026 Sistema de Entregas - DC.</small>
-            <small> Todos os direitos reservados. Caso de dúvida, entre em contato com o administrador.</small>
-        </div>
-    </footer>
 </body>
-
 </html>
