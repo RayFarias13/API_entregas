@@ -7,9 +7,8 @@ from dotenv import load_dotenv
 
 # 1. Carregar variáveis de ambiente
 load_dotenv()
-
-URL_ORIGEM = os.getenv('DATABASE_URL_NEON')
-URL_DESTINO = os.getenv('DATABASE_URL_RENDER')
+URL_ORIGEM = os.getenv('DATABASE_URL_RENDER')
+URL_DESTINO = os.getenv('DATABASE_URL_NEON')
 
 def clonar_tudo():
     conn_ori = None
