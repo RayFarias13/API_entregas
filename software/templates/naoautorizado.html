@@ -1,0 +1,61 @@
+{% extends "cabecalho.html" %}
+{% block content %}
+
+<style>
+    :root { --red: #e74c3c; --bg: #f2f3f7; --text: #111827; --muted: #6b7280; }
+
+    .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .error-code {
+        font-size: 80px;
+        font-weight: 800;
+        color: var(--red);
+    }
+
+    .error-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-top: 10px;
+    }
+
+    .error-message {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 8px;
+        max-width: 300px;
+    }
+
+    .error-btn {
+        margin-top: 20px;
+        background: var(--red);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 14px;
+        text-decoration: none;
+    }
+</style>
+
+<div class="error-container">
+    <div class="error-code">403</div>
+    <div class="error-title">Acesso não autorizado</div>
+    <div class="error-message">
+        Você não tem permissão para acessar esta página.
+    </div>
+
+    <a href="/home_administrativo" class="error-btn">
+        Voltar para o início
+    </a>
+</div>
+
+{% endblock %}

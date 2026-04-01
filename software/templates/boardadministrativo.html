@@ -88,6 +88,52 @@
 
         .board-container::-webkit-scrollbar { height: 8px; }
         .board-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+
+        /* Logout btn */
+        .btn-logout {
+            
+            align-items: center;
+            gap: 2px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            
+        }
+        .btn-logout:hover {
+            background-color: #f5c6c2;
+            border-color: red;
+           
+            
+        }
+
+        /*  btn */
+        .btn-gerais {
+            
+            align-items: center;
+            gap: 2px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            color: black;
+            
+        }
+        .btn-gerais:hover {
+            border-color:red;
+           
+
+        }
+
     </style>
 </head>
 <body>
@@ -100,22 +146,25 @@
             </div>
             <div class="col-xs-8 text-right">
                 {% if request.user.is_authenticated %}
-                <a class="links" href="/mapa">Mapa</a>
+                <a class="btn-gerais" href="/mapa">Mapa</a>
                 <a>|</a>
-                <a class="links" href="/entrega_avulsa">Entrega Avulsa</a>
-                <a class="links" href="/km/novo">Cadastro de KM</a>
-                <a class="links" href="/km/historico">Histórico de KM</a>
+                <a class="btn-gerais" href="/entrega_avulsa">Entrega Avulsa</a>
+                <a class="btn-gerais" href="/km/novo">Cadastro de KM</a>
+                <a class="btn-gerais" href="/km/historico">Histórico de KM</a>
 
                 {% with funcao=request.user.funcionario.funcao %}
                     {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
-                        <a class="links" href="/historicogeral">Historico</a>
-                        <a>|</a>
-                        <a class="links" href="/cadastro_funcionario">Cadastro</a>
-                        <a class="links" href="/gerenciar_cadastros">Equipe</a>
+                    
                     {% endif %}
                 {% endwith %}
+                
+                <a class="btn-gerais" href="/historicogeral">Historico</a>
+                <a>|</a>
+                <a class="btn-gerais" href="/cadastro_funcionario">Cadastro</a>
+                <a class="btn-gerais" href="/gerenciar_cadastros"><i class="fa-solid fa-right-from-bracket"></i>Equipe</a>
+            
 
-                <a class="links" href="/logout" style="color: #e74c3c;"><i class="fa fa-power-off"></i></a>
+                <a class="btn-logout" href="/logout" style="color: #e74c3c;"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
                 {% else %}
                 <a class="links" href="/login">Login</a>
                 {% endif %}
