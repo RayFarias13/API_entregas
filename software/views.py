@@ -16,6 +16,7 @@ from .models import *
 from receptor.models import *
 import json
 import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -422,7 +423,8 @@ def login_view(request):
 
     except Exception as e:
         print("Erro no login_view:", str(e))
-        return render(request, 'login.html', {"error": True})
+        logout(request)
+        return redirect ('login')
     
 
 
@@ -565,7 +567,7 @@ def lista_km(request):
             output_field=CharField(),
         ))
         # 4. Agrupamos pelos campos necessários
-        .values('mes_base', 'quinzena', 'usermotoboy__first_name')
+        .values('mes_base', 'quinzena', 'usermotoboy__first_name', 'usermotoboy__last_name')
         # 5. Somamos os KMs do grupo
         .annotate(total_periodo=Sum('km_diario'))
         # 6. Ordenamos por mês e depois pela quinzena
@@ -576,7 +578,7 @@ def lista_km(request):
                         #.annotate(mes_base=TruncMonth('data_apuracao'))
                         .annotate(mes_base = ExtractMonth('data_apuracao'))
                         .annotate(dia = ExtractDay('data_apuracao'))
-                        .values('mes_base','dia', 'usermotoboy__first_name', 'km_diario', 'data_apuracao')
+                        .values('mes_base','dia', 'usermotoboy__first_name', 'usermotoboy__last_name', 'km_diario', 'data_apuracao')
                         .order_by('-data_apuracao')[:10]
                         )
     
