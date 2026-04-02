@@ -67,7 +67,7 @@
                             </td>
                             <td>
                                 <i class="bi bi-person-circle text-secondary me-2"></i>
-                                {{ item.usermotoboy__first_name|default:"Usuário" }}
+                                {{ item.usermotoboy__first_name|upper|default:"Usuário" }} {{ item.usermotoboy__last_name|upper|default:"" }}
                             </td>
                             <td class="text-end pe-4">
                                 <span class="fw-bold text-dark">{{ item.total_periodo|stringformat:".1f" }} km</span>
@@ -109,7 +109,7 @@
                         {% for item in ultimosregistros %}
                         <tr>
                             <td class="ps-4 text-capitalize">
-                                <strong>{{ item.usermotoboy__first_name|default:"Usuário" }}</strong> 
+                                <strong>{{ item.usermotoboy__first_name|upper|default:"Usuário" }} {{ item.usermotoboy__last_name|upper|default:"" }}</strong>
                             </td>
 
                             <td class="ps-4 text-capitalize">
