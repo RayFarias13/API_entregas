@@ -784,7 +784,8 @@ def motoboy_historico_entregas(request):
     # Gerar lista de meses para o filtro (últimos 6 meses)
     meses_disponiveis = []
     for i in range(6):
-        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        # Substituímos 'datetime.timedelta' por apenas 'timedelta'
+        d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
         meses_disponiveis.append({
             'value': d.strftime('%Y-%m'),
             'label': d.strftime('%B/%Y').capitalize(),
@@ -861,7 +862,7 @@ def motoboy_historico_km(request):
     # Meses disponíveis
     meses_disponiveis = []
     for i in range(3):
-        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
         meses_disponiveis.append({
             'value': d.strftime('%Y-%m'),
             'label': d.strftime('%B/%Y').capitalize(),
