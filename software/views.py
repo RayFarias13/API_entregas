@@ -350,7 +350,7 @@ def finalizar_entrega(request):
         data_hora_inicio = None
         if entrega.data_entr_ini and entrega.hora_entr_ini:
             data_hora_inicio = timezone.make_aware(
-                datetime.datetime.combine(entrega.data_entr_ini, entrega.hora_entr_ini)
+                datetime.combine(entrega.data_entr_ini, entrega.hora_entr_ini)
             )
 
         # 7. Salvar tudo atomicamente
