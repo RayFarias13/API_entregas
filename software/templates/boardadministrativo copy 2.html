@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Entregas | Painel</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        body { background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; color: #333; }
+        
+        .navbar-custom { background: #fff; border-bottom: 1px solid #ddd; margin-bottom: 20px; padding: 10px 0; }
+        .navbar-custom .links { color: #555; font-weight: 600; margin-left: 15px; text-decoration: none; }
+        .navbar-custom .links:hover { color: #3498db; }
+
+        .board-container { display: flex; gap: 20px; overflow-x: auto; padding: 10px 20px; align-items: flex-start; }
+        
+        .lista-entregador { 
+            background: #ebedf0; 
+            border-radius: 8px; 
+            width: 320px; 
+            min-width: 300px; 
+            max-height: 85vh; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 10px;
+        }
+        
+        .lista-entregador h3 { 
+            font-size: 18px; 
+            font-weight: bold; 
+            padding: 5px 10px; 
+            margin: 5px 0 10px 0; 
+            color: #1a1a1a; 
+            border-left: 5px solid #3498db;
+        }
+
+        .btn-lote {
+            width: 100%;
+            margin-bottom: 15px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+        .btn-lote:hover { background-color: #e67e22; color: white; }
+
+        .cartao-entrega { 
+            background: #fff; 
+            padding: 10px; 
+            margin-bottom: 12px; 
+            border-radius: 6px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
+            transition: transform 0.2s;
+        }
+        
+        .cartao-entrega p { margin: 4px 0; font-size: 13px; line-height: 1.4; }
+        .nf-badge { background: #34495e; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .cliente-nome { font-weight: bold; font-size: 14px; color: #2c3e50; }
+
+        .cartao-entrega select, .cartao-entrega textarea { 
+            width: 100%; 
+            margin-top: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            padding: 8px; 
+            font-size: 13px;
+        }
+
+        .btn-finalizar { 
+            width: 100%; 
+            margin-top: 12px; 
+            background: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 10px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        .btn-finalizar:hover { background: #219150; }
+
+        .board-container::-webkit-scrollbar { height: 8px; }
+        .board-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+
+
+        /* Logout btn */
+        .btn-logout {
+            
+            align-items: center;
+            gap: 2px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            
+        }
+        .btn-logout:hover {
+            background-color: #f5c6c2;
+            border-color: red;
+           
+            
+        }
+
+        /*  btn */
+        .btn-gerais {
+            
+            align-items: center;
+            gap: 2px;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--red);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            color: black;
+            
+        }
+        .btn-gerais:hover {
+            border-color:red;
+           
+
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar-custom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 style="margin: 8px 0 0 15px;"><strong>📦 Fluxo</strong></h4>
+            </div>
+            <div class="col-xs-8 text-right">
+                {% if request.user.is_authenticated %}
+                <a class="btn-gerais" href="/mapa">Mapa</a>
+                <a>|</a>
+                <a class="btn-gerais" href="/entrega_avulsa">Entrega Avulsa</a>
+                <a class="btn-gerais" href="/km/novo">Cadastro de KM</a>
+                <a class="btn-gerais" href="/km/historico">Histórico de KM</a>
+
+                {% with funcao=request.user.funcionario.funcao %}
+                    {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
+                    
+                    {% endif %}
+                {% endwith %}
+                
+                <a class="btn-gerais" href="/historicogeral">Historico</a>
+                <a>|</a>
+                <a class="btn-gerais" href="/cadastro_funcionario">Cadastro</a>
+                <a class="btn-gerais" href="/gerenciar_cadastros"><i class="fa-solid fa-right-from-bracket"></i>Equipe</a>
+            
+
+                <a class="btn-logout" href="/logout" style="color: #e74c3c;"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+                {% else %}
+                <a class="links" href="/login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="board-container">
+    {% for entregador, entregas in kanban.items %}
+        <div class="lista-entregador">
+            <h3><i class="fa fa-motorcycle"></i> {{ entregador | upper }} - {{ entregador.cd_fun_entr | upper }}</h3>
+            
+            {% if entregas %}
+                {% if request.user.is_staff %}
+
+                <button class="btn-lote" onclick="finalizarTudoNaColuna(this)">
+                    <i class="fa fa-check-double"></i> Finalizar Todas desta Coluna
+                </button>
+                {% endif %}
+
+
+            {% endif %}
+
+            {% for entrega in entregas %}
+                <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}" data-id="{{ entrega.cd_entr }}" data-vd="{{ entrega.cd_vd }}">
+                    
+                    {% if entrega.cd_nf == 0 %}
+                        <span class="nf-badge" style="background:#e67e22;">AVULSA</span>
+                    {% else %}
+                        <span class="nf-badge">NF: {{ entrega.cd_nf }}</span>
+                    {% endif %}
+
+                    <p class="cliente-nome">{{ entrega.cliente }}</p>
+                    <p><i class="fa fa-map-marker text-danger"></i> {{ entrega.endereco }}</p>
+                    {% if entrega.complemento %}<p class="text-muted"><small>{{ entrega.complemento }}</small></p>{% endif %}
+                    
+                    <p>
+                        <i class="fa fa-phone text-success"></i> 
+                        <a href="tel:{{ entrega.telefone }}" style="font-weight: bold;">{{ entrega.telefone }}</a>
+                    </p>
+
+                    <hr style="margin: 10px 0;">
+
+                    <label style="font-size: 11px; color: #777;">STATUS DA ENTREGA - Atribuido: {{ entrega.data_entr_ini|date:"d/m/Y" }} às {{ entrega.hora_entr_ini|time:"H:i" }}</label>
+                    <select id="status_{{ entrega.cd_entr }}">
+                        <option value="ENTREGUE">✅ Entregue</option>
+                        <option value="CLIENTE_AUSENTE">🏠 Cliente ausente</option>
+                        <option value="ENDERECO_INCORRETO">📍 Endereço incorreto</option>
+                        <option value="CLIENTE_RECUSOU">❌ Cliente recusou</option>
+                    </select>
+
+                    <textarea id="obs_{{ entrega.cd_entr }}" rows="2" placeholder="Observações..."></textarea>
+
+                    <button class="btn-finalizar" onclick="finalizar({{ entrega.cd_entr }}, {{ entrega.cd_vd }}, this)">
+                        <i class="fa fa-check"></i> Finalizar Entrega
+                    </button>
+                </div>
+            {% empty %}
+                <p class="text-center text-muted">Nenhuma entrega pendente.</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<script>
+/**
+ * Função para finalizar TODAS as entregas de uma coluna específica
+ */
+function finalizarTudoNaColuna(botaoLote) {
+    if (!confirm("Deseja finalizar TODAS as entregas desta coluna como 'ENTREGUE'?")) return;
+
+    // Seleciona a coluna atual e todos os cartões nela
+    const coluna = $(botaoLote).closest('.lista-entregador');
+    const cards = coluna.find('.cartao-entrega');
+
+    // Desabilita o botão de lote para evitar cliques duplos
+    botaoLote.disabled = true;
+    botaoLote.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Processando fila...";
+
+    cards.each(function() {
+        const card = $(this);
+        const cd_entr = card.data('id');
+        const cd_vd = card.data('vd');
+        const btnIndividual = card.find('.btn-finalizar')[0];
+        
+        // Dispara a função individual para cada card
+        finalizar(cd_entr, cd_vd, btnIndividual);
+    });
+
+    // Remove o botão de lote após iniciar o processo
+    $(botaoLote).fadeOut();
+}
+
+/**
+ * Função individual original (com melhoria de feedback)
+ */
+function finalizar(cd_entr, cd_vd, button){
+    const status = document.getElementById(`status_${cd_entr}`).value;
+    const observacoes = document.getElementById(`obs_${cd_entr}`).value;
+
+    button.disabled = true;
+    button.innerHTML = "<i class='fa fa-spinner fa-spin'></i>...";
+
+    fetch("/finalizar_entrega/", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            cd_entr: cd_entr,
+            cd_vd: cd_vd,
+            status: status,
+            observacoes: observacoes
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success){
+            $(`#card_${cd_entr}`).fadeOut(500, function(){ $(this).remove(); });
+        } else {
+            alert("Erro no card " + cd_entr + ": " + data.message);
+            button.disabled = false;
+            button.innerHTML = "<i class='fa fa-check'></i> Finalizar Entrega";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        button.disabled = false;
+        button.innerHTML = "Erro!";
+    });
+}
+</script>
+
+</body>
+</html>

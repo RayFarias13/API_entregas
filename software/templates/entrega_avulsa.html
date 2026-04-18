@@ -1,72 +1,109 @@
-<!-- templates/entrega_avulsa.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Entrega Avulsa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: Arial; margin: 40px; background-color: #f4f4f4; }
-        h1 { color: #333; }
-        form { background-color: #fff; padding: 20px; border-radius: 8px; max-width: 500px; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; }
-        .erro { color: red; margin-bottom: 10px; }
-        button { margin-top: 15px; padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
-        button:hover { background-color: #0056b3; }
-        .readonly { background-color: #e9ecef; }
+        body { background-color: #f8f9fa; }
+        .card { border: none; border-radius: 12px; }
+        .form-label { font-weight: 600; color: #495057; }
+        .readonly-custom { background-color: #e9ecef; border-style: dashed; }
+        .btn-primary { border-radius: 8px; padding: 12px; font-weight: bold; }
     </style>
 </head>
+
 {% include "cabecalho.html" %}
+
 {% block content %}
 <body>
-    <h1>Cadastro de Entrega Avulsa</h1>
 
-    {% if erro %}
-        <div class="erro">{{ erro }}</div>
-    {% endif %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-dark">Nova Entrega Avulsa</h2>
+                <p class="text-muted">Preencha os dados abaixo para gerar o registro</p>
+            </div>
 
-    <form method="post">
-        {% csrf_token %}
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    
+                    {% if erro %}
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <div>{{ erro }}</div>
+                        </div>
+                    {% endif %}
 
-        <!-- Funcionário -->
-        <label for="cd_fun_entr">Funcionário</label>
-        <select name="cd_fun_entr" id="cd_fun_entr" required>
-            <option value="">-- Selecione um funcionário --</option>
-            {% for f in funcionarios %}
-                <option value="{{ f.cd_usu }}"> {{ f.cd_usu }} - {{ f.user.get_full_name }}</option>
-            {% endfor %}
-        </select>
+                    <form method="post">
+                        {% csrf_token %}
 
-        <!-- Cliente -->
-        <label for="customer_id">Cliente</label>
-        <select name="customer_id" id="customer_id" required>
-            <option value="">-- Selecione um cliente --</option>
-            {% for cliente in customers %}
-                <option value="{{ cliente.id }}">{{ cliente.name }} ({{ cliente.code }})</option>
-            {% endfor %}
-        </select>
-        <a href="/cadastro_cliente" target="_blank" style="
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 6px;
-            font-size: 15px;
-            color: #007bff;
-            text-decoration: none;
-        ">
-            <i class="fa-solid fa-plus"></i> Cadastrar novo cliente
-        </a>
+                        <div class="mb-3">
+                            <label for="cd_fun_entr" class="form-label">
+                                <i class="fas fa-user-tie me-1 text-primary"></i> Funcionário Responsável
+                            </label>
+                            <select name="cd_fun_entr" id="cd_fun_entr" class="form-select form-select-lg" required>
+                                <option value="">-- Selecione o entregador --</option>
+                                {% for f in funcionarios %}
+                                    <option value="{{ f.cd_usu }}"> {{ f.cd_usu }} - {{ f.user.get_full_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-        <!-- Código da Entrega -->
-        <label for="cd_entr">Código da Entrega</label>
-        <input type="text" id="cd_entr" value="{{ proximo_cd_entr }}" class="readonly" readonly>
+                        <div class="mb-4">
+                            <label for="customer_id" class="form-label">
+                                <i class="fas fa-user-tag me-1 text-primary"></i> Cliente
+                            </label>
+                            <select name="customer_id" id="customer_id" class="form-select form-select-lg" required>
+                                <option value="">-- Selecione um cliente --</option>
+                                {% for cliente in customers %}
+                                    <option value="{{ cliente.id }}">{{ cliente.name }} ({{ cliente.code }})</option>
+                                {% endfor %}
+                            </select>
+                            
+                            <div class="mt-2 text-end">
+                                <a href="/cliente/novo/" target="_blank" class="text-decoration-none small fw-bold">
+                                    <i class="fas fa-plus-circle"></i> Cadastrar novo cliente
+                                </a>
+                            </div>
+                        </div>
 
-        <!-- Código da Venda -->
-        <label for="cd_vd">Código da Venda</label>
-        <input type="text" id="cd_vd" value="{{ proximo_cd_vd }}" class="readonly" readonly>
+                        <hr class="my-4 text-muted">
 
-        <button type="submit">Criar Entrega</button>
-    </form>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label small text-uppercase">Cód. Entrega</label>
+                                <input type="text" value="{{ proximo_cd_entr }}" class="form-control readonly-custom text-center fw-bold" readonly>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label small text-uppercase">Cód. Venda</label>
+                                <input type="text" value="{{ proximo_cd_vd }}" class="form-control readonly-custom text-center fw-bold" readonly>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                <i class="fas fa-truck-ramp-box me-2"></i>Criar Entrega
+                            </button>
+                            <a href="/home_administrativo/" class="btn btn-light">Cancelar</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <p class="text-center mt-4 text-muted small">
+                © 2026 Sistema de Entregas - <strong>Ray Farias</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 {% endblock content %}
 </html>

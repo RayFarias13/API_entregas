@@ -3,170 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluxo de Entregas | Painel</title>
+    <title>Fluxo de Entregas | Painel Profissional</title>
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; color: #333; }
-        
-        .navbar-custom { background: #fff; border-bottom: 1px solid #ddd; margin-bottom: 20px; padding: 10px 0; }
-        .navbar-custom .links { color: #555; font-weight: 600; margin-left: 15px; text-decoration: none; }
-        .navbar-custom .links:hover { color: #3498db; }
+        :root {
+            --bg-kanban: #f4f5f7;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --primary-blue: #0052cc;
+        }
 
-        .board-container { display: flex; gap: 20px; overflow-x: auto; padding: 10px 20px; align-items: flex-start; }
+        body { background: #e2e4e6; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        /* Navbar Moderna */
+        .navbar-custom { 
+            background: #fff; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            padding: 12px 20px;
+            margin-bottom: 20px;
+        }
+        .btn-nav {
+            color: #444;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-nav:hover { background: #f0f2f5; color: var(--primary-blue); }
+        .btn-logout { color: #dc3545; font-weight: bold; }
+        .btn-logout:hover { background: #fff1f0; color: #a30000; }
+
+        /* Kanban Layout */
+        .board-container { 
+            display: flex; 
+            gap: 15px; 
+            overflow-x: auto; 
+            padding: 0 20px 20px 20px; 
+            height: calc(100vh - 100px);
+            align-items: flex-start;
+        }
         
         .lista-entregador { 
             background: #ebedf0; 
-            border-radius: 8px; 
+            border-radius: 10px; 
             width: 320px; 
-            min-width: 300px; 
-            max-height: 85vh; 
+            min-width: 320px; 
+            max-height: 100%; 
             display: flex; 
             flex-direction: column; 
-            padding: 10px;
+            padding: 12px;
+            box-shadow: var(--card-shadow);
         }
         
         .lista-entregador h3 { 
-            font-size: 18px; 
-            font-weight: bold; 
-            padding: 5px 10px; 
-            margin: 5px 0 10px 0; 
-            color: #1a1a1a; 
-            border-left: 5px solid #3498db;
+            font-size: 16px; 
+            font-weight: 700; 
+            padding: 0 5px 10px 5px; 
+            margin: 0; 
+            color: #172b4d; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        .count-badge {
+            background: #dfe1e6;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+
+        /* Botão Lote */
         .btn-lote {
             width: 100%;
             margin-bottom: 15px;
-            background-color: #f39c12;
+            background-color: #ff9f1a;
             color: white;
             border: none;
             padding: 8px;
-            border-radius: 4px;
-            font-weight: bold;
+            border-radius: 5px;
+            font-weight: 600;
             font-size: 12px;
-            transition: 0.3s;
+            transition: 0.2s;
         }
-        .btn-lote:hover { background-color: #e67e22; color: white; }
+        .btn-lote:hover { background-color: #e67e22; transform: scale(1.02); }
 
+        /* Cartão de Entrega */
         .cartao-entrega { 
             background: #fff; 
-            padding: 10px; 
-            margin-bottom: 12px; 
-            border-radius: 6px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
-            transition: transform 0.2s;
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border-bottom: 2px solid #ddd;
+            transition: 0.2s;
         }
+        .cartao-entrega:hover { border-bottom-color: var(--primary-blue); }
         
-        .cartao-entrega p { margin: 4px 0; font-size: 13px; line-height: 1.4; }
-        .nf-badge { background: #34495e; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .cliente-nome { font-weight: bold; font-size: 14px; color: #2c3e50; }
+        .cartao-entrega p { margin: 3px 0; font-size: 13px; color: #444; }
+        .nf-badge { 
+            font-size: 10px; 
+            background: #0052cc; 
+            color: #fff; 
+            padding: 2px 8px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            text-transform: uppercase;
+        }
+        .cliente-nome { font-weight: 700; font-size: 14px; color: #172b4d; display: block; margin-top: 5px; }
 
-        .cartao-entrega select, .cartao-entrega textarea { 
+        .form-kanban {
+            margin-top: 10px;
+            border-top: 1px solid #f0f2f5;
+            padding-top: 10px;
+        }
+
+        .select-status { 
             width: 100%; 
-            margin-top: 10px; 
             border: 1px solid #ddd; 
-            border-radius: 4px; 
-            padding: 8px; 
-            font-size: 13px;
+            border-radius: 5px; 
+            padding: 6px; 
+            font-size: 12px;
+            margin-bottom: 8px;
+            background: #f9fafb;
+        }
+
+        .area-obs { 
+            width: 100%; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            padding: 6px; 
+            font-size: 12px;
+            resize: none;
         }
 
         .btn-finalizar { 
             width: 100%; 
-            margin-top: 12px; 
-            background: #27ae60; 
+            margin-top: 10px; 
+            background: #36b37e; 
             color: white; 
             border: none; 
-            padding: 10px; 
-            border-radius: 4px; 
+            padding: 8px; 
+            border-radius: 5px; 
             font-weight: bold; 
-            transition: 0.3s;
-        }
-        .btn-finalizar:hover { background: #219150; }
-
-        .board-container::-webkit-scrollbar { height: 8px; }
-        .board-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-
-
-        /* Logout btn */
-        .btn-logout {
-            
-            align-items: center;
-            gap: 2px;
-            padding: 7px 12px;
-            border-radius: 7px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--red);
-            text-decoration: none;
-            border: 1px solid transparent;
             transition: 0.2s;
-            
         }
-        .btn-logout:hover {
-            background-color: #f5c6c2;
-            border-color: red;
-           
-            
-        }
+        .btn-finalizar:hover { background: #228b5e; }
 
-        /*  btn */
-        .btn-gerais {
-            
-            align-items: center;
-            gap: 2px;
-            padding: 7px 12px;
-            border-radius: 7px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--red);
-            text-decoration: none;
-            border: 1px solid transparent;
-            transition: 0.2s;
-            color: black;
-            
-        }
-        .btn-gerais:hover {
-            border-color:red;
-           
-
-        }
-
+        /* Scrollbar Personalizada */
+        .board-container::-webkit-scrollbar { height: 10px; }
+        .board-container::-webkit-scrollbar-thumb { background: #bfc4ce; border-radius: 10px; }
     </style>
 </head>
 <body>
 
 <nav class="navbar-custom">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4">
-                <h4 style="margin: 8px 0 0 15px;"><strong>📦 Fluxo</strong></h4>
-            </div>
-            <div class="col-xs-8 text-right">
-                {% if request.user.is_authenticated %}
-                <a class="btn-gerais" href="/mapa">Mapa</a>
-                <a>|</a>
-                <a class="btn-gerais" href="/entrega_avulsa">Entrega Avulsa</a>
-                <a class="btn-gerais" href="/km/novo">Cadastro de KM</a>
-                <a class="btn-gerais" href="/km/historico">Histórico de KM</a>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                    <span class="fs-4 me-4"><strong>📦 FLUXO</strong></span>
+                    {% if request.user.is_authenticated %}
+                        <a class="btn-nav" href="/mapa"><i class="fa fa-map"></i> Mapa</a>
+                        <a class="btn-nav" href="/entrega_avulsa"><i class="fa fa-plus-circle"></i> Avulsa</a>
+                        
+                        <div class="vr mx-2"></div>
+                        <a class="btn-nav" href="/km/novo"><i class="fa fa-gauge"></i> Lançar KM</a>
+                        <a class="btn-nav" href="/km/historico"><i class="fa fa-list-ol"></i> Histórico KM</a>
+                        <div class="vr mx-2"></div>
 
-                {% with funcao=request.user.funcionario.funcao %}
-                    {% if funcao == 'GERENTE' or funcao == 'S. GERENTE' or funcao == 'ADMINISTRATIVO' %}
-                    
+                        <a class="btn-nav" href="/historicogeral"><i class="fa fa-history"></i> Histórico Geral</a>
                     {% endif %}
-                {% endwith %}
-                
-                <a class="btn-gerais" href="/historicogeral">Historico</a>
-                <a>|</a>
-                <a class="btn-gerais" href="/cadastro_funcionario">Cadastro</a>
-                <a class="btn-gerais" href="/gerenciar_cadastros"><i class="fa-solid fa-right-from-bracket"></i>Equipe</a>
+                </div>
             
-
-                <a class="btn-logout" href="/logout" style="color: #e74c3c;"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+            <div class="d-flex align-items-center gap-2">
+                {% if request.user.is_authenticated %}
+                    <a class="btn-nav" href="/cadastro_funcionario">Cadastro</a>
+                    <a class="btn-nav" href="/gerenciar_cadastros">Equipe</a>
+                    <div class="vr mx-2"></div>
+                    <a class="btn-nav btn-logout" href="/logout"><i class="fa fa-sign-out-alt"></i> Sair</a>
                 {% else %}
-                <a class="links" href="/login">Login</a>
+                    <a class="btn-nav" href="/login">Login</a>
                 {% endif %}
             </div>
         </div>
@@ -176,101 +195,100 @@
 <div class="board-container">
     {% for entregador, entregas in kanban.items %}
         <div class="lista-entregador">
-            <h3><i class="fa fa-motorcycle"></i> {{ entregador | upper }} - {{ entregador.cd_fun_entr | upper }}</h3>
+            <h3>
+                <span><i class="fa fa-motorcycle"></i> {{ entregador | upper }} - {{entregador.cd_usu}}</span>
+                <span class="count-badge">{{ entregas|length }}</span>
+            </h3>
             
-            {% if entregas %}
-                {% if request.user.is_staff %}
-
+            {% if entregas and request.user.is_staff %}
                 <button class="btn-lote" onclick="finalizarTudoNaColuna(this)">
-                    <i class="fa fa-check-double"></i> Finalizar Todas desta Coluna
+                    <i class="fa fa-check-double"></i> FINALIZAR TODA COLUNA
                 </button>
-                {% endif %}
-
-
             {% endif %}
 
-            {% for entrega in entregas %}
-                <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}" data-id="{{ entrega.cd_entr }}" data-vd="{{ entrega.cd_vd }}">
-                    
-                    {% if entrega.cd_nf == 0 %}
-                        <span class="nf-badge" style="background:#e67e22;">AVULSA</span>
-                    {% else %}
-                        <span class="nf-badge">NF: {{ entrega.cd_nf }}</span>
-                    {% endif %}
+            <div class="cards-wrapper" style="overflow-y: auto; flex-grow: 1;">
+                {% for entrega in entregas %}
+                    <div class="cartao-entrega" id="card_{{ entrega.cd_entr }}" data-id="{{ entrega.cd_entr }}" data-vd="{{ entrega.cd_vd }}">
+                        
+                        <div class="d-flex justify-content-between align-items-start">
+                            {% if entrega.cd_nf == 0 %}
+                                <span class="nf-badge" style="background:#f39c12;">AVULSA</span>
+                            {% else %}
+                                <span class="nf-badge">Cupom Fiscal: {{ entrega.cd_nf }}</span>
+                            {% endif %}
+                            <small class="text-muted" style="font-size: 10px;">#{{ entrega.cd_vd }}</small>
+                        </div>
 
-                    <p class="cliente-nome">{{ entrega.cliente }}</p>
-                    <p><i class="fa fa-map-marker text-danger"></i> {{ entrega.endereco }}</p>
-                    {% if entrega.complemento %}<p class="text-muted"><small>{{ entrega.complemento }}</small></p>{% endif %}
-                    
-                    <p>
-                        <i class="fa fa-phone text-success"></i> 
-                        <a href="tel:{{ entrega.telefone }}" style="font-weight: bold;">{{ entrega.telefone }}</a>
-                    </p>
+                        <span class="cliente-nome">{{ entrega.cliente }}</span>
+                        
+                        <p><i class="fa fa-map-marker-alt text-danger"></i> {{ entrega.endereco }}</p>
+                        
+                        {% if entrega.complemento %}
+                            <p class="text-muted" style="font-style: italic;"><small>{{ entrega.complemento }}</small></p>
+                        {% endif %}
+                        
+                        <p>
+                            <i class="fa fa-phone text-success"></i> 
+                            <a href="tel:{{ entrega.telefone }}" class="text-decoration-none fw-bold">{{ entrega.telefone }}</a>
+                        </p>
 
-                    <hr style="margin: 10px 0;">
+                        <div class="form-kanban">
+                            <label style="font-size: 10px; color: #888; text-transform: uppercase;">STATUS DA ENTREGA - Atribuido: {{ entrega.data_entr_ini|date:"d/m/Y" }} às {{ entrega.hora_entr_ini|time:"H:i" }}:</label>
+                            <select class="select-status" id="status_{{ entrega.cd_entr }}">
+                                <option value="ENTREGUE">✅ Entregue</option>
+                                <option value="CLIENTE_AUSENTE">🏠 Cliente ausente</option>
+                                <option value="ENDERECO_INCORRETO">📍 Endereço incorreto</option>
+                                <option value="CLIENTE_RECUSOU">❌ Cliente recusou</option>
+                            </select>
 
-                    <label style="font-size: 11px; color: #777;">STATUS DA ENTREGA - Atribuido: {{ entrega.data_entr_ini|date:"d/m/Y" }} às {{ entrega.hora_entr_ini|time:"H:i" }}</label>
-                    <select id="status_{{ entrega.cd_entr }}">
-                        <option value="ENTREGUE">✅ Entregue</option>
-                        <option value="CLIENTE_AUSENTE">🏠 Cliente ausente</option>
-                        <option value="ENDERECO_INCORRETO">📍 Endereço incorreto</option>
-                        <option value="CLIENTE_RECUSOU">❌ Cliente recusou</option>
-                    </select>
+                            <textarea class="area-obs" id="obs_{{ entrega.cd_entr }}" rows="1" placeholder="Observações..."></textarea>
 
-                    <textarea id="obs_{{ entrega.cd_entr }}" rows="2" placeholder="Observações..."></textarea>
-
-                    <button class="btn-finalizar" onclick="finalizar({{ entrega.cd_entr }}, {{ entrega.cd_vd }}, this)">
-                        <i class="fa fa-check"></i> Finalizar Entrega
-                    </button>
-                </div>
-            {% empty %}
-                <p class="text-center text-muted">Nenhuma entrega pendente.</p>
-            {% endfor %}
+                            <button class="btn-finalizar shadow-sm" onclick="finalizar({{ entrega.cd_entr }}, {{ entrega.cd_vd }}, this)">
+                                FINALIZAR
+                            </button>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="text-center py-4">
+                        <i class="fa fa-coffee text-muted mb-2 fs-3"></i>
+                        <p class="text-muted small">Sem pendências.</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     {% endfor %}
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-/**
- * Função para finalizar TODAS as entregas de uma coluna específica
- */
 function finalizarTudoNaColuna(botaoLote) {
     if (!confirm("Deseja finalizar TODAS as entregas desta coluna como 'ENTREGUE'?")) return;
 
-    // Seleciona a coluna atual e todos os cartões nela
     const coluna = $(botaoLote).closest('.lista-entregador');
     const cards = coluna.find('.cartao-entrega');
 
-    // Desabilita o botão de lote para evitar cliques duplos
     botaoLote.disabled = true;
-    botaoLote.innerHTML = "<i class='fa fa-spinner fa-spin'></i> Processando fila...";
+    botaoLote.innerHTML = "<i class='fa fa-spinner fa-spin'></i> PROCESSANDO...";
 
     cards.each(function() {
         const card = $(this);
         const cd_entr = card.data('id');
         const cd_vd = card.data('vd');
         const btnIndividual = card.find('.btn-finalizar')[0];
-        
-        // Dispara a função individual para cada card
         finalizar(cd_entr, cd_vd, btnIndividual);
     });
 
-    // Remove o botão de lote após iniciar o processo
     $(botaoLote).fadeOut();
 }
 
-/**
- * Função individual original (com melhoria de feedback)
- */
 function finalizar(cd_entr, cd_vd, button){
     const status = document.getElementById(`status_${cd_entr}`).value;
     const observacoes = document.getElementById(`obs_${cd_entr}`).value;
 
     button.disabled = true;
-    button.innerHTML = "<i class='fa fa-spinner fa-spin'></i>...";
+    button.innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 
     fetch("/finalizar_entrega/", {
         method: 'POST',
@@ -288,17 +306,17 @@ function finalizar(cd_entr, cd_vd, button){
     .then(res => res.json())
     .then(data => {
         if(data.success){
-            $(`#card_${cd_entr}`).fadeOut(500, function(){ $(this).remove(); });
+            $(`#card_${cd_entr}`).css('border-left', '5px solid #36b37e');
+            $(`#card_${cd_entr}`).fadeOut(400, function(){ $(this).remove(); });
         } else {
-            alert("Erro no card " + cd_entr + ": " + data.message);
+            alert("Erro: " + data.message);
             button.disabled = false;
-            button.innerHTML = "<i class='fa fa-check'></i> Finalizar Entrega";
+            button.innerHTML = "RETTENTAR";
         }
     })
     .catch(err => {
-        console.error(err);
         button.disabled = false;
-        button.innerHTML = "Erro!";
+        button.innerHTML = "ERRO";
     });
 }
 </script>

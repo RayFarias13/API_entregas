@@ -1,10 +1,10 @@
 from decimal import Decimal
-
+from dateutil.relativedelta import relativedelta
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
-from django.db.models.functions import ExtractMonth, TruncMonth, ExtractDay
+from django.db.models.functions import ExtractMonth, ExtractYear, TruncMonth, ExtractDay, TruncYear
 from django.db import transaction
 
 from django.db.models import Q
@@ -16,7 +16,8 @@ from .models import *
 from receptor.models import *
 import json
 import datetime
-from datetime import datetime, timedelta
+import calendar
+from datetime import date, datetime, timedelta
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -124,6 +125,7 @@ def board_motoboy(request):
             'endereco': cliente_obj.address if cliente_obj else 'Endereço não informado',
             'complemento': cliente_obj.address_complement if cliente_obj else '',
             'telefone': cliente_obj.phone_number if cliente_obj else '',
+            'hora_entr_ini': entrega.hora_entr_ini,
         })
 
     return render(request, 'motoboy_entregas_dia.html', {'entregas': lista_entregas})
@@ -390,6 +392,21 @@ def finalizar_entrega(request):
 
 
 def login_view(request):
+
+    try:
+        if hasattr(request.user, 'funcionario'):
+            funcao = request.user.funcionario.funcao
+            if funcao == 'ENTREGADOR':
+                return redirect('perfilmotoboy')
+            elif funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']:
+                return redirect('boardadministrativo')
+                
+            elif request.user.is_staff:
+                return redirect('admin:index')
+    except Exception:
+        pass #
+
+
     try:
         if request.method == 'POST':
             username = request.POST.get('username').strip().lower()
@@ -499,7 +516,7 @@ def gerenciar_funcionarios(request):
             print(f"Acesso negado para função")  # Log para depuração
             return redirect('nao_autorizado')  # se não for gerente, redireciona para login
 
-        funcionarios = Funcionarios_lista.objects.all()
+        funcionarios = Funcionarios_lista.objects.all().order_by('user__first_name')  # ordena por nome do usuário
         return render(request, 'gerenciar_cadastros.html', {'funcionarios': funcionarios})
     except AttributeError:
         return redirect('nao_autorizado')  # se não tiver perfil de funcionário, redireciona para login
@@ -525,22 +542,35 @@ def registrar_km_manual(request):
         if id_motoboy and km and data:
             try:
                 usuario = User.objects.get(id=id_motoboy)
+                km_float = float(km.replace(',', '.'))
+                
+                # --- VERIFICAÇÃO DE DUPLICIDADE ---
+                ja_existe = dadoskilometragem.objects.filter(
+                    usermotoboy=usuario,
+                    km_diario=km_float,
+                    data_apuracao=data
+                ).exists()
+
+                if ja_existe:
+                    # Se já existir, você pode retornar um erro ou apenas redirecionar
+                    todos_motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR').order_by('first_name')
+                    return render(request, 'registrar_km.html', {
+                        'motoboys': todos_motoboys,
+                        'error_message': 'Este registro já foi lançado anteriormente.'
+                    })
+
+                dadoskilometragem.objects.create(
+                    usermotoboy=usuario,
+                    km_diario=km_float,
+                    data_apuracao=data
+                )
+                return redirect('registrar_km')
+
             except User.DoesNotExist:
                 return redirect('registrar_km')
 
-            dadoskilometragem.objects.create(
-                usermotoboy=usuario,
-                km_diario=float(km.replace(',', '.')),
-                data_apuracao=data
-            )
-            return redirect('registrar_km')
-
-    todos_motoboys = User.objects.filter(
-        funcionario__funcao='ENTREGADOR'
-    ).order_by('first_name')
-
+    todos_motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR').order_by('first_name')
     return render(request, 'registrar_km.html', {'motoboys': todos_motoboys})
-
 
 @login_required
 def lista_km(request):
@@ -554,28 +584,31 @@ def lista_km(request):
         return redirect('login')
 
 
+
+
+    data_limite = timezone.now().replace(day=1) - relativedelta(months=1)
+
     relatorios_quinzenais = (
         dadoskilometragem.objects
-        # 1. Truncamos o mês para agrupar registros do mesmo mês/ano
+        # FILTRO: Adicionado aqui para pegar apenas os últimos 2 meses
+        .filter(data_apuracao__gte=data_limite)
+        
+        .annotate(ano_base=TruncYear('data_apuracao'))
         .annotate(mes_base=TruncMonth('data_apuracao'))
-        # 2. Extraímos o dia para saber em qual quinzena cai
         .annotate(dia=ExtractDay('data_apuracao'))
-        # 3. Criamos a lógica da quinzena
         .annotate(quinzena=Case(
             When(dia__lte=15, then=Value('1ª Quinzena')),
             default=Value('2ª Quinzena'),
             output_field=CharField(),
         ))
-        # 4. Agrupamos pelos campos necessários
-        .values('mes_base', 'quinzena', 'usermotoboy__first_name', 'usermotoboy__last_name')
-        # 5. Somamos os KMs do grupo
+        .values('ano_base', 'mes_base', 'quinzena', 'usermotoboy__first_name', 'usermotoboy__last_name')
         .annotate(total_periodo=Sum('km_diario'))
-        # 6. Ordenamos por mês e depois pela quinzena
-        .order_by('-mes_base', '-quinzena', 'usermotoboy__first_name')
-    )
+        .order_by('-mes_base', '-quinzena', 'usermotoboy__first_name') 
+        )
 
     ultimosregistros = (dadoskilometragem.objects
                         #.annotate(mes_base=TruncMonth('data_apuracao'))
+                        .annotate(ano_base = ExtractYear('data_apuracao'))
                         .annotate(mes_base = ExtractMonth('data_apuracao'))
                         .annotate(dia = ExtractDay('data_apuracao'))
                         .values('mes_base','dia', 'usermotoboy__first_name', 'usermotoboy__last_name', 'km_diario', 'data_apuracao')
@@ -644,6 +677,7 @@ def dados_entregadores_json(request):
     data = [{
         "id": p.usuario.id,
         "username": p.usuario.username,
+        "nomecompleto": p.usuario.get_full_name().upper() or p.usuario.username.upper(),
         "lat": float(p.latitude),
         "lng": float(p.longitude),
         "hora": timezone.localtime(p.data_criacao).strftime('%d/%m/%y às %H:%M')
@@ -1254,3 +1288,93 @@ def somentegerente (request):
     return True
 
     
+
+@login_required
+def visualizar_folgas(request):
+    hoje = date.today()
+
+    datas_proximas = [hoje + timedelta(days=i) for i in range(30)]
+
+    entregadores = Funcionarios_lista.objects.filter(
+        funcao='ENTREGADOR'
+    ).select_related('escala_fixa')
+
+    agenda = []
+
+    for data in datas_proximas:
+        dia_semana = data.weekday()
+        qual_domingo = (data.day - 1) // 7 + 1
+
+        folguistas = []
+
+        for e in entregadores:
+            try:
+                if dia_semana == e.escala_fixa.dia_fixo_semana and dia_semana != 6:
+                    folguistas.append(e)
+                elif dia_semana == 6 and qual_domingo == e.escala_fixa.domingo_do_mes:
+                    folguistas.append(e)
+            except:
+                continue
+
+        qtd = len(folguistas)
+
+        if qtd == 0:
+            risco = "baixo"
+            sugestao = "Operação tranquila"
+        elif qtd <= 2:
+            risco = "medio"
+            sugestao = "Atenção"
+        else:
+            risco = "alto"
+            sugestao = "Reforçar equipe"
+
+        agenda.append({
+            "data": data,
+            "folguistas": folguistas,
+            "risco": risco,
+            "sugestao": sugestao,
+            "is_hoje": data == hoje,
+            "weekday": dia_semana
+        })
+
+    # 🧠 AGRUPAR EM SEMANAS FIXAS (SEG → DOM)
+    semanas = []
+    semana = [None] * 7
+
+    for dia in agenda:
+        semana[dia["weekday"]] = dia
+
+        if dia["weekday"] == 6:
+            semanas.append(semana)
+            semana = [None] * 7
+
+    if any(semana):
+        semanas.append(semana)
+
+    return render(request, "folgas_agenda.html", {
+        "semanas": semanas,
+        "hoje": hoje
+    })
+
+
+@login_required
+def configurar_escalas(request):
+    if request.method == "POST":
+        id_fun = request.POST.get('funcionario')
+        dia_fixo = request.POST.get('dia_fixo')
+        domingo = request.POST.get('domingo')
+        
+        funcionario = Funcionarios_lista.objects.get(id=id_fun)
+        
+        # Cria ou atualiza a escala
+        EscalaFixa.objects.update_or_create(
+            funcionario=funcionario,
+            defaults={
+                'dia_fixo_semana': dia_fixo,
+                'domingo_do_mes': domingo
+            }
+        )
+        return redirect('agenda_folgas')
+
+    entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
+    return render(request, 'folgas_configurar.html', {'entregadores': entregadores})

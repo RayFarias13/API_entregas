@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Drogaria Cíntia</title>
+    <title>Mapa</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -178,7 +178,7 @@
 <nav class="navbar">
     <div class="nav-left">
         <div class="logo">
-            <i class="fa-solid fa-house-medical"></i> Drogaria Cíntia
+            <i class="fa-solid fa-house-medical"></i><a href="/home_administrativo"></a>
         </div>
         <div class="nav-links">
             <a href="/home_administrativo"><i class="fa-solid fa-chart-line"></i> Painel</a>
@@ -325,7 +325,7 @@
                     item.innerHTML = `
                         <div class="moto-avatar">${getInitials(moto.username)}</div>
                         <div class="moto-info">
-                            <div class="moto-name">${moto.username}</div>
+                            <div class="moto-name">${moto.nomecompleto}</div>
                             <div class="moto-time">${formatarVisto(moto.hora)}</div>
                         </div>
                         <div class="dot"></div>

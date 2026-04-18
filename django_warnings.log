@@ -2715,3 +2715,1448 @@ LINE 1: ..."data_entr_ini", "dados_entrega"."hora_entr_ini", "dados_ent...
                                                              ^
 
 "GET /perfil/entregas/ HTTP/1.1" 500 145607
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 9342
+Not Found: /cadastro_cliente/salvar/cadastro_cliente.html
+"GET /cadastro_cliente/salvar/cadastro_cliente.html HTTP/1.1" 404 9444
+Not Found: /cadastro_cliente/salvar/cadastro_cliente.html
+"GET /cadastro_cliente/salvar/cadastro_cliente.html HTTP/1.1" 404 9444
+Not Found: /cadastro_clientenovo
+"GET /cadastro_clientenovo HTTP/1.1" 404 9369
+Not Found: /cadastro_clientenovo
+"GET /cadastro_clientenovo HTTP/1.1" 404 9369
+Not Found: /cadastro_clientenovo
+"GET /cadastro_clientenovo HTTP/1.1" 404 9369
+Not Found: /cadastro_clientenovo
+"GET /cadastro_clientenovo HTTP/1.1" 404 9369
+Not Found: /cadastro_clientenovo
+"GET /cadastro_clientenovo HTTP/1.1" 404 9369
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 603, in lista_km
+    .order_by('-mes_base' [2], '-quinzena', 'usermotoboy__first_name')
+     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1772, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2343, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1842, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'e' into field. Choices are: data_apuracao, data_cadastro, id, km_diario, mes_base, quinzena, total_periodo, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 108562
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 604, in lista_km
+    .order_by('-mes_base'[:2], '-quinzena', 'usermotoboy__first_name')
+     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1772, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2343, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1842, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'm' into field. Choices are: data_apuracao, data_cadastro, id, km_diario, mes_base, quinzena, total_periodo, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 108431
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 604, in lista_km
+    .order_by('-mes_base'[:2], '-quinzena', 'usermotoboy__first_name')
+     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1772, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2343, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1842, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'm' into field. Choices are: data_apuracao, data_cadastro, id, km_diario, mes_base, quinzena, total_periodo, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 108568
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 589, in lista_km
+    .annotate(mes_base=TruncMonth('-data_apuracao'))[:2]
+     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1247, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\functions\datetime.py", line 288, in resolve_expression
+    copy = super().resolve_expression(
+        query, allow_joins, reuse, summarize, for_save
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2087, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1937, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1842, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword '-data_apuracao' into field. Choices are: data_apuracao, data_cadastro, id, km_diario, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 137141
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 589, in lista_km
+    .annotate(mes_base=TruncMonth('-data_apuracao'))
+     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1699, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1751, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1247, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\functions\datetime.py", line 288, in resolve_expression
+    copy = super().resolve_expression(
+        query, allow_joins, reuse, summarize, for_save
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 904, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2087, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1937, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1842, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword '-data_apuracao' into field. Choices are: data_apuracao, data_cadastro, id, km_diario, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 136996
+Not Found: /'folgas/agenda/'
+"GET /'folgas/agenda/' HTTP/1.1" 404 9656
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1352, in configurar_escalas
+    return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'configurar_escalas' not found. 'configurar_escalas' is not a valid view function or pattern name.
+"GET /folgas/configurar/ HTTP/1.1" 500 182373
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1352, in configurar_escalas
+    return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'configurar_escalas' not found. 'configurar_escalas' is not a valid view function or pattern name.
+"GET /folgas/configurar/ HTTP/1.1" 500 182510
+Not Found: /folgas/configura
+"GET /folgas/configura HTTP/1.1" 404 9903
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1352, in configurar_escalas
+    return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'configurar_escalas' not found. 'configurar_escalas' is not a valid view function or pattern name.
+"GET /folgas/configurar/ HTTP/1.1" 500 182373
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1349, in configurar_escalas
+    return redirect('folgas_agenda')
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'folgas_agenda' not found. 'folgas_agenda' is not a valid view function or pattern name.
+"POST /folgas/configurar/ HTTP/1.1" 500 98128
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1349, in configurar_escalas
+    return redirect('folgas_agenda')
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'folgas_agenda' not found. 'folgas_agenda' is not a valid view function or pattern name.
+"POST /folgas/configurar/ HTTP/1.1" 500 98126
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1331, in visualizar_folgas
+    'hoje':datetime.date.today()
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'method_descriptor' object has no attribute 'today'
+"GET /folgas/agenda/ HTTP/1.1" 500 83406
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1331, in visualizar_folgas
+    'hoje':datetime.date.today()
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'method_descriptor' object has no attribute 'today'
+"GET /folgas/agenda/ HTTP/1.1" 500 83406
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1330, in visualizar_folgas
+    return render (request, 'folgas_agenda.html',{
+        'agenda': agenda,
+        'hoje':hoje1
+        })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 304476
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1330, in visualizar_folgas
+    return render (request, 'folgas_agenda.html',{
+        'agenda': agenda,
+        'hoje':hoje1
+        })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 304476
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1330, in visualizar_folgas
+    return render (request, 'folgas_agenda.html',{
+        'agenda': agenda,
+        'hoje':hoje1
+        })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 304476
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 309841
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 309841
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 309841
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 309841
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 309841
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 321595
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 321595
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1345, in visualizar_folgas
+    return render(request, 'folgas_agenda.html', {
+        'agenda': agenda,
+        'hoje': hoje
+    })
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 307, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader_tags.py", line 235, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\template\base.py", line 634, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\templates\folgas_agenda.html, Invalid block tag on line 27: 'elif', expected 'endwith'. Did you forget to register or load this tag?
+"GET /folgas/agenda/ HTTP/1.1" 500 321595
