@@ -29,7 +29,7 @@ urlpatterns = [
     path('naoautorizado/', views.nao_autorizado, name='nao_autorizado'),
     
     path('cliente/novo/', views.cadastrar_customer_view, name='cadastro_clientenovo'),
-    
-    
+    path('folgas/agenda/', views.visualizar_folgas, name='agenda_folgas'),
+    path('folgas/configurar/', views.configurar_escalas, name='configurar_escalas'),    
 
 ]

@@ -2,65 +2,127 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Cliente</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { border: none; border-radius: 15px; }
+        .form-label { font-weight: 600; color: #344767; font-size: 0.85rem; text-transform: uppercase; }
+        .form-control { border-radius: 8px; padding: 10px; border: 1px solid #d2d6da; }
+        .form-control:focus { border-color: #5e72e4; box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.2); }
+        .btn-primary { background: linear-gradient(310deg, #5e72e4, #825ee4); border: none; border-radius: 8px; padding: 12px; font-weight: bold; transition: all 0.2s; }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08); }
+        .input-group-text { background-color: #fff; border-right: none; color: #adb5bd; }
+        .form-control { border-left: none; }
+    </style>
 </head>
-<body class="container mt-5">
-    <h2 class="mb-4">Novo Cadastro de Cliente</h2>
 
-    <form method="POST" >
-        {% csrf_token %} 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Nome:</label>
-                <input type="text" name="name" class="form-control" required>
+{% include "cabecalho.html" %}
+
+{% block content %}
+<body class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="d-flex align-items-center mb-4">
+                <div class="bg-white p-3 rounded-circle shadow-sm me-3">
+                    <i class="fas fa-user-plus text-primary fs-4"></i>
+                </div>
+                <div>
+                    <h2 class="mb-0 fw-bold">Novo Cliente</h2>
+                    <p class="text-muted mb-0">Cadastre os dados para entregas e faturamento</p>
+                </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <label>Código Único:</label>
-                <input type="text" name="code" class="form-control" required>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label>Tipo:</label>
-                <input type="text" name="type" class="form-control">
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %} 
+                        
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Nome Completo / Razão Social</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" name="name" class="form-control" placeholder="Ex: João Silva ou Empresa LTDA" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Código Interno Vetor</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-fingerprint"></i></span>
+                                    <input type="text" name="code" class="form-control" placeholder="Cód. 001" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-7 mb-3">
+                                <label class="form-label">E-mail de Contato</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" name="email" class="form-control" placeholder="cliente@email.com">
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 mb-3">
+                                <label class="form-label">CEP (Auto-preenchimento)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" name="cep" id="cep" class="form-control" placeholder="00000-000" onblur="pesquisacep(this.value);">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Endereço Completo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                <textarea name="address" id="endereco" class="form-control" rows="2" placeholder="Rua, Número, Bairro, Cidade - UF"></textarea>
+                            </div>
+                            <div id="loading-cep" class="form-text text-primary" style="display:none;">
+                                <i class="fas fa-spinner fa-spin"></i> Buscando endereço...
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="/entrega_avulsa/" class="text-muted text-decoration-none">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="fas fa-check-circle me-2"></i>Finalizar Cadastro
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>E-mail:</label>
-                <input type="email" name="email" class="form-control">
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>CEP:</label>
-                <input type="text" name="cep" class="form-control">
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label>Endereço:</label>
-            <textarea name="address" class="form-control" rows="2"></textarea>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <label>Latitude:</label>
-                <input type="number" step="any" name="latitude" class="form-control" value="0.0">
-            </div>
-            <div class="col-md-3 mb-3">
-                <label>Longitude:</label>
-                <input type="number" step="any" name="longitude" class="form-control" value="0.0">
-            </div>
-            <div class="col-md-3 mb-3">
-                <label>Início Exp.:</label>
-                <input type="time" name="hour_start" class="form-control">
-            </div>
-            <div class="col-md-3 mb-3">
-                <label>Fim Exp.:</label>
-                <input type="time" name="hour_end" class="form-control">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg">Salvar Cliente</button>
-    </form>
+    <script>
+    function pesquisacep(valor) {
+        var cep = valor.replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if(validacep.test(cep)) {
+                document.getElementById('loading-cep').style.display = 'block';
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(dados => {
+                        document.getElementById('loading-cep').style.display = 'none';
+                        if (!("erro" in dados)) {
+                            document.getElementById('endereco').value = (dados.logradouro + ", " + dados.bairro + ", " + dados.localidade + " - " + dados.uf);
+                        } else {
+                            alert("CEP não encontrado.");
+                        }
+                    });
+            }
+        }
+    };
+    </script>
 </body>
+{% endblock content %}
 </html>

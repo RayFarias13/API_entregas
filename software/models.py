@@ -130,3 +130,34 @@ class HistoricoLocalizacao(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.data_criacao.strftime('%d/%m %H:%M')}"
+    
+
+
+
+class EscalaFixa(models.Model):
+    DIAS_SEMANA = [
+        (0, 'Segunda-feira'),
+        (1, 'Terça-feira'),
+        (2, 'Quarta-feira'),
+        (3, 'Quinta-feira'),
+        (4, 'Sexta-feira'),
+        (5, 'Sábado'),
+        (6, 'Domingo'),
+    ]
+    
+    ORDEM_DOMINGO = [
+        (1, '1º Domingo do Mês'),
+        (2, '2º Domingo do Mês'),
+        (3, '3º Domingo do Mês'),
+        (4, '4º Domingo do Mês'),
+    ]
+
+    funcionario = models.OneToOneField('Funcionarios_lista', on_delete=models.CASCADE, related_name='escala_fixa')
+    dia_fixo_semana = models.IntegerField(choices=DIAS_SEMANA, help_text="Dia que o funcionário sempre folga")
+    domingo_do_mes = models.IntegerField(choices=ORDEM_DOMINGO, help_text="Qual domingo do mês ele folga")
+
+    class Meta:
+        db_table = 'folgasfixas'
+
+    def __str__(self):
+        return f"Escala de {self.funcionario}: {self.get_dia_fixo_semana_display()}"

@@ -1,0 +1,179 @@
+{% extends "cabecalho.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- HEADER -->
+    <div class="d-flex align-items-center mb-4">
+        <div class="icon-box me-3">
+            <i class="fas fa-calendar-check"></i>
+        </div>
+        <div>
+            <h3 class="fw-bold mb-0">Configuração de Escalas</h3>
+            <small class="text-muted">Defina regras fixas de folga por entregador</small>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle mb-0 custom-table">
+
+                <thead>
+                    <tr>
+                        <th>Motoboy</th>
+                        <th>Dia fixo</th>
+                        <th>Domingo</th>
+                        <th class="text-end">Ação</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for entregador in entregadores %}
+                <tr class="row-hover">
+
+                    <form method="POST" action="{% url 'configurar_escalas' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="funcionario" value="{{ entregador.id }}">
+
+                        <!-- NOME -->
+                        <td>
+                            <div class="fw-bold text-dark">
+                                {{ entregador.user.get_full_name|default:entregador.user.username }}
+                            </div>
+                            <small class="text-muted">ID #{{ entregador.id }}</small>
+                        </td>
+
+                        <!-- DIA SEMANA -->
+                        <td>
+                            <select name="dia_fixo" class="form-select form-select-sm">
+                                <option value="0">Seg</option>
+                                <option value="1">Ter</option>
+                                <option value="2">Qua</option>
+                                <option value="3">Qui</option>
+                                <option value="4">Sex</option>
+                                <option value="5">Sáb</option>
+                                <option value="6">Dom</option>
+                            </select>
+                        </td>
+
+                        <!-- DOMINGO -->
+                        <td>
+                            <select name="domingo" class="form-select form-select-sm">
+                                <option value="1">1º Dom</option>
+                                <option value="2">2º Dom</option>
+                                <option value="3">3º Dom</option>
+                                <option value="4">4º Dom</option>
+                            </select>
+                        </td>
+
+                        <!-- BOTÃO -->
+                        <td class="text-end">
+                            <button type="submit" class="btn btn-save">
+                                💾 Salvar
+                            </button>
+                        </td>
+
+                    </form>
+
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-5 text-muted">
+                        Nenhum entregador encontrado
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<style>
+
+/* ICON HEADER */
+.icon-box {
+    width: 42px;
+    height: 42px;
+    background: #0d6efd;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+/* CARD */
+.card {
+    border-radius: 14px;
+}
+
+/* TABLE */
+.custom-table thead {
+    background: #f8f9fa;
+}
+
+.custom-table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+    border: none;
+    padding: 14px;
+}
+
+.custom-table td {
+    padding: 14px;
+    border-top: 1px solid #f1f1f1;
+}
+
+/* HOVER LINHA */
+.row-hover {
+    transition: 0.2s;
+}
+
+.row-hover:hover {
+    background: #f8fbff;
+}
+
+/* SELECT */
+.form-select-sm {
+    font-size: 0.85rem;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+}
+
+/* BOTÃO SALVAR */
+.btn-save {
+    background: #2dce89;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    padding: 6px 12px;
+    transition: 0.2s;
+    border: none;
+}
+
+.btn-save:hover {
+    background: #24b77a;
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVO MELHOR */
+@media (max-width: 768px) {
+    .custom-table td {
+        font-size: 0.8rem;
+    }
+}
+
+</style>
+
+{% endblock %}

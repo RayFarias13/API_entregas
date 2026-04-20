@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'monitor_api.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL_RENDER"),
+        default=os.getenv("DATABASE_URL_NEON"),
         conn_max_age=600,
         ssl_require=True  # IMPORTANTE para Render
     )
@@ -170,11 +170,14 @@ if LINK_EXTERNO:
     
 SECURE_SSL_REDIRECT = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_AGE = 86400  # 1 dia
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False #manter sessao ativa, fechando o navegador
 CSRF_COOKIE_SECURE = not DEBUG
 SECURE_HSTS_SECONDS = 31536000  # 1 ano
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 X_FRAME_OPTIONS = 'DENY'
+
 
 
 LOGGING = {

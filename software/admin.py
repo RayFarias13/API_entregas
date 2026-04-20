@@ -35,7 +35,7 @@ class DadoskilometragemAdmin(admin.ModelAdmin):
     
 @admin.register(EntregaFinalizada)
 class EntregaFinalizadaAdmin(admin.ModelAdmin):
-    list_display = ('id','entrega','venda','funcionario','cliente','cupomfiscal','nome_cliente','endereco','entrega_status')
+    list_display = ('id','entrega','venda','funcionario','cliente','cupomfiscal','nome_cliente','endereco','entrega_status','data_hora_entrega')
     search_fields = ('id','funcionario','cliente','cupomfiscal','nome_cliente','endereco')
     list_filter = ('entrega_status','cliente',)
     readonly_fields = ('id',)
