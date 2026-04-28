@@ -1,0 +1,47 @@
+<div class="flex gap-3 mb-4">
+
+    <!-- AVATAR -->
+    <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
+        {{ comentario.autor.get_full_name|default:comentario.autor.username|slice:":1"|upper }}
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="flex-1">
+
+        <div class="bg-white p-3 rounded-lg shadow-sm border">
+
+            <!-- HEADER -->
+            <div class="flex items-center gap-2 mb-1">
+                <span class="font-semibold text-sm text-gray-800">
+                    {{ comentario.autor.get_full_name|default:comentario.autor.username }}
+                </span>
+
+                <span class="text-xs text-gray-400">
+                    • {{ comentario.criado_em|timesince }} atrás
+                </span>
+            </div>
+
+            <!-- TEXTO -->
+            <p class="text-sm text-gray-700 leading-relaxed">
+                {{ comentario.texto }}
+            </p>
+
+            <!-- AÇÕES -->
+            <div class="mt-2 flex gap-3 text-xs text-gray-500">
+                <button onclick="responder({{ comentario.id }})"
+                        class="hover:text-indigo-600">
+                    💬 Responder
+                </button>
+            </div>
+
+        </div>
+
+        <!-- RESPOSTAS -->
+        <div class="ml-6 mt-3 border-l pl-4">
+            {% for r in comentario.respostas.all %}
+                {% include "comentario.html" with comentario=r nivel=nivel|add:1 %}
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
