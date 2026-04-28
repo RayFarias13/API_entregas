@@ -161,3 +161,36 @@ class EscalaFixa(models.Model):
 
     def __str__(self):
         return f"Escala de {self.funcionario}: {self.get_dia_fixo_semana_display()}"
+
+
+
+
+#forum ou chat
+
+class Forum(models.Model):
+    titulo = models.CharField(max_length=200)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'forum'
+
+    def __str__(self):
+        return self.titulo
+    
+
+
+    
+class Comentario(models.Model):
+    topico = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.TextField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    parent = models.ForeignKey('self',null=True, blank=True, on_delete=models.CASCADE,related_name='respostas')
+
+    class Meta:
+        db_table = 'comentario'
+
+    def __str__(self):
+        return f"{self.autor} - {self.texto[:20]}"

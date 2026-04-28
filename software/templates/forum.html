@@ -1,0 +1,73 @@
+{% extends cabecalhobase %}
+{% block content %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="max-w-4xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">📢 Fórum</h1>
+    </div>
+
+    <!-- CRIAR TÓPICO -->
+    <div class="bg-white p-4 rounded-xl shadow mb-8 border">
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="text" name="titulo"
+                   placeholder="💡 Criar novo tópico..."
+                   class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400">
+
+            <button class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm">
+                Criar tópico
+            </button>
+        </form>
+    </div>
+
+    <!-- LISTA -->
+    <h2 class="text-lg font-semibold text-gray-700 mb-4">
+        Tópicos ativos
+    </h2>
+
+    <div class="space-y-4">
+        {% for t in topicos %}
+            <a href="{% url 'topico' t.id %}">
+                <div class="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md transition cursor-pointer">
+
+                    <div class="flex items-start gap-3">
+
+                        <!-- AVATAR -->
+                        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
+                            {{ t.autor.get_full_name|default:t.autor.username|slice:":1"|upper }}
+                        </div>
+
+                        <!-- CONTEÚDO -->
+                        <div class="flex-1">
+
+                            <h3 class="font-semibold text-gray-800">
+                                {{ t.titulo }}
+                            </h3>
+
+                            <p class="text-sm text-gray-500 mt-1">
+                                por {{ t.autor.get_full_name|default:t.autor.username }}
+                                • {{ t.criado_em|timesince }} atrás
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </a>
+        {% empty %}
+            <div class="text-center text-gray-400 mt-10">
+                <p class="text-lg">🗂 Nenhum tópico ainda</p>
+                <p class="text-sm">Seja o primeiro a criar!</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

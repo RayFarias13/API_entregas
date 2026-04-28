@@ -1,6 +1,6 @@
 from decimal import Decimal
 from dateutil.relativedelta import relativedelta
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
@@ -1378,3 +1378,67 @@ def configurar_escalas(request):
 
     entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
     return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
+
+
+
+
+#forum
+@login_required
+def forum_view(request):
+    topicos = Forum.objects.all().order_by('-criado_em')
+
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+
+        if titulo:
+            Forum.objects.create(
+                titulo=titulo,
+                autor=request.user
+            )
+            return redirect('forum')
+
+    # 👇 FALTAVA ISSO AQUI
+    if hasattr(request.user, 'funcionario') and request.user.funcionario.funcao == 'ENTREGADOR':
+        cabecalhobase = 'cabecalho_motoboy.html'
+    else:
+        cabecalhobase = 'cabecalho.html'
+
+    return render(request, 'forum.html', {
+        'topicos': topicos,
+        'cabecalhobase': cabecalhobase
+    })
+
+
+@login_required
+def topico_view(request, topico_id):
+    topico = get_object_or_404(Forum, id=topico_id)
+
+    if request.method == 'POST':
+        texto = request.POST.get('texto')
+        parent_id = request.POST.get('parent_id')
+
+        parent = None
+        if parent_id:
+            parent = Comentario.objects.get(id=parent_id)
+
+        if texto:
+            Comentario.objects.create(
+                topico=topico,
+                autor=request.user,
+                texto=texto,
+                parent=parent
+            )
+            return redirect('topico', topico_id=topico.id)
+
+    comentarios = topico.comentarios.filter(parent__isnull=True)
+
+    if hasattr(request.user, 'funcionario') and request.user.funcionario.funcao == 'ENTREGADOR':
+        cabecalhobase = 'cabecalho_motoboy.html'
+    else:
+        cabecalhobase = 'cabecalho.html'
+
+    return render(request, 'topico.html', {
+        'topico': topico,
+        'comentarios': comentarios,
+        'cabecalhobase': cabecalhobase  
+    })
