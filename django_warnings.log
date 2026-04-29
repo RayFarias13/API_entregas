@@ -4406,3 +4406,868 @@ Traceback (most recent call last):
     raise TemplateSyntaxError(error_msg)
 django.template.exceptions.TemplateSyntaxError: Invalid template name in 'extends' tag: ''. Got this from the 'cabecalhobase' variable.
 "GET /forum/ HTTP/1.1" 500 122975
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 10529
+Internal Server Error: /forum/1/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 502, in __get__
+    rel_obj = self.related.get_cached_value(instance)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\mixins.py", line 21, in get_cached_value
+    return instance._state.fields_cache[self.cache_name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'funcionario'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column glb_usu.status does not exist
+LINE 1: ...user_id", "glb_usu"."cd_usu", "glb_usu"."funcao", "glb_usu"....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1482, in topico_view
+    if hasattr(request.user, 'funcionario') and request.user.funcionario.funcao == 'ENTREGADOR':
+       ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 509, in __get__
+    rel_obj = self.get_queryset(instance=instance).get(**filter_args)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column glb_usu.status does not exist
+LINE 1: ...user_id", "glb_usu"."cd_usu", "glb_usu"."funcao", "glb_usu"....
+                                                             ^
+
+"GET /forum/1/ HTTP/1.1" 500 159948
+Internal Server Error: /forum/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 502, in __get__
+    rel_obj = self.related.get_cached_value(instance)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\mixins.py", line 21, in get_cached_value
+    return instance._state.fields_cache[self.cache_name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'funcionario'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column glb_usu.status does not exist
+LINE 1: ...user_id", "glb_usu"."cd_usu", "glb_usu"."funcao", "glb_usu"....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1448, in forum_view
+    if hasattr(request.user, 'funcionario') and request.user.funcionario.funcao == 'ENTREGADOR':
+       ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 509, in __get__
+    rel_obj = self.get_queryset(instance=instance).get(**filter_args)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column glb_usu.status does not exist
+LINE 1: ...user_id", "glb_usu"."cd_usu", "glb_usu"."funcao", "glb_usu"....
+                                                             ^
+
+"GET /forum/ HTTP/1.1" 500 159509
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/forum/ HTTP/1.1" 404 10443
+Not Found: /home
+"GET /home HTTP/1.1" 404 10397
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 1, 1, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1372, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 1, 1, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174579
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 1, 1, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1372, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 1, 1, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174579
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1372, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174579
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1372, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174586
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1392, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 3, 2, null).
+
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 1, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1392, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 1, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174579
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 1, 2, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1392, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1053, in update_or_create
+    obj.save(using=self.db, update_fields=update_fields)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1110, in _save_table
+    results = self._do_update(
+        base_qs,
+    ...<5 lines>...
+        returning_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1213, in _do_update
+    return filtered._update(values, returning_fields)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1327, in _update
+    return query.get_compiler(self.db).execute_returning_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2140, in execute_returning_sql
+    row_count = self.execute_sql(ROW_COUNT)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 2111, in execute_sql
+    row_count = super().execute_sql(result_type)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "tipo_escala" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (2, 0, 1, 2, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 174579
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 10688
+Internal Server Error: /folgas/agenda/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1369, in visualizar_folgas
+    "motoboy": e.user.get_full_name() or e.user.username
+               ^
+UnboundLocalError: cannot access local variable 'e' where it is not associated with a value
+"GET /folgas/agenda/ HTTP/1.1" 500 84581

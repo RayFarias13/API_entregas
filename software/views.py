@@ -799,26 +799,22 @@ def motoboy_entregas_dia_historico(request):
 @login_required
 def motoboy_historico_entregas(request):
     try:
-        # Acessa o perfil do funcionário logado
         perfil = request.user.funcionario
         funcao = perfil.funcao
-        
-        # Lista de funções que podem ver o histórico completo
+
         funcoes_gestao = ['GERENTE', 'S. GERENTE', 'ADMINISTRATIVO']
-        
+
         if funcao != 'ENTREGADOR' and funcao not in funcoes_gestao:
             return redirect('boardadministrativo')
-            
+
     except AttributeError:
-        # Caso o usuário logado não tenha um objeto Funcionarios_lista vinculado
         return redirect('login')
 
     hoje = timezone.now().date()
-    
-    # Gerar lista de meses para o filtro (últimos 6 meses)
+
+    # MESES DISPONÍVEIS
     meses_disponiveis = []
     for i in range(6):
-        # Substituímos 'datetime.timedelta' por apenas 'timedelta'
         d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
         meses_disponiveis.append({
             'value': d.strftime('%Y-%m'),
@@ -826,25 +822,52 @@ def motoboy_historico_entregas(request):
         })
 
     mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+
     try:
         ano, mes = map(int, mes_selecionado.split('-'))
-    except ValueError:
+    except:
         ano, mes = hoje.year, hoje.month
 
-    # --- LÓGICA DE FILTRO DE ACESSO ---
-    # Filtro base por data
-    query_params = {
-        'data_hora_entrega__year': ano,
-        'data_hora_entrega__month': mes,
-    }
+    # NOVOS FILTROS
+    data_especifica = request.GET.get('data')
+    quinzena = request.GET.get('quinzena')
 
-    # Se for ENTREGADOR, filtramos pelo cd_usu dele
+    query_params = {}
+
+    # PRIORIDADE 1 → DIA
+    if data_especifica:
+        try:
+            data_obj = datetime.strptime(data_especifica, '%Y-%m-%d').date()
+            query_params['data_hora_entrega__date'] = data_obj
+        except:
+            pass
+
+    # PRIORIDADE 2 → QUINZENA
+    elif quinzena:
+        try:
+            ultimo_dia = monthrange(ano, mes)[1]
+
+            if quinzena == '1':
+                inicio = date(ano, mes, 1)
+                fim = date(ano, mes, 15)
+            else:
+                inicio = date(ano, mes, 16)
+                fim = date(ano, mes, ultimo_dia)
+
+            query_params['data_hora_entrega__date__range'] = (inicio, fim)
+        except:
+            pass
+
+    # PRIORIDADE 3 → MÊS
+    else:
+        query_params['data_hora_entrega__year'] = ano
+        query_params['data_hora_entrega__month'] = mes
+
+    # FILTRO DO MOTOBOY
     if funcao == 'ENTREGADOR':
-        # Usamos o campo 'funcionario' da EntregaFinalizada que guarda o cd_usu
         query_params['funcionario'] = perfil.cd_usu
 
     entregas_qs = EntregaFinalizada.objects.filter(**query_params).order_by('-data_hora_entrega')
-    # ----------------------------------
 
     status_display = dict(EntregaFinalizada.STATUS_CHOICES)
     grupos_dict = defaultdict(list)
@@ -852,14 +875,13 @@ def motoboy_historico_entregas(request):
     for e in entregas_qs:
         data_local = timezone.localtime(e.data_hora_entrega)
         chave = data_local.strftime('%d/%m/%Y')
-        
+
         grupos_dict[chave].append({
             'cliente': e.nome_cliente or 'Desconhecido',
             'endereco': e.endereco or '',
+            'status': e.entrega_status,
             'status_display': status_display.get(e.entrega_status, e.entrega_status),
             'hora': data_local.strftime('%H:%M'),
-            # Se for gerente, talvez queira exibir o código do motoboy que fez a entrega
-            'motoboy_id': e.funcionario 
         })
 
     entregas_agrupadas = [
@@ -867,7 +889,6 @@ def motoboy_historico_entregas(request):
         for data, itens in grupos_dict.items()
     ]
 
-    # Totalizador respeitando o filtro de quem está logado
     total_geral = entregas_qs.count()
 
     return render(request, 'motoboy_historico_entregas.html', {
@@ -875,7 +896,6 @@ def motoboy_historico_entregas(request):
         'meses_disponiveis': meses_disponiveis,
         'mes_selecionado': mes_selecionado,
         'total_geral': total_geral,
-        'is_gerente': funcao in funcoes_gestao,
     })
  
  
@@ -1292,11 +1312,11 @@ def somentegerente (request):
 @login_required
 def visualizar_folgas(request):
     hoje = date.today()
-
     datas_proximas = [hoje + timedelta(days=i) for i in range(30)]
 
     entregadores = Funcionarios_lista.objects.filter(
-        funcao='ENTREGADOR'
+        funcao='ENTREGADOR',
+        status=True
     ).select_related('escala_fixa')
 
     agenda = []
@@ -1308,13 +1328,24 @@ def visualizar_folgas(request):
         folguistas = []
 
         for e in entregadores:
-            try:
-                if dia_semana == e.escala_fixa.dia_fixo_semana and dia_semana != 6:
-                    folguistas.append(e)
-                elif dia_semana == 6 and qual_domingo == e.escala_fixa.domingo_do_mes:
-                    folguistas.append(e)
-            except:
+            escala = getattr(e, 'escala_fixa', None)
+            if not escala:
                 continue
+
+            # 🔥 AQUI ENTRA O TIPO DE ESCALA
+            if escala.tipo_escala == 'FIXO':
+                if dia_semana != 6 and dia_semana == escala.dia_fixo_semana:
+                    folguistas.append(e)
+
+                elif dia_semana == 6 and escala.domingo_do_mes:
+                    if qual_domingo == escala.domingo_do_mes:
+                        folguistas.append(e)
+
+            elif escala.tipo_escala == 'SAB_DOM_ALT':
+                # Exemplo simples (pode evoluir depois)
+                if dia_semana in [5, 6]:  # sábado ou domingo
+                    if (data.isocalendar().week % 2) == 0:
+                        folguistas.append(e )
 
         qtd = len(folguistas)
 
@@ -1334,10 +1365,10 @@ def visualizar_folgas(request):
             "risco": risco,
             "sugestao": sugestao,
             "is_hoje": data == hoje,
-            "weekday": dia_semana
+            "weekday": dia_semana,
         })
 
-    # 🧠 AGRUPAR EM SEMANAS FIXAS (SEG → DOM)
+    # 🔥 AGRUPAMENTO EM SEMANAS
     semanas = []
     semana = [None] * 7
 
@@ -1363,22 +1394,72 @@ def configurar_escalas(request):
         id_fun = request.POST.get('funcionario')
         dia_fixo = request.POST.get('dia_fixo')
         domingo = request.POST.get('domingo')
+        tipo_escala = request.POST.get('tipo_escala') or 'FIXO'  # 🔥 fallback seguro
         
-        funcionario = Funcionarios_lista.objects.get(id=id_fun)
-        
-        # Cria ou atualiza a escala
+        try:
+            funcionario = Funcionarios_lista.objects.get(id=id_fun)
+        except Funcionarios_lista.DoesNotExist:
+            messages.error(request, "Funcionário não encontrado.")
+            return redirect('agenda_folgas')
+
         EscalaFixa.objects.update_or_create(
             funcionario=funcionario,
             defaults={
                 'dia_fixo_semana': dia_fixo,
-                'domingo_do_mes': domingo
+                'domingo_do_mes': domingo,
+                'tipo_escala': tipo_escala
             }
         )
+
+        messages.success(request, "Escala salva com sucesso!")
         return redirect('agenda_folgas')
 
     entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
     return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
 
+
+
+@login_required
+def minhas_folgas(request):
+    hoje = date.today()
+    datas = [hoje + timedelta(days=i) for i in range(30)]
+
+    funcionario = request.user.funcionario  
+
+    escala = getattr(funcionario, 'escala_fixa', None)
+
+    agenda = []
+
+    for data in datas:
+        dia_semana = data.weekday()
+        qual_domingo = (data.day - 1) // 7 + 1
+        numero_semana = data.isocalendar()[1]
+
+        folga = False
+
+        if escala:
+            if escala.tipo_escala == 'FIXO':
+                if dia_semana == escala.dia_fixo_semana and dia_semana != 6:
+                    folga = True
+                elif dia_semana == 6 and qual_domingo == escala.domingo_do_mes:
+                    folga = True
+
+            elif escala.tipo_escala == 'SAB_DOM_ALT':
+                if numero_semana % 2 == 0 and dia_semana == 5:
+                    folga = True
+                elif numero_semana % 2 != 0 and dia_semana == 6:
+                    folga = True
+
+        agenda.append({
+            "data": data,
+            "folga": folga,
+            "is_hoje": data == hoje
+        })
+
+    return render(request, "motoboy_folgas.html", {
+        "agenda": agenda,
+        "hoje": hoje
+    })
 
 
 

@@ -18,6 +18,7 @@ urlpatterns = [
     path('posicoes/', views.dados_entregadores_json, name='dados_json'),
     path('perfil/', views.perfil_motoboy, name='perfilmotoboy'),
     #path('perfil/entregas/', views.motoboy_entregas_dia,        name='motoboy_entregas_dia'),
+    path('perfil/folgas/', views.minhas_folgas, name='motoboy_folgas'),
     path('perfil/entregas/', views.board_motoboy,        name='motoboy_entregas_dia'),  # função correta
     path('perfil/historico/', views.motoboy_historico_entregas, name='motoboy_historico_entregas'),
     path('perfil/km/',        views.motoboy_historico_km,        name='motoboy_historico_km'),
