@@ -18,20 +18,21 @@ urlpatterns = [
     path('posicoes/', views.dados_entregadores_json, name='dados_json'),
     path('perfil/', views.perfil_motoboy, name='perfilmotoboy'),
     #path('perfil/entregas/', views.motoboy_entregas_dia,        name='motoboy_entregas_dia'),
+    path('perfil/folgas/', views.minhas_folgas, name='motoboy_folgas'),
     path('perfil/entregas/', views.board_motoboy,        name='motoboy_entregas_dia'),  # função correta
     path('perfil/historico/', views.motoboy_historico_entregas, name='motoboy_historico_entregas'),
     path('perfil/km/',        views.motoboy_historico_km,        name='motoboy_historico_km'),
     path('perfil/pontuacao/', views.motoboy_pontuacao,           name='motoboy_pontuacao'),
     path('cadastro_cliente/', views.cadastro_cliente, name='cadastro_cliente'),
     path('cadastro_cliente/salvar/', views.salvar_cliente, name='cadastro_cliente'),
-    path('historico/', views.historico_entregas, name='historico_entregas'),
+    path('historico/', views.historico_geral_entregas_gerente, name='historico_entregas'),
     path('historicogeral/', views.historico_geral_entregas, name='historico_entregascopy'),
     path('naoautorizado/', views.nao_autorizado, name='nao_autorizado'),
     
     path('cliente/novo/', views.cadastrar_customer_view, name='cadastro_clientenovo'),
     path('folgas/agenda/', views.visualizar_folgas, name='agenda_folgas'),
     path('folgas/configurar/', views.configurar_escalas, name='configurar_escalas'),    
-
+    path('folgas/filial/', views.dashboard_filial, name='dashboard_filial'),
 
     #forum
     path('forum/', views.forum_view, name='forum'),

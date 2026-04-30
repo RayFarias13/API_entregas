@@ -12,11 +12,19 @@ class Funcionarios_lista(models.Model):
         ('GERENTE', 'Gerente'),
         ('ADMINISTRATIVO', 'Administrativo'),
         ('S. GERENTE','S. Gerente')     ]
+    
+
+    funcionario_ativo_choice = [
+        ('ATIVO', 'Ativo'),
+        ('INATIVO', 'Inativo'),
+    ]
 
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='funcionario', null=True, blank=True)
     cd_usu = models.IntegerField(unique=True, null=True, blank=True, help_text="Código legado do vetor")
     funcao = models.CharField(max_length=50,choices=funcionario_funcao_choice,default='DEFINIR')
-
+    status = models.CharField(max_length=20, choices=funcionario_ativo_choice, default='ATIVO')
+    filial = models.ForeignKey('Filial', on_delete=models.PROTECT, null=True, blank=True)
+    
     class Meta:
         db_table = 'glb_usu'
 
@@ -105,12 +113,13 @@ class dadoskilometragem(models.Model):
     km_diario = models.FloatField(default=0.0)
     data_apuracao= models.DateField(blank=True, null=True)
     data_cadastro = models.DateTimeField(auto_now_add=True)
+    gorjeta = models.FloatField(default=0.0)
     
     class Meta:
         db_table = 'km_diario'
 
     def __str__(self):
-        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario}'
+        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario} - Gorjeta: {self.gorjeta}'
     
 
 class HistoricoLocalizacao(models.Model):
@@ -125,7 +134,6 @@ class HistoricoLocalizacao(models.Model):
 
     class Meta:
         verbose_name = "Histórico de Entrega"
-        # Ordenar para que a posição mais recente apareça primeiro
         ordering = ['-data_criacao']
 
     def __str__(self):
@@ -152,10 +160,21 @@ class EscalaFixa(models.Model):
         (4, '4º Domingo do Mês'),
     ]
 
+    TIPO_ESCALA = [
+        ('FIXO', 'Folga Fixa'),
+        ('SAB_DOM_ALT', 'Sábado e Domingo Alternados'),
+        ('DIÁRIA', 'Diária'),
+        ('SEMANAL', 'Semanal'),
+        ('QUINZENAL', 'Quinzenal'),
+        ('MENSAL', 'Mensal'),
+    ]
+
+
     funcionario = models.OneToOneField('Funcionarios_lista', on_delete=models.CASCADE, related_name='escala_fixa')
     dia_fixo_semana = models.IntegerField(choices=DIAS_SEMANA, help_text="Dia que o funcionário sempre folga")
-    domingo_do_mes = models.IntegerField(choices=ORDEM_DOMINGO, help_text="Qual domingo do mês ele folga")
-
+    domingo_do_mes = models.IntegerField(choices=ORDEM_DOMINGO, null=True, blank=True, help_text="Qual domingo do mês ele folga")
+    tipo_escala = models.CharField(max_length=20, choices=TIPO_ESCALA, default='FIXO', help_text="Tipo de escala fixa")
+    
     class Meta:
         db_table = 'folgasfixas'
 
@@ -194,3 +213,10 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.autor} - {self.texto[:20]}"
+    
+
+class Filial(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome

@@ -1,87 +1,232 @@
-{% extends "cabecalho_adm.html" %}
+{% extends "cabecalho.html" %}
 {% block content %}
+
 <style>
-    /* Mantendo seu CSS original e adicionando pequenos ajustes */
-    :root { --red: #e74c3c; --bg: #f2f3f7; --text: #111827; --muted: #6b7280; }
-    body { background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; }
-    
-    .page-header { background: #1e293b; padding: 20px 16px; display: flex; align-items: center; gap: 12px; }
-    .page-header-title { color: #fff; font-size: 18px; font-weight: 700; }
-    
-    /* Barra de Filtros Dupla */
-    .filter-bar { 
-        background: #fff; border-bottom: 1px solid #eee; padding: 12px 16px; 
-        display: flex; flex-wrap: wrap; gap: 8px; 
+    /* Variáveis e Reset */
+    :root { 
+        --red: #e74c3c; 
+        --bg: #f2f3f7; 
+        --text: #111827; 
+        --muted: #6b7280; 
+        --header-bg: #1e293b;
     }
-    .filter-bar select { 
-        flex: 1; min-width: 120px; border: 1px solid #ddd; border-radius: 8px; 
-        padding: 8px; font-size: 13px; 
+
+    body { 
+        background: var(--bg); 
+        font-family: 'Plus Jakarta Sans', sans-serif; 
+        margin: 0;
+        color: var(--text);
     }
-    .filter-bar button { background: var(--red); color: #fff; border: none; border-radius: 8px; padding: 0 15px; }
 
-    .date-group { padding: 0 16px; margin-top: 15px; }
-    .date-label { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; }
-
-    .hist-item { 
-        background: #fff; border-radius: 12px; border: 1px solid #eee; 
-        padding: 12px 15px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
+    /* Cabeçalho Fixo */
+    .page-header {
+        background: var(--header-bg);
+        padding: 16px 20px;
+        color: #fff;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .hist-info { flex: 1; min-width: 0; }
-    .hist-cliente { font-size: 14px; font-weight: 700; color: var(--text); }
-    .hist-motoboy { font-size: 11px; color: var(--red); font-weight: 600; text-transform: uppercase; margin-bottom: 2px; }
-    .hist-endereco { font-size: 12px; color: var(--muted); }
 
-    /* Status Tags */
-    .hist-status { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 4px; display: inline-block; }
-    .s-entregue { background: #dcfce7; color: #166534; }
-    .s-ausente { background: #fef3c7; color: #92400e; }
-    .s-recusou { background: #fee2e2; color: #991b1b; }
+    .total-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    /* Barra de Filtros */
+    .filter-bar {
+        background: #fff;
+        padding: 12px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .filter-bar select,
+    .filter-bar input {
+        flex: 1;
+        min-width: 130px;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 13px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .filter-bar select:focus,
+    .filter-bar input:focus {
+        border-color: var(--red);
+    }
+
+    .filter-bar button {
+        background: var(--red);
+        color: #fff;
+        border: none;
+        padding: 0 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 13px;
+        transition: opacity 0.2s;
+    }
+
+    .filter-bar button:active {
+        opacity: 0.8;
+    }
+
+    /* Grupos de Datas */
+    .date-group { padding: 15px 15px 5px 15px; }
+
+    .date-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: #94a3b8;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Cards de Entrega */
+    .card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        transition: transform 0.1s;
+    }
+
+    .card:active {
+        transform: scale(0.98);
+        background: #fafafa;
+    }
+
+    .card-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .moto { 
+        font-size: 11px; 
+        color: var(--red); 
+        font-weight: 700; 
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 2px;
+    }
+
+    .client { font-weight: 700; font-size: 15px; color: #1e293b; }
+
+    .end { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+    .card-right {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .time {
+        font-size: 12px;
+        font-weight: 600;
+        color: #64748b;
+        margin-bottom: 8px;
+    }
+
+    /* Status Badges */
+    .status {
+        font-size: 10px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .ok { background: #dcfce7; color: #166534; }
+    .warn { background: #fef3c7; color: #92400e; }
+    .bad { background: #fee2e2; color: #991b1b; }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+    }
 </style>
 
+<!-- Header -->
 <div class="page-header">
-    <div class="page-header-title">Histórico Geral</div>
-    <div style="color: #94a3b8; font-size: 12px;">{{ total_geral }} registros encontrados</div>
+    <div>Histórico Geral</div>
+    <div class="total-badge">{{ total_geral }} entregas</div>
 </div>
 
+<!-- Filtros -->
 <form method="GET" class="filter-bar">
+    <input type="date" name="data" value="{{ request.GET.data }}">
+
     <select name="mes">
-        <option value="1" {% if mes_selecionado == 1 %}selected{% endif %}>Janeiro</option>
-        <option value="2" {% if mes_selecionado == 2 %}selected{% endif %}>Fevereiro</option>
-        <option value="3" {% if mes_selecionado == 3 %}selected{% endif %}>Março</option>
-        </select>
+        {% for valor, nome in meses_disponiveis %}
+            <option value="{{ valor }}" {% if mes_selecionado == valor %}selected{% endif %}>
+                {{ nome }}
+            </option>
+        {% endfor %}
+    </select>
 
     <select name="motoboy">
         <option value="">Todos Motoboys</option>
         {% for m in motoboys %}
-        <option value="{{ m.id }}" {% if motoboy_selecionado == m.id %}selected{% endif %}>{{ m.first_name }}</option>
+            <option value="{{ m.cd_usu }}" 
+                {% if motoboy_selecionado|slugify == m.cd_usu|slugify %}selected{% endif %}>
+                {{ m.user.get_full_name|default:m.user.username }}
+            </option>
         {% endfor %}
     </select>
 
-    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button type="submit">BUSCAR</button>
 </form>
 
+<!-- Lista de Entregas -->
 {% for grupo in entregas_agrupadas %}
 <div class="date-group">
     <div class="date-label">{{ grupo.data }}</div>
+
     {% for e in grupo.entregas %}
-    <div class="hist-item">
-        <div class="hist-info">
-            <div class="hist-motoboy"><i class="fa-solid fa-motorcycle"></i> {{ e.motoboy }}</div>
-            <div class="hist-cliente">{{ e.cliente }}</div>
-            <div class="hist-endereco">{{ e.endereco }}</div>
+    <div class="card">
+        <div class="card-left">
+            <div class="moto">🚴 {{ e.motoboy }}</div>
+            <div class="client">{{ e.cliente }}</div>
+            <div class="end">{{ e.endereco }}</div>
         </div>
-        <div style="text-align: right;">
-            <div style="font-size: 12px; font-weight: 600;">{{ e.hora }}</div>
-            <span class="hist-status {% if e.status == 'ENTREGUE' %}s-entregue{% elif e.status == 'CLIENTE_AUSENTE' %}s-ausente{% else %}s-recusou{% endif %}">
+
+        <div class="card-right">
+            <div class="time">{{ e.hora }}</div>
+            <div class="status {% if e.status == 'ENTREGUE' %}ok{% elif e.status == 'CLIENTE_AUSENTE' %}warn{% else %}bad{% endif %}">
                 {{ e.status_display }}
-            </span>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% empty %}
-<div style="text-align:center; padding: 50px; color: #94a3b8;">Nenhum registro para este filtro.</div>
+<div class="empty-state">
+    <div style="font-size: 48px; margin-bottom: 10px;">🔍</div>
+    <p>Nenhuma entrega encontrada para os filtros selecionados.</p>
+</div>
 {% endfor %}
 
-<div style="height: 50px;"></div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from software.models import Funcionarios_lista, dadoskilometragem, EntregaFinalizada, DadosVenda, DadosEntrega
+from software.models import Filial, Funcionarios_lista, dadoskilometragem, EntregaFinalizada, DadosVenda, DadosEntrega
 ''
 # Register your models here.
 
@@ -40,3 +40,8 @@ class EntregaFinalizadaAdmin(admin.ModelAdmin):
     list_filter = ('entrega_status','cliente',)
     readonly_fields = ('id',)
     
+@admin.register(Filial)
+class FilialAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome')
+    search_fields = ('nome',)
+    readonly_fields = ('id',)

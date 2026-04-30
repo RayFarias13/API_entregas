@@ -26,6 +26,7 @@
                         <th>Motoboy</th>
                         <th>Dia fixo</th>
                         <th>Domingo</th>
+                        <th>Tipo de Escala</th> <!-- 🔥 só adicionei isso -->
                         <th class="text-end">Ação</th>
                     </tr>
                 </thead>
@@ -69,6 +70,14 @@
                                 <option value="4">4º Dom</option>
                             </select>
                         </td>
+                    
+                        <!-- 🔥 CORREÇÃO REAL (sem mudar visual) -->
+                        <td>
+                            <select name="tipo_escala" class="form-select form-select-sm">
+                                <option value="FIXO">Folga Fixa</option>
+                                <option value="SAB_DOM_ALT">Sábado e Domingo Alternados</option>
+                            </select>
+                        </td>
 
                         <!-- BOTÃO -->
                         <td class="text-end">
@@ -82,7 +91,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="text-center py-5 text-muted">
+                    <td colspan="5" class="text-center py-5 text-muted">
                         Nenhum entregador encontrado
                     </td>
                 </tr>
@@ -167,7 +176,7 @@
     transform: translateY(-1px);
 }
 
-/* RESPONSIVO MELHOR */
+/* RESPONSIVO */
 @media (max-width: 768px) {
     .custom-table td {
         font-size: 0.8rem;

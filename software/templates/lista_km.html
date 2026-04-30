@@ -45,6 +45,7 @@
                             <th>Quinzena</th>
                             <th>Motoboy</th>
                             <th class="text-end pe-4">Total Percorrido</th>
+                            <th class="text-end pe-4">Gorjeta Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,6 +72,9 @@
                             </td>
                             <td class="text-end pe-4">
                                 <span class="fw-bold text-dark">{{ item.total_periodo|stringformat:".1f" }} km</span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <span class="fw-bold text-dark">R$ {{ item.gorjeta_total|floatformat:"2" }}</span>
                             </td>
                         </tr>
                         {% empty %}
@@ -102,6 +106,7 @@
                             <th class="ps-4">Motoboy</th>
                             <th>Data</th>
                             <th>KM</th>
+                            <th class="text-end pe-4">Gorjeta</th>
                             
                         </tr>
                     </thead>
@@ -121,6 +126,9 @@
                                 <span class="fw-bold text-dark">{{ item.km_diario|stringformat:".2f" }} km</span>
                             </td>
 
+                            <td class="text-end pe-4">
+                                <span class="fw-bold text-dark">R$ {{ item.g_float|floatformat:"2" }}</span>
+                            </td>
                         </tr>
                         {% empty %}
                         <tr>

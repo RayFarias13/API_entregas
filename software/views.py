@@ -1,10 +1,11 @@
 from decimal import Decimal
+from urllib import request
 from dateutil.relativedelta import relativedelta
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Case, When, Value, CharField, OuterRef, Subquery
-from django.db.models.functions import ExtractMonth, ExtractYear, TruncMonth, ExtractDay, TruncYear
+from django.db.models import FloatField, Sum, Case, When, Value, CharField, OuterRef, Subquery
+from django.db.models.functions import Cast, ExtractMonth, ExtractYear, TruncMonth, ExtractDay, TruncYear
 from django.db import transaction
 
 from django.db.models import Q
@@ -17,7 +18,7 @@ from receptor.models import *
 import json
 import datetime
 import calendar
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -462,6 +463,8 @@ def cadastro_funcionario(request):
             return redirect('nao_autorizado') 
     except AttributeError:
         return redirect('nao_autorizado')
+    
+    list_filiais = Filial.objects.all().order_by('nome')
 
     if request.method == 'POST':
         # 2. Captura de dados
@@ -472,6 +475,8 @@ def cadastro_funcionario(request):
         email = request.POST.get('email', '').strip()
         funcao = request.POST.get('funcao')
         cd_usu = request.POST.get('cd_usu', '').strip()
+        filial = request.POST.get('filial')
+        
 
         # 3. Validações de existência
         if User.objects.filter(username=username).exists():
@@ -494,7 +499,8 @@ def cadastro_funcionario(request):
             Funcionarios_lista.objects.create(
                 user=novo_usuario,
                 funcao=funcao,
-                cd_usu=cd_usu if cd_usu else None
+                cd_usu=cd_usu if cd_usu else None,
+                filial_id=filial if filial else None
             )
 
             messages.success(request, "Funcionário cadastrado com sucesso!")
@@ -503,7 +509,9 @@ def cadastro_funcionario(request):
         except Exception as e:
             return render(request, 'cadastro_funcionario.html', {"error": f"Erro ao salvar: {e}"})
 
-    return render(request, 'cadastro_funcionario.html')
+    return render(request, 'cadastro_funcionario.html',
+                  {"filiais": list_filiais}
+                  )
     
 
 @login_required
@@ -538,11 +546,13 @@ def registrar_km_manual(request):
         id_motoboy = request.POST.get('motoboy')
         km = request.POST.get('km_diario')
         data = request.POST.get('data_apuracao')
+        gorjeta = request.POST.get('gorjeta', '0').replace(',', '.')
 
         if id_motoboy and km and data:
             try:
                 usuario = User.objects.get(id=id_motoboy)
                 km_float = float(km.replace(',', '.'))
+                gorjeta_float = float(gorjeta)
                 
                 # --- VERIFICAÇÃO DE DUPLICIDADE ---
                 ja_existe = dadoskilometragem.objects.filter(
@@ -562,7 +572,8 @@ def registrar_km_manual(request):
                 dadoskilometragem.objects.create(
                     usermotoboy=usuario,
                     km_diario=km_float,
-                    data_apuracao=data
+                    data_apuracao=data,
+                    gorjeta=gorjeta_float
                 )
                 return redirect('registrar_km')
 
@@ -574,7 +585,6 @@ def registrar_km_manual(request):
 
 @login_required
 def lista_km(request):
-     # 1. Validação de Permissão
     try:
         funcionario_logado = request.user.funcionario
         FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
@@ -583,46 +593,63 @@ def lista_km(request):
     except AttributeError:
         return redirect('login')
 
-
-
-
+    # Define a data limite (início do mês passado)
     data_limite = timezone.now().replace(day=1) - relativedelta(months=1)
 
     relatorios_quinzenais = (
         dadoskilometragem.objects
-        # FILTRO: Adicionado aqui para pegar apenas os últimos 2 meses
         .filter(data_apuracao__gte=data_limite)
-        
-        .annotate(ano_base=TruncYear('data_apuracao'))
-        .annotate(mes_base=TruncMonth('data_apuracao'))
-        .annotate(dia=ExtractDay('data_apuracao'))
-        .annotate(quinzena=Case(
-            When(dia__lte=15, then=Value('1ª Quinzena')),
-            default=Value('2ª Quinzena'),
-            output_field=CharField(),
-        ))
-        .values('ano_base', 'mes_base', 'quinzena', 'usermotoboy__first_name', 'usermotoboy__last_name')
-        .annotate(total_periodo=Sum('km_diario'))
-        .order_by('-mes_base', '-quinzena', 'usermotoboy__first_name') 
+        # 1. Transformamos gorjeta em Float antes de tudo para garantir a soma
+        .annotate(g_float=Cast('gorjeta', FloatField()))
+        .annotate(
+            ano_base=TruncYear('data_apuracao'),
+            mes_base=TruncMonth('data_apuracao'),
+            dia=ExtractDay('data_apuracao')
         )
+        .annotate(
+            quinzena=Case(
+                When(dia__lte=15, then=Value('1ª Quinzena')),
+                default=Value('2ª Quinzena'),
+                output_field=CharField(),
+            )
+        )
+        .values(
+            'ano_base',
+            'mes_base',
+            'quinzena',
+            'usermotoboy__first_name',
+            'usermotoboy__last_name',
+        )
+        .annotate(
+            total_periodo=Sum('km_diario'),
+            gorjeta_total=Sum('g_float') 
+        )
+        .order_by('-mes_base', '-quinzena', 'usermotoboy__first_name')
+    )
 
-    ultimosregistros = (dadoskilometragem.objects
-                        #.annotate(mes_base=TruncMonth('data_apuracao'))
-                        .annotate(ano_base = ExtractYear('data_apuracao'))
-                        .annotate(mes_base = ExtractMonth('data_apuracao'))
-                        .annotate(dia = ExtractDay('data_apuracao'))
-                        .values('mes_base','dia', 'usermotoboy__first_name', 'usermotoboy__last_name', 'km_diario', 'data_apuracao')
-                        .order_by('-data_apuracao')[:10]
-                        )
-    
-
-    #total_geral = dadoskilometragem.objects.aggregate(Sum('km_diario'))['km_diario__sum'] or 0
+    ultimosregistros = (
+        dadoskilometragem.objects
+        .annotate(g_float=Cast('gorjeta', FloatField()))
+        .annotate(
+            ano_base=ExtractYear('data_apuracao'),
+            mes_base=ExtractMonth('data_apuracao'),
+            dia=ExtractDay('data_apuracao')
+        )
+        .values(
+            'mes_base', 
+            'dia', 
+            'usermotoboy__first_name', 
+            'usermotoboy__last_name', 
+            'km_diario', 
+            'data_apuracao', 
+            'g_float'
+        )
+        .order_by('-data_apuracao')[:10]
+    )
 
     return render(request, 'lista_km.html', {
         'relatorios': relatorios_quinzenais,
-        #'total_geral': "{:.1f}".format('...'),
-        'ultimosregistros' : ultimosregistros,  # opcional: últimos 10 registros
-        #'ultimos_registros': dadoskilometragem.objects.order_by('-data_apuracao')[:10]  # opcional: últimos 10 registros
+        'ultimosregistros': ultimosregistros,
     })
 
 
@@ -799,26 +826,22 @@ def motoboy_entregas_dia_historico(request):
 @login_required
 def motoboy_historico_entregas(request):
     try:
-        # Acessa o perfil do funcionário logado
         perfil = request.user.funcionario
         funcao = perfil.funcao
-        
-        # Lista de funções que podem ver o histórico completo
+
         funcoes_gestao = ['GERENTE', 'S. GERENTE', 'ADMINISTRATIVO']
-        
+
         if funcao != 'ENTREGADOR' and funcao not in funcoes_gestao:
             return redirect('boardadministrativo')
-            
+
     except AttributeError:
-        # Caso o usuário logado não tenha um objeto Funcionarios_lista vinculado
         return redirect('login')
 
     hoje = timezone.now().date()
-    
-    # Gerar lista de meses para o filtro (últimos 6 meses)
+
+    # MESES DISPONÍVEIS
     meses_disponiveis = []
     for i in range(6):
-        # Substituímos 'datetime.timedelta' por apenas 'timedelta'
         d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
         meses_disponiveis.append({
             'value': d.strftime('%Y-%m'),
@@ -826,25 +849,52 @@ def motoboy_historico_entregas(request):
         })
 
     mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+
     try:
         ano, mes = map(int, mes_selecionado.split('-'))
-    except ValueError:
+    except:
         ano, mes = hoje.year, hoje.month
 
-    # --- LÓGICA DE FILTRO DE ACESSO ---
-    # Filtro base por data
-    query_params = {
-        'data_hora_entrega__year': ano,
-        'data_hora_entrega__month': mes,
-    }
+    # NOVOS FILTROS
+    data_especifica = request.GET.get('data')
+    quinzena = request.GET.get('quinzena')
 
-    # Se for ENTREGADOR, filtramos pelo cd_usu dele
+    query_params = {}
+
+    # PRIORIDADE 1 → DIA
+    if data_especifica:
+        try:
+            data_obj = datetime.strptime(data_especifica, '%Y-%m-%d').date()
+            query_params['data_hora_entrega__date'] = data_obj
+        except:
+            pass
+
+    # PRIORIDADE 2 → QUINZENA
+    elif quinzena:
+        try:
+            ultimo_dia = monthrange(ano, mes)[1]
+
+            if quinzena == '1':
+                inicio = date(ano, mes, 1)
+                fim = date(ano, mes, 15)
+            else:
+                inicio = date(ano, mes, 16)
+                fim = date(ano, mes, ultimo_dia)
+
+            query_params['data_hora_entrega__date__range'] = (inicio, fim)
+        except:
+            pass
+
+    # PRIORIDADE 3 → MÊS
+    else:
+        query_params['data_hora_entrega__year'] = ano
+        query_params['data_hora_entrega__month'] = mes
+
+    # FILTRO DO MOTOBOY
     if funcao == 'ENTREGADOR':
-        # Usamos o campo 'funcionario' da EntregaFinalizada que guarda o cd_usu
         query_params['funcionario'] = perfil.cd_usu
 
     entregas_qs = EntregaFinalizada.objects.filter(**query_params).order_by('-data_hora_entrega')
-    # ----------------------------------
 
     status_display = dict(EntregaFinalizada.STATUS_CHOICES)
     grupos_dict = defaultdict(list)
@@ -852,14 +902,13 @@ def motoboy_historico_entregas(request):
     for e in entregas_qs:
         data_local = timezone.localtime(e.data_hora_entrega)
         chave = data_local.strftime('%d/%m/%Y')
-        
+
         grupos_dict[chave].append({
             'cliente': e.nome_cliente or 'Desconhecido',
             'endereco': e.endereco or '',
+            'status': e.entrega_status,
             'status_display': status_display.get(e.entrega_status, e.entrega_status),
             'hora': data_local.strftime('%H:%M'),
-            # Se for gerente, talvez queira exibir o código do motoboy que fez a entrega
-            'motoboy_id': e.funcionario 
         })
 
     entregas_agrupadas = [
@@ -867,7 +916,6 @@ def motoboy_historico_entregas(request):
         for data, itens in grupos_dict.items()
     ]
 
-    # Totalizador respeitando o filtro de quem está logado
     total_geral = entregas_qs.count()
 
     return render(request, 'motoboy_historico_entregas.html', {
@@ -875,7 +923,6 @@ def motoboy_historico_entregas(request):
         'meses_disponiveis': meses_disponiveis,
         'mes_selecionado': mes_selecionado,
         'total_geral': total_geral,
-        'is_gerente': funcao in funcoes_gestao,
     })
  
  
@@ -1292,13 +1339,22 @@ def somentegerente (request):
 @login_required
 def visualizar_folgas(request):
     hoje = date.today()
-
     datas_proximas = [hoje + timedelta(days=i) for i in range(30)]
 
+    filial = request.user.funcionario.filial
+
     entregadores = Funcionarios_lista.objects.filter(
-        funcao='ENTREGADOR'
+        funcao__iexact='ENTREGADOR',
+        status__iexact='ATIVO',
+        filial=filial
     ).select_related('escala_fixa')
 
+    # 📊 DASHBOARD
+    total = entregadores.count()
+    com_escala = entregadores.filter(escala_fixa__isnull=False).count()
+    sem_escala = total - com_escala
+
+    # 📅 AGENDA
     agenda = []
 
     for data in datas_proximas:
@@ -1308,13 +1364,24 @@ def visualizar_folgas(request):
         folguistas = []
 
         for e in entregadores:
-            try:
-                if dia_semana == e.escala_fixa.dia_fixo_semana and dia_semana != 6:
-                    folguistas.append(e)
-                elif dia_semana == 6 and qual_domingo == e.escala_fixa.domingo_do_mes:
-                    folguistas.append(e)
-            except:
+            escala = getattr(e, 'escala_fixa', None)
+            if not escala:
                 continue
+
+            tipo = (escala.tipo_escala or '').upper()
+
+            if tipo == 'FIXO':
+                if dia_semana == escala.dia_fixo_semana:
+                    folguistas.append(e)
+
+                elif dia_semana == 6 and escala.domingo_do_mes:
+                    if qual_domingo == escala.domingo_do_mes:
+                        folguistas.append(e)
+
+            elif tipo == 'SAB_DOM_ALT':
+                if dia_semana in [5, 6]:
+                    if data.isocalendar().week % 2 == 0:
+                        folguistas.append(e)
 
         qtd = len(folguistas)
 
@@ -1334,16 +1401,14 @@ def visualizar_folgas(request):
             "risco": risco,
             "sugestao": sugestao,
             "is_hoje": data == hoje,
-            "weekday": dia_semana
+            "weekday": dia_semana,
         })
 
-    # 🧠 AGRUPAR EM SEMANAS FIXAS (SEG → DOM)
     semanas = []
     semana = [None] * 7
 
     for dia in agenda:
         semana[dia["weekday"]] = dia
-
         if dia["weekday"] == 6:
             semanas.append(semana)
             semana = [None] * 7
@@ -1352,10 +1417,13 @@ def visualizar_folgas(request):
         semanas.append(semana)
 
     return render(request, "folgas_agenda.html", {
+        "filial": filial,
+        "total": total,
+        "com_escala": com_escala,
+        "sem_escala": sem_escala,
         "semanas": semanas,
         "hoje": hoje
     })
-
 
 @login_required
 def configurar_escalas(request):
@@ -1363,22 +1431,72 @@ def configurar_escalas(request):
         id_fun = request.POST.get('funcionario')
         dia_fixo = request.POST.get('dia_fixo')
         domingo = request.POST.get('domingo')
+        tipo_escala = request.POST.get('tipo_escala') or 'FIXO'  # 🔥 fallback seguro
         
-        funcionario = Funcionarios_lista.objects.get(id=id_fun)
-        
-        # Cria ou atualiza a escala
+        try:
+            funcionario = Funcionarios_lista.objects.get(id=id_fun)
+        except Funcionarios_lista.DoesNotExist:
+            messages.error(request, "Funcionário não encontrado.")
+            return redirect('agenda_folgas')
+
         EscalaFixa.objects.update_or_create(
             funcionario=funcionario,
             defaults={
                 'dia_fixo_semana': dia_fixo,
-                'domingo_do_mes': domingo
+                'domingo_do_mes': domingo,
+                'tipo_escala': tipo_escala
             }
         )
+
+        messages.success(request, "Escala salva com sucesso!")
         return redirect('agenda_folgas')
 
     entregadores = Funcionarios_lista.objects.filter(funcao='ENTREGADOR')
     return render(request, 'folgas_configurar.html', {'entregadores': entregadores})
 
+
+
+@login_required
+def minhas_folgas(request):
+    hoje = date.today()
+    datas = [hoje + timedelta(days=i) for i in range(30)]
+
+    funcionario = request.user.funcionario  
+
+    escala = getattr(funcionario, 'escala_fixa', None)
+
+    agenda = []
+
+    for data in datas:
+        dia_semana = data.weekday()
+        qual_domingo = (data.day - 1) // 7 + 1
+        numero_semana = data.isocalendar()[1]
+
+        folga = False
+
+        if escala:
+            if escala.tipo_escala == 'FIXO':
+                if dia_semana == escala.dia_fixo_semana and dia_semana != 6:
+                    folga = True
+                elif dia_semana == 6 and qual_domingo == escala.domingo_do_mes:
+                    folga = True
+
+            elif escala.tipo_escala == 'SAB_DOM_ALT':
+                if numero_semana % 2 == 0 and dia_semana == 5:
+                    folga = True
+                elif numero_semana % 2 != 0 and dia_semana == 6:
+                    folga = True
+
+        agenda.append({
+            "data": data,
+            "folga": folga,
+            "is_hoje": data == hoje
+        })
+
+    return render(request, "motoboy_folgas.html", {
+        "agenda": agenda,
+        "hoje": hoje
+    })
 
 
 
@@ -1441,4 +1559,118 @@ def topico_view(request, topico_id):
         'topico': topico,
         'comentarios': comentarios,
         'cabecalhobase': cabecalhobase  
+    })
+
+
+
+
+
+@login_required
+def dashboard_filial(request):
+    filial = request.user.funcionario.filial
+
+    entregadores = Funcionarios_lista.objects.filter(
+        funcao__iexact='ENTREGADOR',
+        status__iexact='ATIVO',
+        filial=filial
+    )
+
+    total_entregadores = entregadores.count()
+
+    ativos_com_escala = entregadores.filter(escala_fixa__isnull=False).count()
+    sem_escala = total_entregadores - ativos_com_escala
+
+    return render(request, "dashboard_filial.html", {
+        "filial": filial,
+        "total_entregadores": total_entregadores,
+        "ativos_com_escala": ativos_com_escala,
+        "sem_escala": sem_escala
+    })
+
+
+
+@login_required
+def historico_geral_entregas_gerente(request):
+    try:
+        funcionario_logado = request.user.funcionario
+        if funcionario_logado.funcao not in ['GERENTE', 'S. GERENTE', 'ADMINISTRATIVO']:
+            return redirect('nao_autorizado')
+    except AttributeError:
+        return redirect('login')
+
+    hoje = timezone.now().date()
+    
+    # Captura filtros
+    data_especifica = request.GET.get('data')
+    cd_usu_selecionado = request.GET.get('motoboy')
+    mes_param = request.GET.get('mes', hoje.strftime('%Y-%m'))
+
+    # 1. Inicia a Query
+    query = EntregaFinalizada.objects.all()
+
+    # 2. FILTRO DE TEMPO (DATA OU MÊS)
+    if data_especifica:
+        try:
+            # Transforma a string em objeto date
+            data_obj = datetime.strptime(data_especifica, '%Y-%m-%d').date()
+            # Define o início e o fim exato do dia para não falhar no DateTimeField
+            inicio_dia = timezone.make_aware(datetime.combine(data_obj, datetime.min.time()))
+            fim_dia = timezone.make_aware(datetime.combine(data_obj, datetime.max.time()))
+            
+            query = query.filter(data_hora_entrega__range=(inicio_dia, fim_dia))
+        except ValueError:
+            pass
+    else:
+        # Se não tem dia, filtra pelo mês
+        try:
+            ano, mes = map(int, mes_param.split('-'))
+            query = query.filter(data_hora_entrega__year=ano, data_hora_entrega__month=mes)
+        except:
+            query = query.filter(data_hora_entrega__year=hoje.year, data_hora_entrega__month=hoje.month)
+
+    # 3. FILTRO DE MOTOBOY (AGORA COMBINA COM QUALQUER FILTRO ACIMA)
+    if cd_usu_selecionado and cd_usu_selecionado not in ['0', '', 'None']:
+        query = query.filter(funcionario=int(cd_usu_selecionado))
+
+    # --- Ordenação e Agrupamento ---
+    entregas = query.order_by('-data_hora_entrega')
+
+    funcionarios_map = {
+        int(f.cd_usu): (f.user.get_full_name() or f.user.username)
+        for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
+    }
+
+    grupos = defaultdict(list)
+    for e in entregas:
+        dt_local = timezone.localtime(e.data_hora_entrega)
+        data_str = dt_local.strftime('%d/%m/%Y')
+        nome_moto = funcionarios_map.get(int(e.funcionario or 0), f"Cód {e.funcionario}")
+        
+        grupos[data_str].append({
+            'cliente': e.nome_cliente,
+            'endereco': e.endereco,
+            'hora': dt_local.strftime('%H:%M'),
+            'status': e.entrega_status,
+            'status_display': e.get_entrega_status_display(),
+            'motoboy': nome_moto,
+        })
+
+    # --- Contexto para o template ---
+    lista_motoboys = Funcionarios_lista.objects.filter(
+        funcao='ENTREGADOR', 
+        cd_usu__isnull=False
+    ).select_related('user').order_by('user__first_name')
+
+    meses_disponiveis = [(f"{hoje.year}-{str(i).zfill(2)}", n) for i, n in [
+        (1, 'Janeiro'), (2, 'Fevereiro'), (3, 'Março'), (4, 'Abril'), (5, 'Maio'), (6, 'Junho'),
+        (7, 'Julho'), (8, 'Agosto'), (9, 'Setembro'), (10, 'Outubro'), (11, 'Novembro'), (12, 'Dezembro')
+    ]]
+
+    return render(request, 'historico_entregas.html', {
+        'entregas_agrupadas': [{'data': k, 'entregas': v} for k, v in grupos.items()],
+        'motoboys': lista_motoboys,
+        'mes_selecionado': mes_param,
+        'motoboy_selecionado': cd_usu_selecionado,
+        'meses_disponiveis': meses_disponiveis,
+        'total_geral': entregas.count(),
     })

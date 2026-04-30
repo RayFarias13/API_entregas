@@ -175,11 +175,16 @@
                         <div class="vr mx-2"></div>
 
                         <a class="btn-nav" href="/historicogeral"><i class="fa fa-history"></i> Histórico Geral</a>
+                        <a class="btn-nav" href="/folgas/configurar"><i class="fa fa-calendar-check"></i> Configurar Folgas</a>
                     {% endif %}
                 </div>
             
-            <div class="d-flex align-items-center gap-2">
                 {% if request.user.is_authenticated %}
+
+                <a class="btn-nav" href="/folgas/agenda"><i class="fa fa-calendar-alt"></i> Agenda de Folgas</a>
+
+                <div class="d-flex align-items-center gap-2">
+
                     <a class="btn-nav" href="/cadastro_funcionario">Cadastro</a>
                     <a class="btn-nav" href="/gerenciar_cadastros">Equipe</a>
                     <div class="vr mx-2"></div>
