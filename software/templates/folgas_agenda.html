@@ -1,9 +1,41 @@
 {% extends "cabecalho.html" %}
 
 {% block content %}
+
 <div class="container py-4">
 
-    <h3 class="fw-bold mb-3">📅 Escala Semanal </h3>
+    <!-- 📊 DASHBOARD -->
+    <h3 class="fw-bold mb-3">
+        📊 {{ filial.nome }} - Painel de Escalas
+    </h3>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card dash-card">
+                <div class="label">Total Entregadores</div>
+                <div class="value">{{ total }}</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card dash-card">
+                <div class="label">Com Escala</div>
+                <div class="value">{{ com_escala }}</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card dash-card">
+                <div class="label">Sem Escala</div>
+                <div class="value">{{ sem_escala }}</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 📅 CALENDÁRIO -->
+    <h4 class="fw-bold mb-3">📅 Escala Semanal</h4>
 
     <!-- CABEÇALHO DIAS -->
     <div class="calendar-grid header">
@@ -28,13 +60,11 @@
                 empty
             {% endif %}
         "
-
         {% if dia %}
             data-bs-toggle="modal"
             data-bs-target="#modal-{{ dia.data|date:'Ymd' }}"
             style="cursor:pointer;"
         {% endif %}
-
         >
 
             {% if dia %}
@@ -82,7 +112,7 @@
                     <ul class="list-group">
                         {% for m in dia.folguistas %}
                         <li class="list-group-item">
-                            {{ m.user.get_full_name|default:m.user.username }}
+                            {{ m.user.get_full_name|default:m.user.username | upper }}
                         </li>
                         {% endfor %}
                     </ul>
@@ -107,7 +137,28 @@
 
 <style>
 
-/* GRID */
+/* 📊 DASHBOARD */
+.dash-card {
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.dash-card .label {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.dash-card .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* 📅 GRID */
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -135,12 +186,11 @@
     transition: 0.2s;
 }
 
-/* HOVER */
 .day-cell:hover {
     transform: scale(1.03);
 }
 
-/* DIA VAZIO */
+/* EMPTY */
 .day-cell.empty {
     background: transparent;
     box-shadow: none;
@@ -187,7 +237,7 @@
     background: #e8f8ee;
 }
 
-/* 🔥 ANIMAÇÃO CRÍTICA */
+/* ANIMAÇÃO */
 @keyframes pulseRed {
     0% { box-shadow: 0 0 0 0 rgba(255,0,0,0.4); }
     70% { box-shadow: 0 0 0 10px rgba(255,0,0,0); }

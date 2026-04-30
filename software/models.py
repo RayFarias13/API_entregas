@@ -23,6 +23,7 @@ class Funcionarios_lista(models.Model):
     cd_usu = models.IntegerField(unique=True, null=True, blank=True, help_text="Código legado do vetor")
     funcao = models.CharField(max_length=50,choices=funcionario_funcao_choice,default='DEFINIR')
     status = models.CharField(max_length=20, choices=funcionario_ativo_choice, default='ATIVO')
+    filial = models.ForeignKey('Filial', on_delete=models.PROTECT, null=True, blank=True)
     
     class Meta:
         db_table = 'glb_usu'
@@ -112,12 +113,13 @@ class dadoskilometragem(models.Model):
     km_diario = models.FloatField(default=0.0)
     data_apuracao= models.DateField(blank=True, null=True)
     data_cadastro = models.DateTimeField(auto_now_add=True)
+    gorjeta = models.FloatField(default=0.0)
     
     class Meta:
         db_table = 'km_diario'
 
     def __str__(self):
-        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario}'
+        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconecido"} - KM: {self.km_diario} - Gorjeta: {self.gorjeta}'
     
 
 class HistoricoLocalizacao(models.Model):
@@ -211,3 +213,10 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.autor} - {self.texto[:20]}"
+    
+
+class Filial(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome

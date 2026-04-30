@@ -200,7 +200,7 @@
 
 <form method="GET" class="filter-bar">
 
-```
+
 <select name="mes">
     {% for m in meses_disponiveis %}
     <option value="{{ m.value }}" {% if m.value == mes_selecionado %}selected{% endif %}>
@@ -220,7 +220,6 @@
 <button type="submit">
     <i class="fa-solid fa-filter"></i>
 </button>
-```
 
 </form>
 
@@ -241,7 +240,7 @@
 {% if entregas_agrupadas %}
 {% for grupo in entregas_agrupadas %} <div class="date-group"> <div class="date-label">{{ grupo.data }}</div>
 
-```
+
     {% for e in grupo.entregas %}
     <div class="hist-item">
         <div class="hist-dot
@@ -271,7 +270,6 @@
 
 </div>
 {% endfor %}
-```
 
 {% else %} <div class="empty-state"> <div class="empty-icon"> <i class="fa-solid fa-clock-rotate-left"></i> </div> <div style="font-size:15px; font-weight:500;">
 Nenhuma entrega neste período </div> </div>

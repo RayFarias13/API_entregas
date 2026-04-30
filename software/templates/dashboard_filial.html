@@ -1,0 +1,46 @@
+{% extends "cabecalho.html" %}
+
+{% block content %}
+<div class="container py-4">
+
+    <h3 class="fw-bold mb-3">📊 Dashboard - {{ filial.nome }}</h3>
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h6>Total de Entregadores</h6>
+                <h2>{{ total_entregadores }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h6>Com Escala</h6>
+                <h2>{{ ativos_com_escala }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h6>Sem Escala</h6>
+                <h2>{{ sem_escala }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.card {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+    margin-top: 10px;
+}
+</style>
+{% endblock %}
