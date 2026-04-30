@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from software.models import Filial, Funcionarios_lista, dadoskilometragem, EntregaFinalizada, DadosVenda, DadosEntrega
+from software.models import EscalaFixa, Filial, Funcionarios_lista, dadoskilometragem, EntregaFinalizada, DadosVenda, DadosEntrega
 ''
 # Register your models here.
 
@@ -44,4 +44,12 @@ class EntregaFinalizadaAdmin(admin.ModelAdmin):
 class FilialAdmin(admin.ModelAdmin):
     list_display = ('id', 'nome')
     search_fields = ('nome',)
+    readonly_fields = ('id',)
+
+
+@admin.register(EscalaFixa)
+class EscalaFixaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'funcionario', 'dia_fixo_semana', 'domingo_do_mes', 'tipo_escala', 'data_inicio')
+    search_fields = ('funcionario__user__username',)
+    list_filter = ('dia_fixo_semana', 'tipo_escala')
     readonly_fields = ('id',)

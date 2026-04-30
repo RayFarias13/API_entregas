@@ -34,6 +34,9 @@ urlpatterns = [
     path('folgas/configurar/', views.configurar_escalas, name='configurar_escalas'),    
     path('folgas/filial/', views.dashboard_filial, name='dashboard_filial'),
 
+
+    path('folgas/filial/<int:filial_id>/', views.painel_escalas, name='painel_escalas'),
+
     #forum
     path('forum/', views.forum_view, name='forum'),
     path('forum/<int:topico_id>/', views.topico_view, name='topico'),

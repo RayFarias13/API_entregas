@@ -174,7 +174,9 @@ class EscalaFixa(models.Model):
     dia_fixo_semana = models.IntegerField(choices=DIAS_SEMANA, help_text="Dia que o funcionário sempre folga")
     domingo_do_mes = models.IntegerField(choices=ORDEM_DOMINGO, null=True, blank=True, help_text="Qual domingo do mês ele folga")
     tipo_escala = models.CharField(max_length=20, choices=TIPO_ESCALA, default='FIXO', help_text="Tipo de escala fixa")
-    
+    data_inicio = models.DateField( null=True, blank=True, help_text="Data de início da escala alternada")
+
+
     class Meta:
         db_table = 'folgasfixas'
 

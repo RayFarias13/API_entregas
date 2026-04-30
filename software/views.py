@@ -1254,7 +1254,6 @@ def historico_entregas(request):
 
 @login_required
 def historico_geral_entregas(request):
-    # 1. Validação de Permissão
     try:
         funcionario_logado = request.user.funcionario
         permissoes_admin = ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']
@@ -1269,14 +1268,11 @@ def historico_geral_entregas(request):
     mes_sel = int(request.GET.get('mes', timezone.now().month))
     motoboy_id = request.GET.get('motoboy') # Aqui recebemos o ID do User para o filtro
     
-    # 1. Criamos o mapa de nomes baseados no cd_usu (o que está no campo 'funcionario')
-    # Forçamos int() para garantir o "match" perfeito
     funcionarios_map = {
         int(f.cd_usu): (f.user.get_full_name() or f.user.username)
         for f in Funcionarios_lista.objects.filter(cd_usu__isnull=False).select_related('user')
     }
 
-    # 2. Query Base
     query = EntregaFinalizada.objects.filter(
         data_hora_entrega__month=mes_sel,
         data_hora_entrega__year=timezone.now().year
@@ -1287,17 +1283,14 @@ def historico_geral_entregas(request):
         
     entregas_list = query.order_by('-data_hora_entrega')
 
-    # 3. Agrupamento por Data
     agrupados = OrderedDict()
     for e in entregas_list:
         data_str = e.data_hora_entrega.strftime('%d/%m/%Y')
         if data_str not in agrupados:
             agrupados[data_str] = []
             
-        # LÓGICA DO NOME PELO CAMPO FUNCIONARIO
         nome_exibicao = "Desconhecido"
         if e.funcionario:
-            # Busca o nome no mapa usando o código numérico salvo no registro
             nome_exibicao = funcionarios_map.get(int(e.funcionario), f"Cód. {e.funcionario}")
 
         agrupados[data_str].append({
@@ -1309,7 +1302,6 @@ def historico_geral_entregas(request):
             'motoboy': nome_exibicao # Agora usa o nome vindo do código legado
         })
 
-    # ... (resto do contexto: totais e meses)
     context = {
         'entregas_agrupadas': [{'data': k, 'entregas': v} for k, v in agrupados.items()],
         'motoboys': User.objects.filter(funcionario__funcao='ENTREGADOR'),
@@ -1337,11 +1329,14 @@ def somentegerente (request):
     
 
 @login_required
-def visualizar_folgas(request):
+def visualizar_folgass(request):
     hoje = date.today()
     datas_proximas = [hoje + timedelta(days=i) for i in range(30)]
 
-    filial = request.user.funcionario.filial
+    try:
+        filial = request.user.funcionario.filial
+    except AttributeError:
+        return redirect('login')
 
     entregadores = Funcionarios_lista.objects.filter(
         funcao__iexact='ENTREGADOR',
@@ -1349,12 +1344,10 @@ def visualizar_folgas(request):
         filial=filial
     ).select_related('escala_fixa')
 
-    # 📊 DASHBOARD
     total = entregadores.count()
     com_escala = entregadores.filter(escala_fixa__isnull=False).count()
     sem_escala = total - com_escala
 
-    # 📅 AGENDA
     agenda = []
 
     for data in datas_proximas:
@@ -1370,6 +1363,9 @@ def visualizar_folgas(request):
 
             tipo = (escala.tipo_escala or '').upper()
 
+            # =========================
+            # ESCALA FIXA
+            # =========================
             if tipo == 'FIXO':
                 if dia_semana == escala.dia_fixo_semana:
                     folguistas.append(e)
@@ -1378,13 +1374,54 @@ def visualizar_folgas(request):
                     if qual_domingo == escala.domingo_do_mes:
                         folguistas.append(e)
 
+            # =========================
+            # SABADO / DOMINGO ALTERNADO (CORRETO)
+            # =========================
             elif tipo == 'SAB_DOM_ALT':
-                if dia_semana in [5, 6]:
-                    if data.isocalendar().week % 2 == 0:
+                if dia_semana in [5, 6] and escala.domingo_do_mes:
+                    
+                    # Descobre o domingo base do mês atual
+                    if dia_semana == 6 and qual_domingo == escala.domingo_do_mes:
+                        # esse é o ponto de início do ciclo
                         folguistas.append(e)
+
+                    else:
+                        # calcula semanas desde o domingo inicial
+                        # pega o primeiro dia do mês
+                        primeiro_dia_mes = data.replace(day=1)
+
+                        # encontra o domingo escolhido dentro do mês
+                        contador = 0
+                        domingo_inicio = None
+
+                        for i in range(31):
+                            d = primeiro_dia_mes + timedelta(days=i)
+                            if d.month != data.month:
+                                break
+                            if d.weekday() == 6:
+                                contador += 1
+                                if contador == escala.domingo_do_mes:
+                                    domingo_inicio = d
+                                    break
+
+                        if domingo_inicio:
+                            semanas = (data - domingo_inicio).days // 7
+
+                            if semanas >= 0:
+                                if semanas % 2 == 0:
+                                    # semana do domingo
+                                    if dia_semana == 6:
+                                        folguistas.append(e)
+                                else:
+                                    # semana do sábado
+                                    if dia_semana == 5:
+                                        folguistas.append(e)
 
         qtd = len(folguistas)
 
+        # =========================
+        # RISCO OPERACIONAL
+        # =========================
         if qtd == 0:
             risco = "baixo"
             sugestao = "Operação tranquila"
@@ -1404,11 +1441,15 @@ def visualizar_folgas(request):
             "weekday": dia_semana,
         })
 
+    # =========================
+    # ORGANIZAÇÃO EM SEMANAS
+    # =========================
     semanas = []
     semana = [None] * 7
 
     for dia in agenda:
         semana[dia["weekday"]] = dia
+
         if dia["weekday"] == 6:
             semanas.append(semana)
             semana = [None] * 7
@@ -1424,6 +1465,51 @@ def visualizar_folgas(request):
         "semanas": semanas,
         "hoje": hoje
     })
+
+
+@login_required
+def visualizar_folgas(request):
+    hoje = date.today()
+    datas = [hoje + timedelta(days=i) for i in range(30)]
+
+    funcionario = request.user.funcionario  
+
+    escala = getattr(funcionario, 'escala_fixa', None)
+
+    agenda = []
+
+    for data in datas:
+        dia_semana = data.weekday()
+        qual_domingo = (data.day - 1) // 7 + 1
+        numero_semana = data.isocalendar()[1]
+
+        folga = False
+
+        if escala:
+            if escala.tipo_escala == 'FIXO':
+                if dia_semana == escala.dia_fixo_semana and dia_semana != 6:
+                    folga = True
+                elif dia_semana == 6 and qual_domingo == escala.domingo_do_mes:
+                    folga = True
+
+            elif escala.tipo_escala == 'SAB_DOM_ALT':
+                if numero_semana % 2 == 0 and dia_semana == 5:
+                    folga = True
+                elif numero_semana % 2 != 0 and dia_semana == 6:
+                    folga = True
+
+        agenda.append({
+            "data": data,
+            "folga": folga,
+            "is_hoje": data == hoje
+        })
+
+    return render(request, "folgas_agenda.html", {
+        "agenda": agenda,
+        "hoje": hoje
+    })
+
+
 
 @login_required
 def configurar_escalas(request):
@@ -1674,3 +1760,99 @@ def historico_geral_entregas_gerente(request):
         'meses_disponiveis': meses_disponiveis,
         'total_geral': entregas.count(),
     })
+
+
+
+
+from datetime import date, timedelta
+import calendar
+
+from django.shortcuts import render, get_object_or_404
+from .models import EscalaFixa, Funcionarios_lista
+
+
+def painel_escalas(request, filial_id):
+    filial = get_object_or_404(Filial, id=filial_id)
+
+    funcionarios = Funcionarios_lista.objects.filter(filial=filial)
+    total = funcionarios.count()
+
+    escalas = EscalaFixa.objects.filter(funcionario__in=funcionarios)
+
+    com_escala = escalas.count()
+    sem_escala = total - com_escala
+
+    hoje = date.today()
+    ano = hoje.year
+    mes = hoje.month
+
+    cal = calendar.Calendar(firstweekday=0)  # Segunda
+
+    semanas = []
+
+    for semana in cal.monthdatescalendar(ano, mes):
+        dias_semana = []
+
+        for dia in semana:
+
+            if dia.month != mes:
+                dias_semana.append(None)
+                continue
+
+            folguistas = []
+
+            for escala in escalas:
+                funcionario = escala.funcionario
+
+                # 🔹 Folga fixa semanal
+                if escala.tipo_escala == 'FIXO':
+                    if dia.weekday() == escala.dia_fixo_semana:
+                        folguistas.append(funcionario)
+
+                # 🔹 Domingo específico do mês
+                if escala.domingo_do_mes and dia.weekday() == 6:
+                    domingo_num = (dia.day - 1) // 7 + 1
+                    if domingo_num == escala.domingo_do_mes:
+                        folguistas.append(funcionario)
+
+                # 🔹 Escala semanal (exemplo simples)
+                if escala.tipo_escala == 'SEMANAL' and escala.data_inicio:
+                    diff = (dia - escala.data_inicio).days
+                    if diff >= 0 and diff % 7 == 0:
+                        folguistas.append(funcionario)
+
+            # 🔥 REMOVER DUPLICADOS
+            folguistas = list(set(folguistas))
+
+            qtd = len(folguistas)
+
+            # 🔹 REGRA DE RISCO (ajuste como quiser)
+            if qtd >= 5:
+                risco = 'alto'
+                sugestao = 'Muitos de folga'
+            elif qtd >= 3:
+                risco = 'medio'
+                sugestao = 'Atenção'
+            else:
+                risco = 'baixo'
+                sugestao = 'Ok'
+
+            dias_semana.append({
+                'data': dia,
+                'folguistas': folguistas,
+                'risco': risco,
+                'sugestao': sugestao,
+                'is_hoje': dia == hoje
+            })
+
+        semanas.append(dias_semana)
+
+    context = {
+        'filial': filial,
+        'total': total,
+        'com_escala': com_escala,
+        'sem_escala': sem_escala,
+        'semanas': semanas
+    }
+
+    return render(request, 'painel_escalas.html', context)

@@ -6035,3 +6035,308 @@ Traceback (most recent call last):
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'decimal.Decimal' object has no attribute 'cast_db_type'
 "GET /km/historico/ HTTP/1.1" 500 216518
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/perfil/ HTTP/1.1" 404 10986
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/perfil/entregas/ HTTP/1.1" 404 10995
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/forum/1/ HTTP/1.1" 404 10987
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1031, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82169
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Internal Server Error: /perfil/folgas/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 502, in __get__
+    rel_obj = self.related.get_cached_value(instance)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\mixins.py", line 21, in get_cached_value
+    return instance._state.fields_cache[self.cache_name]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'escala_fixa'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column folgasfixas.data_inicio does not exist
+LINE 1: ...s"."domingo_do_mes", "folgasfixas"."tipo_escala", "folgasfix...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1478, in minhas_folgas
+    escala = getattr(funcionario, 'escala_fixa', None)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\fields\related_descriptors.py", line 509, in __get__
+    rel_obj = self.get_queryset(instance=instance).get(**filter_args)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column folgasfixas.data_inicio does not exist
+LINE 1: ...s"."domingo_do_mes", "folgasfixas"."tipo_escala", "folgasfix...
+                                                             ^
+
+"GET /perfil/folgas/ HTTP/1.1" 500 157520
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Internal Server Error: /folgas/configurar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 987, in get_or_create
+    return self.get(**kwargs), False
+           ~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 639, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+software.models.EscalaFixa.DoesNotExist: EscalaFixa matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.NotNullViolation: null value in column "dia_fixo_semana" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (9, null, null, 11, SAB_DOM_ALT, null).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\software\views.py", line 1486, in configurar_escalas
+    EscalaFixa.objects.update_or_create(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        funcionario=funcionario,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1029, in update_or_create
+    obj, created = self.select_for_update().get_or_create(
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        create_defaults, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 994, in get_or_create
+    return self.create(**params), True
+           ~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 669, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 874, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 966, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, insert_fields, returning_fields, raw
+    )
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\base.py", line 1220, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1918, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1925, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Lene Escritorio\Downloads\API_entregas-main (1)\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: null value in column "dia_fixo_semana" of relation "folgasfixas" violates not-null constraint
+DETAIL:  Failing row contains (9, null, null, 11, SAB_DOM_ALT, null).
+
+"POST /folgas/configurar/ HTTP/1.1" 500 188783
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11071
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11363
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11363
