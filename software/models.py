@@ -94,6 +94,8 @@ class EntregaFinalizada(models.Model):
         default='ENTREGUE'
     )
     observacoes = models.TextField(null=True, blank=True)
+    latitude = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
 
     class Meta:
         db_table = 'entrega_finalizada'

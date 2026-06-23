@@ -6035,3 +6035,408 @@ Traceback (most recent call last):
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'decimal.Decimal' object has no attribute 'cast_db_type'
 "GET /km/historico/ HTTP/1.1" 500 216518
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 10960
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Forbidden (CSRF token from POST incorrect.): /
+"POST / HTTP/1.1" 403 2504
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252353
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252354
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252354
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252354
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252352
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11236
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 658, in lista_km
+    return render(request, 'lista_km.html', {
+        'relatorios': relatorios_quinzenais,
+        'ultimosregistros': ultimosregistros,
+    })
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'editar_km' with arguments '('',)' not found. 1 pattern(s) tried: ['km/editar/(?P<pk>[0-9]+)/\\Z']
+"GET /km/historico/ HTTP/1.1" 500 252268
+Internal Server Error: /km/historico/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 646, in lista_km
+    .values(
+     ~~~~~~^
+        'id'
+        ^^^^
+    ...<6 lines>...
+        'g_float'
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\db\models\query.py", line 1414, in values
+    clone = self._values(*fields, **expressions)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\db\models\query.py", line 1409, in _values
+    clone.query.set_values(fields)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\db\models\sql\query.py", line 2576, in set_values
+    self.names_to_path(f.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\db\models\sql\query.py", line 1832, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'idmes_base' into field. Choices are: ano_base, data_apuracao, data_cadastro, dia, g_float, gorjeta, id, km_diario, mes_base, usermotoboy, usermotoboy_id
+"GET /km/historico/ HTTP/1.1" 500 113154
+Internal Server Error: /km/novo/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 579, in registrar_km_manual
+    return redirect('listar_km')  # Redireciona para a lista de registros após salvar
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'listar_km' not found. 'listar_km' is not a valid view function or pattern name.
+"POST /km/novo/ HTTP/1.1" 500 104631
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11236
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 58
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 58
+Internal Server Error: /finalizar_entrega/
+"POST /finalizar_entrega/ HTTP/1.1" 500 58

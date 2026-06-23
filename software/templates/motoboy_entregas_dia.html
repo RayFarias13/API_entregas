@@ -410,6 +410,8 @@
         const status = document.getElementById(`status_${cd_entr}`).value;
         const observacoes = document.getElementById(`obs_${cd_entr}`).value;
         const csrftoken = getCookie('csrftoken');
+        const latitude = latitudeAtual;
+        const longitude = longitudeAtual;
 
         if (!confirm("Deseja finalizar esta entrega?")) return;
 
@@ -422,7 +424,7 @@
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken
             },
-            body: JSON.stringify({ cd_entr, cd_vd, status, observacoes })
+            body: JSON.stringify({ cd_entr, cd_vd, status, observacoes,latitude: latitudeAtual, longitude: longitudeAtual})
         })
         .then(res => res.json())
         .then(data => {
@@ -466,6 +468,8 @@
     function sucesso(pos) {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
+        latitudeAtual = pos.coords.latitude;
+        longitudeAtual = pos.coords.longitude;
         const agora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
         document.getElementById('time').innerText = agora;

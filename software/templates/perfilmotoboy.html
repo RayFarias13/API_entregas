@@ -273,6 +273,82 @@
         .nav-btn.active { color: var(--red); }
 
         .page-bottom { height: 80px; }
+
+
+/* ─── GPS BAR ─────────────────────────── */
+    .gps-bar {
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 200;
+    }
+    .gps-info { display: flex; align-items: center; gap: 9px; }
+    .gps-dot {
+        width: 10px; height: 10px;
+        border-radius: 50%;
+        background: #d1d5db;
+        flex-shrink: 0;
+        transition: background 0.3s;
+    }
+    .gps-dot.ativo {
+        background: var(--green);
+        box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    }
+    #status { font-weight: 700; font-size: 13px; }
+    #time { font-size: 13px; font-weight: 600; }
+
+    /* ─── BLOQUEIO GPS ────────────────────── */
+    #gps-bloqueio {
+        display: none;
+        padding: relative;
+    }
+    .gps-bloqueio-card {
+        background: #fff;
+        border-radius: var(--radius);
+        border: 3px dashed #fca5a5;
+        padding: relative;
+        text-align: center;
+    }
+    .gps-bloqueio-icon {
+        font-size: 24px;
+        color: var(--red);
+        margin-bottom: 12px;
+        opacity: 0.85;
+    }
+    .gps-bloqueio-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: relative;
+    }
+    .gps-bloqueio-sub {
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 200;
+        line-height: 1;
+        margin-bottom: 24px;
+    }
+    .btn-tentar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: var(--red);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-tentar:active { opacity: 0.85; transform: scale(0.97); }
     </style>
 </head>
 <body>
@@ -286,6 +362,38 @@
         </a>
     </div>
 </div>
+
+
+
+<!-- GPS BAR -->
+<div class="gps-bar">
+    <div class="gps-info">
+        <div class="gps-dot" id="gps-dot"></div>
+        <span id="status">Aguardando GPS...</span>
+    </div>
+    <span id="time"></span>
+</div>
+
+<!-- BLOQUEIO GPS -->
+    
+
+
+<div id="gps-bloqueio">
+    <div class="gps-bloqueio-card">
+        <div class="gps-bloqueio-icon">
+            <i class="fa-solid fa-location-slash"></i>
+        </div>
+        <div class="gps-bloqueio-title">GPS desativado</div>
+        <div class="gps-bloqueio-sub">
+            Ative o GPS do seu celular e permita o acesso ao historico do KM.
+        </div>
+        <button class="btn-tentar" onclick="tentarNovamente()">
+            <i class="fa-solid fa-rotate-right"></i> Tentar novamente
+        </button>
+    </div><br><br><br>
+</div>
+
+
 
 <!-- PROFILE CARD -->
 <div class="profile-card">
@@ -351,7 +459,7 @@
             <div class="menu-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
 
-        <a class="menu-card" href="/perfil/km/">
+        <a class="menu-card" id="historico_km" href="/perfil/km/">
             <div class="menu-card-icon icon-green">
                 <i class="fa-solid fa-route"></i>
             </div>
@@ -428,6 +536,99 @@
         Pontos
     </a>
 </nav>
+<script>
+// ─── GPS ──────────────────────────────────────────────────────
+    const INTERVALO_MS = 3 * 60 * 1000;
 
+    function iniciarMonitoramento() {
+        if ("geolocation" in navigator) {
+            atualizarPosicao();
+            setInterval(atualizarPosicao, INTERVALO_MS);
+        } else {
+            document.getElementById('status').innerText = "GPS não suportado";
+            mostrarBloqueio();
+        }
+    }
+
+    function atualizarPosicao() {
+        document.getElementById('status').innerText = "Buscando GPS...";
+        navigator.geolocation.getCurrentPosition(sucesso, erro, { enableHighAccuracy: true, timeout: 10000 });
+    }
+
+    function sucesso(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const agora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById('time').innerText = agora;
+        document.getElementById('status').innerText = "GPS ativo · " + agora;
+        document.getElementById('gps-dot').classList.add('ativo');
+
+        // Mostra entregas, esconde bloqueio
+        document.getElementById('historico_km').style.display = 'flex';
+        document.getElementById('gps-bloqueio').style.display = 'none';
+
+        enviarParaServidor(lat, lng);
+    }
+
+    function erro(err) {
+        document.getElementById('status').innerText = "GPS inativo";
+        document.getElementById('gps-dot').classList.remove('ativo');
+        mostrarBloqueio();
+    }
+
+    function mostrarBloqueio() {
+        document.getElementById('historico_km').style.display = 'none';
+        document.getElementById('gps-bloqueio').style.display = 'block';
+    }
+
+    function tentarNovamente() {
+        document.getElementById('status').innerText = "Buscando GPS...";
+        document.getElementById('gps-bloqueio').style.display = 'none';
+        atualizarPosicao();
+    }
+
+    function enviarParaServidor(lat, lng) {
+        const csrftoken = getCookie('csrftoken');
+        fetch('/localizacao_motoboy/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ latitude: lat, longitude: lng })
+        })
+        .then(async response => {
+            const data = await response.json();
+            if (!response.ok) {
+                console.error("Erro GPS:", data.message);
+                document.getElementById('gps-dot').classList.remove('ativo');
+            }
+        })
+        .catch(e => {
+            console.error("Erro de conexão:", e);
+            document.getElementById('gps-dot').classList.remove('ativo');
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    window.onload = iniciarMonitoramento;
+
+
+</script>
 </body>
 </html>

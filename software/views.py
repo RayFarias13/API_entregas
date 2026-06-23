@@ -324,6 +324,8 @@ def finalizar_entrega(request):
     cd_vd       = data.get('cd_vd')
     status      = data.get('status', 'ENTREGUE')
     observacoes = data.get('observacoes')
+    latitude   = data.get('latitude')
+    longitude   = data.get('longitude')
 
     # 1. Validar campos obrigatórios
     if not cd_entr or not cd_vd:
@@ -375,6 +377,8 @@ def finalizar_entrega(request):
                 data_hora_inicio = data_hora_inicio,
                 entrega_status   = status,
                 observacoes      = observacoes,
+                latitude = Decimal(str(latitude)) if latitude is not None else None,
+                longitude = Decimal(str(longitude)) if longitude is not None else None,
             )
 
         status_labels = dict(EntregaFinalizada.STATUS_CHOICES)
@@ -435,7 +439,8 @@ def login_view(request):
                     return render(request, 'login.html', {"error": True, "message": "Função não autorizada."})
             
             else:
-                return render(request, 'login.html', {"error": True})
+                messages.error(request, "Usuário ou senha inválidos.")
+                return render(request, 'login.html')
 
         return render(request, 'login.html')
 
@@ -575,7 +580,7 @@ def registrar_km_manual(request):
                     data_apuracao=data,
                     gorjeta=gorjeta_float
                 )
-                return redirect('registrar_km')
+                return redirect('lista_km')  # Redireciona para a lista de registros após salvar
 
             except User.DoesNotExist:
                 return redirect('registrar_km')
@@ -583,6 +588,13 @@ def registrar_km_manual(request):
     todos_motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR').order_by('first_name')
     return render(request, 'registrar_km.html', {'motoboys': todos_motoboys})
 
+
+
+
+def csrf_failure(request, reason=""):
+    logout(request)  # força logout
+    return redirect('login')
+    
 @login_required
 def lista_km(request):
     try:
@@ -636,6 +648,7 @@ def lista_km(request):
             dia=ExtractDay('data_apuracao')
         )
         .values(
+            'id',
             'mes_base', 
             'dia', 
             'usermotoboy__first_name', 
@@ -644,7 +657,7 @@ def lista_km(request):
             'data_apuracao', 
             'g_float'
         )
-        .order_by('-data_apuracao')[:10]
+        .order_by('-id')[:10]
     )
 
     return render(request, 'lista_km.html', {
@@ -652,6 +665,61 @@ def lista_km(request):
         'ultimosregistros': ultimosregistros,
     })
 
+
+@login_required
+def editar_km_manual(request, pk):
+    try:
+        funcionario = request.user.funcionario
+    except AttributeError:
+        return redirect('login')
+
+    FUNCS_PERMITIDAS = {'GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA'}
+    if funcionario.funcao not in FUNCS_PERMITIDAS:
+        return redirect('nao_autorizado')
+
+    registro = dadoskilometragem.objects.get(pk=pk)
+
+    if request.method == "POST":
+        id_motoboy = request.POST.get('motoboy')
+        km = request.POST.get('km_diario')
+        data = request.POST.get('data_apuracao')
+        gorjeta = request.POST.get('gorjeta', '0').replace(',', '.')
+
+        try:
+            usuario = User.objects.get(id=id_motoboy)
+
+            registro.usermotoboy = usuario
+            registro.km_diario = float(km.replace(',', '.'))
+            registro.data_apuracao = data
+            registro.gorjeta = float(gorjeta)
+
+            # ⚠️ opcional: evitar duplicidade (ignorando o próprio registro)
+            duplicado = dadoskilometragem.objects.filter(
+                usermotoboy=usuario,
+                km_diario=registro.km_diario,
+                data_apuracao=data
+            ).exclude(pk=registro.pk).exists()
+
+            if duplicado:
+                todos_motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR').order_by('first_name')
+                return render(request, 'registrar_km.html', {
+                    'motoboys': todos_motoboys,
+                    'registro': registro,
+                    'error_message': 'Já existe outro lançamento igual.'
+                })
+
+            registro.save()
+            return redirect('lista_km')
+
+        except User.DoesNotExist:
+            return redirect('registrar_km')
+
+    todos_motoboys = User.objects.filter(funcionario__funcao='ENTREGADOR').order_by('first_name')
+
+    return render(request, 'registrar_km.html', {
+        'motoboys': todos_motoboys,
+        'registro': registro
+    })
 
 
 @login_required
