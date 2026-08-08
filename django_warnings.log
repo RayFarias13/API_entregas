@@ -6440,3 +6440,44 @@ Internal Server Error: /finalizar_entrega/
 "POST /finalizar_entrega/ HTTP/1.1" 500 58
 Internal Server Error: /finalizar_entrega/
 "POST /finalizar_entrega/ HTTP/1.1" 500 58
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11236
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82723
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82723
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82860
