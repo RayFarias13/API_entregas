@@ -222,3 +222,95 @@ class Filial(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    
+    
+#pontuacao2
+class PontuacaoMotoboy(models.Model):
+    usermotoboy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='pontuacao_motoboy2')
+    MesDataVenda = models.CharField(max_length=200, blank=True, null=True)
+    NomeEntregador = models.CharField(max_length=200, blank=True, null=True)
+    Valor_medio_das_entregas = models.FloatField(default=0)
+    Coluna1 = models.IntegerField(default=0)
+    Bonificacao = models.IntegerField(default=0)
+    percentual_bonificacao = models.FloatField(default=0.0)
+    data_apuracao= models.DateField(blank=True, null=True)
+    data_cadastro = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'pontuacao_motoboy2'
+
+    def __str__(self):
+        return f'Motoboy: {self.usermotoboy.get_full_name() if self.usermotoboy else "Desconhecido"} - Pontos: {self.pontos}'
+    
+    
+######################
+##lancamento de vendas 
+class ProdutoCadastrado(models.Model):
+    codigo_reduzido = models.CharField(max_length=50, unique=True)  # Vai ser o cdProduto
+    descricao = models.CharField(max_length=255)
+    ean = models.CharField(max_length=50, blank=True, null=True)
+    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.codigo_reduzido} - {self.descricao} (R$ {self.preco_unitario})"
+    
+    
+class Pedido(models.Model):
+    cd_filial = models.IntegerField(default=1)
+    cgc_filial = models.CharField(max_length=20, default="02.010.627/001-59")
+    nr_pedido = models.CharField(max_length=50, blank=True, null=True)  # Vai receber o ID convertido em string
+    cd_vendedor = models.IntegerField(default=202)
+    dt_emissao = models.DateTimeField(auto_now_add=True)
+    
+    # Cliente
+    cliente_codigo = models.IntegerField()
+    cliente_nome = models.CharField(max_length=255)
+    cliente_cpf_cgc = models.CharField(max_length=20)
+    cliente_telefone = models.CharField(max_length=20, blank=True, null=True)
+    cliente_sexo = models.CharField(max_length=10, blank=True, null=True)
+    cliente_endereco = models.CharField(max_length=255, blank=True, null=True)
+    cliente_numero = models.CharField(max_length=20, blank=True, null=True)
+    cliente_complemento = models.CharField(max_length=100, blank=True, null=True)
+    cliente_cep = models.CharField(max_length=20, blank=True, null=True)
+    cliente_bairro = models.CharField(max_length=100, blank=True, null=True)
+    cliente_cidade = models.CharField(max_length=100, blank=True, null=True)
+    cliente_uf = models.CharField(max_length=2, blank=True, null=True)
+
+    # Valores e Outros
+    vlr_produtos = models.DecimalField(max_digits=10, decimal_places=2)
+    vlr_descontos = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    vlr_total = models.DecimalField(max_digits=10, decimal_places=2)
+    vlr_troco_para = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    observacao = models.TextField(blank=True, null=True)
+    retirar = models.BooleanField(default=True)
+    status_pedido = models.CharField(max_length=50, default="Pago")
+
+    def __str__(self):
+        return f"Pedido {self.nr_pedido} - {self.cliente_nome}"
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, related_name='itens', on_delete=models.CASCADE)
+    cd_produto = models.CharField(max_length=50)
+    quantidade = models.CharField(max_length=20)
+    vlr_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    vlr_desconto = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    vlr_total = models.DecimalField(max_digits=10, decimal_places=2)
+    cd_vendedor = models.IntegerField(default=202)
+    info_diversas = models.TextField(blank=True, null=True)
+    origemVenda = models.CharField(max_length=50, default="1")  # 1 - Amazon, 2 - Mercado Livre, etc.
+
+class PagamentoPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, related_name='pagamentos', on_delete=models.CASCADE)
+    forma_pagamento = models.CharField(max_length=50)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    nr_autorizacao = models.CharField(max_length=50, default="123")
+    nsu = models.CharField(max_length=50, default="123")
+    bandeira_cartao = models.CharField(max_length=50,default="VISA")
+    adquirente = models.CharField(max_length=50, blank=True, null=True)
+    data_captura = models.DateTimeField()
+    qtd_parcelas = models.IntegerField(default=1)
+    cd_convenio = models.IntegerField(default=0)
+    identificador = models.CharField(max_length=100, blank=True, null=True)
+
+#######

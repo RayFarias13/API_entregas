@@ -83,8 +83,8 @@
 <!-- Score principal -->
 <div class="score-card">
     <div class="score-icon">⭐</div>
-    <div class="score-value">{{ total_geral }}</div>
-    <div class="score-label">entregas realizadas no total</div>
+    <div class="score-value">{{ total_bonificacao }}</div>
+    <div class="score-label">Pontuação de bonificação</div>
 
     <div class="score-divider"></div>
 
@@ -116,8 +116,8 @@
             </div>
         </div>
         <div style="text-align:right;">
-            <div class="mes-count">{{ m.total }}</div>
-            <div class="mes-unit">entregas</div>
+            <div class="mes-count">{{ total_bonificacao }}</div>
+            <div class="mes-unit">pontos</div>
         </div>
     </div>
     {% empty %}

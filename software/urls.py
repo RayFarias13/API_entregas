@@ -24,6 +24,7 @@ urlpatterns = [
     path('perfil/historico/', views.motoboy_historico_entregas, name='motoboy_historico_entregas'),
     path('perfil/km/',        views.motoboy_historico_km,        name='motoboy_historico_km'),
     path('perfil/pontuacao/', views.motoboy_pontuacao,           name='motoboy_pontuacao'),
+    path('perfil/pontuacao1/', views.motoboy_historico_pontuacao, name='motoboy_pontuacao1'),
     path('cadastro_cliente/', views.cadastro_cliente, name='cadastro_cliente'),
     path('cadastro_cliente/salvar/', views.salvar_cliente, name='cadastro_cliente'),
     path('historico/', views.historico_geral_entregas_gerente, name='historico_entregas'),
@@ -39,5 +40,10 @@ urlpatterns = [
     path('forum/', views.forum_view, name='forum'),
     path('forum/<int:topico_id>/', views.topico_view, name='topico'),
 
+    path('vendas/lancar/', views.renderizar_formulario_venda, name='vendas_lancar'),
+    path('vendas/criar/', views.criar_pedido_view, name='vendas_criar'),
+    path('produtos/buscar/<str:codigo>/', views.buscar_produto_view, name='buscar_produto_view'), # Nova rota
+path('produtos/novo/', views.produto_salvar_view, name='produto_criar'),
+    path('produtos/editar/<int:pk>/', views.produto_salvar_view, name='produto_editar'),
 
 ]

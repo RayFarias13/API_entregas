@@ -1,6 +1,9 @@
 from decimal import Decimal
+import os
+import os
 from urllib import request
 from dateutil.relativedelta import relativedelta
+from django.contrib.sites import requests
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -835,6 +838,20 @@ def perfil_motoboy(request):
         'motoboy_id': e.funcionario # Útil para o gerente identificar
     } for e in ultimas_entregas]
 
+
+
+    #pontuacao
+    filtros_entrega2 = {
+            'data_cadastro__month': mes_atual,
+            'data_cadastro__year': ano_atual
+        }
+    if funcao == 'ENTREGADOR':
+            filtros_entrega2['usermotoboy'] = perfil.cd_usu
+    
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+        total=Sum('Bonificacao')
+    )['total'] or 0
+
     return render(request, 'perfilmotoboy.html', {
         'funcionario': perfil,
         'total_entregas_mes': total_entregas_mes,
@@ -842,6 +859,7 @@ def perfil_motoboy(request):
         'pontuacao': total_entregas_mes,
         'ultimas_entregas': entregas_formatadas,
         'e_gestor': e_gestor,
+        'total_pontuacao_mes': total_pontuacao_mes
     })
 
 # ─────────────────────────────────────────
@@ -1742,3 +1760,334 @@ def historico_geral_entregas_gerente(request):
         'meses_disponiveis': meses_disponiveis,
         'total_geral': entregas.count(),
     })
+    
+    
+    
+#pontuacao do motoboy2
+def motoboy_pontuacao2(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+ 
+    total_geral  = EntregaFinalizada.objects.filter(usermotoboy=request.user).count()
+    total_mes    = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__year=hoje.year,
+        data_hora_entrega__month=hoje.month,
+    ).count()
+    total_semana = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__date__gte=inicio_semana,
+    ).count()
+ 
+    # Histórico por mês (últimos 2 meses)
+    por_mes = []
+    max_mes = 0
+    for i in range(2):
+        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        total = EntregaFinalizada.objects.filter(
+            usermotoboy=request.user,
+            data_hora_entrega__year=d.year,
+            data_hora_entrega__month=d.month,
+        ).count()
+        por_mes.append({
+            'label': d.strftime('%B/%Y').capitalize(),
+            'total': total,
+            'pct': 0,
+        })
+        if total > max_mes:
+            max_mes = total
+ 
+    # Calcula porcentagem para barra de progresso
+    for m in por_mes:
+        m['pct'] = round((m['total'] / max_mes) * 100) if max_mes > 0 else 0
+ 
+    return render(request, 'motoboy_pontuacao.html', {
+        'total_geral': total_geral,
+        'total_mes': total_mes,
+        'total_semana': total_semana,
+        'por_mes': por_mes,
+    })
+
+
+# ─────────────────────────────────────────
+# HISTÓRICO DE PONTUAÇÃO
+# ─────────────────────────────────────────
+@login_required
+def motoboy_historico_pontuacao(request):
+  try:
+    funcionario = request.user.funcionario
+    if funcionario.funcao != 'ENTREGADOR':
+      return redirect('boardadministrativo')
+  except AttributeError:
+    return redirect('login')
+
+  hoje = timezone.now().date()
+
+  # Meses disponíveis
+  meses_disponiveis = []
+  for i in range(3):
+    d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
+    meses_disponiveis.append({
+        'value': d.strftime('%Y-%m'),
+        'label': d.strftime('%B/%Y').capitalize(),
+    })
+
+  mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+
+  try:
+    ano, mes = map(int, mes_selecionado.split('-'))
+  except ValueError:
+    ano, mes = hoje.year, hoje.month
+
+  # Filtrando usando o novo campo DateTimeField
+  registros_qs = PontuacaoMotoboy.objects.filter(
+      usermotoboy=request.user,
+      data_cadastro__year=ano,
+      data_cadastro__month=mes,
+  ).order_by('-data_cadastro')
+
+  # Montando a lista de registros para o template
+  registros = []
+  for r in registros_qs:
+    registros.append({
+        'data': r.data_cadastro.strftime('%d/%m/%Y'),
+        'nome_entregador': r.NomeEntregador,
+        'valor_medio': round(r.Valor_medio_das_entregas, 2),
+        'coluna1': r.Coluna1,
+        'bonificacao': r.Bonificacao,
+        'percentual': round(r.percentual_bonificacao, 2),
+    })
+
+  # Totais do mês
+  totais = registros_qs.aggregate(
+      total_bonificacao=Sum('Bonificacao'),
+    #   total_coluna1=Sum('Coluna1'),
+  )
+
+  return render(
+      request,
+      'motoboy_pontuacao1.html',
+      {
+          'registros': registros,
+          'meses_disponiveis': meses_disponiveis,
+          'mes_selecionado': mes_selecionado,
+          'total_bonificacao': totais['total_bonificacao'] or 0,
+        #   'total_coluna1': totais['total_coluna1'] or 0,
+      },
+  )
+  
+  
+  
+  
+## ─────────────────────────────────────────
+#envio de vendas para o pdv
+
+
+def renderizar_formulario_venda(request):
+    return render(request, 'vendas_lancar.html')
+
+@csrf_exempt
+def criar_pedido_view(request):
+    if request.method == 'POST':
+        try:
+            dados = json.loads(request.body)
+            
+            # 1. Salva o Pedido principal sem o nrPedido primeiro para obter o ID do banco
+            cliente_data = dados.get('cliente', {})
+            
+            pedido = Pedido.objects.create(
+                cd_filial=dados.get('cdFilial', 1),
+                cgc_filial=dados.get('cgcFilial', "02.010.627/001-59"),
+                cd_vendedor=dados.get('cdVendedor'),
+                cliente_codigo=cliente_data.get('codigo', ''),
+                cliente_nome=cliente_data.get('nome'),
+                cliente_cpf_cgc=cliente_data.get('cpfCgc'),
+                cliente_telefone=cliente_data.get('telefone'),
+                cliente_sexo=cliente_data.get('sexo'),
+                cliente_endereco=cliente_data.get('endereco'),
+                cliente_numero=cliente_data.get('numero'),
+                cliente_complemento=cliente_data.get('complemento'),
+                cliente_cep=cliente_data.get('cep'),
+                cliente_bairro=cliente_data.get('bairro'),
+                cliente_cidade=cliente_data.get('cidade'),
+                cliente_uf=cliente_data.get('uf'),
+                vlr_produtos=dados.get('vlrProdutos'),
+                vlr_descontos=dados.get('vlrDescontos', 0),
+                vlr_total=dados.get('vlrTotal'),
+                vlr_troco_para=dados.get('vlrTrocoPara', 0),
+                observacao=dados.get('observacao', ''),
+                retirar=dados.get('retirar', True),
+                status_pedido=dados.get('statusPedido', 'Pago')
+            )
+
+            # 2. Gera o nrPedido único baseado no ID gerado pelo banco (ex: "33")
+            pedido.nr_pedido = str(pedido.id)
+            pedido.save()
+
+            # 3. Salva os Itens vinculados ao pedido
+            
+            # Dentro do loop dos itens na sua view:
+            for item_data in dados.get('itens', []):
+                cd_produto_reduzido = item_data.get('cdProduto')
+                
+                # Opcional: Buscar no banco de dados para garantir que o produto existe e pegar o preço oficial
+                try:
+                    produto_db = ProdutoCadastrado.objects.get(codigo_reduzido=cd_produto_reduzido)
+                    preco_unitario = produto_db.preco_unitario
+                except ProdutoCadastrado.DoesNotExist:
+                    # Se não achar na tabela, usa o valor enviado ou trata o erro
+                    preco_unitario = item_data.get('vlrUnitario')
+
+                ItemPedido.objects.create(
+                    pedido=pedido,
+                    cd_produto=cd_produto_reduzido,  # Aqui fica o código reduzido!
+                    quantidade=item_data.get('quantidade'),
+                    vlr_unitario=preco_unitario,
+                    vlr_desconto=item_data.get('vlrDesconto', 0),
+                    vlr_total=Decimal(item_data.get('vlrTotal')) * Decimal(item_data.get('quantidade')),
+                    cd_vendedor=item_data.get('cdVendedor', pedido.cd_vendedor),
+                    info_diversas=item_data.get('infoDiversas', ''),
+                    origemVenda=item_data.get('origemVenda', ''),  # Valor padrão para origemVenda
+                                     )
+            # 4. Salva os Pagamentos vinculados ao pedido
+            for pag in dados.get('pagamentos', []):
+                PagamentoPedido.objects.create(
+                    pedido=pedido,
+                    forma_pagamento=pag.get('formaPagamento'),
+                    valor=pag.get('valor'),
+                    nr_autorizacao=pag.get('nrAutorizacao', ''),
+                    nsu=pag.get('nsu', ''),
+                    bandeira_cartao=pag.get('bandeiraCartao', ''),
+                    adquirente=pag.get('adquirente', ''),
+                    data_captura=pag.get('dataCaptura'),
+                    qtd_parcelas=pag.get('qtdParcelas', 1),
+                    cd_convenio=pag.get('cdConvenio', 0),
+                    identificador=pag.get('identificador', '')
+                )
+
+            # 5. Reconstrói exatamente o payload JSON com o novo `nrPedido` gerado para enviar para a API externa
+            payload_api = {
+                "cdFilial": pedido.cd_filial,
+                "cgcFilial": pedido.cgc_filial,
+                "nrPedido": pedido.nr_pedido,  # Aqui vai o ID gerado pelo banco como string!
+                "cdVendedor": pedido.cd_vendedor,
+                "dtEmissao": pedido.dt_emissao.isoformat(),
+                "cliente": {
+                    "codigo": pedido.cliente_codigo,
+                    "nome": pedido.cliente_nome,
+                    "cpfCgc": pedido.cliente_cpf_cgc,
+                    "telefone": pedido.cliente_telefone,
+                    "sexo": pedido.cliente_sexo,
+                    "endereco": pedido.cliente_endereco,
+                    "numero": pedido.cliente_numero,
+                    "complemento": pedido.cliente_complemento,
+                    "cep": pedido.cliente_cep,
+                    "bairro": pedido.cliente_bairro,
+                    "cidade": pedido.cliente_cidade,
+                    "uf": pedido.cliente_uf
+                },
+                "vlrProdutos": str(pedido.vlr_produtos),
+                "vlrDescontos": float(pedido.vlr_descontos),
+                "vlrTotal": str(pedido.vlr_total),
+                "vlrTrocoPara": float(pedido.vlr_troco_para),
+                "observacao": pedido.observacao,
+                "retirar": pedido.retirar,
+                "itens": [
+                    {
+                        "cdProduto": item.cd_produto,
+                        "quantidade": item.quantidade,
+                        "vlrUnitario": str(item.vlr_unitario),
+                        "vlrDesconto": float(item.vlr_desconto),
+                        "vlrTotal": str(item.vlr_total),
+                        "cdVendedor": item.cd_vendedor,
+                        "infoDiversas": item.info_diversas
+                    } for item in pedido.itens.all()
+                ],
+                "statusPedido": pedido.status_pedido,
+                "pagamentos": [
+                    {
+                        "formaPagamento": pag.forma_pagamento,
+                        "valor": str(pag.valor),
+                        "nrAutorizacao": pag.nr_autorizacao or "",
+                        "nsu": pag.nsu or "",
+                        "bandeiraCartao": pag.bandeira_cartao or "",
+                        "adquirente": pag.adquirente or "",
+                        "dataCaptura": pag.data_captura.isoformat() if pag.data_captura else "",
+                        "qtdParcelas": pag.qtd_parcelas,
+                        "cdConvenio": pag.cd_convenio,
+                        "identificador": pag.identificador or ""
+                    } for pag in pedido.pagamentos.all()
+                ]
+            }
+
+            # 6. Dispara o POST para a API externa
+            url_api_externa = os.getenv("PDV_HOST_API_URL")
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": os.getenv("PDV_HOST_CHAVE")
+            }
+
+            resposta_api = requests.post(url_api_externa, json=payload_api, headers=headers)
+
+            # Retorna o resultado para o front-end
+            return JsonResponse({
+                "status": "sucesso",
+                "nrPedido": pedido.nr_pedido,
+                "respostaApiExternaStatus": resposta_api.status_code
+            }, status=201)
+
+        except Exception as e:
+            return JsonResponse({"status": "erro", "detalhes": str(e)}, status=400)
+
+    return JsonResponse({"erro": "Método não permitido"}, status=405)
+
+
+def buscar_produto_view(request, codigo):
+    try:
+        produto = ProdutoCadastrado.objects.get(codigo_reduzido=codigo)
+        return JsonResponse({
+            "status": "sucesso",
+            "descricao": produto.descricao,
+            "preco_unitario": str(produto.preco_unitario)
+        }, status=200)
+    except ProdutoCadastrado.DoesNotExist:
+        return JsonResponse({"status": "erro", "detalhes": "Produto não cadastrado"}, status=404)
+
+
+def produto_salvar_view(request, pk=None):
+    produto = None
+    if pk:
+        produto = get_object_or_404(ProdutoCadastrado, pk=pk)
+
+    if request.method == 'POST':
+        codigo_reduzido = request.POST.get('codigo_reduzido')
+        descricao = request.POST.get('descricao')
+        ean = request.POST.get('ean')
+        preco_unitario = request.POST.get('preco_unitario')
+
+        if produto:
+            # Editando o produto existente
+            produto.codigo_reduzido = codigo_reduzido
+            produto.descricao = descricao
+            produto.ean = ean
+            produto.preco_unitario = preco_unitario
+            produto.save()
+        else:
+            # Criando um novo produto
+            ProdutoCadastrado.objects.create(
+                codigo_reduzido=codigo_reduzido,
+                descricao=descricao,
+                ean=ean,
+                preco_unitario=preco_unitario
+            )
+        
+        return redirect('produto_listar') # Redireciona após salvar (ajuste o nome da rota se necessário)
+
+    return render(request, 'produto_form.html', {'produto': produto})
