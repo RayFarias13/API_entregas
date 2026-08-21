@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'receptor', 
     'software',
     'interno',
+    'vendas',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters'

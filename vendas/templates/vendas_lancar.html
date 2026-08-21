@@ -274,7 +274,7 @@
             if (!codigo) return;
 
             try {
-                const resposta = await fetch(`/produtos/buscar/${codigo}/`);
+                const resposta = await fetch(`/vendas/produtos/buscar/${codigo}/`);
                 const resultado = await resposta.json();
 
                 if (resposta.ok && resultado.status === 'sucesso') {
@@ -357,27 +357,56 @@
                 ]
             };
 
-            const urlBackendDjango = '/vendas/criar/';
+            const urlBackendDjango = '/vendas/vendas/criar/';
+
+            try {const resposta = await fetch(urlBackendDjango, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const textoResposta = await resposta.text();
+
+            console.log('Status HTTP:', resposta.status);
+            console.log('Resposta do Django:', textoResposta);
+
+            let resultado;
 
             try {
-                const resposta = await fetch(urlBackendDjango, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
+                resultado = JSON.parse(textoResposta);
+            } catch (erroJson) {
+                throw new Error(
+                    `O Django retornou HTML em vez de JSON. HTTP ${resposta.status}. ` +
+                    `Resposta: ${textoResposta.substring(0, 500)}`
+                );
+            }
 
-                const resultado = await resposta.json();
-
-                if (!resposta.ok) {
-                    throw new Error(resultado.detalhes || 'Erro ao processar requisição');
-                }
-
+            if (!resposta.ok) {
+                throw new Error(
+                    resultado.detalhes || 
+                    resultado.erro || 
+                    'Erro ao processar requisição'
+                );
+            }
+                
+                    // 1. Mostra a mensagem de sucesso
                 divMensagem.textContent = `Sucesso! Pedido gerado com o número (nrPedido): ${resultado.nrPedido}`;
                 divMensagem.className = 'sucesso';
                 divMensagem.style.display = 'block';
-
+                    // 2. Limpa o formulário e reseta campos calculados após 3 segundos
+setTimeout(() => {
+    formulario.reset();
+    
+    // Reseta campos que possuem valores padrão ou que ficam bloqueados (readonly)
+    prodValorUnit.value = '0.00';
+    vlrTotalGeral.value = '0.00';
+    pagValor.value = '0.00';
+    
+    // Esconde a mensagem de sucesso após a limpeza
+    divMensagem.style.display = 'none';
+}, 3000); // 3000 milissegundos = 3 segundos
             } catch (erro) {
                 console.error('Erro:', erro);
                 divMensagem.textContent = 'Erro ao salvar/enviar: ' + erro.message;
