@@ -7903,3 +7903,17 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'enviar_para_pdv' not found. 'enviar_para_pdv' is not a valid view function or pattern name.
 "GET /vendas/painel/ HTTP/1.1" 500 221648
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697

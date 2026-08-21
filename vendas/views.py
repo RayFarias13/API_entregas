@@ -5,6 +5,7 @@ from software.models import PagamentoPedido, Pedido, ProdutoCadastrado, ItemPedi
 import os
 import json
 import requests
+from django.contrib.auth.decorators import login_required
 
 from decimal import Decimal
 from django.http import JsonResponse
@@ -266,6 +267,7 @@ ZETTI_URL = (
 # BUSCAR PEDIDOS NA NUVEMSHOP
 # ============================================================
 
+
 def buscar_pedidos_nuvemshop(status_atual=""):
 
     store_id = getattr(
@@ -378,7 +380,7 @@ def preparar_status(pedidos):
 # ============================================================
 # LISTA DE PEDIDOS
 # ============================================================
-
+@login_required
 def lista_pedidos(request):
 
     status_atual = request.GET.get(
@@ -426,7 +428,6 @@ def lista_pedidos(request):
 # ============================================================
 # MONTAR CLIENTE PARA ZETTI
 # ============================================================
-
 def montar_cliente_zetti(pedido):
 
     endereco = (
