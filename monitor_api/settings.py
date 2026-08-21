@@ -34,7 +34,11 @@ if not SECRET_KEY:
 DEBUG = True  # Força DEBUG para False, garantindo que a API nunca rode em modo de desenvolvimento em produção
 
 ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD"),"LINK_EXTERNO_PROD_SITE",'localhost', '127.0.0.1']
-
+NUVEMSHOP_STORE_ID = os.environ.get ('NUVEMSHOP_STORE_ID')
+NUVEMSHOP_ACCESS_TOKEN = os.environ.get ('NUVEMSHOP_ACCESS_TOKEN')
+NUVEMSHOP_USER_AGENT = os.environ.get ('NUVEMSHOP_USER_AGENT')
+ZETTI_API_TOKEN = os.environ.get('ZETTI_API_TOKEN')
+ZETTI_CD_FILIAL = 1
 
 # Application definition
 
