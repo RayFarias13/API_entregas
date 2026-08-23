@@ -7917,3 +7917,122 @@ Not Found: /accounts/login/
 "GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
 Not Found: /accounts/login/
 "GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Internal Server Error: /vendas/pedidos/2043710355/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 208, in conferir_pedido
+    "retirar": pedido_e_retirada(pedido),
+               ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 33, in pedido_e_retirada
+    shipping = fulfillment.get("shipping") or {}
+               ^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2043710355/ HTTP/1.1" 500 103361
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2050180325/bipar/
+"POST /pedidos/2050180325/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2050180325/bipar/
+"POST /pedidos/2050180325/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 115, in pedido_e_retirada
+    fulfillments = pedido_json.get('fulfillments', [])
+                   ^^^^^^^^^^^
+NameError: name 'pedido_json' is not defined
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99130
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2043710355/finalizar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 1239, in finalizar_conferencia
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"POST /vendas/pedidos/2043710355/finalizar/ HTTP/1.1" 500 109277

@@ -1,33 +1,45 @@
 import requests
+
 from django.conf import settings
 
 
 class NuvemshopAPI:
-    BASE_URL = "https://api.nuvemshop.com.br/v1"
+    BASE_URL = "https://api.nuvemshop.com.br/2025-03"
 
     def __init__(self):
-        self.store_id = settings.NUVEMSHOP_STORE_ID
-        self.access_token = settings.NUVEMSHOP_ACCESS_TOKEN
-        self.user_agent = settings.NUVEMSHOP_USER_AGENT
+        self.store_id = getattr(settings, "NUVEMSHOP_STORE_ID", "")
+        self.access_token = getattr(
+            settings,
+            "NUVEMSHOP_ACCESS_TOKEN",
+            "",
+        )
 
-    def _headers(self):
+        if not self.store_id:
+            raise ValueError(
+                "NUVEMSHOP_STORE_ID não configurado."
+            )
+
+        if not self.access_token:
+            raise ValueError(
+                "NUVEMSHOP_ACCESS_TOKEN não configurado."
+            )
+
+    @property
+    def headers(self):
         return {
             "Authorization": f"Bearer {self.access_token}",
-            "User-Agent": self.user_agent,
+            "User-Agent": "Sistema de Entregas",
             "Content-Type": "application/json",
         }
 
-    def listar_pedidos(
-        self,
-        page=1,
-        per_page=30,
-        status=None,
-    ):
-        url = f"{self.BASE_URL}/{self.store_id}/orders"
+    def listar_pedidos(self, status=None):
+        url = (
+            f"{self.BASE_URL}/"
+            f"{self.store_id}/orders"
+        )
 
         params = {
-            "page": page,
-            "per_page": per_page,
+            "per_page": 100,
         }
 
         if status:
@@ -35,8 +47,30 @@ class NuvemshopAPI:
 
         response = requests.get(
             url,
-            headers=self._headers(),
+            headers=self.headers,
             params=params,
+            timeout=30,
+        )
+
+        response.raise_for_status()
+
+        pedidos = response.json()
+
+        if not isinstance(pedidos, list):
+            return []
+
+        return pedidos
+
+    def buscar_pedido(self, pedido_id):
+        url = (
+            f"{self.BASE_URL}/"
+            f"{self.store_id}/orders/"
+            f"{pedido_id}"
+        )
+
+        response = requests.get(
+            url,
+            headers=self.headers,
             timeout=30,
         )
 

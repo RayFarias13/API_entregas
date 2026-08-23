@@ -2,607 +2,170 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
+
+    <title>Pedidos</title>
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1"
     >
-
-    <title>Pedidos | Nuvemshop</title>
-
 
     <style>
 
-        * {
-            box-sizing: border-box;
-        }
-
-
         body {
-
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
             margin: 0;
-
-            font-family:
-                Arial,
-                sans-serif;
-
-            background: #f5f6f8;
-
-            color: #222;
-
+            padding: 20px;
         }
-
 
         .container {
-
-            max-width: 1400px;
-
-            margin: 0 auto;
-
-            padding: 30px;
-
+            max-width: 1200px;
+            margin: auto;
         }
-
 
         h1 {
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .card {
-
-            background: white;
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            box-shadow:
-                0 2px 8px
-                rgba(0,0,0,.05);
-
-            overflow-x: auto;
-
-        }
-
-
-        /* =====================================================
-           FILTROS
-        ===================================================== */
-
-        .filters {
-
             margin-bottom: 20px;
-
         }
-
-
-        select,
-        button {
-
-            padding: 10px;
-
-            border:
-                1px solid #ddd;
-
-            border-radius: 6px;
-
-            font-size: 14px;
-
-        }
-
-
-        button {
-
-            background: #111;
-
-            color: white;
-
-            cursor: pointer;
-
-        }
-
-
-        button:hover {
-
-            background: #333;
-
-        }
-
-
-        /* =====================================================
-           TABELA
-        ===================================================== */
 
         table {
-
             width: 100%;
-
             border-collapse: collapse;
-
-            min-width: 900px;
-
+            background: white;
         }
-
 
         th,
         td {
-
             padding: 14px;
-
+            border-bottom: 1px solid #ddd;
             text-align: left;
-
-            border-bottom:
-                1px solid #eee;
-
-            vertical-align: middle;
-
         }
-
 
         th {
-
-            background: #fafafa;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
+            background: #222;
+            color: white;
         }
 
-
-        td {
-
-            font-size: 14px;
-
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
         }
 
-
-        tbody tr:hover {
-
-            background:
-                #fafafa;
-
+        .btn:hover {
+            background: #0056b3;
         }
-
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
 
         .status {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding:
-                5px 10px;
-
-            border-radius: 20px;
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
+            padding: 5px 8px;
+            border-radius: 5px;
+            background: #eee;
         }
 
-
-        /* =====================================================
-           STATUS DO PEDIDO
-        ===================================================== */
-
-        .status-pedido {
-
-            background:
-                #dbeafe;
-
-            color:
-                #1d4ed8;
-
-        }
-
-
-        /* =====================================================
-           PAGAMENTO
-        ===================================================== */
-
-        .status-pagamento {
-
-            background:
-                #dcfce7;
-
-            color:
-                #15803d;
-
-        }
-
-
-        /* =====================================================
-           ENVIO
-        ===================================================== */
-
-        .status-envio {
-
-            background:
-                #fef3c7;
-
-            color:
-                #b45309;
-
-        }
-
-
-        /* =====================================================
-           CONTAINER DOS STATUS
-        ===================================================== */
-
-        .pedido-status {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 6px;
-
-            align-items: center;
-
-        }
-
-
-        /* =====================================================
-           PEDIDO
-        ===================================================== */
-
-        .numero-pedido {
-
-            font-weight: 700;
-
-            color: #111;
-
-        }
-
-
-        /* =====================================================
-           VAZIO
-        ===================================================== */
-
-        .empty {
-
-            text-align: center;
-
-            padding: 40px;
-
-            color: #777;
-
-        }
-
-.btn-pdv {
-    border: none;
-    background: #2563eb;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.btn-pdv:hover {
-    background: #1d4ed8;
-}
-
-
-.messages {
-    margin-bottom: 20px;
-}
-
-.alert {
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.alert-success {
-    background: #dcfce7;
-    color: #166534;
-    border: 1px solid #86efac;
-}
-
-.alert-error {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fca5a5;
-}
-
-.alert-warning {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fcd34d;
-}
-
-.alert-info {
-    background: #dbeafe;
-    color: #1e40af;
-    border: 1px solid #93c5fd;
-}
     </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+    <h1>Pedidos</h1>
 
-    <h1>
-        Pedidos
-    </h1>
     {% if messages %}
-    <div class="messages">
 
         {% for message in messages %}
 
-            <div class="alert alert-{{ message.tags }}">
+            <div style="
+                padding: 12px;
+                margin-bottom: 10px;
+                background: #fff;
+                border-radius: 6px;
+            ">
                 {{ message }}
             </div>
 
         {% endfor %}
 
-    </div>
-{% endif %}
+    {% endif %}
 
 
+    <table>
 
-    <div class="card">
+        <thead>
 
+            <tr>
+                <th>Pedido</th>
+                <th>Cliente</th>
+                <th>Itens</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
 
-        <!-- =================================================
-             FILTROS
-        ================================================== -->
+        </thead>
 
-        <div class="filters">
+        <tbody>
 
-            <form method="get">
+        {% for pedido in pedidos %}
 
-                <select name="status">
+            <tr>
 
-                    <option value="">
-                        Todos os pedidos
-                    </option>
+                <td>
+                    #{{ pedido.number }}
+                </td>
 
+                <td>
+                    {{ pedido.contact_name|default:"Cliente" }}
+                </td>
 
-                    <option
-                        value="open"
-                        {% if status_atual == "open" %}
-                            selected
-                        {% endif %}
+                <td>
+                    {{ pedido.products|length }}
+                </td>
+
+                <td>
+                    R$ {{ pedido.total }}
+                </td>
+
+                <td>
+                    <span class="status">
+                        {{ pedido.status }}
+                    </span>
+                </td>
+
+                <td>
+
+                    <a
+                        href="{% url 'conferir_pedido' pedido.id %}"
+                        class="btn"
                     >
-                        Abertos
-                    </option>
+                        Abrir pedido
+                    </a>
 
+                </td>
 
-                    <option
-                        value="closed"
-                        {% if status_atual == "closed" %}
-                            selected
-                        {% endif %}
-                    >
-                        Fechados
-                    </option>
+            </tr>
 
+        {% empty %}
 
-                    <option
-                        value="cancelled"
-                        {% if status_atual == "cancelled" %}
-                            selected
-                        {% endif %}
-                    >
-                        Cancelados
-                    </option>
+            <tr>
 
-                </select>
+                <td colspan="6">
+                    Nenhum pedido encontrado.
+                </td>
 
+            </tr>
 
-                <button type="submit">
-                    Filtrar
-                </button>
+        {% endfor %}
 
-            </form>
+        </tbody>
 
-        </div>
-
-
-        <!-- =================================================
-             TABELA
-        ================================================== -->
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Pedido
-                    </th>
-
-                    <th>
-                        Data
-                    </th>
-
-                    <th>
-                        Cliente
-                    </th>
-
-                    <th>
-                        Total
-                    </th>
-
-                    <th>Status</th>
-                    <th>Pagamento</th>
-                    <th>Envio</th>
-                    <th>PDV</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-
-                {% for pedido in pedidos %}
-
-                <tr>
-
-
-                    <!-- PEDIDO -->
-
-                    <td>
-
-                        <span class="numero-pedido">
-
-                            #{{ pedido.number }}
-
-                        </span>
-
-                    </td>
-
-
-                    <!-- DATA -->
-
-                    <td>
-
-                        {{ pedido.created_at }}
-
-                    </td>
-
-
-                    <!-- CLIENTE -->
-
-                    <td>
-                        {{ pedido.contact_name|default:"-" }}
-                    </td>
-
-
-                    <!-- TOTAL -->
-
-                    <td>
-                        {{ pedido.total }}
-                        {{ pedido.currency }}
-                    </td>
-
-
-                    <!-- STATUS DO PEDIDO -->
-
-                    <td>
-
-                        <span
-                            class="status status-pedido"
-                        >
-
-                            {{ pedido.status_pedido_texto|default:"-" }}
-
-                        </span>
-
-                    </td>
-
-
-                    <!-- PAGAMENTO -->
-
-                    <td>
-
-                        <span
-                            class="status status-pagamento"
-                        >
-
-                            {{ pedido.status_pagamento_texto|default:"-" }}
-
-                        </span>
-
-                    </td>
-
-
-                    <!-- ENVIO -->
-
-                    <td>
-
-                        <span
-                            class="status status-envio"
-                        >
-
-                            {{ pedido.status_envio_texto|default:"-" }}
-
-                        </span>
-
-                    </td>
-                    <td>
-
-    <form
-        method="POST"
-        action="{% url 'enviar_para_pdv' pedido.id %}"
-    >
-
-        {% csrf_token %}
-
-        <button
-            type="submit"
-            class="btn-pdv"
-        >
-            Enviar para PDV
-        </button>
-
-    </form>
-
-</td>
-
-
-
-                </tr>
-
-
-                {% empty %}
-
-                <tr>
-
-                    <td
-                        colspan="8"
-                        class="empty"
-                    >
-
-                        Não existem pedidos para embalar.
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-
-            </tbody>
-
-        </table>
-
-
-    </div>
-
+    </table>
 
 </div>
 
-
 </body>
-
 </html>
