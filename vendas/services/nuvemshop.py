@@ -8,11 +8,8 @@ class NuvemshopAPI:
 
     def __init__(self):
         self.store_id = getattr(settings, "NUVEMSHOP_STORE_ID", "")
-        self.access_token = getattr(
-            settings,
-            "NUVEMSHOP_ACCESS_TOKEN",
-            "",
-        )
+        self.access_token = getattr(settings,"NUVEMSHOP_ACCESS_TOKEN","",)        
+        self.access_agent = getattr(settings,"NUVEMSHOP_USER_AGENT","",)
 
         if not self.store_id:
             raise ValueError(
@@ -28,7 +25,7 @@ class NuvemshopAPI:
     def headers(self):
         return {
             "Authorization": f"Bearer {self.access_token}",
-            "User-Agent": "Sistema de Entregas",
+            "User-Agent": f"{self.access_agent}",
             "Content-Type": "application/json",
         }
 
@@ -40,10 +37,11 @@ class NuvemshopAPI:
 
         params = {
             "per_page": 100,
+            
         }
 
         if status:
-            params["status"] = status
+            params["shipping_status"] = status
 
         response = requests.get(
             url,
@@ -77,3 +75,64 @@ class NuvemshopAPI:
         response.raise_for_status()
 
         return response.json()
+
+    def atualizar_fulfillment(
+        self,
+        pedido_id,
+        fulfillment_id,
+        status,
+        tracking_code=None,
+        tracking_url=None,
+    ):
+        """
+        Atualiza o status de um Fulfillment Order.
+        """
+
+        url = (
+            f"{self.BASE_URL}/"
+            f"{self.store_id}/orders/"
+            f"{pedido_id}/fulfillment-orders/"
+            f"{fulfillment_id}"
+        )
+
+        payload = {
+            "status": status,
+        }
+
+        if tracking_code or tracking_url:
+
+            payload["tracking_info"] = {
+                "code": tracking_code or "",
+                "url": tracking_url or "",
+            }
+
+        response = requests.patch(
+            url,
+            headers=self.headers,
+            json=payload,
+            timeout=30,
+        )
+
+
+    def listar_fulfillments(self, pedido_id):
+
+        url = (
+            f"{self.BASE_URL}/"
+            f"{self.store_id}/orders/"
+            f"{pedido_id}/fulfillment-orders"
+        )
+
+        response = requests.get(
+            url,
+            headers=self.headers,
+            timeout=30,
+        )
+
+        response.raise_for_status()
+
+        dados = response.json()
+
+        if not isinstance(dados, list):
+            return []
+
+        return dados

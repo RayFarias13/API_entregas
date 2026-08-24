@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <title>Pedidos</title>
@@ -40,6 +41,7 @@
             padding: 14px;
             border-bottom: 1px solid #ddd;
             text-align: left;
+            vertical-align: middle;
         }
 
         th {
@@ -61,19 +63,123 @@
         }
 
         .status {
-            padding: 5px 8px;
+            display: inline-block;
+            padding: 6px 10px;
             border-radius: 5px;
-            background: #eee;
+            background: #00d68f;
+            font-weight: bold;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .status-btn {
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .status-btn:hover {
+            opacity: 0.85;
+        }
+
+        .btn-aberto {
+            background: #6c757d;
+        }
+
+        .btn-embalado {
+            background: #f0ad4e;
+        }
+
+        .btn-enviado {
+            background: #007bff;
+        }
+
+        .btn-entregue {
+            background: #28a745;
+        }
+
+        .acoes {
+            white-space: nowrap;
+        }
+
+
+        /* ==========================================
+           CONTROLE DO SOM
+           ========================================== */
+
+        .som-controle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .som-btn {
+            border: none;
+            background: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .som-btn:hover {
+            opacity: 0.9;
+        }
+
+        .som-btn.desativado {
+            background: #6c757d;
+        }
+
+        #statusSom {
+            font-weight: bold;
         }
 
     </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
     <h1>Pedidos</h1>
+
+
+    <!-- ==========================================
+         CONTROLE DO SOM
+         ========================================== -->
+
+    <div class="som-controle">
+
+        <button
+            type="button"
+            id="ativarSom"
+            class="som-btn"
+        >
+            🔊 Ativar som
+        </button>
+
+        <span id="statusSom">
+            Som desativado
+        </span>
+
+    </div>
+
+
+    <!-- ==========================================
+         MENSAGENS
+         ========================================== -->
 
     {% if messages %}
 
@@ -93,20 +199,32 @@
     {% endif %}
 
 
+    <!-- ==========================================
+         TABELA DE PEDIDOS
+         ========================================== -->
+
     <table>
 
         <thead>
 
             <tr>
+
                 <th>Pedido</th>
+
                 <th>Cliente</th>
+
                 <th>Itens</th>
+
                 <th>Total</th>
+
                 <th>Status</th>
-                <th></th>
+
+                <th>Ações</th>
+
             </tr>
 
         </thead>
+
 
         <tbody>
 
@@ -114,29 +232,119 @@
 
             <tr>
 
+                <!-- PEDIDO -->
+
                 <td>
                     #{{ pedido.number }}
                 </td>
+
+
+                <!-- CLIENTE -->
 
                 <td>
                     {{ pedido.contact_name|default:"Cliente" }}
                 </td>
 
+
+                <!-- ITENS -->
+
                 <td>
                     {{ pedido.products|length }}
                 </td>
+
+
+                <!-- TOTAL -->
 
                 <td>
                     R$ {{ pedido.total }}
                 </td>
 
-                <td>
-                    <span class="status">
-                        {{ pedido.status }}
-                    </span>
-                </td>
+
+                <!-- STATUS -->
 
                 <td>
+
+                    <span class="status">
+                        {{ pedido.tipo_status }}
+                    </span>
+
+                            {% if pedido.tipo_status == "Em aberto" or pedido.tipo_status == "Por enviar" %}
+
+    <div class="status-buttons">
+
+        <!-- EM ABERTO -->
+
+        <form
+            method="post"
+            action="{% url 'atualizar_status_pedido' pedido.id %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                name="status"
+                value="UNPACKED"
+                class="status-btn btn-aberto"
+            >
+                Em aberto
+            </button>
+
+        </form>
+
+
+        <!-- EMBALADO -->
+
+        <form
+            method="post"
+            action="{% url 'atualizar_status_pedido' pedido.id %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                name="status"
+                value="PACKED"
+                class="status-btn btn-embalado"
+            >
+                Embalado
+            </button>
+
+        </form>
+
+
+        <!-- ENVIADO -->
+
+        <form
+            method="post"
+            action="{% url 'atualizar_status_pedido' pedido.id %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                name="status"
+                value="DISPATCHED"
+                class="status-btn btn-enviado"
+            >
+                Enviado
+            </button>
+
+        </form>
+
+    </div>
+
+{% endif %}
+                    </div>
+
+                </td>
+
+
+                <!-- AÇÕES -->
+
+                <td class="acoes">
 
                     <a
                         href="{% url 'conferir_pedido' pedido.id %}"
@@ -148,6 +356,7 @@
                 </td>
 
             </tr>
+
 
         {% empty %}
 
@@ -167,5 +376,207 @@
 
 </div>
 
+
+<!-- ==========================================
+     SOM DO PEDIDO
+     ========================================== -->
+
+<audio
+    id="somPedido"
+    preload="auto"
+>
+    <source
+        src="https://res.cloudinary.com/dxnrokyq9/video/upload/v1787595113/somdeavisosite.mp3"
+        type="audio/mp3"
+    >
+</audio>
+
+
+<script>
+
+    // ==========================================
+    // ATUALIZA A PÁGINA A CADA 10 MINUTOS
+    // ==========================================
+
+    setTimeout(function () {
+
+        window.location.reload();
+
+    }, 10 * 60 * 1000);
+
+
+    // ==========================================
+    // ELEMENTOS
+    // ==========================================
+
+    const botaoSom =
+        document.getElementById("ativarSom");
+
+    const statusSom =
+        document.getElementById("statusSom");
+
+    const somPedido =
+        document.getElementById("somPedido");
+
+
+    // ==========================================
+    // VERIFICA SE O SOM JÁ FOI ATIVADO
+    // ==========================================
+
+    let somAtivado =
+        localStorage.getItem("somAtivado") === "true";
+
+
+    // ==========================================
+    // ATUALIZA O BOTÃO
+    // ==========================================
+
+    function atualizarBotaoSom() {
+
+        if (somAtivado) {
+
+            statusSom.textContent =
+                "Som ativado";
+
+            botaoSom.textContent =
+                "🔊 Som ativado";
+
+            botaoSom.classList.remove(
+                "desativado"
+            );
+
+        } else {
+
+            statusSom.textContent =
+                "Som desativado";
+
+            botaoSom.textContent =
+                "🔊 Ativar som";
+
+            botaoSom.classList.add(
+                "desativado"
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // ATUALIZA O BOTÃO AO ABRIR A PÁGINA
+    // ==========================================
+
+    atualizarBotaoSom();
+
+
+    // ==========================================
+    // BOTÃO PARA ATIVAR O SOM
+    // ==========================================
+
+    botaoSom.addEventListener(
+        "click",
+        function () {
+
+            somAtivado = true;
+
+            localStorage.setItem(
+                "somAtivado",
+                "true"
+            );
+
+            atualizarBotaoSom();
+
+
+            // Testa o áudio
+
+            somPedido.currentTime = 0;
+
+            somPedido.play()
+                .then(function () {
+
+                    console.log(
+                        "Som ativado com sucesso."
+                    );
+
+                })
+                .catch(function (erro) {
+
+                    console.log(
+                        "Erro ao reproduzir som:",
+                        erro
+                    );
+
+                });
+
+        }
+    );
+
+
+    // ==========================================
+    // PEDIDOS EM ABERTO
+    // ==========================================
+
+    const pedidosEmAberto = [
+
+        {% for pedido in pedidos %}
+
+            {% if pedido.tipo_status == "Em aberto" %}
+
+                "{{ pedido.id }}",
+
+            {% endif %}
+
+        {% endfor %}
+
+    ];
+
+
+    const quantidadePedidosEmAberto =
+        pedidosEmAberto.length;
+
+
+    // ==========================================
+    // TOCA O SOM SOMENTE SE EXISTIR
+    // PEDIDO "EM ABERTO"
+    // ==========================================
+
+    if (
+        quantidadePedidosEmAberto > 0 &&
+        somAtivado
+    ) {
+
+        setTimeout(
+            function () {
+
+                somPedido.currentTime = 0;
+
+                somPedido.play()
+                    .then(function () {
+
+                        console.log(
+                            "Alerta sonoro: " +
+                            quantidadePedidosEmAberto +
+                            " pedido(s) em aberto."
+                        );
+
+                    })
+                    .catch(function (erro) {
+
+                        console.log(
+                            "Navegador bloqueou o áudio:",
+                            erro
+                        );
+
+                    });
+
+            },
+            1000
+        );
+
+    }
+
+</script>
+
 </body>
+
 </html>

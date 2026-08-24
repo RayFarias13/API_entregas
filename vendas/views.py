@@ -55,28 +55,45 @@ def obter_tipo_entrega(pedido):
     return retirar
 
 
+def tipo_status(pedido):
+    if not isinstance(pedido, dict):
+        return "erro"
+
+    shipping_status = pedido.get("shipping_status")
+
+    if not shipping_status:
+        return "Sem status"
+
+    status_map = {
+        "unpacked": "Em aberto",
+        "partially_packed": "Parcialmente Embalado",
+        "unshipped": "Por enviar",
+        "partially_fulfilled": "Parcialmente enviado",
+        "shipped": "Enviado",
+        "delivered": "Entregue",
+    }
+
+    return status_map.get(shipping_status, f"Status desconhecido: {shipping_status}")
+
+
+
+
 # ============================================================
 # LISTAR PEDIDOS
 # ============================================================
 
 @login_required
+@login_required
 def lista_pedidos(request):
 
-    status = request.GET.get(
-        "status",
-        ""
-    )
+    status = request.GET.get("status", "")
 
     api = NuvemshopAPI()
 
     try:
-
-        pedidos = api.listar_pedidos(
-            status
-        )
+        pedidos = api.listar_pedidos(status)
 
     except Exception as exc:
-
         messages.error(
             request,
             f"Erro ao consultar Nuvemshop: {exc}",
@@ -85,22 +102,17 @@ def lista_pedidos(request):
         pedidos = []
 
     # --------------------------------------------------------
-    # Adicionar informações de entrega
+    # Adicionar informações de entrega e status
     # --------------------------------------------------------
 
     for pedido in pedidos:
 
-        tipo_entrega = obter_tipo_entrega(
-            pedido
-        )
+        tipo_entrega = obter_tipo_entrega(pedido)
 
-        pedido["tipo_entrega"] = (
-            tipo_entrega
-        )
+        pedido["tipo_entrega"] = tipo_entrega
+        pedido["retirar"] = tipo_entrega == "retirada"
 
-        pedido["retirar"] = (
-            tipo_entrega == "retirada"
-        )
+        pedido["tipo_status"] = tipo_status(pedido)
 
     return render(
         request,
@@ -108,6 +120,50 @@ def lista_pedidos(request):
         {
             "pedidos": pedidos,
             "status_atual": status,
+
+        },
+    )
+
+
+
+@login_required
+def lista_pedidos_historico(request):
+
+    status = request.GET.get("status", "")
+
+    api = NuvemshopAPI()
+
+    try:
+        pedidos = api.listar_pedidos(status)
+
+    except Exception as exc:
+        messages.error(
+            request,
+            f"Erro ao consultar Nuvemshop: {exc}",
+        )
+
+        pedidos = []
+
+    # --------------------------------------------------------
+    # Adicionar informações de entrega e status
+    # --------------------------------------------------------
+
+    for pedido in pedidos:
+
+        tipo_entrega = obter_tipo_entrega(pedido)
+
+        pedido["tipo_entrega"] = tipo_entrega
+        pedido["retirar"] = tipo_entrega == "retirada"
+
+        pedido["tipo_status"] = tipo_status(pedido)
+
+    return render(
+        request,
+        "lista.html",
+        {
+            "pedidos": pedidos,
+            "status_atual": status,
+
         },
     )
 
@@ -196,8 +252,8 @@ def conferir_pedido(
     # retirar = (tipo_entrega == "retirada")
 
     # pedidoentrega = pedido.get("same_billing_and_shipping_address")
-    pedidoentrega = pedido
-    print(f'test - {pedidoentrega}')
+    # pedidoentrega = pedido
+    # print(f'test - {pedidoentrega}')
 
     # --------------------------------------------------------
     # PRODUTOS
@@ -443,6 +499,8 @@ def conferir_pedido(
     print(
         f"RETIRAR: {retirar}"
     )
+
+    print (f'tipo estatus {tipo_status}')
     print("=" * 80)
 
     # --------------------------------------------------------
@@ -482,11 +540,9 @@ def conferir_pedido(
 # ============================================================
 
 @login_required
-@require_POST
-def bipar_produto(
-    request,
-    pedido_id
-):
+# @require_POST
+def bipar_produto(request,pedido_id):
+    
 
     codigo = str(
         request.POST.get(
@@ -1380,16 +1436,9 @@ def preparar_status(
         # PEDIDO
         # ----------------------------------------------------
 
-        codigo = pedido.get(
-            "status"
-        )
+        codigo = pedido.get("status")
 
-        pedido[
-            "status_pedido_texto"
-        ] = STATUS_PEDIDO.get(
-            codigo,
-            codigo or "-"
-        )
+        pedido["status_pedido_texto"] = STATUS_PEDIDO.get(codigo,codigo or "-")
 
         # ----------------------------------------------------
         # PAGAMENTO
@@ -1399,12 +1448,7 @@ def preparar_status(
             "payment_status"
         )
 
-        pedido[
-            "status_pagamento_texto"
-        ] = STATUS_PAGAMENTO.get(
-            codigo,
-            codigo or "-"
-        )
+        pedido["status_pagamento_texto"] = STATUS_PAGAMENTO.get(codigo,codigo or "-")
 
         # ----------------------------------------------------
         # ENVIO
@@ -1414,12 +1458,7 @@ def preparar_status(
             "shipping_status"
         )
 
-        pedido[
-            "status_envio_texto"
-        ] = STATUS_ENVIO.get(
-            codigo,
-            codigo or "-"
-        )
+        pedido["status_envio_texto"] = STATUS_ENVIO.get(codigo,codigo or "-")
 
         # ----------------------------------------------------
         # TIPO ENTREGA
@@ -2555,9 +2594,7 @@ def enviar_para_pdv(
 # OBTER UF
 # ============================================================
 
-def obter_uf(
-    endereco
-):
+def obter_uf(endereco):
 
     if not isinstance(
         endereco,
@@ -2678,4 +2715,101 @@ def obter_uf(
     return mapa_ufs.get(
         uf,
         ""
+    )
+
+@login_required
+@require_POST
+def atualizar_status_pedido(
+    request,
+    pedido_id
+):
+
+    novo_status = (
+        request.POST.get("status")
+        or ""
+    ).strip().upper()
+
+    status_permitidos = {
+        "UNPACKED",
+        "PACKED",
+        "DISPATCHED",
+    }
+
+    if novo_status not in status_permitidos:
+
+        messages.error(
+            request,
+            "Status inválido."
+        )
+
+        return redirect(
+            "lista_pedidos"
+        )
+
+    api = NuvemshopAPI()
+
+    try:
+
+        fulfillments = (
+            api.listar_fulfillments(
+                pedido_id
+            )
+        )
+
+        if not fulfillments:
+
+            messages.error(
+                request,
+                "O pedido não possui Fulfillment Order."
+            )
+
+            return redirect(
+                "lista_pedidos"
+            )
+
+        # ----------------------------------------------------
+        # POR ENQUANTO:
+        # atualiza o primeiro fulfillment
+        # ----------------------------------------------------
+
+        fulfillment = fulfillments[0]
+
+        fulfillment_id = fulfillment.get(
+            "id"
+        )
+
+        if not fulfillment_id:
+
+            raise Exception(
+                "Fulfillment Order sem ID."
+            )
+
+        resultado = (
+            api.atualizar_fulfillment(
+                pedido_id=pedido_id,
+                fulfillment_id=fulfillment_id,
+                status=novo_status,
+            )
+        )
+
+        messages.success(
+            request,
+            (
+                f"Status do pedido atualizado "
+                f"para {novo_status}."
+            )
+        )
+
+    except Exception as exc:
+
+        messages.error(
+            request,
+            (
+                "Erro ao atualizar status "
+                f"na Nuvemshop: {exc}"
+            )
+        )
+
+    return redirect(
+        "lista_pedidos"
     )

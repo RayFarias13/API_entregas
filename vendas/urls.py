@@ -10,6 +10,7 @@ urlpatterns = [
 
 
      path("painel/", views.lista_pedidos, name="lista_pedidos"),
+     path("painel_historico/", views.lista_pedidos_historico, name="lista_pedidos_historico"),
      path("painel/enviar-pdv/<int:pedido_id>/",views.enviar_para_pdv,name="enviar_para_pdv"),
 
 
@@ -18,5 +19,6 @@ urlpatterns = [
     path("pedidos/<int:pedido_id>/bipar/",views.bipar_produto,name="bipar_produto",),
 
     path("pedidos/<int:pedido_id>/finalizar/",views.finalizar_conferencia,name="finalizar_conferencia",),
-
+    path(
+        "pedidos/<int:pedido_id>/status/",views.atualizar_status_pedido,name="atualizar_status_pedido",),
 ]
