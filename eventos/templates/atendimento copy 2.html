@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulário de Atendimento - Drogaria</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #eee;
+  margin: 0;
+  padding: 20px;
+  color: #111;
+  font-size: 13px;
+}
+
+.pagina {
+  background: white;
+  width: 210mm;
+  min-height: 297mm;
+  margin: auto;
+  padding: 8mm;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th {
+  border: 1px solid #555;
+  padding: 4px;
+  vertical-align: top;
+}
+
+.cabecalho {
+  height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.logos {
+  text-align: right;
+  color: #243c83;
+  font-size: 12px;
+}
+
+.campo {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #777;
+  padding: 5px 2px;
+  outline: none;
+  font-family: Arial;
+  font-size: 13px;
+  background: transparent;
+}
+
+textarea.campo {
+  resize: vertical;
+  min-height: 55px;
+  border: 1px solid #aaa;
+}
+
+select.campo {
+  border: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 3px;
+}
+
+.opcoes {
+  line-height: 2;
+}
+
+.assinatura {
+  height: 45px;
+  vertical-align: bottom;
+}
+
+.titulo {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.acoes {
+  text-align: center;
+  margin: 15px auto;
+  width: 210mm;
+}
+
+button {
+  padding: 12px 24px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.imprimir {
+  background: #2454a6;
+  color: white;
+}
+
+.limpar {
+  background: #777;
+  color: white;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 8mm;
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .pagina {
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .acoes {
+    display: none;
+  }
+
+  .campo {
+    font-size: 11px;
+  }
+
+  textarea.campo {
+    resize: none;
+  }
+
+  tr, td {
+    break-inside: avoid;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="pagina">
+<form id="atendimento">
+
+<table>
+<tr>
+<td colspan="3" class="cabecalho">
+  FORMULÁRIO DE ATENDIMENTO
+  <span class="logos">
+    Drogaria Cíntia &nbsp; | &nbsp; Drogaria Lene
+  </span>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">
+  NOME COMPLETO:
+  <input class="campo" name="nome">
+
+
+<td width="30%">
+  CPF:
+  <input class="campo" name="cpf" id="cpf_cliente" placeholder="000.000.000-00">
+</td>
+</tr>
+
+
+<tr>
+<td width="22%">
+  IDADE:
+  <input class="campo" name="idade" type="number">
+  ANOS
+</td>
+<td width="48%">
+  GÊNERO:
+  <div class="opcoes">
+    <label><input type="radio" name="genero" value="Masculino"> MASCULINO</label>
+    <label><input type="radio" name="genero" value="Feminino"> FEMININO</label>
+    <label><input type="radio" name="genero" value="Outro"> OUTRO</label>
+  </div>
+</td>
+<td width="30%">
+  TELEFONE/WHATSAPP:
+  <input class="campo" name="telefone">
+</td>
+</tr>
+
+<tr>
+<td>
+  BAIRRO/LOCALIDADE:
+  <input class="campo" name="bairro">
+</td>
+<td colspan="2">
+  VOCÊ JÁ É CLIENTE DA DROGARIA CÍNTIA/LENE?
+  <div class="opcoes">
+    <label><input type="radio" name="cliente" value="Sim"> SIM</label>
+    <label><input type="radio" name="cliente" value="Não"> NÃO</label>
+    <label><input type="radio" name="cliente" value="Primeira visita"> PRIMEIRA VISITA</label>
+  </div>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+  <div class="titulo">SERVIÇOS REALIZADOS HOJE:</div>
+  <div class="opcoes">
+    <label><input type="checkbox" name="servicos" value="Aferição de Pressão Arterial"> AFERIÇÃO DE PRESSÃO ARTERIAL</label>
+    &nbsp;&nbsp;
+    <label><input type="checkbox" name="servicos" value="Aferição de Temperatura"> AFERIÇÃO DE TEMPERATURA</label>
+    <br>
+    <label><input type="checkbox" name="servicos" value="Aferição de Frequência Cardíaca"> AFERIÇÃO DE FREQUÊNCIA CARDÍACA</label>
+    &nbsp;&nbsp;
+    <label><input type="checkbox" name="servicos" value="Aferição de Saturação de Oxigênio"> AFERIÇÃO DE SATURAÇÃO DE OXIGÊNIO</label>
+    <br>
+    <label><input type="checkbox" name="servicos" value="Aferição de Glicemia"> AFERIÇÃO DE GLICEMIA</label>
+    <br>
+    <label><input type="checkbox" name="servicos" value="Outros"> OUTROS</label>
+    <input class="campo" id="outro_servico_texto" placeholder="Especifique se marcou outros">
+  </div>
+</td>
+</tr>
+
+<tr>
+<td>
+  FAZ USO CONTÍNUO DE MEDICAMENTOS?
+  <div class="opcoes">
+    <label><input type="radio" name="medicamento" value="Sim"> SIM</label>
+    <label><input type="radio" name="medicamento" value="Não"> NÃO</label>
+  </div>
+</td>
+<td colspan="2">
+  SE SIM, QUAIS MEDICAMENTOS UTILIZA?
+  <textarea class="campo" rows="5"></textarea>
+</td>
+</tr>
+
+<tr>
+<td>
+  JÁ FAZ ACOMPANHAMENTO MÉDICO REGULAR?
+  <div class="opcoes">
+    <label><input type="radio" name="medico" value="Sim"> SIM</label>
+    <br>
+    <label><input type="radio" name="medico" value="Não"> NÃO</label>
+  </div>
+</td>
+<td colspan="2">
+  GOSTARIA DE RECEBER ORIENTAÇÕES PERSONALIZADAS OU LEMBRETES?
+  <div class="opcoes">
+    <label><input type="radio" name="orientacao" value="Sim WhatsApp"> SIM, PELO WHATSAPP</label>
+    <br>
+    <label><input type="radio" name="orientacao" value="Não"> NÃO</label>
+  </div>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+  DESEJA SER AVISADO SOBRE PROMOÇÕES E NOVIDADES DA DROGARIA CÍNTIA/LENE?
+  <div class="opcoes">
+    <label><input type="radio" name="promocoes" value="Sim"> SIM</label>
+    <label><input type="radio" name="promocoes" value="Não"> NÃO</label>
+  </div>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+  OBSERVAÇÕES OU ORIENTAÇÕES DO FARMACÊUTICO:
+  <textarea class="campo" rows="5"></textarea>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+  <div class="titulo">RESULTADO</div>
+  P.A.:
+  <input class="campo" style="display:inline;width:28%">
+  &nbsp; GLICEMIA:
+  <input class="campo" style="display:inline;width:25%">
+  <br><br>
+  TEMPERATURA:
+  <input class="campo" style="display:inline;width:25%">
+  &nbsp; OUTRO:
+  <input class="campo" style="display:inline;width:35%">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="assinatura">
+  ASSINATURA CLIENTE:
+  <input class="campo">
+</td>
+<td class="assinatura">
+  DATA:
+  <input class="campo" type="date" id="data">
+</td>
+</tr>
+
+<tr>
+<td colspan="3" class="assinatura">
+  ASSINATURA RESPONSÁVEL/CRF:
+  <input class="campo">
+</td>
+</tr>
+
+</table>
+</form>
+</div>
+
+<div class="acoes">
+  <button class="imprimir" onclick="window.print()">
+    🖨 IMPRIMIR FORMULÁRIO
+  </button>
+
+  <button type="button" style="background: #28a745; color: white;" onclick="salvarNoBanco()">
+    💾 SALVAR NO BANCO
+  </button>
+
+  <button class="limpar" onclick="limparFormulario()">
+    LIMPAR FORMULÁRIO
+  </button>
+</div>
+
+<script>
+document.getElementById("data").value =
+  new Date().toLocaleDateString("en-CA");
+
+function limparFormulario() {
+  if (confirm("Deseja realmente limpar todos os campos?")) {
+    document.getElementById("atendimento").reset();
+    document.getElementById("data").value =
+      new Date().toLocaleDateString("en-CA");
+  }
+}
+
+function salvarNoBanco() {
+    const form = document.getElementById("atendimento");
+    const formData = new FormData(form);
+    
+    // Transforma os campos normais em um objeto
+    const dados = {};
+    formData.forEach((value, key) => { 
+        // Evitamos sobrescrever o campo 'servicos' caso o FormData pegue algo vazio
+        if (key !== 'servicos') {
+            dados[key] = value; 
+        }
+    });
+
+    // 1. Capturar todos os checkboxes de serviços marcados
+    const servicosMarcados = [];
+    document.querySelectorAll('input[name="servicos"]:checked').forEach((checkbox) => {
+        servicosMarcados.push(checkbox.value);
+    });
+
+    // 2. Verificar se preencheu o campo de texto "Outros"
+    const outroTexto = document.getElementById("outro_servico_texto").value.trim();
+    if (outroTexto) {
+        servicosMarcados.push(`Outros: ${outroTexto}`);
+    }
+
+    // 3. Juntar todos os serviços em uma única string separada por vírgulas
+    dados['servicos'] = servicosMarcados.join(', ');
+
+    // Envia via Fetch API para a rota do Django
+    fetch('/salvar-atendimento/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'sucesso') {
+            alert('Atendimento salvo com sucesso!');
+        } else {
+            alert('Erro ao salvar: ' + data.mensagem);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro de conexão ao salvar.');
+    });
+}
+
+</script>
+
+</body>
+</html>

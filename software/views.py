@@ -90,6 +90,11 @@ def board_administrativo(request):
 
     return render(request, 'boardadministrativo.html', {'kanban': kanban})
 
+
+@login_required
+def baseview(request):
+    return render(request,'base.html')
+
 #kaban - motoboy
 @login_required
 def board_motoboy(request):
@@ -430,7 +435,7 @@ def login_view(request):
                                 
                 elif user.funcionario.funcao in ['GERENTE', 'ADMINISTRATIVO', 'S. GERENTE', 'OP. DE CAIXA']:
                     login(request, user)
-                    return redirect('boardadministrativo')
+                    return redirect('base')
                 
                 elif user.is_staff:  # para usuários admin do Django sem perfil de funcionário
                     login(request, user)

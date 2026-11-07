@@ -8122,3 +8122,186 @@ Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 11664
 Not Found: /favicon.ico
 "GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11736
+Internal Server Error: /base/
+Traceback (most recent call last):
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/utils/deprecation.py", line 444, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/middleware/clickjacking.py", line 27, in process_response
+    if response.get("X-Frame-Options") is not None:
+       ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /base/ HTTP/1.1" 500 77962
+Internal Server Error: /base/
+Traceback (most recent call last):
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/utils/deprecation.py", line 444, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/middleware/clickjacking.py", line 27, in process_response
+    if response.get("X-Frame-Options") is not None:
+       ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /base/ HTTP/1.1" 500 78099
+Not Found: /ba
+"GET /ba HTTP/1.1" 404 11960
+Internal Server Error: /base/
+Traceback (most recent call last):
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/utils/deprecation.py", line 444, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ataray/Documentos/API_entregas/ambientevirtual/lib/python3.12/site-packages/django/middleware/clickjacking.py", line 27, in process_response
+    if response.get("X-Frame-Options") is not None:
+       ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /base/ HTTP/1.1" 500 77962
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11987
+Not Found: /bas
+"GET /bas HTTP/1.1" 404 11963
+Not Found: /eventos/
+"GET /eventos/ HTTP/1.1" 404 12132
+Not Found: /atendimentos/
+"GET /atendimentos/ HTTP/1.1" 404 12559
+Not Found: /atendimentos/atendimento
+"GET /atendimentos/atendimento HTTP/1.1" 404 12592
+Not Found: /atendimentos/atendimento/
+"GET /atendimentos/atendimento/ HTTP/1.1" 404 12595
+Not Found: /atendimentos/atendimento
+"GET /atendimentos/atendimento HTTP/1.1" 404 12592
+Not Found: /aatendimento/
+"GET /aatendimento/ HTTP/1.1" 404 12147
+Not Found: /atendimento/
+"GET /atendimento/ HTTP/1.1" 404 12556
+Not Found: /atendimento atedimento/
+"GET /atendimento%20atedimento/ HTTP/1.1" 404 12591
+Not Found: /atendimento atendimento/
+"GET /atendimento%20atendimento/ HTTP/1.1" 404 12594
+Not Found: /atendimento/atendimento/
+"GET /atendimento/atendimento/ HTTP/1.1" 404 12592
+Not Found: /atendimento/atendimento/
+"GET /atendimento/atendimento/ HTTP/1.1" 404 12592
+Not Found: /atendimento/atendimento/
+"GET /atendimento/atendimento/ HTTP/1.1" 404 12592
+Not Found: /atendimento
+"GET /atendimento HTTP/1.1" 404 12553
+Not Found: /atendimento
+"GET /atendimento HTTP/1.1" 404 12554
+"GET /static/img/logo_lene.png HTTP/1.1" 404 1918
+"GET /static/img/logo_cintia.png HTTP/1.1" 404 1924
+"GET /static/img/logo_lene.png HTTP/1.1" 404 1918
+"GET /static/img/logo_cintia.png HTTP/1.1" 404 1924
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/img/cintia.png HTTP/1.1" 404 1909
+"GET /static/software/img/cintia.png HTTP/1.1" 404 1936
+"GET /static/img/image.png HTTP/1.1" 404 1906
+"GET /static/software/img/cintia.png HTTP/1.1" 404 1936
+"GET /static/img/image.png HTTP/1.1" 404 1906
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /buscar-cliente/
+"GET /buscar-cliente/?cpf=05122403376 HTTP/1.1" 404 12169
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /buscar-cliente/
+"GET /buscar-cliente/?cpf=05122403376 HTTP/1.1" 404 12169
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12252
+Not Found: /salvar-atendimento/
+"POST /salvar-atendimento/ HTTP/1.1" 404 12166
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12252
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /atendimento/salvar-atendimento/
+"POST /atendimento/salvar-atendimento/ HTTP/1.1" 404 12897
+Not Found: /atendimento/salvar-atendimento/
+"POST /atendimento/salvar-atendimento/ HTTP/1.1" 404 12897
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12938
+Not Found: /atendimento/buscar-cliente/
+"GET /atendimento/buscar-cliente/?cpf=051224033 HTTP/1.1" 404 12898
+Not Found: /atendimento/salvar-atendimento/
+"POST /atendimento/salvar-atendimento/ HTTP/1.1" 404 12897
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /eventos/
+"GET /eventos/ HTTP/1.1" 404 12133
+Not Found: /atendimento/
+"GET /atendimento/ HTTP/1.1" 404 12841
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /atendimento/ate
+"GET /atendimento/ate HTTP/1.1" 404 12850
+Not Found: /atendimento/busca-cliente
+"GET /atendimento/busca-cliente HTTP/1.1" 404 12880
+Not Found: /atendimento/busca-cliente/
+"GET /atendimento/busca-cliente/ HTTP/1.1" 404 12883
+Not Found: /atendimento/
+"GET /atendimento/ HTTP/1.1" 404 12841
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12253
+Not Found: /atendimento/atendimento/static/img/cintia.png
+"GET /atendimento/atendimento/static/img/cintia.png HTTP/1.1" 404 12940
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12253

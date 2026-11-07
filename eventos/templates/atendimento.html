@@ -1,0 +1,754 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulário de Atendimento - Drogaria Cíntia / Lene</title>
+
+<style>
+- {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eee;
+    margin: 0;
+    padding: 15px;
+    color: #111;
+    font-size: 10px;
+}
+
+.pagina {
+    background: white;
+    width: 297mm;
+    min-height: 210mm;
+    margin: auto;
+    padding: 6mm;
+    display: grid;
+    grid-template-columns: 54% 46%;
+    gap: 5mm;
+}
+
+/* PAINÉIS */
+
+.painel {
+    min-width: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+td, th {
+    border: 1px solid #555;
+    padding: 3px;
+    vertical-align: top;
+}
+
+.cabecalho {
+    height: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.logos {
+    float: right;
+    color: #243c83;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.campo {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #888;
+    padding: 3px 2px;
+    outline: none;
+    font-family: Arial;
+    font-size: 10px;
+    background: transparent;
+}
+
+textarea.campo {
+    resize: none;
+    min-height: 35px;
+    border: 1px solid #aaa;
+}
+
+.opcoes {
+    line-height: 1.8;
+}
+
+.opcoes label {
+    white-space: nowrap;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin: 0 2px;
+    vertical-align: middle;
+}
+
+.titulo {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.assinatura {
+    height: 35px;
+    vertical-align: bottom;
+}
+
+.resultado {
+    height: 48px;
+}
+
+.resultado input {
+    display: inline-block;
+    width: 25%;
+}
+
+.linha-servicos {
+    line-height: 1.8;
+}
+
+/* TABELA DE CONTROLE */
+
+.titulo-controle {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 7px;
+    border: 1px solid #555;
+}
+
+.controle {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tabela-controle {
+    flex: 1;
+}
+
+.tabela-controle th {
+    text-align: center;
+    font-size: 8px;
+    vertical-align: middle;
+    height: 28px;
+    background: #f3f3f3;
+}
+
+.tabela-controle td {
+    height: 9mm;
+    padding: 2px;
+}
+
+.tabela-controle .col-pa {
+    width: 12%;
+}
+
+.tabela-controle .col-fc {
+    width: 10%;
+}
+
+.tabela-controle .col-glicemia {
+    width: 14%;
+}
+
+.tabela-controle .col-temp {
+    width: 11%;
+}
+
+.tabela-controle .col-spo {
+    width: 10%;
+}
+
+.tabela-controle .col-local {
+    width: 19%;
+}
+
+.tabela-controle .col-assinatura {
+    width: 24%;
+}
+
+.legenda {
+    border: 1px solid #555;
+    border-top: none;
+    padding: 5px;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+/* BOTÕES */
+
+.acoes {
+    text-align: center;
+    margin: 15px auto;
+}
+
+button {
+    padding: 12px 22px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.imprimir {
+    background: #2454a6;
+    color: white;
+}
+
+.salvar {
+    background: #28a745;
+    color: white;
+}
+
+.limpar {
+    background: #777;
+    color: white;
+}
+
+/* IMPRESSÃO */
+
+@page {
+    size: A4 landscape;
+    margin: 5mm;
+}
+
+@media print {
+
+    body {
+        background: white;
+        padding: 0;
+        margin: 0;
+        font-size: 8px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .pagina {
+        width: 287mm;
+        height: 200mm;
+        min-height: 0;
+        padding: 0;
+        margin: 0;
+        gap: 4mm;
+        grid-template-columns: 54% 46%;
+        overflow: hidden;
+    }
+
+    .campo {
+        font-size: 8px;
+        padding: 2px;
+    }
+
+    .cabecalho {
+        font-size: 11px;
+    }
+
+    .logos {
+        font-size: 9px;
+    }
+
+    td, th {
+        padding: 2px;
+    }
+
+    .acoes {
+        display: none !important;
+    }
+
+    textarea.campo {
+        resize: none;
+    }
+
+    .tabela-controle td {
+        height: 9mm;
+    }
+
+    input, textarea, select {
+        color: black;
+    }
+
+    tr {
+        break-inside: avoid;
+    }
+}
+.logos img {
+    max-height: 25px; /* Controla a altura da logo para caber perfeitamente na linha */
+    width: auto;
+    object-fit: contain;
+}
+
+@media print {
+    .logos img {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="pagina">
+
+<!-- ================================= -->
+<!-- PRIMEIRA PARTE: ATENDIMENTO -->
+<!-- ================================= -->
+
+<div class="painel">
+
+<form id="atendimento">
+
+<table>
+
+<!-- No topo do arquivo HTML, garanta que você carregou os arquivos estáticos se necessário, ou use o caminho direto -->
+<tr>
+<td colspan="3" class="cabecalho">
+    FORMULÁRIO DE ATENDIMENTO
+
+    <span class="logos">
+        <!-- Substitua pelo caminho real das suas imagens -->
+        <img src="static/img/cintia.png" alt="Drogaria Cíntia">        &nbsp;|&nbsp;
+        <img src="/static/img/image.png" alt="Drogaria Lene" style="height: 25px; vertical-align: middle; margin-left: 5px;">
+    </span>
+</td>
+</tr>
+
+<!-- ADICIONADO CAMPO CPF E NOME NA MESMA LINHA -->
+<tr>
+<td width="35%">
+    CPF:
+    <input class="campo" name="cpf" id="busca_cpf" placeholder="000.000.000-00" onblur="buscarClientePorCpf()">
+</td>
+<td colspan="2" width="65%">
+    NOME COMPLETO:
+    <input class="campo" name="nome" id="nome_cliente" required>
+</td>
+</tr>
+
+<tr>
+
+<td width="22%">
+    IDADE:
+    <input class="campo" name="idade" id="idade_cliente" type="number" min="0">
+    ANOS
+</td>
+
+<td width="48%">
+    GÊNERO:
+    <div class="opcoes">
+        <label><input type="radio" name="genero" value="Masculino" id="gen_masc"> MASCULINO</label>
+        <label><input type="radio" name="genero" value="Feminino" id="gen_fem"> FEMININO</label>
+        <label><input type="radio" name="genero" value="Outro" id="gen_outro"> OUTRO</label>
+    </div>
+</td>
+
+<td width="30%">
+    TELEFONE/WHATSAPP:
+    <input class="campo" name="telefone" id="telefone_cliente" type="tel">
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    BAIRRO/LOCALIDADE:
+    <input class="campo" name="bairro" id="bairro_cliente">
+</td>
+
+<td colspan="2">
+    VOCÊ JÁ É CLIENTE DA DROGARIA CÍNTIA/LENE?
+    <div class="opcoes">
+        <label><input type="radio" name="cliente" value="Sim"> SIM</label>
+        <label><input type="radio" name="cliente" value="Não"> NÃO</label>
+        <label><input type="radio" name="cliente" value="Primeira visita"> PRIMEIRA VISITA</label>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+<td colspan="3">
+
+    <div class="titulo">SERVIÇOS REALIZADOS HOJE:</div>
+
+    <div class="linha-servicos">
+
+        <label>
+            <input type="checkbox" name="servicos" value="Aferição de Pressão Arterial">
+            AFERIÇÃO DE PRESSÃO ARTERIAL
+        </label>
+        &nbsp;
+        <label>
+            <input type="checkbox" name="servicos" value="Aferição de Temperatura">
+            AFERIÇÃO DE TEMPERATURA
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="servicos" value="Aferição de Frequência Cardíaca">
+            AFERIÇÃO DE FREQUÊNCIA CARDÍACA
+        </label>
+        &nbsp;
+        <label>
+            <input type="checkbox" name="servicos" value="Aferição de Saturação de Oxigênio">
+            AFERIÇÃO DE SATURAÇÃO DE OXIGÊNIO
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="servicos" value="Aferição de Glicemia">
+            AFERIÇÃO DE GLICEMIA
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="outrosServico" name="servicos" value="Outros">
+            OUTROS:
+        </label>
+        <input class="campo" id="outro_servico_texto" placeholder="Especifique">
+
+    </div>
+
+</td>
+</tr>
+
+<tr>
+
+<td>
+    FAZ USO CONTÍNUO DE MEDICAMENTOS?
+    <div class="opcoes">
+        <label><input type="radio" name="medicamento" value="Sim" id="med_sim"> SIM</label>
+        <label><input type="radio" name="medicamento" value="Não" id="med_nao"> NÃO</label>
+    </div>
+</td>
+
+<td colspan="2">
+    SE SIM, QUAIS MEDICAMENTOS UTILIZA?
+    <textarea class="campo" name="medicamentos" id="quais_medicamentos" rows="3"></textarea>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    JÁ FAZ ACOMPANHAMENTO MÉDICO REGULAR?
+    <div class="opcoes">
+        <label><input type="radio" name="medico" value="Sim"> SIM</label>
+        <br>
+        <label><input type="radio" name="medico" value="Não"> NÃO</label>
+    </div>
+</td>
+
+<td colspan="2">
+    GOSTARIA DE RECEBER ORIENTAÇÕES PERSONALIZADAS OU LEMBRETES?
+    <div class="opcoes">
+        <label><input type="radio" name="orientacao" value="Sim WhatsApp"> SIM, PELO WHATSAPP</label>
+        <br>
+        <label><input type="radio" name="orientacao" value="Não"> NÃO</label>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+<td colspan="3">
+    DESEJA SER AVISADO SOBRE PROMOÇÕES E NOVIDADES DA DROGARIA CÍNTIA/LENE?
+    <div class="opcoes">
+        <label><input type="radio" name="promocoes" value="Sim"> SIM</label>
+        <label><input type="radio" name="promocoes" value="Não"> NÃO</label>
+    </div>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+    OBSERVAÇÕES OU ORIENTAÇÕES DO FARMACÊUTICO:
+    <textarea class="campo" name="observacoes" rows="3"></textarea>
+</td>
+</tr>
+
+<tr>
+<td colspan="3" class="resultado">
+    <div class="titulo">RESULTADO</div>
+    P.A.:
+    <input class="campo" name="pressao">
+    &nbsp; GLICEMIA:
+    <input class="campo" name="glicemia">
+    <br><br>
+    TEMPERATURA:
+    <input class="campo" name="temperatura">
+    &nbsp; OUTRO:
+    <input class="campo" name="outro_resultado">
+</td>
+</tr>
+
+<tr>
+
+<td colspan="2" class="assinatura">
+    ASSINATURA CLIENTE:
+    <input class="campo" name="assinatura_cliente">
+</td>
+
+<td class="assinatura">
+    DATA:
+    <input class="campo" type="date" name="data" id="data">
+    <br>
+</td>
+
+</tr>
+
+<tr>
+<td colspan="3" class="assinatura">
+    ASSINATURA RESPONSÁVEL/CRF:
+    <input class="campo" name="responsavel_crf">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+</div>
+
+
+<!-- ================================= -->
+<!-- SEGUNDA PARTE: CONTROLE MANUAL -->
+<!-- ================================= -->
+
+<div class="painel controle">
+
+    <div class="titulo-controle">
+        CONTROLE DE PRESSÃO ARTERIAL E GLICEMIA
+    </div>
+
+    <table class="tabela-controle">
+        <colgroup>
+            <col class="col-pa">
+            <col class="col-fc">
+            <col class="col-glicemia">
+            <col class="col-temp">
+            <col class="col-spo">
+            <col class="col-local">
+            <col class="col-assinatura">
+        </colgroup>
+
+        <thead>
+            <tr>
+                <th>PA<br>mmHg</th>
+                <th>FC<br>bpm</th>
+                <th>GLICEMIA<br>mg/dL</th>
+                <th>TEMP.<br>°C</th>
+                <th>SpO₂<br>%</th>
+                <th>LOCAL / DATA</th>
+                <th>ASSINATURA DO RESPONSÁVEL / CRF
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+    </table>
+
+    <div class="legenda">
+        <strong>LEGENDA:</strong><br>
+        PA = PRESSÃO ARTERIAL &nbsp; | &nbsp;
+        FC = FREQUÊNCIA CARDÍACA<br>
+        SpO₂ = SATURAÇÃO DE OXIGÊNIO
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- ================================= -->
+<!-- BOTÕES -->
+<!-- ================================= -->
+
+<div class="acoes">
+    <button type="button" class="imprimir" onclick="window.print()">
+        🖨 IMPRIMIR FORMULÁRIO
+    </button>
+
+    <button type="button" class="salvar" onclick="salvarNoBanco()">
+        💾 SALVAR NO BANCO
+    </button>
+
+    <button type="button" class="limpar" onclick="limparFormulario()">
+        LIMPAR FORMULÁRIO
+    </button>
+</div>
+
+
+<script>
+
+// DATA ATUAL
+function dataAtual() {
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+}
+
+document.getElementById("data").value = dataAtual();
+
+
+// LIMPAR FORMULÁRIO
+function limparFormulario() {
+    if (confirm("Deseja realmente limpar todos os campos?")) {
+        document.getElementById("atendimento").reset();
+        document.getElementById("data").value = dataAtual();
+    }
+}
+
+
+// OBTER CSRF TOKEN DO DJANGO
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+// BUSCAR CLIENTE PELO CPF
+async function buscarClientePorCpf() {
+    const cpfInput = document.getElementById("busca_cpf").value.trim();
+    if (!cpfInput) return;
+
+    try {
+        const resposta = await fetch(`/atendimento/buscar-cliente/?cpf=${encodeURIComponent(cpfInput)}`, {
+            method: "GET",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            }
+        });
+
+        const resultado = await resposta.json();
+
+        if (resultado.encontrado) {
+            // Preenche os campos automaticamente com os dados do último atendimento
+            document.getElementById("nome_cliente").value = resultado.nome || "";
+            document.getElementById("idade_cliente").value = resultado.idade || "";
+            document.getElementById("telefone_cliente").value = resultado.telefone || "";
+            document.getElementById("bairro_cliente").value = resultado.bairro || "";
+            document.getElementById("quais_medicamentos").value = resultado.quais_medicamentos || "";
+
+            if (resultado.genero === "Masculino") document.getElementById("gen_masc").checked = true;
+            if (resultado.genero === "Feminino") document.getElementById("gen_fem").checked = true;
+            if (resultado.genero === "Outro") document.getElementById("gen_outro").checked = true;
+
+            if (resultado.medicamento === "Sim") document.getElementById("med_sim").checked = true;
+            if (resultado.medicamento === "Não") document.getElementById("med_nao").checked = true;
+
+            alert("Cliente encontrado! Dados anteriores carregados com sucesso.");
+        }
+    } catch (erro) {
+        console.error("Erro ao buscar cliente:", erro);
+    }
+}
+
+
+// SALVAR NO BANCO DE DADOS
+async function salvarNoBanco() {
+    const form = document.getElementById("atendimento");
+
+    if (!form.reportValidity()) {
+        return;
+    }
+
+    const formData = new FormData(form);
+    const dados = {};
+
+    formData.forEach((value, key) => {
+        if (key !== "servicos") {
+            dados[key] = value;
+        }
+    });
+
+    // SERVIÇOS MARCADOS
+    const servicosMarcados = [];
+    document.querySelectorAll('input[name="servicos"]:checked').forEach((checkbox) => {
+        if (checkbox.value !== "Outros") {
+            servicosMarcados.push(checkbox.value);
+        }
+    });
+
+    // OUTROS SERVIÇOS
+    const outroTexto = document.getElementById("outro_servico_texto").value.trim();
+    if (outroTexto) {
+        servicosMarcados.push("Outros: " + outroTexto);
+    }
+
+    dados["servicos"] = servicosMarcados;
+
+    // ENVIO PARA DJANGO
+    try {
+        const resposta = await fetch("/atendimento/salvar-atendimento/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            credentials: "same-origin",
+            body: JSON.stringify(dados)
+        });
+
+        const resultado = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(resultado.mensagem || "Erro ao salvar atendimento.");
+        }
+
+        if (resultado.status === "sucesso") {
+            alert("Atendimento salvo com sucesso!");
+        } else {
+            alert("Erro ao salvar: " + (resultado.mensagem || "Verifique os dados."));
+        }
+
+    } catch (erro) {
+        console.error("Erro:", erro);
+        alert("Não foi possível salvar o atendimento: " + erro.message);
+    }
+}
+
+</script>
+
+</body>
+</html>

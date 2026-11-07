@@ -11,5 +11,7 @@ urlpatterns = [
     path("api/", include("receptor.urls")),
     path('api/token/',obtain_auth_token, name='api_token_auth'),  # endpoint para obter o token
     path('vendas/',include("vendas.urls")),
+    path("atendimento/",include("eventos.urls")),
+
 ]
 
