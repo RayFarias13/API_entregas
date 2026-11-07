@@ -1,6 +1,9 @@
 from decimal import Decimal
+import os
+import os
 from urllib import request
 from dateutil.relativedelta import relativedelta
+from django.contrib.sites import requests
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -835,6 +838,20 @@ def perfil_motoboy(request):
         'motoboy_id': e.funcionario # Útil para o gerente identificar
     } for e in ultimas_entregas]
 
+
+
+    #pontuacao
+    filtros_entrega2 = {
+            'data_cadastro__month': mes_atual,
+            'data_cadastro__year': ano_atual
+        }
+    if funcao == 'ENTREGADOR':
+            filtros_entrega2['usermotoboy'] = perfil.cd_usu
+    
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+        total=Sum('Bonificacao')
+    )['total'] or 0
+
     return render(request, 'perfilmotoboy.html', {
         'funcionario': perfil,
         'total_entregas_mes': total_entregas_mes,
@@ -842,6 +859,7 @@ def perfil_motoboy(request):
         'pontuacao': total_entregas_mes,
         'ultimas_entregas': entregas_formatadas,
         'e_gestor': e_gestor,
+        'total_pontuacao_mes': total_pontuacao_mes
     })
 
 # ─────────────────────────────────────────
@@ -1742,3 +1760,129 @@ def historico_geral_entregas_gerente(request):
         'meses_disponiveis': meses_disponiveis,
         'total_geral': entregas.count(),
     })
+    
+    
+    
+#pontuacao do motoboy2
+def motoboy_pontuacao2(request):
+    try:
+        funcionario = request.user.funcionario
+        if funcionario.funcao != 'ENTREGADOR':
+            return redirect('boardadministrativo')
+    except AttributeError:
+        return redirect('login')
+ 
+    hoje = timezone.now().date()
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+ 
+    total_geral  = EntregaFinalizada.objects.filter(usermotoboy=request.user).count()
+    total_mes    = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__year=hoje.year,
+        data_hora_entrega__month=hoje.month,
+    ).count()
+    total_semana = EntregaFinalizada.objects.filter(
+        usermotoboy=request.user,
+        data_hora_entrega__date__gte=inicio_semana,
+    ).count()
+ 
+    # Histórico por mês (últimos 2 meses)
+    por_mes = []
+    max_mes = 0
+    for i in range(2):
+        d = (hoje.replace(day=1) - datetime.timedelta(days=i * 28)).replace(day=1)
+        total = EntregaFinalizada.objects.filter(
+            usermotoboy=request.user,
+            data_hora_entrega__year=d.year,
+            data_hora_entrega__month=d.month,
+        ).count()
+        por_mes.append({
+            'label': d.strftime('%B/%Y').capitalize(),
+            'total': total,
+            'pct': 0,
+        })
+        if total > max_mes:
+            max_mes = total
+ 
+    # Calcula porcentagem para barra de progresso
+    for m in por_mes:
+        m['pct'] = round((m['total'] / max_mes) * 100) if max_mes > 0 else 0
+ 
+    return render(request, 'motoboy_pontuacao.html', {
+        'total_geral': total_geral,
+        'total_mes': total_mes,
+        'total_semana': total_semana,
+        'por_mes': por_mes,
+    })
+
+
+# ─────────────────────────────────────────
+# HISTÓRICO DE PONTUAÇÃO
+# ─────────────────────────────────────────
+@login_required
+def motoboy_historico_pontuacao(request):
+  try:
+    funcionario = request.user.funcionario
+    if funcionario.funcao != 'ENTREGADOR':
+      return redirect('boardadministrativo')
+  except AttributeError:
+    return redirect('login')
+
+  hoje = timezone.now().date()
+
+  # Meses disponíveis
+  meses_disponiveis = []
+  for i in range(3):
+    d = (hoje.replace(day=1) - timedelta(days=i * 28)).replace(day=1)
+    meses_disponiveis.append({
+        'value': d.strftime('%Y-%m'),
+        'label': d.strftime('%B/%Y').capitalize(),
+    })
+
+  mes_selecionado = request.GET.get('mes', hoje.strftime('%Y-%m'))
+
+  try:
+    ano, mes = map(int, mes_selecionado.split('-'))
+  except ValueError:
+    ano, mes = hoje.year, hoje.month
+
+  # Filtrando usando o novo campo DateTimeField
+  registros_qs = PontuacaoMotoboy.objects.filter(
+      usermotoboy=request.user,
+      data_cadastro__year=ano,
+      data_cadastro__month=mes,
+  ).order_by('-data_cadastro')
+
+  # Montando a lista de registros para o template
+  registros = []
+  for r in registros_qs:
+    registros.append({
+        'data': r.data_cadastro.strftime('%d/%m/%Y'),
+        'nome_entregador': r.NomeEntregador,
+        'valor_medio': round(r.Valor_medio_das_entregas, 2),
+        'coluna1': r.Coluna1,
+        'bonificacao': r.Bonificacao,
+        'percentual': round(r.percentual_bonificacao, 2),
+    })
+
+  # Totais do mês
+  totais = registros_qs.aggregate(
+      total_bonificacao=Sum('Bonificacao'),
+    #   total_coluna1=Sum('Coluna1'),
+  )
+
+  return render(
+      request,
+      'motoboy_pontuacao1.html',
+      {
+          'registros': registros,
+          'meses_disponiveis': meses_disponiveis,
+          'mes_selecionado': mes_selecionado,
+          'total_bonificacao': totais['total_bonificacao'] or 0,
+        #   'total_coluna1': totais['total_coluna1'] or 0,
+      },
+  )
+  
+  
+  
+ 

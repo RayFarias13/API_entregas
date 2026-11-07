@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Pedidos</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #222;
+            color: white;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .status {
+            padding: 5px 8px;
+            border-radius: 5px;
+            background: #eee;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Pedidos</h1>
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div style="
+                padding: 12px;
+                margin-bottom: 10px;
+                background: #fff;
+                border-radius: 6px;
+            ">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Pedido</th>
+                <th>Cliente</th>
+                <th>Itens</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for pedido in pedidos %}
+
+            <tr>
+
+                <td>
+                    #{{ pedido.number }}
+                </td>
+
+                <td>
+                    {{ pedido.contact_name|default:"Cliente" }}
+                </td>
+
+                <td>
+                    {{ pedido.products|length }}
+                </td>
+
+                <td>
+                    R$ {{ pedido.total }}
+                </td>
+
+                <td>
+                    <span class="status">
+                        {{ pedido.status }}
+                    </span>
+                </td>
+
+                <td>
+
+                    <a
+                        href="{% url 'conferir_pedido' pedido.id %}"
+                        class="btn"
+                    >
+                        Abrir pedido
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="6">
+                    Nenhum pedido encontrado.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

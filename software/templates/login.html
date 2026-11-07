@@ -1,833 +1,1138 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
-<title>Login</title>
+    <!-- FONTE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
 
-<style>
+        /* =========================================================
+           RESET
+        ========================================================= */
 
-:root{
-    --bg1:#0f172a;
-    --bg2:#111827;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    --primary:#00d4ff;
-    --secondary:#7c3aed;
 
-    --glass:rgba(255,255,255,.07);
-    --border:rgba(255,255,255,.12);
+        /* =========================================================
+           BODY
+        ========================================================= */
 
-    --text:#ffffff;
-    --muted:#94a3b8;
+        body {
+            font-family: 'Inter', Arial, sans-serif;
 
-    --danger:#ef4444;
-    --success:#22c55e;
-}
+            min-height: 100vh;
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-body {
-    font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            padding: 25px;
 
-    overflow-x: hidden;
-    overflow-y: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
 
-    padding: 30px;
+            position: relative;
 
-    position: relative;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #ffffff 0%,
+                    #f7f7f7 30%,
+                    #e9e9e9 60%,
+                    #d0d0d0 100%
+                );
+        }
 
-    background: linear-gradient(
-        270deg,
-        #38bdf8,
-        #60a5fa,
-        #a78bfa,
-        #22d3ee,
-        #0ea5e9
-    );
 
-    background-size: 400% 400%;
-    animation: bgAnimation 10s ease infinite;
-}
-@keyframes bgAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-/* BACKGROUND */
+        /* =========================================================
+           LUZ CENTRAL
+        ========================================================= */
 
-body::before{
-    content:'';
+        body::before {
+            content: "";
 
-    position:absolute;
+            position: fixed;
 
-    width:400px;
-    height:400px;
+            width: 700px;
+            height: 700px;
 
-    background:rgba(0,212,255,.12);
+            border-radius: 50%;
 
-    border-radius:50%;
+            background:
+                rgba(255, 255, 255, .8);
 
-    filter:blur(90px);
+            filter: blur(110px);
 
-    top:-150px;
-    left:-120px;
-}
+            top: 50%;
+            left: 50%;
 
-body::after{
-    content:'';
+            transform:
+                translate(-50%, -50%);
 
-    position:absolute;
+            pointer-events: none;
 
-    width:400px;
-    height:400px;
+            z-index: 0;
+        }
 
-    background:rgba(124,58,237,.14);
 
-    border-radius:50%;
+        /* =========================================================
+           SEGUNDA LUZ
+        ========================================================= */
 
-    filter:blur(90px);
+        body::after {
+            content: "";
 
-    bottom:-180px;
-    right:-120px;
-}
+            position: fixed;
 
-/* CARD */
-.login-container{
-    width:100%;
-    max-width:430px;
-    text-decoration-color: #0b1120;
-    padding:42px;
+            width: 350px;
+            height: 350px;
 
-    border-radius:32px;
+            border-radius: 50%;
 
-    /* cor estática azul clara */
-    background: #044a96;
+            background:
+                rgba(25, 118, 210, .08);
 
-    border:1px solid #000508;
+            filter: blur(90px);
 
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
+            top: 10%;
+            right: 10%;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.25),
-    inset 0 1px 1px rgba(255,255,255,.4);
+            pointer-events: none;
 
-    position:relative;
-    z-index:10;
-    animation:fadeUp .8s ease;
+            z-index: 0;
+        }
 
-}
 
-@keyframes fadeUp{
+        /* =========================================================
+           CONTAINER PRINCIPAL
+        ========================================================= */
 
-    from{
-        opacity:0;
-        transform:
-        translateY(30px)
-        scale(.96);
-    }
+        .login-container {
+            width: 520px;
+            height: 520px;
 
-    to{
-        opacity:1;
-        transform:
-        translateY(0)
-        scale(1);
-    }
+            max-width: 92vw;
+            max-height: 92vw;
 
-}
+            border-radius: 50%;
 
-/* ROBOT */
+            position: relative;
+            z-index: 10;
 
-.robot{
-    width:140px;
-    height:140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-    margin:0 auto 30px;
+            padding: 85px;
 
-    position:relative;
-}
+            border: 8px solid #1976d2;
 
-.head{
-    width:140px;
-    height:140px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #f4f4f4 0%,
+                    #e7e7e7 45%,
+                    #d7d7d7 100%
+                );
 
-    border-radius:38px;
+            box-shadow:
 
-    background:
-    linear-gradient(
-    145deg,
-    #1e293b,
-    #0f172a
-    );
+                0 25px 55px
+                rgba(0, 0, 0, .25),
 
-    border:1px solid rgba(255,255,255,.08);
+                0 0 0 3px
+                rgba(255, 255, 255, .9),
 
-    position:relative;
+                inset 0 3px 5px
+                rgba(255, 255, 255, .9),
 
-    overflow:hidden;
+                inset 0 -18px 30px
+                rgba(0, 0, 0, .08);
 
-    box-shadow:
-    inset -10px -10px 20px rgba(0,0,0,.4),
-    inset 10px 10px 20px rgba(255,255,255,.03);
-}
+            animation:
+                loginAppear .7s ease forwards;
+        }
 
-.head::before{
-    content:'';
 
-    position:absolute;
+        /* =========================================================
+           BORDA INTERNA
+        ========================================================= */
 
-    width:180px;
-    height:50px;
+        .login-container::before {
+            content: "";
 
-    background:rgba(255,255,255,.05);
+            position: absolute;
 
-    transform:rotate(-30deg);
+            inset: 8px;
 
-    top:-20px;
-    left:-40px;
-}
+            border-radius: 50%;
 
-/* EYES */
+            border:
+                1px solid
+                rgba(255, 255, 255, .95);
 
-.eyes{
-    width:100%;
+            pointer-events: none;
+        }
 
-    display:flex;
-    justify-content:center;
-    gap:24px;
 
-    position:absolute;
-    top:50px;
-}
+        /* =========================================================
+           BRILHO SUPERIOR
+        ========================================================= */
 
-.eye{
-    width:34px;
-    height:34px;
+        .login-container::after {
+            content: "";
 
-    background:#0b1120;
+            position: absolute;
 
-    border-radius:50%;
+            width: 65%;
+            height: 25%;
 
-    position:relative;
+            top: 8%;
+            left: 17%;
 
-    overflow:hidden;
+            border-radius: 50%;
 
-    border:2px solid rgba(255,255,255,.08);
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,.35),
+                    transparent
+                );
 
-    transition:.15s;
-}
+            filter: blur(10px);
 
-.pupil{
-    width:16px;
-    height:16px;
+            pointer-events: none;
+        }
 
-    border-radius:50%;
 
-    background:
-    linear-gradient(
-    135deg,
-    #00d4ff,
-    #38bdf8
-    );
+        /* =========================================================
+           ANIMAÇÃO
+        ========================================================= */
 
-    position:absolute;
+        @keyframes loginAppear {
+            from {
+                opacity: 0;
+                transform: scale(.82);
+            }
 
-    top:7px;
-    left:7px;
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-    transition:.08s linear;
 
-    box-shadow:
-    0 0 12px #00d4ff,
-    0 0 25px rgba(0,212,255,.5);
-}
+        /* =========================================================
+           TÍTULO
+        ========================================================= */
 
-/* MOUTH */
+        .title {
+            position: relative;
+            z-index: 5;
 
-.mouth{
-    width:52px;
-    height:10px;
+            color: #1976d2;
 
-    background:
-    linear-gradient(
-    to right,
-    #00d4ff,
-    #7c3aed
-    );
+            font-size: 30px;
+            font-weight: 600;
 
-    border-radius:20px;
+            text-align: center;
 
-    position:absolute;
+            margin-bottom: 28px;
 
-    bottom:35px;
-    left:50%;
+            letter-spacing: 1px;
 
-    transform:translateX(-50%);
+            text-shadow:
+                0 1px 1px
+                rgba(255,255,255,.8);
+        }
 
-    transition:.3s;
-}
 
-/* HANDS */
+        /* =========================================================
+           MENSAGENS DJANGO
+        ========================================================= */
 
-.hand{
-    width:42px;
-    height:42px;
+        .alert {
+            position: relative;
+            z-index: 5;
 
-    border-radius:14px;
+            width: 100%;
 
-    background:
-    linear-gradient(
-    145deg,
-    #1e293b,
-    #111827
-    );
+            padding: 10px 14px;
 
-    position:absolute;
+            border-radius: 8px;
 
-    top:55px;
+            margin-bottom: 12px;
 
-    transition:.45s ease;
+            font-size: 11px;
 
-    z-index:20;
-}
+            line-height: 1.4;
 
-.hand.left{
-    left:-18px;
-}
+            text-align: center;
+        }
 
-.hand.right{
-    right:-18px;
-}
 
-.robot.password-mode .hand.left{
-    transform:
-    translate(38px,-6px)
-    rotate(-25deg);
-}
+        .alert.error {
+            color: #991b1b;
 
-.robot.password-mode .hand.right{
-    transform:
-    translate(-38px,-6px)
-    rotate(25deg);
-}
+            background: #fee2e2;
 
-/* TITLES */
+            border:
+                1px solid #fecaca;
+        }
 
-.title{
-    text-align:center;
 
-    color:var(--text);
+        .alert.success {
+            color: #166534;
 
-    font-size:30px;
-    font-weight:800;
+            background: #dcfce7;
 
-    margin-bottom:10px;
-}
+            border:
+                1px solid #bbf7d0;
+        }
 
-.subtitle{
-    text-align:center;
 
-    color:var(--muted);
+        /* =========================================================
+           FORMULÁRIO
+        ========================================================= */
 
-    margin-bottom:35px;
+        #loginForm {
+            width: 100%;
 
-    font-size:14px;
-}
+            position: relative;
 
-/* DJANGO MESSAGES */
+            z-index: 5;
+        }
 
-.alert{
-    width:100%;
 
-    padding:16px;
+        /* =========================================================
+           GRUPO
+        ========================================================= */
 
-    border-radius:16px;
+        .input-group {
+            width: 100%;
 
-    margin-bottom:20px;
+            margin-bottom: 15px;
+        }
 
-    font-size:14px;
-    font-weight:600;
-}
 
-.alert.error{
-    background:rgba(239,68,68,.12);
-    border:1px solid rgba(239,68,68,.25);
-    color:#fecaca;
-}
+        /* =========================================================
+           LABEL ACESSÍVEL
+        ========================================================= */
 
-.alert.success{
-    background:rgba(34,197,94,.12);
-    border:1px solid rgba(34,197,94,.25);
-    color:#bbf7d0;
-}
+        .input-group label {
+            position: absolute;
 
-/* INPUTS */
+            width: 1px;
+            height: 1px;
 
-.input-group{
-    margin-bottom:22px;
-}
+            padding: 0;
+            margin: -1px;
 
-.input-group label{
-    display:block;
+            overflow: hidden;
 
-    color:#cbd5e1;
+            clip: rect(0, 0, 0, 0);
 
-    margin-bottom:10px;
+            white-space: nowrap;
 
-    font-size:14px;
-    font-weight:600;
-}
+            border: 0;
+        }
 
-.input-wrapper{
-    position:relative;
-}
 
-.input{
-    width:100%;
-    height:58px;
+        /* =========================================================
+           WRAPPER
+        ========================================================= */
 
-    border-radius:18px;
+        .input-wrapper {
+            width: 100%;
 
-    border:1px solid rgba(255,255,255,.08);
+            position: relative;
 
-    background:rgba(255,255,255,.04);
+            transition:
+                transform .2s ease;
+        }
 
-    padding:0 18px;
 
-    color:white;
+        /* =========================================================
+           INPUT
+        ========================================================= */
 
-    font-size:15px;
+        .input {
+            width: 100%;
 
-    outline:none;
+            height: 42px;
 
-    transition:.25s;
-}
+            border: none;
+            outline: none;
 
-.input::placeholder{
-    color:#64748b;
-}
+            border-radius: 8px;
 
-.input:focus{
-    border-color:#00d4ff;
+            background: #ffffff;
 
-    box-shadow:
-    0 0 0 4px rgba(0,212,255,.12);
-}
+            color: #444;
 
-/* PASSWORD TOGGLE */
+            font-family:
+                'Inter',
+                Arial,
+                sans-serif;
 
-.toggle-password{
-    position:absolute;
+            font-size: 13px;
 
-    right:18px;
-    top:50%;
+            padding:
+                0 42px 0 48px;
 
-    transform:translateY(-50%);
+            box-shadow:
 
-    cursor:pointer;
+                inset 0 1px 3px
+                rgba(0,0,0,.12),
 
-    color:#94a3b8;
+                0 2px 4px
+                rgba(0,0,0,.08);
 
-    user-select:none;
+            transition:
+                box-shadow .2s ease,
+                background .2s ease;
+        }
 
-    font-size:18px;
-}
 
-/* BUTTON */
+        .input::placeholder {
+            color: #a0a0a0;
+        }
 
-.login-btn{
-    width:100%;
-    height:58px;
 
-    border:none;
+        .input:hover {
+            background: #fcfcfc;
+        }
 
-    border-radius:18px;
 
-    background:
-    linear-gradient(
-    135deg,
-    #00d4ff,
-    #2563eb,
-    #7c3aed
-    );
+        .input:focus {
+            background: #ffffff;
 
-    background-size:200% 200%;
+            box-shadow:
 
-    animation:gradient 5s ease infinite;
+                0 0 0 3px
+                rgba(25,118,210,.20),
 
-    color:white;
+                inset 0 1px 3px
+                rgba(0,0,0,.08),
 
-    font-size:16px;
-    font-weight:700;
+                0 3px 8px
+                rgba(0,0,0,.08);
+        }
 
-    cursor:pointer;
 
-    transition:.25s;
+        /* =========================================================
+           ÁREA AZUL DO ÍCONE
+        ========================================================= */
 
-    margin-top:10px;
+        .input-wrapper::before {
+            content: "";
 
-    box-shadow:
-    0 10px 25px rgba(37,99,235,.35);
-}
+            position: absolute;
 
-.login-btn:hover{
-    transform:translateY(-2px);
+            left: 0;
+            top: 0;
 
-    box-shadow:
-    0 18px 30px rgba(37,99,235,.4);
-}
+            width: 42px;
+            height: 42px;
 
-.login-btn:disabled{
-    opacity:.7;
-    cursor:not-allowed;
-}
+            border-radius:
+                7px 0 0 7px;
 
-@keyframes gradient{
+            background:
+                linear-gradient(
+                    145deg,
+                    #2196f3,
+                    #1976d2
+                );
 
-    0%{
-        background-position:0% 50%;
-    }
+            z-index: 2;
 
-    50%{
-        background-position:100% 50%;
-    }
+            box-shadow:
+                inset 0 1px 1px
+                rgba(255,255,255,.2);
+        }
 
-    100%{
-        background-position:0% 50%;
-    }
 
-}
+        /* =========================================================
+           ÍCONE USUÁRIO
+        ========================================================= */
 
-/* FOOTER */
+        #username {
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
 
-.footer{
-    text-align:center;
+            background-repeat: no-repeat;
 
-    margin-top:28px;
+            background-position:
+                12px center;
 
-    color:var(--muted);
+            background-size:
+                18px;
+        }
 
-    font-size:13px;
-}
 
-/* MOBILE */
+        /* =========================================================
+           ÍCONE CADEADO
+        ========================================================= */
 
-@media(max-width:500px){
+        #password {
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M17 8h-1V6c0-2.21-1.79-4-4-4S8 3.79 8 6v2H7c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-5 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm2.1-9H9.9V6c0-1.16.94-2.1 2.1-2.1s2.1.94 2.1 2.1V8z'/%3E%3C/svg%3E");
 
-    .login-container{
-        padding:30px;
-        border-radius:26px;
-    }
+            background-repeat: no-repeat;
 
-}
+            background-position:
+                12px center;
 
+            background-size:
+                18px;
+        }
 
-</style>
+
+        /* =========================================================
+           MOSTRAR SENHA
+        ========================================================= */
+
+        .toggle-password {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #1976d2;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            user-select: none;
+
+            z-index: 5;
+
+            width: 25px;
+            height: 25px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
+
+
+        .toggle-password:hover {
+            background:
+                rgba(25,118,210,.10);
+
+            transform:
+                translateY(-50%)
+                scale(1.08);
+        }
+
+
+        /* =========================================================
+           BOTÃO
+        ========================================================= */
+
+        .login-btn {
+            width: 100%;
+
+            height: 42px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #2196f3,
+                    #1976d2
+                );
+
+            color: #ffffff;
+
+            font-family:
+                'Inter',
+                Arial,
+                sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: .5px;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 5px 12px
+                rgba(25,118,210,.30),
+
+                inset 0 1px 1px
+                rgba(255,255,255,.25);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .login-btn:hover {
+            background:
+                linear-gradient(
+                    145deg,
+                    #1e88e5,
+                    #1565c0
+                );
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+
+                0 8px 16px
+                rgba(25,118,210,.35);
+        }
+
+
+        .login-btn:active {
+            transform:
+                translateY(0);
+
+            box-shadow:
+                0 3px 7px
+                rgba(25,118,210,.25);
+        }
+
+
+        .login-btn:disabled {
+            opacity: .75;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            width: 100%;
+
+            position: relative;
+
+            z-index: 5;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #555;
+
+            font-size: 9px;
+
+            line-height: 1.55;
+        }
+
+
+        .footer strong {
+            color: #1976d2;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           RESPONSIVO
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .login-container {
+                width: min(92vw, 500px);
+                height: min(92vw, 500px);
+
+                padding:
+                    clamp(55px, 12vw, 80px);
+            }
+
+
+            .title {
+                font-size:
+                    clamp(24px, 6vw, 30px);
+
+                margin-bottom:
+                    clamp(20px, 5vw, 28px);
+            }
+
+
+            .input {
+                height:
+                    clamp(38px, 9vw, 42px);
+
+                font-size:
+                    clamp(11px, 3vw, 13px);
+            }
+
+
+            .input-wrapper::before {
+                width:
+                    clamp(38px, 9vw, 42px);
+
+                height:
+                    clamp(38px, 9vw, 42px);
+            }
+
+
+            .login-btn {
+                height:
+                    clamp(38px, 9vw, 42px);
+
+                font-size:
+                    clamp(11px, 3vw, 13px);
+            }
+
+
+            .footer {
+                font-size:
+                    clamp(7px, 2vw, 9px);
+            }
+        }
+
+
+        /* =========================================================
+           CELULARES PEQUENOS
+        ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .login-container {
+                width: 94vw;
+                height: 94vw;
+
+                padding: 12%;
+            }
+
+
+            .title {
+                font-size: 22px;
+
+                margin-bottom: 18px;
+            }
+
+
+            .input-group {
+                margin-bottom: 10px;
+            }
+
+
+            .input {
+                height: 35px;
+
+                padding-left: 42px;
+            }
+
+
+            .input-wrapper::before {
+                width: 35px;
+                height: 35px;
+            }
+
+
+            #username,
+            #password {
+                background-position:
+                    10px center;
+
+                background-size:
+                    16px;
+            }
+
+
+            .login-btn {
+                height: 35px;
+
+                font-size: 11px;
+            }
+
+
+            .footer {
+                margin-top: 14px;
+
+                font-size: 7px;
+            }
+        }
+
+
+        /* =========================================================
+           ALTURA PEQUENA
+        ========================================================= */
+
+        @media (max-height: 650px) {
+
+            body {
+                align-items: flex-start;
+
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+
+
+            .login-container {
+                transform:
+                    scale(.85);
+            }
+        }
+
+
+        /* =========================================================
+           ACESSIBILIDADE
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+
+                transition: none !important;
+            }
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<main class="login-container">
+    <!-- =========================================================
+         LOGIN
+    ========================================================= -->
 
-    <!-- ROBOT -->
+    <main class="login-container">
 
-    <div class="robot" id="robot">
+        <!-- =====================================================
+             TÍTULO
+        ====================================================== -->
 
-        <div class="hand left"></div>
-        <div class="hand right"></div>
+        <h1 class="title">
+            LOGIN
+        </h1>
 
-        <div class="head">
 
-            <div class="eyes">
+        <!-- =====================================================
+             MENSAGENS DJANGO
+        ====================================================== -->
 
-                <div class="eye">
-                    <div class="pupil"></div>
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
                 </div>
 
-                <div class="eye">
-                    <div class="pupil"></div>
-                </div>
+            {% endfor %}
 
-            </div>
+        {% endif %}
 
-            <div class="mouth"></div>
 
-        </div>
+        <!-- =====================================================
+             FORMULÁRIO
+        ====================================================== -->
 
-    </div>
-
-    <!-- TITLE -->
-
-    <h1 class="title">Bem-vindo</h1>
-
-    <p class="subtitle">
-        Entre na sua conta segura
-    </p>
-
-    <!-- DJANGO MESSAGES -->
-
-    {% if messages %}
-
-        {% for message in messages %}
-
-            <div class="alert {{ message.tags }}">
-                {{ message }}
-            </div>
-
-        {% endfor %}
-
-    {% endif %}
-
-   
-    <!-- FORM -->
-
-    <form method="POST" id="loginForm">
-
-        {% csrf_token %}
-
-        <!-- USERNAME -->
-
-        <div class="input-group">
-
-            <label for="username">
-                Usuário
-            </label>
-
-            <div class="input-wrapper">
-
-                <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    class="input"
-
-                    placeholder="Digite seu usuário"
-
-                    autocomplete="username"
-
-                    aria-label="Usuário"
-
-                    required
-                >
-
-            </div>
-
-        </div>
-
-        <!-- PASSWORD -->
-
-        <div class="input-group">
-
-            <label for="password">
-                Senha
-            </label>
-
-            <div class="input-wrapper">
-
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="input"
-
-                    placeholder="Digite sua senha"
-
-                    autocomplete="current-password"
-
-                    aria-label="Senha"
-
-                    required
-                >
-
-                <span class="toggle-password" id="togglePassword">
-                    👁
-                </span>
-
-            </div>
-
-        </div>
-
-        <!-- BUTTON -->
-
-        <button
-            type="submit"
-            class="login-btn"
-            id="loginBtn"
+        <form
+            method="POST"
+            id="loginForm"
         >
-            Entrar
-        </button>
 
-    </form>
+            {% csrf_token %}
 
-    <div class="footer">
-                    © 2026 Sistema de Entregas.<br>
-                    Caso de dúvida, entre em contato com o administrador.<br>
-                    <strong>Ray Farias</strong>
-    </div>
 
-</main>
+            <!-- =================================================
+                 USUÁRIO
+            ================================================== -->
 
-<script>
+            <div class="input-group">
 
-/* ELEMENTS */
+                <label for="username">
+                    Usuário
+                </label>
 
-const pupils =
-document.querySelectorAll('.pupil');
+                <div class="input-wrapper">
 
-const username =
-document.getElementById('username');
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        class="input"
 
-const password =
-document.getElementById('password');
+                        placeholder="Usuário"
 
-const robot =
-document.getElementById('robot');
+                        autocomplete="username"
 
-const togglePassword =
-document.getElementById('togglePassword');
+                        aria-label="Usuário"
 
-const loginForm =
-document.getElementById('loginForm');
+                        required
+                    >
 
-const loginBtn =
-document.getElementById('loginBtn');
+                </div>
 
-/* CONTROL */
+            </div>
 
-let typing = false;
 
-/* USERNAME */
+            <!-- =================================================
+                 SENHA
+            ================================================== -->
 
-username.addEventListener('focus', ()=>{
+            <div class="input-group">
 
-    robot.classList.remove('password-mode');
+                <label for="password">
+                    Senha
+                </label>
 
-});
+                <div class="input-wrapper">
 
-username.addEventListener('input', (e)=>{
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="input"
 
-    typing = true;
+                        placeholder="Senha"
 
-    const length = e.target.value.length;
+                        autocomplete="current-password"
 
-    let moveX =
-    Math.min(length * 2, 12);
+                        aria-label="Senha"
 
-    pupils.forEach(pupil=>{
+                        required
+                    >
 
-        pupil.style.transform =
-        `translate(${moveX}px,2px)`;
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        title="Mostrar senha"
+                        aria-label="Mostrar senha"
+                    >
+                        👁
+                    </button>
 
-    });
+                </div>
 
-});
+            </div>
 
-username.addEventListener('blur', ()=>{
 
-    typing = false;
+            <!-- =================================================
+                 BOTÃO
+            ================================================== -->
 
-});
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn"
+            >
+                LOGIN
+            </button>
 
-/* PASSWORD */
+        </form>
 
-password.addEventListener('focus', ()=>{
 
-    robot.classList.add('password-mode');
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
 
-});
+        <div class="footer">
 
-password.addEventListener('blur', ()=>{
+            © 2026 Sistema de Entregas.<br>
 
-    robot.classList.remove('password-mode');
+            Caso de dúvida, entre em contato com o administrador.<br>
 
-});
+            <strong>
+                Ray Farias
+            </strong>
 
-/* MOUSE TRACKING */
+        </div>
 
-document.addEventListener('mousemove',(e)=>{
+    </main>
 
-    if(typing) return;
 
-    const x =
-    (e.clientX / window.innerWidth - .5) * 10;
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
 
-    const y =
-    (e.clientY / window.innerHeight - .5) * 10;
+    <script>
 
-    pupils.forEach(pupil=>{
+        /* =====================================================
+           ELEMENTOS
+        ====================================================== */
 
-        pupil.style.transform =
-        `translate(${x}px,${y}px)`;
+        const password =
+            document.getElementById('password');
 
-    });
+        const togglePassword =
+            document.getElementById('togglePassword');
 
-});
+        const loginForm =
+            document.getElementById('loginForm');
 
-/* SHOW PASSWORD */
+        const loginBtn =
+            document.getElementById('loginBtn');
 
-togglePassword.addEventListener('click', ()=>{
+        const username =
+            document.getElementById('username');
 
-    password.type =
-    password.type === 'password'
-    ? 'text'
-    : 'password';
 
-});
+        /* =====================================================
+           MOSTRAR / OCULTAR SENHA
+        ====================================================== */
 
-/* SUBMIT LOADING */
+        togglePassword.addEventListener(
+            'click',
+            function () {
 
-loginForm.addEventListener('submit', ()=>{
+                const isPassword =
+                    password.type === 'password';
 
-    loginBtn.innerHTML =
-    'Entrando...';
 
-    loginBtn.disabled = true;
+                password.type =
+                    isPassword
+                        ? 'text'
+                        : 'password';
 
-});
 
-/* BLINK */
+                togglePassword.textContent =
+                    isPassword
+                        ? '🙈'
+                        : '👁';
 
-setInterval(()=>{
 
-    document.querySelectorAll('.eye')
-    .forEach(eye=>{
+                togglePassword.title =
+                    isPassword
+                        ? 'Ocultar senha'
+                        : 'Mostrar senha';
 
-        eye.style.height = '5px';
 
-        setTimeout(()=>{
+                togglePassword.setAttribute(
+                    'aria-label',
+                    isPassword
+                        ? 'Ocultar senha'
+                        : 'Mostrar senha'
+                );
 
-            eye.style.height = '34px';
+            }
+        );
 
-        },120);
 
-    });
+        /* =====================================================
+           SUBMIT DO LOGIN
+        ====================================================== */
 
-},4000);
+        loginForm.addEventListener(
+            'submit',
+            function () {
 
-</script>
+                loginBtn.innerHTML =
+                    'ENTRANDO...';
+
+                loginBtn.disabled =
+                    true;
+
+            }
+        );
+
+
+        /* =====================================================
+           EFEITO DOS INPUTS
+        ====================================================== */
+
+        const inputs =
+            document.querySelectorAll('.input');
+
+
+        inputs.forEach(function (input) {
+
+            input.addEventListener(
+                'focus',
+                function () {
+
+                    this.parentElement.style.transform =
+                        'scale(1.015)';
+
+                }
+            );
+
+
+            input.addEventListener(
+                'blur',
+                function () {
+
+                    this.parentElement.style.transform =
+                        'scale(1)';
+
+                }
+            );
+
+        });
+
+
+        /* =====================================================
+           ENTER NO USUÁRIO
+        ====================================================== */
+
+        username.addEventListener(
+            'keydown',
+            function (event) {
+
+                if (event.key === 'Enter') {
+
+                    password.focus();
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
-</html>
 
+</html>

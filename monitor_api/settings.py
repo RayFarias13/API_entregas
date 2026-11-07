@@ -34,7 +34,11 @@ if not SECRET_KEY:
 DEBUG = True  # Força DEBUG para False, garantindo que a API nunca rode em modo de desenvolvimento em produção
 
 ALLOWED_HOSTS = ['*',os.getenv("LINK_EXTERNO"),os.getenv("LINK_EXTERNO_PROD"),"LINK_EXTERNO_PROD_SITE",'localhost', '127.0.0.1']
-
+NUVEMSHOP_STORE_ID = os.environ.get ('NUVEMSHOP_STORE_ID')
+NUVEMSHOP_ACCESS_TOKEN = os.environ.get ('NUVEMSHOP_ACCESS_TOKEN')
+NUVEMSHOP_USER_AGENT = os.environ.get ('NUVEMSHOP_USER_AGENT')
+ZETTI_API_TOKEN = os.environ.get('ZETTI_API_TOKEN')
+ZETTI_CD_FILIAL = 1
 
 # Application definition
 
@@ -48,13 +52,12 @@ INSTALLED_APPS = [
     'receptor', 
     'software',
     'interno',
+    'vendas',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',
+    'django_filters'
     
 
-    
-    
 ]
 
 MIDDLEWARE = [
@@ -90,18 +93,22 @@ WSGI_APPLICATION = 'monitor_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL_NEON"),
-        conn_max_age=600,
-        ssl_require=True  # IMPORTANTE para Render
-    )
-}
+     'default': dj_database_url.config(
+         default=os.getenv("DATABASE_URL_NEON"),
+         conn_max_age=600,
+         ssl_require=True  # IMPORTANTE para Render
+     )
+ }
 
 
-
-
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -145,21 +152,20 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication', # permite autenticação via sessão
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication', # permite autenticação via sessão
 
-    ],
+        ],
 
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ],
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ]
-}
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        ],
+        'DEFAULT_FILTER_BACKENDS': [
+            'django_filters.rest_framework.DjangoFilterBackend',
+        ]
+    }
 
 LINK_EXTERNO = os.getenv("LINK_EXTERNO")
 

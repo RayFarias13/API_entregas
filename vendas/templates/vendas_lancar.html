@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamento de Vendas</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h2, h3 {
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+        }
+
+        #mensagem {
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .sucesso {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .erro {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Lançamento de Pedido / Venda</h2>
+        
+        <form id="formVenda">
+            <!-- Campos Ocultos / Configurações fixas ou padrão -->
+            <input type="hidden" id="cdFilial" value="1">
+            <input type="hidden" id="cgcFilial" value="02.010.627/001-59">
+            <input type="hidden" id="statusPedido" value="Pago">
+
+            <!-- Dados Gerais -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cdVendedor">Código do Vendedor:</label>
+                    <input type="number" id="cdVendedor" value="202" required>
+                </div>
+                <div class="form-group">
+                    <label for="origemVenda">Origem da venda:</label>
+                    <select id="origemVenda" required>
+                        <option value="1">1 - Amazon</option>
+                        <option value="2">2 - Mercado Livre</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dados do Cliente -->
+            <h3>Cliente</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cliCodigo">Código do Cliente:</label>
+                    <input type="number" id="cliCodigo" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="cliNome">Nome do Cliente:</label>
+                    <input type="text" id="cliNome" value="" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cliCpfCgc">CPF/CNPJ:</label>
+                    <input type="text" id="cliCpfCgc" required>
+                </div>
+                <div class="form-group">
+                    <label for="cliTelefone">Telefone:</label>
+                    <input type="text" id="cliTelefone" value="0">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full">
+                    <label for="cliEndereco">Endereço:</label>
+                    <input type="text" id="cliEndereco" value="" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cliNumero">Número:</label>
+                    <input type="text" id="cliNumero" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="cliCep">CEP:</label>
+                    <input type="text" id="cliCep" value="" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cliBairro">Bairro:</label>
+                    <input type="text" id="cliBairro" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="cliCidade">Cidade:</label>
+                    <input type="text" id="cliCidade" value="" required>
+                </div>
+            </div>
+
+            <!-- Item do Produto -->
+            <h3>Item (Produto)</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="prodCd">Código do Produto (Reduzido):</label>
+                    <input type="text" id="prodCd" placeholder="Digite o código e saia do campo" required>
+                </div>
+                <div class="form-group">
+                    <label for="prodQtd">Quantidade:</label>
+                    <input type="number" step="any" id="prodQtd" value="1" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="prodValorUnit">Valor Unitário (R$):</label>
+                    <!-- Agora é readonly, o preço vem direto da tabela do banco -->
+                    <input type="number" step="0.01" id="prodValorUnit" value="0.00" readonly style="background-color: #f1f5f9;">
+                </div>
+                <div class="form-group">
+                    <label for="vlrTotalGeral">Valor Total (R$):</label>
+                    <input type="number" step="0.01" id="vlrTotalGeral" value="0.00" readonly style="background-color: #f1f5f9;">
+                </div>
+            </div>
+
+            <!-- Pagamento -->
+            <h3>Pagamento</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pagForma">Forma de Pagamento:</label>
+                    <select id="pagForma">
+                        <option value="PIX">PIX</option>
+                        <option value="CARTAO_CREDITO">Cartão de Crédito</option>
+                        <option value="CARTAO_DEBITO">Cartão de Débito</option>
+                        <option value="DINHEIRO">Dinheiro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pagValor">Valor do Pagamento (R$):</label>
+                    <input type="number" step="0.01" id="pagValor" value="0.00" readonly style="background-color: #f1f5f9;">
+                </div>
+            </div>
+
+            <button type="submit" id="btnEnviar">Salvar e Enviar Pedido</button>
+        </form>
+
+        <div id="mensagem"></div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formVenda');
+        const btnEnviar = document.getElementById('btnEnviar');
+        const divMensagem = document.getElementById('mensagem');
+
+        const prodCd = document.getElementById('prodCd');
+        const prodQtd = document.getElementById('prodQtd');
+        const prodValorUnit = document.getElementById('prodValorUnit');
+        const vlrTotalGeral = document.getElementById('vlrTotalGeral');
+        const pagValor = document.getElementById('pagValor');
+
+        function calcularTotais() {
+            const qtd = parseFloat(prodQtd.value) || 0;
+            const unit = parseFloat(prodValorUnit.value) || 0;
+            const total = (qtd * unit).toFixed(2);
+            vlrTotalGeral.value = total;
+            pagValor.value = total;
+        }
+
+        // Evento para buscar o preço automaticamente no banco pelo código reduzido
+        prodCd.addEventListener('blur', async function() {
+            const codigo = prodCd.value.trim();
+            if (!codigo) return;
+
+            try {
+                const resposta = await fetch(`/vendas/produtos/buscar/${codigo}/`);
+                const resultado = await resposta.json();
+
+                if (resposta.ok && resultado.status === 'sucesso') {
+                    prodValorUnit.value = resultado.preco_unitario;
+                    calcularTotais();
+                } else {
+                    alert('Produto não encontrado na base de dados!');
+                    prodValorUnit.value = '0.00';
+                    calcularTotais();
+                }
+            } catch (erro) {
+                console.error('Erro ao buscar produto:', erro);
+            }
+        });
+
+        // Quantidade altera o total, mas o valor unitário agora é bloqueado (vem do banco)
+        prodQtd.addEventListener('input', calcularTotais);
+
+        formulario.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando...';
+            divMensagem.style.display = 'none';
+
+            const valorTotalCalculado = vlrTotalGeral.value;
+
+            const payload = {
+                cdFilial: parseInt(document.getElementById('cdFilial').value),
+                cgcFilial: document.getElementById('cgcFilial').value,
+                nrPedido: "", 
+                cdVendedor: parseInt(document.getElementById('cdVendedor').value),
+                dtEmissao: new Date().toISOString(),
+                cliente: {
+                    codigo: parseInt(document.getElementById('cliCodigo').value),
+                    nome: document.getElementById('cliNome').value,
+                    cpfCgc: document.getElementById('cliCpfCgc').value,
+                    telefone: document.getElementById('cliTelefone').value,
+                    sexo: "",
+                    endereco: document.getElementById('cliEndereco').value,
+                    numero: document.getElementById('cliNumero').value,
+                    complemento: "",
+                    cep: document.getElementById('cliCep').value,
+                    bairro: document.getElementById('cliBairro').value,
+                    cidade: document.getElementById('cliCidade').value,
+                    uf: ""
+                },
+                vlrProdutos: valorTotalCalculado,
+                vlrDescontos: 0,
+                vlrTotal: valorTotalCalculado,
+                vlrTrocoPara: 0,
+                observacao: "",
+                retirar: true,
+                itens: [
+                    {
+                        cdProduto: prodCd.value,
+                        quantidade: prodQtd.value,
+                        vlrUnitario: prodValorUnit.value,
+                        vlrDesconto: 0,
+                        vlrTotal: valorTotalCalculado,
+                        cdVendedor: parseInt(document.getElementById('cdVendedor').value),
+                        infoDiversas: "",
+                        origemVenda: document.getElementById('origemVenda').value
+                    }
+                ],
+                statusPedido: document.getElementById('statusPedido').value,
+                pagamentos: [
+                    {
+                        formaPagamento: document.getElementById('pagForma').value,
+                        valor: pagValor.value,
+                        nrAutorizacao: "",
+                        nsu: "1",
+                        bandeiraCartao: "VISA",
+                        adquirente: "",
+                        dataCaptura: new Date().toISOString(),
+                        qtdParcelas: 1,
+                        cdConvenio: 0,
+                        identificador: ""
+                    }
+                ]
+            };
+
+            const urlBackendDjango = '/vendas/vendas/criar/';
+
+            try {const resposta = await fetch(urlBackendDjango, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const textoResposta = await resposta.text();
+
+            console.log('Status HTTP:', resposta.status);
+            console.log('Resposta do Django:', textoResposta);
+
+            let resultado;
+
+            try {
+                resultado = JSON.parse(textoResposta);
+            } catch (erroJson) {
+                throw new Error(
+                    `O Django retornou HTML em vez de JSON. HTTP ${resposta.status}. ` +
+                    `Resposta: ${textoResposta.substring(0, 500)}`
+                );
+            }
+
+            if (!resposta.ok) {
+                throw new Error(
+                    resultado.detalhes || 
+                    resultado.erro || 
+                    'Erro ao processar requisição'
+                );
+            }
+                
+                    // 1. Mostra a mensagem de sucesso
+                divMensagem.textContent = `Sucesso! Pedido gerado com o número (nrPedido): ${resultado.nrPedido}`;
+                divMensagem.className = 'sucesso';
+                divMensagem.style.display = 'block';
+                    // 2. Limpa o formulário e reseta campos calculados após 3 segundos
+setTimeout(() => {
+    formulario.reset();
+    
+    // Reseta campos que possuem valores padrão ou que ficam bloqueados (readonly)
+    prodValorUnit.value = '0.00';
+    vlrTotalGeral.value = '0.00';
+    pagValor.value = '0.00';
+    
+    // Esconde a mensagem de sucesso após a limpeza
+    divMensagem.style.display = 'none';
+}, 3000); // 3000 milissegundos = 3 segundos
+            } catch (erro) {
+                console.error('Erro:', erro);
+                divMensagem.textContent = 'Erro ao salvar/enviar: ' + erro.message;
+                divMensagem.className = 'erro';
+                divMensagem.style.display = 'block';
+            } finally {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Salvar e Enviar Pedido';
+            }
+        });
+    </script>
+</body>
+</html>

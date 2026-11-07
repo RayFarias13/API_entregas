@@ -6440,3 +6440,1685 @@ Internal Server Error: /finalizar_entrega/
 "POST /finalizar_entrega/ HTTP/1.1" 500 58
 Internal Server Error: /finalizar_entrega/
 "POST /finalizar_entrega/ HTTP/1.1" 500 58
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11236
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82723
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82723
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 82860
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11308
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 78798
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/perfil/pontuacao/ HTTP/1.1" 404 11622
+Not Found: /api
+"GET /api HTTP/1.1" 404 11562
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 78676
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 78813
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 78685
+Internal Server Error: /perfil/pontuacao/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1099, in motoboy_pontuacao
+    inicio_semana = hoje - datetime.timedelta(days=hoje.weekday())
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'datetime.datetime' has no attribute 'timedelta'
+"GET /perfil/pontuacao/ HTTP/1.1" 500 78685
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 844, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'data_hora_entrega' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 127185
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 844, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'data_hora_entrega' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 127185
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'data_hora_entrega' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 127584
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'data_hora_entrega' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 127584
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'funcionario' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 128146
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'funcionario' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 128146
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'funcionario' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 128146
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1653, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1671, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 1681, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1680, in add_q
+    clause, _ = self._add_q(q_object, can_reuse)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1712, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1550, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1357, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'funcionario' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 128146
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        total=Sum('pontos')
+        ^^^^^^^^^^^^^^^^^^^
+    )['total'] or 0
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 638, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 471, in get_aggregation
+    aggregate = aggregate_expr.resolve_expression(
+        self, allow_joins=True, reuse=None, summarize=True
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2091, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1941, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'pontos' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 122546
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        total=Sum('pontos')
+        ^^^^^^^^^^^^^^^^^^^
+    )['total'] or 0
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 638, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 471, in get_aggregation
+    aggregate = aggregate_expr.resolve_expression(
+        self, allow_joins=True, reuse=None, summarize=True
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2091, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1941, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'pontos' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 122546
+Internal Server Error: /perfil/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 848, in perfil_motoboy
+    total_pontuacao_mes = PontuacaoMotoboy.objects.filter(**filtros_entrega2).aggregate(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        total=Sum('pontos')
+        ^^^^^^^^^^^^^^^^^^^
+    )['total'] or 0
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 638, in aggregate
+    return self.query.chain().get_aggregation(self.db, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 471, in get_aggregation
+    aggregate = aggregate_expr.resolve_expression(
+        self, allow_joins=True, reuse=None, summarize=True
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 2091, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1941, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\query.py", line 1846, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'pontos' into field. Choices are: Bonificacao, Coluna1, MesDataVenda, NomeEntregador, Valor_medio_das_entregas, data_apuracao, data_cadastro, id, percentual_bonificacao, usermotoboy, usermotoboy_id
+"GET /perfil/ HTTP/1.1" 500 122546
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11865
+Not Found: /api/
+"GET /api/ HTTP/1.1" 404 12233
+Method Not Allowed: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 405 42
+Method Not Allowed: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 405 42
+Not Found: /api/api/vendas/criar/
+"GET /api/api/vendas/criar/ HTTP/1.1" 404 12284
+Not Found: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 404 12268
+Not Found: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 404 12261
+Not Found: /api/
+"GET /api/ HTTP/1.1" 404 12222
+Not Found: /api/vendas
+"GET /api/vendas HTTP/1.1" 404 12240
+Not Found: /api/vendas/criar
+"GET /api/vendas/criar HTTP/1.1" 404 12258
+Not Found: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 404 12261
+Not Found: /api/vendas/criar/
+"GET /api/vendas/criar/ HTTP/1.1" 404 12261
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas_lancar/
+"GET /api/vendas_lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas/lancar
+"GET /api/vendas/lancar HTTP/1.1" 404 12529
+Not Found: /api/vendas/lancar
+"GET /api/vendas/lancar HTTP/1.1" 404 12529
+Not Found: /api/vendas/lancar
+"GET /api/vendas/lancar HTTP/1.1" 404 12529
+Not Found: /api/vendas/lancar
+"GET /api/vendas/lancar HTTP/1.1" 404 12529
+Not Found: /api/vendas/lancar
+"GET /api/vendas/lancar HTTP/1.1" 404 12529
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api/vendas/lancar/
+"GET /api/vendas/lancar/ HTTP/1.1" 404 12532
+Not Found: /api
+"GET /api HTTP/1.1" 404 12098
+Not Found: /api
+"GET /api HTTP/1.1" 404 12098
+Not Found: /vendas/lacar
+"GET /vendas/lacar HTTP/1.1" 404 12125
+Not Found: /vendas/lacar/
+"GET /vendas/lacar/ HTTP/1.1" 404 12128
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/perfil/ HTTP/1.1" 404 12148
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/forum/ HTTP/1.1" 404 12147
+Not Found: /vendas
+"GET /vendas HTTP/1.1" 404 12107
+Internal Server Error: /vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1893, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/lancar/ HTTP/1.1" 500 90300
+Internal Server Error: /vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1893, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/lancar/ HTTP/1.1" 500 90300
+Internal Server Error: /vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 1893, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/lancar/ HTTP/1.1" 500 90300
+Forbidden (CSRF token missing.): /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 403 2545
+Forbidden (CSRF token missing.): /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 403 2545
+Forbidden (CSRF token missing.): /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 403 2545
+Internal Server Error: /produtos/buscar/454/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: software_produtocadastrado
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 2053, in buscar_produto_view
+    produto = ProdutoCadastrado.objects.get(codigo_reduzido=codigo)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 679, in get
+    num = len(clone)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 416, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 2239, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 98, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: software_produtocadastrado
+"GET /produtos/buscar/454/ HTTP/1.1" 500 147915
+Internal Server Error: /produtos/buscar/1/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: software_produtocadastrado
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\software\views.py", line 2053, in buscar_produto_view
+    produto = ProdutoCadastrado.objects.get(codigo_reduzido=codigo)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 679, in get
+    num = len(clone)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 416, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 2239, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\query.py", line 98, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: software_produtocadastrado
+"GET /produtos/buscar/1/ HTTP/1.1" 500 147869
+Forbidden (CSRF token missing.): /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 403 2545
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 12529
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13085
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13085
+Not Found: /api
+"GET /api HTTP/1.1" 404 12950
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 12974
+Not Found: /vendas_lancar
+"GET /vendas_lancar HTTP/1.1" 404 12980
+Not Found: /vendas_lancar/
+"GET /vendas_lancar/ HTTP/1.1" 404 12983
+Not Found: /api/vendas_lancar/
+"GET /api/vendas_lancar/ HTTP/1.1" 404 13384
+Method Not Allowed: /vendas/criar/
+"GET /vendas/criar/ HTTP/1.1" 405 42
+Not Found: /produtos/buscar/1/
+"GET /produtos/buscar/1/ HTTP/1.1" 404 61
+Not Found: /produtos/buscar/1/
+"GET /produtos/buscar/1/ HTTP/1.1" 404 61
+Bad Request: /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 400 96
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /vendas/lancar/
+"GET /vendas/lancar/ HTTP/1.1" 404 13018
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 404 13016
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 404 13016
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 404 13016
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11736
+Method Not Allowed: /vendas/vendas/criar/
+"GET /vendas/vendas/criar/ HTTP/1.1" 405 42
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11736
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /vendas/criar/
+"POST /vendas/criar/ HTTP/1.1" 404 13016
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Not Found: /produtos/buscar/1/
+"GET /produtos/buscar/1/ HTTP/1.1" 404 11757
+Not Found: /produtos/buscar/2021177/
+"GET /produtos/buscar/2021177/ HTTP/1.1" 404 11775
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90124
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 90101
+Not Found: /vendas
+"GET /vendas HTTP/1.1" 404 11721
+Not Found: /vendas/
+"GET /vendas/ HTTP/1.1" 404 12997
+Not Found: /vendas/vendas/
+"GET /vendas/vendas/ HTTP/1.1" 404 13018
+Internal Server Error: /vendas/vendas/lancar/
+Traceback (most recent call last):
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\RRBJ\Documents\API_entregas\vendas\views.py", line 16, in renderizar_formulario_venda
+    return render(request, 'vendas_lancar.html')
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\shortcuts.py", line 27, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\RRBJ\Documents\API_entregas\ambientevirtual\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: vendas_lancar.html
+"GET /vendas/vendas/lancar/ HTTP/1.1" 500 89964
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 11775
+Internal Server Error: /vendas/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 254, in lista_pedidos
+    return render(
+        request,
+        "pedidos/lista.html",
+        contexto,
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: pedidos/lista.html
+"GET /vendas/ HTTP/1.1" 500 116390
+Internal Server Error: /vendas/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 242, in lista_pedidos
+    pedidos = api.listar_pedidos(
+        page=page,
+        per_page=30,
+        status=status or None,
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\services\nuvemshop.py", line 43, in listar_pedidos
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://api.nuvemshop.com.br/v1/8078930/orders?page=1&per_page=30&status=cancelled
+"GET /vendas/?status=cancelled HTTP/1.1" 500 87396
+Not Found: /painel
+"GET /painel HTTP/1.1" 404 11649
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 287, in lista_pedidos
+    pedidos = obter_pedidos()
+              ^^^^^^^^^^^^^
+NameError: name 'obter_pedidos' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 77980
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 287, in lista_pedidos
+    pedidos = obter_pedidos()
+              ^^^^^^^^^^^^^
+NameError: name 'obter_pedidos' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 77980
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 287, in lista_pedidos
+    pedidos = obter_pedidos()
+              ^^^^^^^^^^^^^
+NameError: name 'obter_pedidos' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 77980
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 287, in lista_pedidos
+    pedidos = obter_pedidos()
+TypeError: obter_pedidos() missing 1 required positional argument: 'request'
+"GET /vendas/painel/ HTTP/1.1" 500 78104
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 287, in lista_pedidos
+    pedidos = obter_pedidos()
+TypeError: obter_pedidos() missing 1 required positional argument: 'request'
+"GET /vendas/painel/ HTTP/1.1" 500 78104
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 284, in lista_pedidos
+    pedidos = obter_pedidos()
+TypeError: obter_pedidos() missing 1 required positional argument: 'request'
+"GET /vendas/painel/ HTTP/1.1" 500 78104
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 262, in lista_pedidos
+    pedidos = obter_pedidos()
+              ^^^^^^^^^^^^^
+NameError: name 'obter_pedidos' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 77980
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 270, in lista_pedidos
+    pedidos = buscar_pedidos_da_nuvemshop()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'buscar_pedidos_da_nuvemshop' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 78077
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 270, in lista_pedidos
+    pedidos = buscar_pedidos_da_nuvemshop()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'buscar_pedidos_da_nuvemshop' is not defined
+"GET /vendas/painel/ HTTP/1.1" 500 78077
+Not Found: /painel
+"GET /painel HTTP/1.1" 404 11649
+Not Found: /painel
+"GET /painel HTTP/1.1" 404 11649
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 472, in lista_pedidos
+    return render(
+    
+    ...<16 lines>...
+    
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'enviar_para_pdv' not found. 'enviar_para_pdv' is not a valid view function or pattern name.
+"GET /vendas/painel/ HTTP/1.1" 500 221648
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 472, in lista_pedidos
+    return render(
+    
+    ...<16 lines>...
+    
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'enviar_para_pdv' not found. 'enviar_para_pdv' is not a valid view function or pattern name.
+"GET /vendas/painel/ HTTP/1.1" 500 221648
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 472, in lista_pedidos
+    return render(
+    
+    ...<16 lines>...
+    
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 249, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 511, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'enviar_para_pdv' not found. 'enviar_para_pdv' is not a valid view function or pattern name.
+"GET /vendas/painel/ HTTP/1.1" 500 221648
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Not Found: /accounts/login/
+"GET /accounts/login/?next=/vendas/painel/ HTTP/1.1" 404 11697
+Internal Server Error: /vendas/pedidos/2043710355/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 208, in conferir_pedido
+    "retirar": pedido_e_retirada(pedido),
+               ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 33, in pedido_e_retirada
+    shipping = fulfillment.get("shipping") or {}
+               ^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2043710355/ HTTP/1.1" 500 103361
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2050180325/bipar/
+"POST /pedidos/2050180325/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2050180325/bipar/
+"POST /pedidos/2050180325/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Not Found: /pedidos/2043710355/bipar/
+"POST /pedidos/2043710355/bipar/ HTTP/1.1" 404 11707
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 115, in pedido_e_retirada
+    fulfillments = pedido_json.get('fulfillments', [])
+                   ^^^^^^^^^^^
+NameError: name 'pedido_json' is not defined
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99130
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2050180325/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 258, in conferir_pedido
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"GET /vendas/pedidos/2050180325/ HTTP/1.1" 500 99585
+Internal Server Error: /vendas/pedidos/2043710355/finalizar/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 1239, in finalizar_conferencia
+    tipo_entrega = pedido_e_retirada(pedido)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 120, in pedido_e_retirada
+    shipping_info = fulfillments[0].get('shipping', {})
+                    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+"POST /vendas/pedidos/2043710355/finalizar/ HTTP/1.1" 500 109277
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Internal Server Error: /vendas/painel/
+Traceback (most recent call last):
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\vendas\views.py", line 117, in lista_pedidos
+    return render(
+        request,
+    ...<5 lines>...
+        },
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 556, in parse
+    raise self.error(token, e)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 554, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 676, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\Lene Escritorio\Documents\API_entregas\ambiente\Lib\site-packages\django\template\base.py", line 776, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: C:\Users\Lene Escritorio\Documents\API_entregas\vendas\templates\lista.html, Could not parse the remainder: ' status' from 'pedido.tipo_ status'
+"GET /vendas/painel/ HTTP/1.1" 500 221757
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 11664
